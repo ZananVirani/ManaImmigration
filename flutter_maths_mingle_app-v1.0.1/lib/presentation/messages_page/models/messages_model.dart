@@ -1,0 +1,7 @@
+import '../../../core/app_export.dart';import 'frame_item_model.dart';import 'chatcomponent_item_model.dart';/// This class defines the variables used in the [messages_page],
+/// and is typically used to hold data that is passed between different parts of the application.
+class MessagesModel {Rx<List<FrameItemModel>> frameItemList = Rx([FrameItemModel(circleImage:ImageConstant.imgEllipse139.obs),FrameItemModel(circleImage:ImageConstant.imgEllipse140.obs),FrameItemModel(circleImage:ImageConstant.imgEllipse141.obs),FrameItemModel(circleImage:ImageConstant.imgEllipse142.obs)]);
+
+Rx<List<ChatcomponentItemModel>> chatcomponentItemList = Rx([ChatcomponentItemModel(userImage:ImageConstant.imgEllipse24.obs,userName: "Wade Warren".obs,questionText: "What door nis the back".obs),ChatcomponentItemModel(userImage:ImageConstant.imgEllipse2448x48.obs,userName: "Eleanor Pena".obs,questionText: "Big Kahuna Burger Ltd.".obs),ChatcomponentItemModel(userImage:ImageConstant.imgEllipse241.obs,userName: "Brooklyn Simmons".obs,questionText: "Acme Co.".obs),ChatcomponentItemModel(userImage:ImageConstant.imgEllipse242.obs,userName: "Bessie Cooper".obs,questionText: "Biffco Enterprises Ltd.".obs),ChatcomponentItemModel(userImage:ImageConstant.imgEllipse243.obs,userName: "Kathryn Murphy".obs,questionText: "Acme Co.".obs),ChatcomponentItemModel(userImage:ImageConstant.imgEllipse244.obs,userName: "Devon Lane".obs,questionText: "Barone LLC.".obs)]);
+
+ }
