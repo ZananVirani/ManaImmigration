@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "588489666068",
+    "project_id": "mana-music-9aebf",
+    "storage_bucket": "mana-music-9aebf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:588489666068:android:034da285749795e841c101",
+        "android_client_info": {
+          "package_name": "com.fluttermathsmingleapp.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUYmmgVcnWinGAtTB2pePW2CNaQFBLFJw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
