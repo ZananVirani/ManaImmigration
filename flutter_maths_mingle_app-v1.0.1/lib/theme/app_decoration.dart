@@ -163,7 +163,7 @@ class BorderRadiusStyle {
 
 class AppColor {
   static Color primaryColor = Color.fromARGB(255, 15, 95, 1);
-  static Color primaryLightColor = Color.fromARGB(255, 22, 17, 100);
+  static Color primaryLightColor = Color.fromARGB(255, 149, 148, 161);
   static Color secondaryLightColor = Color.fromARGB(255, 15, 95, 1);
   static Color secondaryULtaColor = Color.fromARGB(255, 71, 53, 192);
   static Color lightBorderColor = Color.fromARGB(255, 15, 95, 1);
