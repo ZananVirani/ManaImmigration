@@ -44,7 +44,7 @@ class CustomTextStyles {
         color: Color(0XFF696969),
       );
   static get bodyLargeffd97bca => theme.textTheme.bodyLarge!.copyWith(
-        color: Color(0XFFD97BCA),
+        color: Color.fromARGB(255, 15, 95, 1),
       );
   static get bodyMediumErrorContainer => theme.textTheme.bodyMedium!.copyWith(
         color: theme.colorScheme.errorContainer.withOpacity(1),
@@ -85,7 +85,7 @@ class CustomTextStyles {
       );
   // Title text style
   static get titleLargeffd97bca => theme.textTheme.titleLarge!.copyWith(
-        color: Color(0XFFD97BCA),
+        color: Color.fromARGB(255, 15, 95, 1),
       );
   static get titleMedium17 => theme.textTheme.titleMedium!.copyWith(
         fontSize: 17.fSize,
