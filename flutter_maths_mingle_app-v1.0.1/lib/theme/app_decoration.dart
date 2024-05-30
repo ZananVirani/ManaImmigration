@@ -170,7 +170,7 @@ class AppColor {
 
   static Color black = const Color(0xFF000000);
   static Color prLight = const Color(0xFFFFFFFF);
-  static Color black40 = const Color(0xFF696969);
+  static Color black40 = Color.fromARGB(255, 224, 218, 218);
   static Color black30 = const Color(0xFFC0C0C0);
   static Color black20 = const Color(0xFFDCDCDC);
   static Color black10 = const Color(0xFFF4F4F4);

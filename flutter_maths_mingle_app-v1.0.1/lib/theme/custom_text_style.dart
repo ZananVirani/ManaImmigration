@@ -38,7 +38,7 @@ class CustomTextStyles {
         color: appTheme.whiteA700,
       );
   static get bodyLargeff000000 => theme.textTheme.bodyLarge!.copyWith(
-        color: Color(0XFF000000),
+        color: Color.fromARGB(255, 255, 255, 255),
       );
   static get bodyLargeff696969 => theme.textTheme.bodyLarge!.copyWith(
         color: Color(0XFF696969),
