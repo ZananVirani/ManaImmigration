@@ -20,7 +20,6 @@ class ProfilePage extends StatelessWidget {
 
   ProfileController controller = Get.put(ProfileController(ProfileModel().obs));
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,25 +38,28 @@ class ProfilePage extends StatelessWidget {
                   GetBuilder<CreateAccountUploadPhotoController>(
                     init: CreateAccountUploadPhotoController(),
                     builder: (uploadPhotoController) {
-                    return Container(
-                      clipBehavior: Clip.antiAlias,
-                      margin: EdgeInsets.only(right: 12.h),
-                      height: 80.h,
-                      width: 80.h,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: uploadPhotoController.pickedImagePath == null?CustomImageView(
-                          imagePath: ImageConstant.imgEllipse225,
-                          height: 80.adaptSize,
-                          width: 80.adaptSize,
-                          radius: BorderRadius.circular(40.h)):Image.file(
-                        File(uploadPhotoController.pickedImagePath!.path),
-
-                        fit: BoxFit.cover,
-                      ),
-                    );
-                  },),
+                      return Container(
+                        clipBehavior: Clip.antiAlias,
+                        margin: EdgeInsets.only(right: 12.h),
+                        height: 80.h,
+                        width: 80.h,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                        ),
+                        child: uploadPhotoController.pickedImagePath == null
+                            ? CustomImageView(
+                                imagePath: ImageConstant.imgEllipse225,
+                                height: 80.adaptSize,
+                                width: 80.adaptSize,
+                                radius: BorderRadius.circular(40.h))
+                            : Image.file(
+                                File(uploadPhotoController
+                                    .pickedImagePath!.path),
+                                fit: BoxFit.cover,
+                              ),
+                      );
+                    },
+                  ),
                   Expanded(
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
