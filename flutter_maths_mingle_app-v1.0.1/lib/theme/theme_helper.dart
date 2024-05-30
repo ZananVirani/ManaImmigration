@@ -208,7 +208,7 @@ class ColorSchemes {
 /// Class containing custom colors for a primary theme.
 class PrimaryColors {
   // Amber
-  Color get amber400 => Color.(0XFFFFD018);
+  Color get amber400 => Color(0XFFFFD018);
   Color get amber500 => Color(0XFFFFC107);
   Color get amberA100 => Color(0XFFFEE372);
 
