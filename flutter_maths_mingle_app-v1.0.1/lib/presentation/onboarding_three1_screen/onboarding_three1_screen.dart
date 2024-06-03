@@ -31,7 +31,7 @@ class OnboardingThree1Screen extends GetWidget<OnboardingThree1Controller> {
                 children: [
                   Padding(
                       padding: EdgeInsets.symmetric(vertical: 20.v),
-                      child: Text('Music for You, \n Picked by You',
+                      child: Text('Music for You\nPicked by You',
                           style: theme.textTheme.headlineMedium,
                           textAlign: TextAlign.end)),
                   CustomElevatedButton(

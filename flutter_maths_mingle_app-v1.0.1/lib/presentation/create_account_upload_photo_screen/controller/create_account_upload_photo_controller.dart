@@ -24,30 +24,26 @@ class CreateAccountUploadPhotoController extends GetxController {
 
     PrefData.setProfilePicPath(pickedImage!.name);
 
-
-      pickedImagePath = pickedImage;
+    pickedImagePath = pickedImage;
 
     print('picked Patgbh----${pickedImage.name}');
 
-      update();
-
+    update();
   }
 
   Future<void> getSubImage() async {
     ImagePicker picker = ImagePicker();
     XFile? pickedImage = await picker.pickImage(source: ImageSource.gallery);
 
-
     pickedSecondPic = pickedImage;
     print('picked Path----${pickedImage!.path}');
-      update();
-
+    update();
   }
 
   void loadPreferences() async {
     prefs = await SharedPreferences.getInstance();
     imagePath = prefs.getString('imagePath') ?? '';
-     update();
+    update();
   }
 
   @override
@@ -57,7 +53,4 @@ class CreateAccountUploadPhotoController extends GetxController {
     loadPreferences();
     super.onInit();
   }
-
-
-
 }
