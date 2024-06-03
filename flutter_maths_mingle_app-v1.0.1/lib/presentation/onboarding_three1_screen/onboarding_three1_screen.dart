@@ -16,78 +16,60 @@ class OnboardingThree1Screen extends GetWidget<OnboardingThree1Controller> {
         return Future(() => false);
       },
       child: Scaffold(
-          backgroundColor: appTheme.gray10001,
-
-          body: Stack(
-           alignment: Alignment.bottomCenter,
-           children: [
-           CustomImageView(
-               imagePath: ImageConstant.on3,
-               width: double.infinity,
-               fit: BoxFit.fill,
-               // height: 512.adaptSize,
-
-
+          backgroundColor: appTheme.secondaryColor,
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              CustomImageView(
+                imagePath: ImageConstant.onBoard,
+                width: double.infinity,
+                fit: BoxFit.fill,
+                // ++ DO NOT TOUCH THIS ++ height: 512,
               ),
-
-            Column(
-             mainAxisSize: MainAxisSize.min,
-             mainAxisAlignment: MainAxisAlignment.end,
-
-             children: [
-              Padding(
-               padding: EdgeInsets.symmetric(horizontal: 24.h),
-               child: Text(
-               'Let’s meeting new people around you',
-                style:theme.textTheme.headlineMedium,
-                textAlign: TextAlign.center,
-
-               ),
-              ),
-
-
-              CustomElevatedButton(
-
-                  text: 'Login with phone',
-                  margin: EdgeInsets.only(left:24.h, right: 24.h,top: 42.h,bottom: 16.h),
-                  onPressed: () {
-
-                    Get.toNamed(AppRoutes.createAccountPhoneNumberScreen);
-                  },
-                  buttonStyle: CustomButtonStyles.fillPrimary),
-              CustomElevatedButton(
-
-                  text: 'Login with google',
-                  margin: EdgeInsets.only(left:24.h, right: 24.h,bottom: 64.h),
-                  onPressed: () {
-                   // if (onController.index == onController.index - 1) {
-                   // } else if (onController.index == 1) {
-                   //  PrefData.setIntro(false);
-                   //  Get.toNamed(
-                   //   AppRoutes.onboardingThree1Screen,
-                   //  );
-                   // } else {
-                   //  onController.pageController.nextPage(
-                   //      duration: const Duration(milliseconds: 100),
-                   //      curve: Curves.bounceIn);
-                   // }
-                    Get.toNamed(AppRoutes.loginEmptyStateScreen);
-                  },
-                  buttonStyle: CustomButtonStyles.fillWhiteA,
-                buttonTextStyle: CustomTextStyles.titleMediumGray700,
-              ),
-
-
-
-             ],
-            )
-           ],
+              Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20.v),
+                      child: Text('Music for You, \n Picked by You',
+                          style: theme.textTheme.headlineMedium,
+                          textAlign: TextAlign.end)),
+                  CustomElevatedButton(
+                      text: 'Login with Phone',
+                      margin: EdgeInsets.only(
+                          left: 24.h, right: 24.h, top: 5.h, bottom: 16.h),
+                      onPressed: () {
+                        Get.toNamed(AppRoutes.createAccountPhoneNumberScreen);
+                      },
+                      buttonStyle: CustomButtonStyles.fillPrimary),
+                  CustomElevatedButton(
+                    text: 'Login with Google',
+                    margin:
+                        EdgeInsets.only(left: 24.h, right: 24.h, bottom: 64.h),
+                    onPressed: () {
+                      // if (onController.index == onController.index - 1) {
+                      // } else if (onController.index == 1) {
+                      //  PrefData.setIntro(false);
+                      //  Get.toNamed(
+                      //   AppRoutes.onboardingThree1Screen,
+                      //  );
+                      // } else {
+                      //  onController.pageController.nextPage(
+                      //      duration: const Duration(milliseconds: 100),
+                      //      curve: Curves.bounceIn);
+                      // }
+                      Get.toNamed(AppRoutes.loginEmptyStateScreen);
+                    },
+                    buttonStyle: CustomButtonStyles.fillWhiteA,
+                    buttonTextStyle: CustomTextStyles.titleMediumGray700,
+                  ),
+                ],
+              )
+            ],
           ),
           bottomNavigationBar: _buildLoginFrame()),
     );
   }
-
-
 
   /// Section Widget
   Widget _buildLoginFrame() {

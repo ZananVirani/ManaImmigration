@@ -51,6 +51,8 @@ class ImageConstant {
 
   static String imgVector65x65 = '$imagePath/img_vector_65x65.png';
 
+  static String onBoard = '$imagePath/covers.png';
+
   // 2.7 Create Account - Upload Photo images
 
   // 3. Home - Make Friends images
