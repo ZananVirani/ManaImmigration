@@ -16,7 +16,7 @@ class CreateAccountGenderScreen
     return Scaffold(
         // appBar: _buildAppBar(),
         appBar: PrefData.getAppBar(
-            onTap: () => Get.back(), text: 'Wh is your gender?'),
+            onTap: () => Get.back(), text: 'When is your gender?'),
         body: ListView(
             padding: EdgeInsets.only(left: 24.h, right: 24.h, top: 16.h),
             // crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,6 +122,9 @@ class CreateAccountGenderScreen
   //       title: AppbarSubtitle(text: "msg_when_is_your_gender".tr),
   //       styleType: Style.bgShadow);
   // }
+
+
+
 
   /// Navigates to the previous screen.
   onTapArrowLeft() {
