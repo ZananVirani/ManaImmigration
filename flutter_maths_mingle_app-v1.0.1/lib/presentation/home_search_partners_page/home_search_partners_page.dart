@@ -96,83 +96,86 @@ class HomeSearchPartnersPage extends StatelessWidget {
                           'Liked by 10k+ Others',
                           style: CustomTextStyles.bodyLargeWhiteA700,
                         )),
-                    Center(
-                      child: SizedBox(
-                        height: 280.h,
-                        width: 280.h,
-                        child: CardSwiper(
-                          backCardOffset: Offset(0, 0),
-                          cardBuilder: (context,
-                              index,
-                              horizontalOffsetPercentage,
-                              verticalOffsetPercentage) {
-                            print('index---->$index');
-                            return Stack(
-                              clipBehavior: Clip.none,
-                              children: [
-                                Container(
-                                  height: 250.h,
-                                  width: double.infinity,
-                                  decoration: BoxDecoration(
-                                    gradient: LinearGradient(
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                        colors: [
-                                          Colors.transparent,
-                                          Color(0x0),
-                                          Color(0x8A000000)
-                                        ]),
-                                    borderRadius:
-                                        BorderRadiusStyle.roundedBorder8,
-                                  ),
-                                ),
-                                Positioned(
-                                  right: 8.h,
-                                  top: 8.h,
-                                  child: CircularPercentIndicator(
-                                    radius: 22.h,
-                                    lineWidth: 3.5.h,
-                                    percent: 0.5,
-                                    circularStrokeCap: CircularStrokeCap.round,
-                                    progressColor: AppColor.primaryColor,
-                                    animation: true,
-                                    backgroundColor: AppColor.white,
-                                    center: Text(
-                                      '50%',
-                                      style: theme.textTheme.labelLarge,
-                                    ),
-                                  ),
-                                ),
-                                Positioned(
-                                    bottom: 8.h,
-                                    left: 5.h,
-                                    child: Text(
-                                      ' ',
-                                      style:
-                                          CustomTextStyles.bodyLargeWhiteA700,
-                                    )),
-                                index / 2 == 0
-                                    ? Center(
-                                        child: CustomImageView(
-                                          imagePath: ImageConstant.tester,
-                                          height: 56.h,
-                                        ),
-                                      )
-                                    : Center(
-                                        child: CustomImageView(
-                                          imagePath: ImageConstant.tester,
-                                          height: 56.h,
-                                        ),
-                                      )
-                              ],
-                            );
-                          },
-                          cardsCount: AppListData.searchPersonList.length,
-                          controller: controller.swiperController,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
+
+                    // Center(
+                    //   child: SizedBox(
+                    //     height: 280.h,
+                    //     width: 280.h,
+                    //     child: CardSwiper(
+                    //       backCardOffset: Offset(0, 0),
+                    //       cardBuilder: (context,
+                    //           index,
+                    //           horizontalOffsetPercentage,
+                    //           verticalOffsetPercentage) {
+                    //         print('index---->$index');
+                    //         return Stack(
+                    //           clipBehavior: Clip.none,
+                    //           children: [
+                    //             Container(
+                    //               height: 250.h,
+                    //               width: double.infinity,
+                    //               decoration: BoxDecoration(
+                    //                 gradient: LinearGradient(
+                    //                     begin: Alignment.topCenter,
+                    //                     end: Alignment.bottomCenter,
+                    //                     colors: [
+                    //                       Colors.transparent,
+                    //                       Color(0x0),
+                    //                       Color(0x8A000000)
+                    //                     ]),
+                    //                 borderRadius:
+                    //                     BorderRadiusStyle.roundedBorder8,
+                    //               ),
+                    //             ),
+                    // Positioned(
+                    //   right: 8.h,
+                    //   top: 8.h,
+                    //   child: CircularPercentIndicator(
+                    //     radius: 22.h,
+                    //     lineWidth: 3.5.h,
+                    //     percent: 0.5,
+                    //     circularStrokeCap: CircularStrokeCap.round,
+                    //     progressColor: AppColor.primaryColor,
+                    //     animation: true,
+                    //     backgroundColor: AppColor.white,
+                    //     center: Text(
+                    //       '50%',
+                    //       style: theme.textTheme.labelLarge,
+                    //     ),
+                    // ),
+                    // ),
+                    //     Positioned(
+                    //         bottom: 8.h,
+                    //         left: 5.h,
+                    //         child: Text(
+                    //           ' ',
+                    //           style:
+                    //               CustomTextStyles.bodyLargeWhiteA700,
+                    //         )),
+                    //     index / 2 == 0
+                    //         ? Center(
+                    //             child: CustomImageView(
+                    //               imagePath: ImageConstant.tester,
+                    //               height: 56.h,
+                    //             ),
+                    //           )
+                    //         : Center(
+                    //             child: CustomImageView(
+                    //               imagePath: ImageConstant.tester,
+                    //               height: 56.h,
+                    //             ),
+                    //           )
+                    //   ],
+                    // );
+                    //},
+                    //           cardsCount: AppListData.searchPersonList.length,
+                    //           controller: controller.swiperController,
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     SizedBox(height: 20),
+                    //   ],
+                    // ),
                   ],
                 ),
                 Text(
@@ -278,3 +281,11 @@ class HomeSearchPartnersPage extends StatelessWidget {
     );
   }
 }
+
+                                // CustomImageView(
+                                //  imagePath:
+                                      // AppListData.searchPersonList[index].img,
+                                 //  height: 250.h,
+                                  // width: double.infinity,
+                                 //  radius: BorderRadius.circular(8.h),
+                               // ),
