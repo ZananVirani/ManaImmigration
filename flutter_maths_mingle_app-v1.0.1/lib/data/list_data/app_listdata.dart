@@ -128,20 +128,16 @@ class AppListData {
         description: "Typesetting".obs)
   ];
 
-    static List<SearchPartnersModel> searchPersonList =[
+  static List<SearchPartnersModel> searchPersonList = [
+    SearchPartnersModel(img: ImageConstant.tester),
+    SearchPartnersModel(img: ImageConstant.tester),
+    SearchPartnersModel(img: ImageConstant.tester),
+  ];
 
-      SearchPartnersModel(img: ImageConstant.firstPerson),
-      SearchPartnersModel(img: ImageConstant.secondPerson),
-      SearchPartnersModel(img: ImageConstant.thirdPerson),
-    ];
-
-
-    static List<MatchesPurchaseModel> matchesPurchaseList = [
-      MatchesPurchaseModel(purchaseText: 'Likes \$20.00'),
-      MatchesPurchaseModel(purchaseText: 'Connect \$25.00'),
-
-    ];
-
+  static List<MatchesPurchaseModel> matchesPurchaseList = [
+    MatchesPurchaseModel(purchaseText: 'Likes \$20.00'),
+    MatchesPurchaseModel(purchaseText: 'Connect \$25.00'),
+  ];
 
   static List<String> planDuration = [
     '1 Week',

@@ -216,6 +216,7 @@ class PrimaryColors {
 
   Color get mainColor => Color.fromARGB(255, 15, 95, 1);
   Color get secondaryColor => Color.fromARGB(255, 191, 255, 180);
+
   // BlueGray
   Color get blueGray50 => Color(0XFFF1F1F1);
   Color get blueGray500 => Color(0XFF61729B);

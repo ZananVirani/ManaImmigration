@@ -2,6 +2,11 @@ class ImageConstant {
   // Image folder path
   static String imagePath = 'assets/images';
 
+  // music swipe screen photos
+
+  static String travis = '$imagePath/song1.png';
+  static String tester = '$imagePath/tester.png';
+
   // 1. Spash Screen images  appLogo
   static String AppLogo = '$imagePath/appLogo.png';
   static String splashImg = '$imagePath/splash_img.png';

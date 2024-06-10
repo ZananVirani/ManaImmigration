@@ -18,8 +18,6 @@ class HomeSearchPartnersPage extends StatelessWidget {
   HomeSearchPartnersController controller =
       Get.put(HomeSearchPartnersController(HomeSearchPartnersModel().obs));
 
-
-
   @override
   Widget build(BuildContext context) {
     return _buildFiftyColumn();
@@ -37,7 +35,6 @@ class HomeSearchPartnersPage extends StatelessWidget {
             padding: EdgeInsets.only(
                 bottom: 24.h, top: 16.h, left: 16.h, right: 16.h),
             decoration: BoxDecoration(
-
               boxShadow: [
                 BoxShadow(
                   color: Color(0x11000000),
@@ -57,7 +54,7 @@ class HomeSearchPartnersPage extends StatelessWidget {
                   clipBehavior: Clip.none,
                   children: [
                     CustomImageView(
-                      imagePath: ImageConstant.userPicToMatch,
+                      imagePath: ImageConstant.travis,
                       height: 299.h,
                     ),
                     Container(
@@ -93,30 +90,26 @@ class HomeSearchPartnersPage extends StatelessWidget {
                       ),
                     ),
                     Positioned(
-                      bottom: 8.h,
+                        bottom: 8.h,
                         left: 5.h,
                         child: Text(
-                      '2.5 km away',
-                      style: CustomTextStyles.bodyLargeWhiteA700,
-                    )),
-
+                          'Liked by 10k+ Others',
+                          style: CustomTextStyles.bodyLargeWhiteA700,
+                        )),
                     Center(
                       child: SizedBox(
-                        height: 280.h,width: 280.h,
+                        height: 280.h,
+                        width: 280.h,
                         child: CardSwiper(
                           backCardOffset: Offset(0, 0),
-
-                          cardBuilder: (context, index, horizontalOffsetPercentage, verticalOffsetPercentage) {
+                          cardBuilder: (context,
+                              index,
+                              horizontalOffsetPercentage,
+                              verticalOffsetPercentage) {
                             print('index---->$index');
                             return Stack(
                               clipBehavior: Clip.none,
                               children: [
-                                CustomImageView(
-                                  imagePath:AppListData.searchPersonList[index].img,
-                                  height: 250.h,
-                                  width: double.infinity,
-                                  radius: BorderRadius.circular(8.h),
-                                ),
                                 Container(
                                   height: 250.h,
                                   width: double.infinity,
@@ -129,7 +122,8 @@ class HomeSearchPartnersPage extends StatelessWidget {
                                           Color(0x0),
                                           Color(0x8A000000)
                                         ]),
-                                    borderRadius: BorderRadiusStyle.roundedBorder8,
+                                    borderRadius:
+                                        BorderRadiusStyle.roundedBorder8,
                                   ),
                                 ),
                                 Positioned(
@@ -153,65 +147,72 @@ class HomeSearchPartnersPage extends StatelessWidget {
                                     bottom: 8.h,
                                     left: 5.h,
                                     child: Text(
-                                      '2.5 km away',
-                                      style: CustomTextStyles.bodyLargeWhiteA700,
+                                      ' ',
+                                      style:
+                                          CustomTextStyles.bodyLargeWhiteA700,
                                     )),
-                                index/2==0? Center(
-                                  child: CustomImageView(
-                                    imagePath: ImageConstant.rightSwip,
-                                    height: 56.h,
-                                  ),
-                                ):Center(
-                                  child: CustomImageView(
-                                    imagePath: ImageConstant.leftSwip,
-                                    height: 56.h,
-                                  ),
-                                )
-
-
-
-
+                                index / 2 == 0
+                                    ? Center(
+                                        child: CustomImageView(
+                                          imagePath: ImageConstant.tester,
+                                          height: 56.h,
+                                        ),
+                                      )
+                                    : Center(
+                                        child: CustomImageView(
+                                          imagePath: ImageConstant.tester,
+                                          height: 56.h,
+                                        ),
+                                      )
                               ],
                             );
                           },
                           cardsCount: AppListData.searchPersonList.length,
-                         controller: controller.swiperController,
-
+                          controller: controller.swiperController,
                         ),
                       ),
                     ),
                     SizedBox(height: 20),
-
                   ],
                 ),
-                Text('Jane cooper',style: theme.textTheme.bodyLarge !.copyWith(fontWeight: FontWeight.w600,color: AppColor.black),),
-                Text('America, USA',style: theme.textTheme.bodyMedium ,),
+                Text(
+                  'FEIN',
+                  style: theme.textTheme.bodyLarge!.copyWith(
+                      fontWeight: FontWeight.w600, color: AppColor.black),
+                ),
+                Text(
+                  'Travis Scott - UTOPIA',
+                  style: theme.textTheme.bodyMedium,
+                ),
                 Padding(
-                  padding:  EdgeInsets.only(top: 16.h),
+                  padding: EdgeInsets.only(top: 16.h),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       GestureDetector(
                         onTap: () {
-                          controller.swiperController.swipe(CardSwiperDirection.left,);
+                          controller.swiperController.swipe(
+                            CardSwiperDirection.left,
+                          );
                           controller.update();
                         },
                         child: Container(
                           width: 56.h,
                           height: 56.h,
                           decoration: BoxDecoration(
-                            color: AppColor.white,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x11000000),
-                                blurRadius: 16,
-
-                                spreadRadius: 0,
-                              )
-                            ]
+                              color: AppColor.white,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x11000000),
+                                  blurRadius: 16,
+                                  spreadRadius: 0,
+                                )
+                              ]),
+                          child: Icon(
+                            Icons.close_rounded,
+                            size: 24.h,
                           ),
-                          child: Icon(Icons.close_rounded,size: 24.h,),
                         ),
                       ),
                       Container(
@@ -219,25 +220,24 @@ class HomeSearchPartnersPage extends StatelessWidget {
                         width: 56.h,
                         height: 56.h,
                         decoration: BoxDecoration(
-                          color: AppColor.primaryColor,
-                          shape: BoxShape.circle,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color(0x11000000),
-                              blurRadius: 16,
-                              spreadRadius: 0,
-                            )
-                          ]
-                        ),
-
+                            color: AppColor.primaryColor,
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color(0x11000000),
+                                blurRadius: 16,
+                                spreadRadius: 0,
+                              )
+                            ]),
                         child: CustomImageView(
-                          imagePath: ImageConstant.starWhiteIc,
-                          margin: EdgeInsets.all(16.h),
-                        ),
+                            //imagePath: ImageConstant.starWhiteIc,
+                            // margin: EdgeInsets.all(16.h),
+                            ),
                       ),
                       GestureDetector(
                         onTap: () {
-                          controller.swiperController.swipe(CardSwiperDirection.right);
+                          controller.swiperController
+                              .swipe(CardSwiperDirection.right);
 
                           controller.update();
                         },
@@ -245,33 +245,27 @@ class HomeSearchPartnersPage extends StatelessWidget {
                           width: 56.h,
                           height: 56.h,
                           decoration: BoxDecoration(
-                            color: AppColor.primaryLightColor,
-                            shape: BoxShape.circle,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x11000000),
-                                blurRadius: 16,
-
-                                spreadRadius: 0,
-                              )
-                            ]
-                          ),
+                              color: AppColor.primaryLightColor,
+                              shape: BoxShape.circle,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x11000000),
+                                  blurRadius: 16,
+                                  spreadRadius: 0,
+                                )
+                              ]),
                           child: CustomImageView(
                             imagePath: ImageConstant.heartIc,
-
                             margin: EdgeInsets.all(16.h),
                           ),
-
                         ),
                       ),
                     ],
                   ),
                 ),
-
               ],
             ),
           )
-
         ],
       ),
     );
