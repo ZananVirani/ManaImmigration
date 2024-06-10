@@ -1,10 +1,10 @@
 name: flutter_maths_mingle_app
 description: A new Flutter project.
 version: 1.0.0+1
-environment: 
-  sdk: '>=3.1.0 <4.0.0'
+environment:
+  sdk: ">=3.1.0 <4.0.0"
 dependencies:
-  flutter: 
+  flutter:
     sdk: flutter
   get: ^4.6.6
   connectivity_plus: ^6.0.3
@@ -22,7 +22,7 @@ dependencies:
   flutter_svg_provider:
   sms_autofill: ^2.3.1
   dotted_line: ^3.2.2
-#  intl_phone_field: ^3.2.0
+  #  intl_phone_field: ^3.2.0
   google_maps_flutter:
   percent_indicator: ^4.2.3
   syncfusion_flutter_sliders: ^25.2.5
@@ -31,27 +31,27 @@ dependencies:
 
   intl: ^0.19.0
   firebase_core: ^3.0.0
-dev_dependencies: 
-  flutter_test: 
+dev_dependencies:
+  flutter_test:
     sdk: flutter
-flutter: 
+flutter:
   uses-material-design: true
-  assets: 
+  assets:
     - assets/
     - assets/images/
-  fonts: 
+  fonts:
     - family: Poppins
-      fonts: 
+      fonts:
         - asset: assets/fonts/PoppinsRegular.ttf
           weight: 400
         - asset: assets/fonts/PoppinsSemiBold.ttf
           weight: 600
     - family: Outfit
-      fonts: 
+      fonts:
         - asset: assets/fonts/OutfitRegular.ttf
           weight: 400
     - family: Satoshi
-      fonts: 
+      fonts:
         - asset: assets/fonts/SatoshiBold.ttf
           weight: 700
         - asset: assets/fonts/SatoshiRegular.ttf
