@@ -230,9 +230,9 @@ class HomeSearchPartnersPage extends StatelessWidget {
                               )
                             ]),
                         child: CustomImageView(
-                            //imagePath: ImageConstant.starWhiteIc,
-                            // margin: EdgeInsets.all(16.h),
-                            ),
+                          imagePath: ImageConstant.starWhiteIc,
+                          margin: EdgeInsets.all(16.h),
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {
