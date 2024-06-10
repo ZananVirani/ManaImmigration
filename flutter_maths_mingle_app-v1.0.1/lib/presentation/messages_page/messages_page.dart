@@ -14,7 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
 
 class MessagesPage extends StatefulWidget {
-  const MessagesPage({super.key});
+  // Add List of songs
+  MessagesPage({super.key});
 
   @override
   State<MessagesPage> createState() => _MessagesPageState();
@@ -26,6 +27,8 @@ class _MessagesPageState extends State<MessagesPage> {
 
   BottomBarScreenController bottomBarScreenController =
       Get.put(BottomBarScreenController());
+
+  bool checkAll = true;
 
   @override
   Widget build(BuildContext context) {
@@ -79,17 +82,20 @@ class _MessagesPageState extends State<MessagesPage> {
           ],
         ),
       ),
-      _buildSubMenu(),
+      _buildSubMenu((value) {
+        setState(() {
+          checkAll = value;
+        });
+      }),
       Expanded(
         child: ListView.builder(
-          key: Key("LikedSongs"),
           shrinkWrap: true,
           physics: ClampingScrollPhysics(),
           primary: true,
           padding: EdgeInsets.zero,
           itemCount: 10,
           itemBuilder: (context, index) {
-            bool isChecked = true;
+            bool isChecked = checkAll;
 
             return StatefulBuilder(builder: (context, setState) {
               return ListTile(
@@ -116,9 +122,15 @@ class _MessagesPageState extends State<MessagesPage> {
       )
     ]);
   }
+
+  // _setToValue(bool value) {
+  //   setState(() {
+  //     checkAll = value;
+  //   });
+  // }
 }
 
-Widget _buildSubMenu() {
+Widget _buildSubMenu(Function(bool)) {
   return Container(
     decoration: BoxDecoration(
         border: Border(bottom: BorderSide(color: AppColor.black, width: 0.8))),
@@ -128,7 +140,9 @@ Widget _buildSubMenu() {
       Padding(
         padding: const EdgeInsets.all(8.0),
         child: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Function(true);
+          },
           child: Text("Select All",
               style: theme.textTheme.titleSmall!.copyWith(
                 color: AppColor.black,
@@ -138,11 +152,16 @@ Widget _buildSubMenu() {
       ),
       Padding(
         padding: const EdgeInsets.only(left: 12.0),
-        child: Text("Deselect All",
-            style: theme.textTheme.titleSmall!.copyWith(
-              color: AppColor.black,
-              wordSpacing: 0.0,
-            )),
+        child: GestureDetector(
+          onTap: () {
+            Function(false);
+          },
+          child: Text("Deselect All",
+              style: theme.textTheme.titleSmall!.copyWith(
+                color: AppColor.black,
+                wordSpacing: 0.0,
+              )),
+        ),
       ),
       Expanded(
         child: Align(
