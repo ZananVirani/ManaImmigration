@@ -10,26 +10,26 @@ import '../../../data/pref_data/pref_data.dart';
 /// This class manages the state of the SpashScreen, including the
 /// current spashModelObj
 class SpashController extends GetxController {
-  Rx<SpashModel> spashModelObj = SpashModel().obs;
+  // Rx<SpashModel> spashModelObj = SpashModel().obs;
 
-  @override void onReady() {
-    Future.delayed(const Duration(milliseconds: 3000), () async {
-      bool isIntro = await PrefData.getIntro();
-      bool isLogin = await PrefData.getLogin();
-      // bool isInfo = await PrefData.getInfo();
+  // @override void onReady() {
+  //   Future.delayed(const Duration(milliseconds: 3000), () async {
+  //     bool isIntro = await PrefData.getIntro();
+  //     bool isLogin = await PrefData.getLogin();
+  //     // bool isInfo = await PrefData.getInfo();
 
-      if (isIntro) {
-        Get.toNamed(AppRoutes.onboardingOneScreen
-          ,);
-      }
-      else {
-        if (isLogin) {
-          Get.toNamed(AppRoutes.onboardingThree1Screen,);
-        }
-        else {
-          Get.toNamed(AppRoutes.bottomBarScreen,);
-        }
-      }}
-    );
-  }
+  //     if (isIntro) {
+  //       Get.toNamed(AppRoutes.onboardingOneScreen
+  //         ,);
+  //     }
+  //     else {
+  //       if (isLogin) {
+  //         Get.toNamed(AppRoutes.onboardingThree1Screen,);
+  //       }
+  //       else {
+  //         Get.toNamed(AppRoutes.bottomBarScreen,);
+  //       }
+  //     }}
+  //   );
+  // }
 }

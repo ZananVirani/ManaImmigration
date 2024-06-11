@@ -98,23 +98,30 @@ class _MessagesPageState extends State<MessagesPage> {
             bool isChecked = checkAll;
 
             return StatefulBuilder(builder: (context, setState) {
-              return ListTile(
-                leading: Checkbox(
-                    activeColor: Colors.orange,
-                    fillColor: WidgetStateProperty.all(AppColor.white),
-                    value: isChecked,
-                    tristate: false,
-                    onChanged: (newBool) {
-                      setState(() => isChecked = !isChecked);
-                    }),
-                title: Text("Song Name"),
-                subtitle: Text("Song Artist"),
-                trailing: Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Text("Song Preview"),
-                ),
-                contentPadding: EdgeInsets.all(8.0),
-                style: ListTileStyle.drawer,
+              return Column(
+                children: [
+                  ListTile(
+                    leading: Checkbox(
+                        activeColor: Colors.orange,
+                        fillColor: WidgetStateProperty.all(AppColor.white),
+                        value: isChecked,
+                        tristate: false,
+                        onChanged: (newBool) {
+                          setState(() => isChecked = !isChecked);
+                        }),
+                    title: Text("Song Name"),
+                    subtitle: Text("Song Artist"),
+                    trailing: Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Text("Song Preview"),
+                    ),
+                    contentPadding: EdgeInsets.all(8.0),
+                  ),
+                  Container(
+                      width: double.infinity,
+                      height: 2.0,
+                      color: Colors.black12),
+                ],
               );
             });
           },
