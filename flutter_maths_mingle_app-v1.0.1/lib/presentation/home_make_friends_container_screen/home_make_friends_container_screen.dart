@@ -15,14 +15,14 @@ class HomeMakeFriendsContainerScreen
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            body: Navigator(
-                key: Get.nestedKey(1),
-                initialRoute: AppRoutes.homeMakeFriendsTabContainerPage,
-                onGenerateRoute: (routeSetting) => GetPageRoute(
-                    page: () => getCurrentPage(routeSetting.name!),
-                    transition: Transition.noTransition)),
-            // bottomNavigationBar: _buildBottomBar()
-        ));
+      body: Navigator(
+          key: Get.nestedKey(1),
+          initialRoute: AppRoutes.homeMakeFriendsTabContainerPage,
+          onGenerateRoute: (routeSetting) => GetPageRoute(
+              page: () => getCurrentPage(routeSetting.name!),
+              transition: Transition.noTransition)),
+      // bottomNavigationBar: _buildBottomBar()
+    ));
   }
 
   /// Section Widget
@@ -55,8 +55,8 @@ class HomeMakeFriendsContainerScreen
     switch (currentRoute) {
       case AppRoutes.homeMakeFriendsTabContainerPage:
         return HomeMakeFriendsTabContainerPage();
-      case AppRoutes.discoverPage:
-        return DiscoverPage();
+      // case AppRoutes.discoverPage:
+      //  return DiscoverPage();
       case AppRoutes.messagesPage:
         return MessagesPage();
       case AppRoutes.profilePage:

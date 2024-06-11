@@ -23,19 +23,17 @@ class DiscoverByInterestVoneScreen
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PrefData.getAppBar(
-            onTap: () =>Get.back(),
-            text: 'msg_discover_by_interest'.tr),
-        body: _buildDiscoverByInterest(),
-        // bottomNavigationBar: _buildBottomBar()
+      appBar: PrefData.getAppBar(
+          onTap: () => Get.back(), text: 'msg_discover_by_interest'.tr),
+      body: _buildDiscoverByInterest(),
+      // bottomNavigationBar: _buildBottomBar()
     );
   }
-
 
   /// Section Widget
   Widget _buildDiscoverByInterest() {
     return Obx(() => ListView.separated(
-      padding: EdgeInsets.symmetric(horizontal: 24.h, vertical: 24.h),
+        padding: EdgeInsets.symmetric(horizontal: 24.h, vertical: 24.h),
         physics: BouncingScrollPhysics(),
         shrinkWrap: true,
         separatorBuilder: (context, index) {
@@ -83,8 +81,8 @@ class DiscoverByInterestVoneScreen
     switch (currentRoute) {
       case AppRoutes.homeMakeFriendsTabContainerPage:
         return HomeMakeFriendsTabContainerPage();
-      case AppRoutes.discoverPage:
-        return DiscoverPage();
+      // case AppRoutes.discoverPage:
+      //  return DiscoverPage();
       case AppRoutes.messagesPage:
         return MessagesPage();
       case AppRoutes.profilePage:

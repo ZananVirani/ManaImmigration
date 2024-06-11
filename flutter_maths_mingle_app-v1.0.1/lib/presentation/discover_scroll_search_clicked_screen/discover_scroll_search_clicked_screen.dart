@@ -28,60 +28,56 @@ class DiscoverScrollSearchClickedScreen
   Completer<GoogleMapController> googleMapController = Completer();
 
   DiscoverController intController =
-  Get.put(DiscoverController(DiscoverModel().obs));
+      Get.put(DiscoverController(DiscoverModel().obs));
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        resizeToAvoidBottomInset: false,
-        appBar: PrefData.getAppBar(onTap: () => Get.back(),text: 'Search'),
-        body: ListView(
-            children: [
-              Padding(
-                padding:  EdgeInsets.only(top: 16.h,left: 24.h,right: 24.h,bottom: 24.h),
-                child: CustomSearchView(
-                  autofocus: false,
-                    controller: controller.searchController,
-                    hintText: "lbl_search".tr),
-              ),
-
-
-              _buildFrame(),
-
-              _buildColumn(),
-
-              Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.h),
-                  child: Text("lbl_around_me".tr,
-                      style: theme.textTheme.titleLarge)),
-              CustomImageView(
-                margin: EdgeInsets.symmetric(vertical: 16.h,horizontal: 24.h),
-                imagePath: ImageConstant.aboutMeMap,
-                height: 267.h,
-              )
-            ]),
-        // bottomNavigationBar: _buildBottomBar()
+      resizeToAvoidBottomInset: false,
+      appBar: PrefData.getAppBar(onTap: () => Get.back(), text: 'Search'),
+      body: ListView(children: [
+        Padding(
+          padding:
+              EdgeInsets.only(top: 16.h, left: 24.h, right: 24.h, bottom: 24.h),
+          child: CustomSearchView(
+              autofocus: false,
+              controller: controller.searchController,
+              hintText: "lbl_search".tr),
+        ),
+        _buildFrame(),
+        _buildColumn(),
+        Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.h),
+            child: Text("lbl_around_me".tr, style: theme.textTheme.titleLarge)),
+        CustomImageView(
+          margin: EdgeInsets.symmetric(vertical: 16.h, horizontal: 24.h),
+          imagePath: ImageConstant.aboutMeMap,
+          height: 267.h,
+        )
+      ]),
+      // bottomNavigationBar: _buildBottomBar()
     );
   }
-
-
 
   /// Section Widget
   Widget _buildFrame() {
     return Padding(
         padding: EdgeInsets.only(left: 24.h, right: 38.h),
-        child:
-            Row(crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Expanded(child: Text("lbl_interest".tr, style: theme.textTheme.titleLarge)),
-          GestureDetector(
-            onTap:  () {
-              Get.toNamed(AppRoutes.interestScrollSearchClickedScreen);
-            },
-            child: Text("lbl_view_all".tr,
-                style: CustomTextStyles.bodyLargeGray700),
-          )
-        ]));
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                  child: Text("lbl_interest".tr,
+                      style: theme.textTheme.titleLarge)),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed(AppRoutes.interestScrollSearchClickedScreen);
+                },
+                child: Text("lbl_view_all".tr,
+                    style: CustomTextStyles.bodyLargeGray700),
+              )
+            ]));
   }
 
   /// Section Widget
@@ -90,31 +86,29 @@ class DiscoverScrollSearchClickedScreen
         height: 137.h,
         child: GridView.builder(
           physics: NeverScrollableScrollPhysics(),
-          padding: EdgeInsets.only(left: 24.h,right: 23.h,top: 16.h,bottom: 24.h)  ,
+          padding:
+              EdgeInsets.only(left: 24.h, right: 23.h, top: 16.h, bottom: 24.h),
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              mainAxisExtent: 96.h,
-              crossAxisCount: 4,
-
-              crossAxisSpacing: 20.h),
-          itemCount:  4,
+              mainAxisExtent: 96.h, crossAxisCount: 4, crossAxisSpacing: 20.h),
+          itemCount: 4,
           itemBuilder: (context, index) {
-            ColumnItemModel model =
-            intController.discoverModelObj.value.columnItemList.value[index];
+            ColumnItemModel model = intController
+                .discoverModelObj.value.columnItemList.value[index];
             return GestureDetector(
-              onTap: () {
-                Get.toNamed(AppRoutes.discoverByInterestVoneScreen);
-              },
-                child: ColumnItemWidget(model,));
-          },)
-
-    );
+                onTap: () {
+                  Get.toNamed(AppRoutes.discoverByInterestVoneScreen);
+                },
+                child: ColumnItemWidget(
+                  model,
+                ));
+          },
+        ));
   }
 
   /// Section Widget
   Widget _buildMap() {
     return Container(
         height: 267.v,
-
         margin: EdgeInsets.only(left: 1.h),
         child: GoogleMap(
             mapType: MapType.normal,
@@ -160,8 +154,8 @@ class DiscoverScrollSearchClickedScreen
     switch (currentRoute) {
       case AppRoutes.homeMakeFriendsTabContainerPage:
         return HomeMakeFriendsTabContainerPage();
-      case AppRoutes.discoverPage:
-        return DiscoverPage();
+      //  case AppRoutes.discoverPage:
+      //  return DiscoverPage();
       case AppRoutes.messagesPage:
         return MessagesPage();
       case AppRoutes.profilePage:

@@ -84,7 +84,7 @@ class HomeSearchPartnersPage extends StatelessWidget {
                         animation: true,
                         backgroundColor: AppColor.white,
                         center: Text(
-                          '50%',
+                          '92%',
                           style: theme.textTheme.labelLarge,
                         ),
                       ),
@@ -96,7 +96,6 @@ class HomeSearchPartnersPage extends StatelessWidget {
                           'Liked by 10k+ Others',
                           style: CustomTextStyles.bodyLargeWhiteA700,
                         )),
-
                     // Center(
                     //   child: SizedBox(
                     //     height: 280.h,
