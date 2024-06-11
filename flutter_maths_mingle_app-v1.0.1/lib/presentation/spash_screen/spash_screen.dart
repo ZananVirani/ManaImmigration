@@ -1,7 +1,6 @@
 import 'controller/spash_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
-import '../../authorization/spotify_auth.dart';
 
 class SpashScreen extends GetWidget<SpashController> {
   const SpashScreen({Key? key}) : super(key: key);
@@ -10,21 +9,14 @@ class SpashScreen extends GetWidget<SpashController> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 15, 95, 1),
-        body: Center(
-          child: ElevatedButton(
-              onPressed: () {
-                SpotifyAuthService.RemoteService();
-              },
-              child: Text("Click Here")),
-        ));
-    // body: Container(
-    //     height: double.infinity,
-    //     width: double.maxFinite,
-    //     child: CustomImageView(
-    //         imagePath: ImageConstant.newLogo,
-    //         width: 150,
-    //         height: 150,
-    //         fit: BoxFit.cover)));
+        body: Container(
+            height: double.infinity,
+            width: double.maxFinite,
+            child: CustomImageView(
+                imagePath: ImageConstant.newLogo,
+                width: 150,
+                height: 150,
+                fit: BoxFit.cover)));
   }
 
   /// Navigates to the onboardingOneScreen when the action is triggered.
