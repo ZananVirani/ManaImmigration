@@ -15,25 +15,26 @@ class SpashController extends GetxController {
   @override
   void onReady() {
     Future.delayed(const Duration(milliseconds: 3000), () async {
-      bool isIntro = await PrefData.getIntro();
-      bool isLogin = await PrefData.getLogin();
+      //bool isIntro = await PrefData.getIntro();
+      //bool isLogin = await PrefData.getLogin();
       // bool isInfo = await PrefData.getInfo();
 
-      if (isIntro) {
-        Get.toNamed(
-          AppRoutes.onboardingOneScreen,
-        );
-      } else {
-        if (isLogin) {
-          Get.toNamed(
-            AppRoutes.onboardingThree1Screen,
-          );
-        } else {
-          Get.toNamed(
-            AppRoutes.bottomBarScreen,
-          );
-        }
-      }
+      // if (isIntro) {
+      //   Get.toNamed(
+      //     AppRoutes.onboardingOneScreen,
+      //   );
+      // } else {
+      // if (isLogin) {
+      //   Get.toNamed(
+      //     AppRoutes.onboardingThree1Screen,
+      //   );
+      // } else {
+      //   Get.toNamed(
+      //     AppRoutes.bottomBarScreen,
+      //   );
+      // }
+
+      Get.toNamed(AppRoutes.onboardingThree1Screen);
     });
   }
 }

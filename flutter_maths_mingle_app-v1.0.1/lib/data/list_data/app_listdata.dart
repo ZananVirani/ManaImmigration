@@ -9,21 +9,21 @@ import '../../presentation/home_make_friends_tab_container_page/models/users_sto
 import '../../presentation/home_search_partners_page/models/home_search_partners_model.dart';
 import '../../presentation/matches_screen/models/matche_person_list.dart';
 import '../../presentation/matches_screen/models/userprofile3_item_model.dart';
-import '../../presentation/onboarding_one_screen/models/onboarding_one_model.dart';
+//import '../../presentation/onboarding_one_screen/models/onboarding_one_model.dart';
 
 class AppListData {
-  static List<OnboardingOneModel> onboardingList = [
-    OnboardingOneModel(
-        img: ImageConstant.on1,
-        title: 'MatchMingle to the rescue',
-        details:
-            'Your love life, our expertis finding love is a journey let us guide you'),
-    OnboardingOneModel(
-        img: ImageConstant.on2,
-        title: 'Find your curry ently MatchMingle',
-        details:
-            'Looking for someone to make me laugh and explore the city with.'),
-  ];
+  // static List<OnboardingOneModel> onboardingList = [
+  //   OnboardingOneModel(
+  //       img: ImageConstant.on1,
+  //       title: 'MatchMingle to the rescue',
+  //       details:
+  //           'Your love life, our expertis finding love is a journey let us guide you'),
+  //   OnboardingOneModel(
+  //       img: ImageConstant.on2,
+  //       title: 'Find your curry ently MatchMingle',
+  //       details:
+  //           'Looking for someone to make me laugh and explore the city with.'),
+  // ];
 
   static List<CreateAccountGenderModel> genderList = [
     CreateAccountGenderModel(gender: 'Male', genImg: ImageConstant.maleIcon),

@@ -34,8 +34,8 @@ class AppNavigationScreen extends GetWidget<AppNavigationController> {
                         ),
                         _buildScreenTitle(
                           screenTitle: "1.1 Onboarding One".tr,
-                          onTapScreenTitle: () =>
-                              onTapScreenTitle(AppRoutes.onboardingOneScreen),
+                          onTapScreenTitle: () => onTapScreenTitle(
+                              AppRoutes.onboardingThree1Screen),
                         ),
                         _buildScreenTitle(
                           screenTitle: "1.2 Onboarding Three".tr,
