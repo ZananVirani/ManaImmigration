@@ -1,3 +1,5 @@
+import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/home_search_partners_page.dart';
+
 import 'controller/home_make_friends_container_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
@@ -17,7 +19,7 @@ class HomeMakeFriendsContainerScreen
         child: Scaffold(
       body: Navigator(
           key: Get.nestedKey(1),
-          initialRoute: AppRoutes.homeMakeFriendsTabContainerPage,
+          initialRoute: AppRoutes.homeSearchPartnersPage,
           onGenerateRoute: (routeSetting) => GetPageRoute(
               page: () => getCurrentPage(routeSetting.name!),
               transition: Transition.noTransition)),
@@ -53,8 +55,8 @@ class HomeMakeFriendsContainerScreen
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      case AppRoutes.homeMakeFriendsTabContainerPage:
-        return HomeMakeFriendsTabContainerPage();
+      case AppRoutes.homeSearchPartnersPage:
+        return HomeSearchPartnersPage();
       // case AppRoutes.discoverPage:
       //  return DiscoverPage();
       case AppRoutes.messagesPage:

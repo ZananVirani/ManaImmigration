@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
 import 'package:flutter_maths_mingle_app/presentation/discover_page/controller/discover_controller.dart';
+import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/home_search_partners_page.dart';
 
 import '../discover_page/models/column_item_model.dart';
 import '../discover_page/models/discover_model.dart';
@@ -152,8 +153,8 @@ class DiscoverScrollSearchClickedScreen
   ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
-      case AppRoutes.homeMakeFriendsTabContainerPage:
-        return HomeMakeFriendsTabContainerPage();
+      case AppRoutes.homeSearchPartnersPage:
+        return HomeSearchPartnersPage();
       //  case AppRoutes.discoverPage:
       //  return DiscoverPage();
       case AppRoutes.messagesPage:

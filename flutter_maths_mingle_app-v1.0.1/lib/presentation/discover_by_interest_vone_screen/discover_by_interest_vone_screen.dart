@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
+import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/home_search_partners_page.dart';
 
 import '../discover_by_interest_vone_screen/widgets/discoverbyinterest_item_widget.dart';
 import 'controller/discover_by_interest_vone_controller.dart';
@@ -80,7 +81,7 @@ class DiscoverByInterestVoneScreen
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
       case AppRoutes.homeMakeFriendsTabContainerPage:
-        return HomeMakeFriendsTabContainerPage();
+        return HomeSearchPartnersPage();
       // case AppRoutes.discoverPage:
       //  return DiscoverPage();
       case AppRoutes.messagesPage:

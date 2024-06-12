@@ -281,6 +281,8 @@ class HomeSearchPartnersPage extends StatelessWidget {
   }
 }
 
+
+// delete later, keep for now just in case and apply the swipe logic to the new swipe screen
                                 // CustomImageView(
                                 //  imagePath:
                                       // AppListData.searchPersonList[index].img,
