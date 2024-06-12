@@ -26,6 +26,8 @@ class SpotifyAuthService {
     ]);
     var authCode = authResp.code;
 
+    if (authCode == null) return null;
+
     try {
       accessToken = await client.requestAccessToken(
           code: authCode.toString(),

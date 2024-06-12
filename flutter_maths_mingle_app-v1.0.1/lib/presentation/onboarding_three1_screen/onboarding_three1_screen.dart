@@ -1,6 +1,9 @@
 // ignore_for_file: unused_import, deprecated_member_use
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_maths_mingle_app/authorization/spotify_auth.dart';
+import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:oauth2_client/access_token_response.dart';
 
 import 'controller/onboarding_three1_controller.dart';
@@ -9,8 +12,15 @@ import 'package:flutter_maths_mingle_app/core/app_export.dart';
 import 'package:flutter_maths_mingle_app/widgets/custom_elevated_button.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as fs;
 
-class OnboardingThree1Screen extends GetWidget<OnboardingThree1Controller> {
-  const OnboardingThree1Screen({Key? key}) : super(key: key);
+class OnboardingThree1Screen extends StatefulWidget {
+  const OnboardingThree1Screen({super.key});
+
+  @override
+  State<OnboardingThree1Screen> createState() => _OnboardingThree1ScreenState();
+}
+
+class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
+  bool showErrorMessage = false;
 
   @override
   Widget build(BuildContext context) {
@@ -47,68 +57,75 @@ class OnboardingThree1Screen extends GetWidget<OnboardingThree1Controller> {
                     //     },
                     //     buttonStyle: CustomButtonStyles.fillPrimary),
                     CustomElevatedButton(
-                      text: 'Login with Spotify',
+                      text: 'Login with Spotify   ',
                       margin: EdgeInsets.only(
-                          left: 24.h, right: 24.h, bottom: 64.h),
-                      onPressed: () {
-                        // if (onController.index == onController.index - 1) {
-                        // } else if (onController.index == 1) {
-                        //  PrefData.setIntro(false);
-                        //  Get.toNamed(
-                        //   AppRoutes.onboardingThree1Screen,
-                        //  );
-                        // } else {
-                        //  onController.pageController.nextPage(
-                        //      duration: const Duration(milliseconds: 100),
-                        //      curve: Curves.bounceIn);
-                        // }
-                        var accessToken = SpotifyAuthService.getAccessToken();
+                          left: 24.h, right: 24.h, bottom: 30.h),
+                      onPressed: () async {
+                        try {
+                          var accessToken =
+                              await SpotifyAuthService.getAccessToken();
+
+                          if (!(accessToken is AccessTokenResponse))
+                            throw Exception();
+
+                          PrefData.setAccessToken(accessToken);
+                          PrefData.setIntro(false);
+                          Get.offAndToNamed(
+                              AppRoutes.loginOtpAuthenticationScreen);
+                        } catch (e) {
+                          showCupertinoDialog(
+                              context: context, builder: createDialog);
+                          setState(() {
+                            showErrorMessage = true;
+                          });
+                        }
                       },
                       buttonStyle: CustomButtonStyles.fillPrimary,
                       buttonTextStyle: CustomTextStyles.titleMediumWhiteA70017,
                       height: 90.v,
+                      rightIcon: Brand(
+                        Brands.spotify,
+                      ),
                     ),
                   ],
                 )
               ],
             ),
-            bottomNavigationBar: _buildLoginFrame()),
+            bottomNavigationBar: _buildLoginFrame(showErrorMessage)),
       ),
     );
   }
 
-  /// Section Widget
-  Widget _buildLoginFrame() {
+  Widget createDialog(BuildContext context) {
+    return CupertinoAlertDialog(
+      title: Text("Authorization needed to continue"),
+      actions: [
+        CupertinoDialogAction(
+          child: Text("Ok"),
+          onPressed: () => Navigator.pop(context),
+        )
+      ],
+    );
+  }
+
+  Widget _buildLoginFrame(bool showErrorMessage) {
     return Padding(
-        padding: EdgeInsets.only(bottom: 32.h),
+        padding: EdgeInsets.only(bottom: 24.h),
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Padding(
               padding: EdgeInsets.only(bottom: 4.v),
-              child: Text("Must have a Spotify Account to access Music4U.",
-                  style: CustomTextStyles.titleSmallPrimary)),
-          // Padding(
-          //     padding: EdgeInsets.only(left: 4.h),
-          //     child: GestureDetector(
-          //       onTap: () {
-          //         onTapLoginWithPhone();
-          //       },
-          //       child: Text("lbl_sign_up".tr,
-          //           style: CustomTextStyles.titleSmallPrimary),
-          //     ))
+              child: showErrorMessage
+                  ? RichText(
+                      text: TextSpan(
+                          text:
+                              "Please Authorize in order \nto access Music4U.",
+                          style: CustomTextStyles.titleMediumRed500),
+                      textAlign: TextAlign.center,
+                    )
+                  : Text(
+                      "Must have a Spotify Account to access Music4U.",
+                      style: CustomTextStyles.titleSmallPrimary,
+                    ))
         ]));
-  }
-
-  /// Navigates to the createAccountPhoneNumberScreen when the action is triggered.
-  onTapLoginWithPhone() {
-    Get.toNamed(
-      AppRoutes.createAccountPhoneNumberScreen,
-    );
-  }
-
-  /// Navigates to the loginEmptyStateScreen when the action is triggered.
-  onTapLoginWithGoogle() {
-    Get.toNamed(
-      AppRoutes.loginEmptyStateScreen,
-    );
   }
 }
