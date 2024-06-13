@@ -64,7 +64,8 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
                         try {
                           var accessToken =
                               await SpotifyAuthService.getAccessToken();
-
+                          print("here:");
+                          print(accessToken);
                           if (!(accessToken is AccessTokenResponse))
                             throw Exception();
 
