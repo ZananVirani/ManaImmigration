@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
+import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/home_search_partners_page.dart';
 
 import '../discover_by_interest_vone_screen/widgets/discoverbyinterest_item_widget.dart';
 import 'controller/discover_by_interest_vone_controller.dart';
@@ -23,19 +24,17 @@ class DiscoverByInterestVoneScreen
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PrefData.getAppBar(
-            onTap: () =>Get.back(),
-            text: 'msg_discover_by_interest'.tr),
-        body: _buildDiscoverByInterest(),
-        // bottomNavigationBar: _buildBottomBar()
+      appBar: PrefData.getAppBar(
+          onTap: () => Get.back(), text: 'msg_discover_by_interest'.tr),
+      body: _buildDiscoverByInterest(),
+      // bottomNavigationBar: _buildBottomBar()
     );
   }
-
 
   /// Section Widget
   Widget _buildDiscoverByInterest() {
     return Obx(() => ListView.separated(
-      padding: EdgeInsets.symmetric(horizontal: 24.h, vertical: 24.h),
+        padding: EdgeInsets.symmetric(horizontal: 24.h, vertical: 24.h),
         physics: BouncingScrollPhysics(),
         shrinkWrap: true,
         separatorBuilder: (context, index) {
@@ -82,9 +81,9 @@ class DiscoverByInterestVoneScreen
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
       case AppRoutes.homeMakeFriendsTabContainerPage:
-        return HomeMakeFriendsTabContainerPage();
-      case AppRoutes.discoverPage:
-        return DiscoverPage();
+        return HomeSearchPartnersPage();
+      // case AppRoutes.discoverPage:
+      //  return DiscoverPage();
       case AppRoutes.messagesPage:
         return MessagesPage();
       case AppRoutes.profilePage:

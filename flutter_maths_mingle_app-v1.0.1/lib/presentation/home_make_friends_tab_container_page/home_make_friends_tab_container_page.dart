@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
 import 'package:flutter_maths_mingle_app/presentation/home_make_friends_page/home_make_friends_page.dart';
 
-
 class HomeMakeFriendsTabContainerPage extends StatelessWidget {
   HomeMakeFriendsTabContainerPage({Key? key})
       : super(
@@ -18,8 +17,6 @@ class HomeMakeFriendsTabContainerPage extends StatelessWidget {
   HomeMakeFriendsTabContainerController controller =
       Get.put(HomeMakeFriendsTabContainerController());
 
-
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -27,7 +24,7 @@ class HomeMakeFriendsTabContainerPage extends StatelessWidget {
       children: [
         Container(
             height: 127.h,
-            padding: EdgeInsets.only(left: 24.h,right: 24.h,bottom: 16.h),
+            padding: EdgeInsets.only(left: 24.h, right: 24.h, bottom: 16.h),
             decoration: BoxDecoration(
               color: AppColor.primaryColor,
             ),
@@ -39,26 +36,35 @@ class HomeMakeFriendsTabContainerPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text('Welcome',style: CustomTextStyles.headlineSmallWhiteA700,),
-                      Text('John Abram',style: theme.textTheme.labelLarge!.copyWith(
-                        color: Color(0xFFDCDCDC),
-                        fontSize: 12.fSize,
-                        fontWeight: FontWeight.w400,
-                      ),),
+                      Text(
+                        'Welcome',
+                        style: CustomTextStyles.headlineSmallWhiteA700,
+                      ),
+                      Text(
+                        'Arsham',
+                        style: theme.textTheme.labelLarge!.copyWith(
+                          color: Color(0xFFDCDCDC),
+                          fontSize: 12.fSize,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
                     ],
                   ),
                 ),
-
                 GestureDetector(
                   onTap: () {
-                    Get.toNamed(AppRoutes.profilePage,);
+                    Get.toNamed(
+                      AppRoutes.profilePage,
+                    );
                   },
                   child: Container(
                     padding: EdgeInsets.all(8.h),
-                    height: 40.h,width: 40.h, decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColor.whiteLight,
-                  ),
+                    height: 40.h,
+                    width: 40.h,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColor.whiteLight,
+                    ),
                     child: CustomImageView(
                       imagePath: ImageConstant.profileIc,
                       height: 24.h,
@@ -66,15 +72,11 @@ class HomeMakeFriendsTabContainerPage extends StatelessWidget {
                   ),
                 )
               ],
-            )
-        ),
+            )),
         Container(
-
           height: 130.h,
           child: ListView.separated(
-
-            padding: EdgeInsets.only(left: 24.h,top: 16.h,bottom: 24.h),
-
+            padding: EdgeInsets.only(left: 24.h, top: 16.h, bottom: 24.h),
             shrinkWrap: true,
             itemCount: AppListData.usersStoryList.length,
             scrollDirection: Axis.horizontal,
@@ -84,18 +86,18 @@ class HomeMakeFriendsTabContainerPage extends StatelessWidget {
               );
             },
             itemBuilder: (context, index) {
-              return UserStoryContainer(index: index,
+              return UserStoryContainer(
+                  index: index,
                   userProfileImg: AppListData.usersStoryList[index].userImage!,
                   userName: AppListData.usersStoryList[index].userName!);
-
-            },),
+            },
+          ),
         ),
         Container(
           height: 28.h,
           margin: EdgeInsets.symmetric(horizontal: 24.h),
           child: TabBar(
             controller: controller.tabviewController,
-
             labelPadding: EdgeInsets.zero,
             labelColor: theme.colorScheme.primary,
             labelStyle: TextStyle(
@@ -131,13 +133,10 @@ class HomeMakeFriendsTabContainerPage extends StatelessWidget {
             controller: controller.tabviewController,
             children: [
               HomeMakeFriendsPage(),
-              HomeSearchPartnersPage(),
             ],
           ),
         ),
       ],
     );
   }
-
-
 }

@@ -101,7 +101,7 @@ class AppNavigationScreen extends GetWidget<AppNavigationController> {
                         _buildScreenTitle(
                           screenTitle: "3. Home - Make Friends - Container".tr,
                           onTapScreenTitle: () => onTapScreenTitle(
-                              AppRoutes.homeMakeFriendsContainerScreen),
+                              AppRoutes.homeSearchPartnersPage),
                         ),
                         _buildScreenTitle(
                           screenTitle:

@@ -20,10 +20,8 @@ class CustomBottomBar extends StatelessWidget {
       builder: (controller) {
         return BottomNavigationBar(
           backgroundColor: AppColor.white,
-          selectedIconTheme:IconThemeData(
-            color: AppColor.primaryColor,
-            size: 20.h
-          ) ,
+          selectedIconTheme:
+              IconThemeData(color: AppColor.primaryColor, size: 20.h),
           unselectedIconTheme: IconThemeData(
             color: AppColor.black40,
             size: 20.h,
@@ -56,17 +54,14 @@ class CustomBottomBar extends StatelessWidget {
                 width: 24.h,
                 color: Color(0xFF7C7C7C),
                 margin: EdgeInsets.only(bottom: 8.h),
-
               ),
               activeIcon: CustomImageView(
                 imagePath: ImageConstant.navHomeIc,
                 color: AppColor.primaryColor,
                 height: 24.h,
                 width: 24.h,
-        margin: EdgeInsets.only(bottom: 8.h),
-
-
-        ),
+                margin: EdgeInsets.only(bottom: 8.h),
+              ),
               label: 'Home',
             ),
             BottomNavigationBarItem(
@@ -76,8 +71,6 @@ class CustomBottomBar extends StatelessWidget {
                 width: 24.h,
                 color: Color(0xFF7C7C7C),
                 margin: EdgeInsets.only(bottom: 8.h),
-
-
               ),
               activeIcon: CustomImageView(
                 imagePath: ImageConstant.navExploreIc,
@@ -85,53 +78,46 @@ class CustomBottomBar extends StatelessWidget {
                 height: 24.h,
                 width: 24.h,
                 margin: EdgeInsets.only(bottom: 8.h),
-
-
               ),
-              label: 'Explore',
+              label: 'My Liked Songs',
             ),
-            BottomNavigationBarItem(
-              icon: CustomImageView(
-                imagePath: ImageConstant.navMatchIc,
-                height: 24.h,
-                width: 24.h,
-                color: Color(0xFF7C7C7C),
-                margin: EdgeInsets.only(bottom: 8.h),
+            // BottomNavigationBarItem(
+            //     icon: CustomImageView(
+            //       imagePath: ImageConstant.navMatchIc,
+            //       height: 24.h,
+            //       width: 24.h,
+            //       color: Color(0xFF7C7C7C),
+            //       margin: EdgeInsets.only(bottom: 8.h),
+            //     ),
+            //     activeIcon: CustomImageView(
+            //       imagePath: ImageConstant.navMatchIc,
+            //       color: AppColor.primaryColor,
+            //       height: 24.h,
+            //       width: 24.h,
+            //       margin: EdgeInsets.only(bottom: 8.h)
 
+            //   ),
+            //   label: 'Match ',
+            // ),
+            // BottomNavigationBarItem(
+            //   icon: CustomImageView(
+            //     imagePath: ImageConstant.navChatIc,
+            //     height: 24.h,
+            //     width: 24.h,
+            //     color: Color(0xFF7C7C7C),
+            //     margin: EdgeInsets.only(bottom: 8.h),
 
+            //   ),
+            //   activeIcon: CustomImageView(
+            //     imagePath: ImageConstant.navChatIc,
+            //     color: AppColor.primaryColor,
+            //     height: 24.v,
+            //     width: 24.h,
+            //     margin: EdgeInsets.only(bottom: 8.h),
 
-              ),
-              activeIcon: CustomImageView(
-                imagePath: ImageConstant.navMatchIc,
-                color: AppColor.primaryColor,
-                height: 24.h,
-                width: 24.h,
-                margin: EdgeInsets.only(bottom: 8.h),
-
-              ),
-              label: 'Match ',
-            ),
-            BottomNavigationBarItem(
-              icon: CustomImageView(
-                imagePath: ImageConstant.navChatIc,
-                height: 24.h,
-                width: 24.h,
-                color: Color(0xFF7C7C7C),
-                margin: EdgeInsets.only(bottom: 8.h),
-
-
-              ),
-              activeIcon: CustomImageView(
-                imagePath: ImageConstant.navChatIc,
-                color: AppColor.primaryColor,
-                height: 24.v,
-                width: 24.h,
-                margin: EdgeInsets.only(bottom: 8.h),
-
-
-              ),
-              label: 'Chat',
-            ),
+            //   ),
+            //   label: 'Chat',
+            // ),
           ],
           onTap: (index) {
             PrefData.currentIndex = index;

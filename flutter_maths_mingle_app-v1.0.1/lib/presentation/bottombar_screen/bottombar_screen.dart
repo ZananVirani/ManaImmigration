@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
 import 'package:flutter_maths_mingle_app/presentation/discover_page/discover_page.dart';
 import 'package:flutter_maths_mingle_app/presentation/home_make_friends_tab_container_page/home_make_friends_tab_container_page.dart';
+import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/home_search_partners_page.dart';
 import 'package:flutter_maths_mingle_app/presentation/matches_screen/matches_screen.dart';
 import 'package:flutter_maths_mingle_app/presentation/messages_page/messages_page.dart';
 import '../../data/pref_data/pref_data.dart';
@@ -142,9 +143,9 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
   }
 
   List<Widget> pageList = [
-    HomeMakeFriendsTabContainerPage(),
-    DiscoverPage(),
-    MatchesScreen(),
+    HomeSearchPartnersPage(),
+    //DiscoverPage(),
+    //MatchesScreen(),
     MessagesPage(),
   ];
 }
