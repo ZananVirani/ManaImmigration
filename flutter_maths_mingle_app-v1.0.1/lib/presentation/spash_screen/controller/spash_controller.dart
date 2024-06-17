@@ -31,7 +31,7 @@ class SpashController extends GetxController {
       //   );
       // }
 
-      Get.toNamed(AppRoutes.onboardingThree1Screen);
+      Get.toNamed(AppRoutes.createAccountBirthdateScreen);
     });
   }
 }

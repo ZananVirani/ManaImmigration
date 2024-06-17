@@ -453,7 +453,7 @@ class AppRoutes {
       ],
     ),
 
-    GetPage(
+    GetPage( 
       name: settingsScreen,
       page: () => SettingsScreen(),
       transition: Transition.cupertino,
