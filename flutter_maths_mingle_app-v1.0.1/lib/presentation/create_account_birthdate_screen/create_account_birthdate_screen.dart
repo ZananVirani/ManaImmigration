@@ -51,14 +51,20 @@ class CreateAccountBirthdateScreen
                   SizedBox(height: 32.h),
                   buildBirthdate(context),
                   SizedBox(height: 48.h),
-                  CustomElevatedButton(
-                      text: "lbl_continue".tr,
-                      buttonStyle: CustomButtonStyles.fillPrimary,
-                      onPressed: () {
-                        onTapContinue();
-                      }),
-                  SizedBox(height: 5.v)
-                ])));
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: CustomElevatedButton(
+                        text: "lbl_continue".tr,
+                        buttonStyle: CustomButtonStyles.fillPrimary,
+                        onPressed: () {
+                          onTapContinue();
+                        }),
+                    ),
+                  ),
+                ]
+                
+                )));
   }
 
 
