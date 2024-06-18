@@ -2,6 +2,11 @@ class ImageConstant {
   // Image folder path
   static String imagePath = 'assets/images';
 
+  // music swipe screen photos
+
+  static String travis = '$imagePath/song1.png';
+  static String tester = '$imagePath/tester.png';
+
   // 1. Spash Screen images  appLogo
   static String AppLogo = '$imagePath/appLogo.png';
   static String splashImg = '$imagePath/splash_img.png';
@@ -13,9 +18,6 @@ class ImageConstant {
   static String on1 = '$imagePath/on1.png';
   static String on2 = '$imagePath/on2.png';
   static String on3 = '$imagePath/on3.png';
-
-
-
 
   //  select gender
   static String maleIcon = '$imagePath/genderMaleIcon.png';
@@ -40,8 +42,6 @@ class ImageConstant {
   static String heartIc = '$imagePath/heart_ic.png';
   static String starWhiteIc = '$imagePath/star_white_ic.png';
 
-
-
   static String imgVector = '$imagePath/img_vector.png';
 
   static String imgVector101x101 = '$imagePath/img_vector_101x101.png';
@@ -56,13 +56,9 @@ class ImageConstant {
 
   static String imgVector65x65 = '$imagePath/img_vector_65x65.png';
 
-
-
-
-
+  static String onBoard = '$imagePath/covers.png';
 
   // 2.7 Create Account - Upload Photo images
-
 
   // 3. Home - Make Friends images
   static String userPicToMatch = '$imagePath/userMatchOtherPic.png';
@@ -70,19 +66,13 @@ class ImageConstant {
 
   static String imgEllipse = '$imagePath/img_ellipse.png';
 
-
   static String firstPerson = '$imagePath/first-person.png';
   static String secondPerson = '$imagePath/second_person.png';
   static String thirdPerson = '$imagePath/img_bg.png';
   static String rightSwip = '$imagePath/right_swip.png';
   static String leftSwip = '$imagePath/left_swip.png';
 
-
-
-
-
-
-
+  static String newLogo = '$imagePath/NEWLOGO.png';
 
   static String imgRectangle24966271x327 =
       '$imagePath/img_rectangle_24966_271x327.png';
@@ -91,16 +81,9 @@ class ImageConstant {
   static String imgRectangle24966331x286 =
       '$imagePath/img_rectangle_24966_331x286.png';
 
-
-
   // 3.3 Home - Search Partners (Swipe Left) images
   static String imgRectangle24966327x285 =
       '$imagePath/img_rectangle_24966_327x285.png';
-
-
-
-
-
 
   static String imgRectangle24968 = '$imagePath/img_rectangle_24968.png';
 
@@ -119,9 +102,6 @@ class ImageConstant {
 
   static String imgEllipse127 = '$imagePath/img_ellipse_127.png';
 
-
-
-
   // 4.3 Discover - by Interest vOne images
   static String imgRectangle24976 = '$imagePath/img_rectangle_24976.png';
   static String imgRectangle249761 = '$imagePath/img_rectangle_24976_1.png';
@@ -138,14 +118,10 @@ class ImageConstant {
   static String imgDiscInt6 = '$imagePath/img_discover_int_6.png';
   static String imgDiscInt7 = '$imagePath/img_discover_int_7.png';
 
-
   static String imgRectangle2497660x60 =
       '$imagePath/img_rectangle_24976_60x60.png';
 
-
-
   // 5.2 Matches images
-
 
   static String imgMD1 = '$imagePath/md_1.png';
   static String imgMD2 = '$imagePath/md_2.png';
@@ -154,10 +130,6 @@ class ImageConstant {
   static String imgRectangle24979158x154 =
       '$imagePath/img_rectangle_24979_158x154.png';
 
-
-
-
-
   /// chat section
 
   static String micIc = '$imagePath/mic_ic.png';
@@ -165,9 +137,6 @@ class ImageConstant {
   static String messageSendIc = '$imagePath/send_ic.png';
   static String attechIc = '$imagePath/attech_ic.png';
   static String voiceWave = '$imagePath/voice_wave.png';
-
-
-
 
   static String imgRectangle249791 = '$imagePath/img_rectangle_24979_1.png';
 
@@ -214,18 +183,7 @@ class ImageConstant {
   static String imgRectangle2555140x140 =
       '$imagePath/img_rectangle_2555_140x140.png';
 
-
-
-
-
-
   static String upgradeIc = '$imagePath/upgrade_ic.png';
-
-
-
-
-
-
 
   // Common images
   static String imgRectangle2556205x162 =
@@ -234,21 +192,15 @@ class ImageConstant {
   static String imgRectangle2555205x162 =
       '$imagePath/img_rectangle_2555_205x162.png';
 
-
-
   // defualt user img
   static String appDefualtImg = '$imagePath/default_avtar.jpg';
-
-
-
-
 
   static String defualtUserIc = '$imagePath/img_ellipse_116.png';
   static String addStoryIc = '$imagePath/add_ic.png';
   static String userHansa = '$imagePath/img_ellipse_117.png';
   static String userFlora = '$imagePath/img_ellipse_118.png';
-  static String userVarian= '$imagePath/img_ellipse_119_60x60.png';
-  static String userBrio= '$imagePath/user_brio.png';
+  static String userVarian = '$imagePath/img_ellipse_119_60x60.png';
+  static String userBrio = '$imagePath/user_brio.png';
 
   static String likeIc = '$imagePath/like_ic.png';
   static String chatIc = '$imagePath/chat_ic.png';
@@ -264,26 +216,16 @@ class ImageConstant {
   static String fItalian = '$imagePath/f_Italian.png';
   static String fRussian = '$imagePath/f_Russian.png';
 
-
   static String SelectFlgIc = '$imagePath/select_f.png';
   static String UnselectFlgIc = '$imagePath/unselect_f.png';
 
   static String emptyNotificationIc = '$imagePath/notification_emptyh_ic.png';
   static String notificationFillIc = '$imagePath/notification_fill_ic.png';
 
-
-
-
   static String imgEllipse119 = '$imagePath/img_ellipse_119.png';
-
-
-
-
 
   static String imgRectangle24966299x295 =
       '$imagePath/img_rectangle_24966_299x295.png';
-
-
 
   /// discover page ic
   static String intFootball = '$imagePath/int_football.png';
@@ -312,7 +254,6 @@ class ImageConstant {
   static String iphoneIcon = '$imagePath/I_Icon.png';
   static String GoogleIcon = '$imagePath/g_icon.png';
 
-
   static String userVoiceImg = '$imagePath/uer_voice_chat.png';
   static String chatPersonVoiceImg = '$imagePath/chat_per_voice.png';
   static String arrowRightIc = '$imagePath/arrow_right_ic.png';
@@ -321,21 +262,9 @@ class ImageConstant {
   static String notificationIc = '$imagePath/notification_ic.png';
   static String settingIc = '$imagePath/setting_ic.png';
 
-
-
-
-
-
-
-
   static String imgRectangle249661 = '$imagePath/img_rectangle_24966_1.png';
 
-
-
-
-
   static String imgEllipse2432x32 = '$imagePath/img_ellipse_24_32x32.png';
-
 
   static String imgEllipse245 = '$imagePath/img_ellipse_24_5.png';
 

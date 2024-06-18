@@ -1,13 +1,23 @@
 {
   "project_info": {
+<<<<<<< HEAD
     "project_number": "588489666068",
     "project_id": "mana-music-9aebf",
     "storage_bucket": "mana-music-9aebf.appspot.com"
+=======
+    "project_number": "409314046463",
+    "project_id": "musicapp-ahz",
+    "storage_bucket": "musicapp-ahz.appspot.com"
+>>>>>>> NewHaydenBranch
   },
   "client": [
     {
       "client_info": {
+<<<<<<< HEAD
         "mobilesdk_app_id": "1:588489666068:android:034da285749795e841c101",
+=======
+        "mobilesdk_app_id": "1:409314046463:android:0478408f2c2bdb76e377ca",
+>>>>>>> NewHaydenBranch
         "android_client_info": {
           "package_name": "com.fluttermathsmingleapp.app"
         }
@@ -15,7 +25,11 @@
       "oauth_client": [],
       "api_key": [
         {
+<<<<<<< HEAD
           "current_key": "AIzaSyBUYmmgVcnWinGAtTB2pePW2CNaQFBLFJw"
+=======
+          "current_key": "AIzaSyABOObbJB2wF8Ia8Sf4sA4x0Fz2DhwKViQ"
+>>>>>>> NewHaydenBranch
         }
       ],
       "services": {

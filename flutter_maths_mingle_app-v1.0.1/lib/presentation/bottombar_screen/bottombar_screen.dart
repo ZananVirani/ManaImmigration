@@ -8,8 +8,6 @@ import '../../data/pref_data/pref_data.dart';
 import '../../widgets/custom_bottom_bar.dart';
 import 'controller/bottombar_screen_controller.dart';
 
-
-
 class BottomBarScreen extends StatefulWidget {
   BottomBarScreen({Key? key}) : super(key: key);
 
@@ -20,8 +18,6 @@ class BottomBarScreen extends StatefulWidget {
 class _BottomBarScreenState extends State<BottomBarScreen> {
   @override
   Widget build(BuildContext context) {
-
-
     return GetBuilder<BottomBarScreenController>(
       builder: (controller) {
         // ignore: deprecated_member_use
@@ -64,7 +60,7 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
           child: Text(
             'Are you sure you want to Exit ?',
             style: TextStyle(
-              color:AppColor.black,
+              color: AppColor.black,
               fontSize: 18.fSize,
               fontWeight: FontWeight.w600,
             ),
@@ -152,4 +148,3 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
     MessagesPage(),
   ];
 }
-

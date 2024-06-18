@@ -7,6 +7,8 @@ import 'package:flutter_maths_mingle_app/core/app_export.dart';
 import 'package:flutter_maths_mingle_app/widgets/custom_elevated_button.dart';
 import 'package:flutter_maths_mingle_app/widgets/custom_text_form_field.dart';
 
+final time = DateTime.now();
+
 class CreateAccountBirthdateScreen
     extends GetWidget<CreateAccountBirthdateController> {
   const CreateAccountBirthdateScreen({Key? key}) : super(key: key);
@@ -49,14 +51,20 @@ class CreateAccountBirthdateScreen
                   SizedBox(height: 32.h),
                   buildBirthdate(context),
                   SizedBox(height: 48.h),
-                  CustomElevatedButton(
-                      text: "lbl_continue".tr,
-                      buttonStyle: CustomButtonStyles.fillPrimary,
-                      onPressed: () {
-                        onTapContinue();
-                      }),
-                  SizedBox(height: 5.v)
-                ])));
+                  Expanded(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: CustomElevatedButton(
+                        text: "lbl_continue".tr,
+                        buttonStyle: CustomButtonStyles.fillPrimary,
+                        onPressed: () {
+                          onTapContinue();
+                        }),
+                    ),
+                  ),
+                ]
+                
+                )));
   }
 
 
@@ -70,7 +78,7 @@ class CreateAccountBirthdateScreen
               context: context,
               initialDate: DateTime(2003,DateTime.april),
               firstDate: DateTime(1950),
-              //DateTime.now() - not to allow to choose before today.
+
               lastDate: DateTime.now());
 
           if (pickedDate != null) {
@@ -89,7 +97,8 @@ class CreateAccountBirthdateScreen
         child: CustomTextFormField(
             enable: false,
             controller: controller.dateController,
-            hintText: "04/02/2003".tr),
+            
+            hintText: (time.month.toString() + " / " + time.day.toString() + " / " + time.year.toString()).tr),
       ),
     );
   }

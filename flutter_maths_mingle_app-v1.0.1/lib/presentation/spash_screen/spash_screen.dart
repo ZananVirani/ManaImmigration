@@ -8,14 +8,16 @@ class SpashScreen extends GetWidget<SpashController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: AppColor.primaryColor,
+      
+        backgroundColor: Color.fromARGB(255, 15, 95, 1),
         body: Container(
-          height: double.infinity,
+            height: double.infinity,
             width: double.maxFinite,
             child: CustomImageView(
-              imagePath: ImageConstant.splashImg,
-            ))
-    );
+                imagePath: ImageConstant.newLogo,
+                width: 150,
+                height: 150,
+                fit: BoxFit.cover)));
   }
 
   /// Navigates to the onboardingOneScreen when the action is triggered.

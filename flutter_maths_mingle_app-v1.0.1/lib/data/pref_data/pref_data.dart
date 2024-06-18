@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:oauth2_client/access_token_response.dart';
 
 class PrefData {
   static String prefName = "com.fluttermathsmingleapp.app";
@@ -89,12 +90,11 @@ class PrefData {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(isMatched, value);
   }
+
   static Future<bool> getIsMatched() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(isMatched) ?? false;
   }
-
-
 
   static setLoc(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -106,12 +106,11 @@ class PrefData {
     return prefs.getBool(isLoc) ?? true;
   }
 
-
-
   static setProfilePicPath(String value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(isProfilePic, value);
   }
+
   static Future<String> getProfilePicPath() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(isProfilePic) ?? '';
@@ -121,12 +120,11 @@ class PrefData {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString(isSubProfile, value);
   }
+
   static Future<String> getSubProfile() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString(isSubProfile) ?? '';
   }
-
-
 
   static setInfo(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -176,27 +174,41 @@ class PrefData {
     return _sharedPreferences!.getBool(isDakMode) ?? false;
   }
 
-
   static setClickMic(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(isClickMic, value);
   }
+
   static Future<bool> getClickMic() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(isClickMic) ?? true;
   }
 
+  static setAccessToken(AccessTokenResponse accessToken) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('accessToken', accessToken.accessToken!);
+    prefs.setString('refreshToken', accessToken.refreshToken!);
+  }
 
+  static Future<String?> getAccessToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('accessToken');
+  }
+
+  static Future<String?> getRefreshToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('refreshToken');
+  }
 
   static setClickKeyboard(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(isClickKeyboard, value);
   }
+
   static Future<bool> getClickKeyboard() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(isClickKeyboard) ?? false;
   }
-
 
   Future<void> setThemeData(String value) {
     return _sharedPreferences!.setString('themeData', value);
@@ -263,16 +275,14 @@ class PrefData {
     return AppBar(
       title: Text(
         text!,
-        style:textStyle?? theme.textTheme.titleLarge!.copyWith(
-          color: AppColor.black,
-          fontWeight: FontWeight.w700,
-        ),
+        style: textStyle ??
+            theme.textTheme.titleLarge!.copyWith(
+              color: AppColor.black,
+              fontWeight: FontWeight.w700,
+            ),
       ),
       surfaceTintColor: AppColor.white,
       shadowColor: Color(0x34E7E4E4),
-
-
-      
       systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
         statusBarColor: Colors.transparent,
       ),
@@ -289,25 +299,23 @@ class PrefData {
                 // CommonPop.popScreen(context, RoutesPath.loginScreen);
               },
               child: Container(
-                margin: EdgeInsets.only(left: 24.h),
-                padding: EdgeInsets.all(8.h),
-                height: 40.h,
-                width: 40.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColor.lightGray,
-                ),
-                child: leadingIcon??CustomImageView(
-                  imagePath: ImageConstant.arrowLeftIc,
-                  fit: BoxFit.contain,
-                
-                )
-              ),
+                  margin: EdgeInsets.only(left: 24.h),
+                  padding: EdgeInsets.all(8.h),
+                  height: 40.h,
+                  width: 40.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColor.lightGray,
+                  ),
+                  child: leadingIcon ??
+                      CustomImageView(
+                        imagePath: ImageConstant.arrowLeftIc,
+                        fit: BoxFit.contain,
+                      )),
             ),
       centerTitle: false,
       toolbarHeight: 70.h,
       elevation: 12.h,
-
       scrolledUnderElevation: 0,
       automaticallyImplyLeading: false,
       backgroundColor: color ?? Colors.white,

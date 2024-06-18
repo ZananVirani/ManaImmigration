@@ -9,21 +9,21 @@ import '../../presentation/home_make_friends_tab_container_page/models/users_sto
 import '../../presentation/home_search_partners_page/models/home_search_partners_model.dart';
 import '../../presentation/matches_screen/models/matche_person_list.dart';
 import '../../presentation/matches_screen/models/userprofile3_item_model.dart';
-import '../../presentation/onboarding_one_screen/models/onboarding_one_model.dart';
+//import '../../presentation/onboarding_one_screen/models/onboarding_one_model.dart';
 
 class AppListData {
-  static List<OnboardingOneModel> onboardingList = [
-    OnboardingOneModel(
-        img: ImageConstant.on1,
-        title: 'MatchMingle to the rescue',
-        details:
-            'Your love life, our expertis finding love is a journey let us guide you'),
-    OnboardingOneModel(
-        img: ImageConstant.on2,
-        title: 'Find your curry ently MatchMingle',
-        details:
-            'Looking for someone to make me laugh and explore the city with.'),
-  ];
+  // static List<OnboardingOneModel> onboardingList = [
+  //   OnboardingOneModel(
+  //       img: ImageConstant.on1,
+  //       title: 'MatchMingle to the rescue',
+  //       details:
+  //           'Your love life, our expertis finding love is a journey let us guide you'),
+  //   OnboardingOneModel(
+  //       img: ImageConstant.on2,
+  //       title: 'Find your curry ently MatchMingle',
+  //       details:
+  //           'Looking for someone to make me laugh and explore the city with.'),
+  // ];
 
   static List<CreateAccountGenderModel> genderList = [
     CreateAccountGenderModel(gender: 'Male', genImg: ImageConstant.maleIcon),
@@ -31,25 +31,25 @@ class AppListData {
         gender: 'Female', genImg: ImageConstant.femaleIcon),
   ];
   static List<CreateAccountSelectInterestModel> interestList = [
-    CreateAccountSelectInterestModel(inrerestName: 'Games', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Dancing', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Language', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Music', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Movie', isCheck: false),
+    CreateAccountSelectInterestModel(inrerestName: 'Rap', isCheck: false),//Games
+    CreateAccountSelectInterestModel(inrerestName: 'Pop', isCheck: false),//Dancing
+    CreateAccountSelectInterestModel(inrerestName: 'Rock', isCheck: false),//Language
+    CreateAccountSelectInterestModel(inrerestName: 'Country', isCheck: false),//Music
+    CreateAccountSelectInterestModel(inrerestName: 'Metal', isCheck: false),//Movie
     CreateAccountSelectInterestModel(
-        inrerestName: 'Photography', isCheck: false),
+        inrerestName: 'Blues', isCheck: false),//Photography
     CreateAccountSelectInterestModel(
-        inrerestName: 'Architecture', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Fashion', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Book', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Writing', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Nature', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Painting', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Football', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'People', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Animals', isCheck: false),
+        inrerestName: 'K-pop', isCheck: false),//Architecture
+    CreateAccountSelectInterestModel(inrerestName: 'Hip-hop', isCheck: false),//Fasion
+    CreateAccountSelectInterestModel(inrerestName: 'EDM', isCheck: false),//Book
+    CreateAccountSelectInterestModel(inrerestName: 'Classical', isCheck: false),//Writing
+    CreateAccountSelectInterestModel(inrerestName: 'Instrumental', isCheck: false), //Nature
+    CreateAccountSelectInterestModel(inrerestName: 'Lo-fi', isCheck: false),//Painting
+    CreateAccountSelectInterestModel(inrerestName: 'R&B', isCheck: false),//Football
+    CreateAccountSelectInterestModel(inrerestName: 'Folk', isCheck: false),//People
+    CreateAccountSelectInterestModel(inrerestName: 'Reggae', isCheck: false),//Animals
     CreateAccountSelectInterestModel(
-        inrerestName: 'Gym & fitness', isCheck: false),
+        inrerestName: 'Techno', isCheck: false),//Gym and fitness
   ];
 
   static List<UserStoryModel> usersStoryList = [
@@ -128,20 +128,16 @@ class AppListData {
         description: "Typesetting".obs)
   ];
 
-    static List<SearchPartnersModel> searchPersonList =[
+  static List<SearchPartnersModel> searchPersonList = [
+    SearchPartnersModel(img: ImageConstant.tester),
+    SearchPartnersModel(img: ImageConstant.tester),
+    SearchPartnersModel(img: ImageConstant.tester),
+  ];
 
-      SearchPartnersModel(img: ImageConstant.firstPerson),
-      SearchPartnersModel(img: ImageConstant.secondPerson),
-      SearchPartnersModel(img: ImageConstant.thirdPerson),
-    ];
-
-
-    static List<MatchesPurchaseModel> matchesPurchaseList = [
-      MatchesPurchaseModel(purchaseText: 'Likes \$20.00'),
-      MatchesPurchaseModel(purchaseText: 'Connect \$25.00'),
-
-    ];
-
+  static List<MatchesPurchaseModel> matchesPurchaseList = [
+    MatchesPurchaseModel(purchaseText: 'Likes \$20.00'),
+    MatchesPurchaseModel(purchaseText: 'Connect \$25.00'),
+  ];
 
   static List<String> planDuration = [
     '1 Week',

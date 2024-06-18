@@ -44,7 +44,7 @@ class CustomTextStyles {
         color: Color(0XFF696969),
       );
   static get bodyLargeffd97bca => theme.textTheme.bodyLarge!.copyWith(
-        color: Color(0XFFD97BCA),
+        color: Color.fromARGB(255, 15, 95, 1),
       );
   static get bodyMediumErrorContainer => theme.textTheme.bodyMedium!.copyWith(
         color: theme.colorScheme.errorContainer.withOpacity(1),
@@ -85,7 +85,7 @@ class CustomTextStyles {
       );
   // Title text style
   static get titleLargeffd97bca => theme.textTheme.titleLarge!.copyWith(
-        color: Color(0XFFD97BCA),
+        color: Color.fromARGB(255, 15, 95, 1),
       );
   static get titleMedium17 => theme.textTheme.titleMedium!.copyWith(
         fontSize: 17.fSize,
@@ -93,15 +93,15 @@ class CustomTextStyles {
   static get titleMediumGray700 => theme.textTheme.titleMedium!.copyWith(
         color: appTheme.gray700,
       );
-  static get titleMediumPrimary => theme.textTheme.titleMedium!.copyWith(
-        color: theme.colorScheme.primary,
-      );
+  static get titleMediumPrimary => theme.textTheme.titleMedium!
+      .copyWith(color: theme.colorScheme.primary, fontSize: 24.fSize);
   static get titleMediumPrimary16 => theme.textTheme.titleMedium!.copyWith(
         color: theme.colorScheme.primary,
         fontSize: 16.fSize,
       );
   static get titleMediumRed500 => theme.textTheme.titleMedium!.copyWith(
         color: appTheme.red500,
+        fontSize: 24.fSize,
       );
   static get titleMediumWhiteA700 => theme.textTheme.titleMedium!.copyWith(
         color: appTheme.whiteA700,
@@ -109,7 +109,7 @@ class CustomTextStyles {
       );
   static get titleMediumWhiteA70017 => theme.textTheme.titleMedium!.copyWith(
         color: appTheme.whiteA700,
-        fontSize: 17.fSize,
+        fontSize: 24.fSize,
       );
   static get titleMediumWhiteA700_1 => theme.textTheme.titleMedium!.copyWith(
         color: appTheme.whiteA700,

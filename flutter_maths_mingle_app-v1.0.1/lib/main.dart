@@ -25,10 +25,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
-
   ]).then((value) {
     Logger.init(kReleaseMode ? LogMode.live : LogMode.debug);
-
   });
   await PrefData().init();
   runApp(MyApp());
@@ -45,7 +43,7 @@ class MyApp extends StatelessWidget {
         translations: AppLocalization(),
         locale: Get.deviceLocale, //for setting localization strings
         fallbackLocale: Locale('en', 'US'),
-        title: 'flutter_maths_mingle_app',
+        title: 'Music4U',
         initialBinding: InitialBindings(),
         initialRoute: AppRoutes.initialRoute,
         getPages: AppRoutes.pages,

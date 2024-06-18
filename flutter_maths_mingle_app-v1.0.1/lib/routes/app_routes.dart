@@ -1,8 +1,8 @@
 import 'package:flutter_maths_mingle_app/presentation/profile_page/binding/profile_binding.dart';
 import 'package:flutter_maths_mingle_app/presentation/spash_screen/spash_screen.dart';
 import 'package:flutter_maths_mingle_app/presentation/spash_screen/binding/spash_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/onboarding_one_screen/onboarding_one_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/onboarding_one_screen/binding/onboarding_one_binding.dart';
+// import 'package:flutter_maths_mingle_app/presentation/onboarding_one_screen/onboarding_one_screen.dart';
+// import 'package:flutter_maths_mingle_app/presentation/onboarding_one_screen/binding/onboarding_one_binding.dart';
 import 'package:flutter_maths_mingle_app/presentation/onboarding_three1_screen/onboarding_three1_screen.dart';
 import 'package:flutter_maths_mingle_app/presentation/onboarding_three1_screen/binding/onboarding_three1_binding.dart';
 import 'package:flutter_maths_mingle_app/presentation/create_account_phone_number_screen/create_account_phone_number_screen.dart';
@@ -66,7 +66,7 @@ import '../presentation/profile_page/profile_page.dart';
 class AppRoutes {
   static const String spashScreen = '/spash_screen';
 
-  static const String onboardingOneScreen = '/onboarding_one_screen';
+  //static const String onboardingOneScreen = '/onboarding_one_screen';
 
   static const String onboardingThreeScreen = '/onboarding_three_screen';
 
@@ -99,8 +99,7 @@ class AppRoutes {
   static const String loginOtpAuthenticationScreen =
       '/login_otp_authentication_screen';
 
-  static const String bottomBarScreen =
-      '/BottomBarScreen';
+  static const String bottomBarScreen = '/BottomBarScreen';
 
   static const String homeMakeFriendsPage = '/home_make_friends_page';
 
@@ -191,31 +190,28 @@ class AppRoutes {
   static List<GetPage> pages = [
     GetPage(
       name: spashScreen,
-      page: () => SpashScreen(),transition: Transition.fadeIn,
+      page: () => SpashScreen(),
+      transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: 500),
-
       bindings: [
         SpashBinding(),
       ],
     ),
-    GetPage(
-      name: onboardingOneScreen,
-      page: () => OnboardingOneScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
+    // GetPage(
+    //   name: onboardingOneScreen,
+    //   page: () => OnboardingOneScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
 
-      bindings: [
-        OnboardingOneBinding(),
-      ],
+    //   bindings: [
+    //     OnboardingOneBinding(),
+    //   ],
 
-
-    ),
     GetPage(
       name: onboardingThree1Screen,
       page: () => OnboardingThree1Screen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         OnboardingThree1Binding(),
       ],
@@ -225,18 +221,15 @@ class AppRoutes {
       page: () => CreateAccountPhoneNumberScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
-
       bindings: [
         CreateAccountPhoneNumberBinding(),
       ],
     ),
     GetPage(
       name: createAccountOtpCodeScreen,
-      page: () => CreateAccountOtpCodeScreen(),transition: Transition.cupertino,
+      page: () => CreateAccountOtpCodeScreen(),
+      transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
-
       bindings: [
         CreateAccountOtpCodeBinding(),
       ],
@@ -246,7 +239,6 @@ class AppRoutes {
       page: () => CreateAccountNameScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         CreateAccountNameBinding(),
       ],
@@ -256,7 +248,6 @@ class AppRoutes {
       page: () => CreateAccountBirthdateScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         CreateAccountBirthdateBinding(),
       ],
@@ -266,7 +257,6 @@ class AppRoutes {
       page: () => CreateAccountGenderScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         CreateAccountGenderBinding(),
       ],
@@ -276,8 +266,6 @@ class AppRoutes {
       page: () => CreateAccountSelectInterestScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
-
       bindings: [
         CreateAccountSelectInterestBinding(),
       ],
@@ -287,7 +275,6 @@ class AppRoutes {
       page: () => CreateAccountUploadPhotoScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         CreateAccountUploadPhotoBinding(),
       ],
@@ -297,8 +284,6 @@ class AppRoutes {
       page: () => LoginEmptyStateScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
-
       bindings: [
         LoginEmptyStateBinding(),
       ],
@@ -311,13 +296,11 @@ class AppRoutes {
     //   ],
     // ),
 
-
     GetPage(
       name: loginOtpAuthenticationScreen,
       page: () => LoginOtpAuthenticationScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         LoginOtpAuthenticationBinding(),
       ],
@@ -327,7 +310,6 @@ class AppRoutes {
       page: () => BottomBarScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         BottomBarScreenBinding(),
       ],
@@ -337,7 +319,6 @@ class AppRoutes {
       page: () => HomeMakeFriendsContainerScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         HomeMakeFriendsContainerBinding(),
       ],
@@ -348,7 +329,6 @@ class AppRoutes {
       page: () => DiscoverFilterScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         DiscoverFilterBinding(),
       ],
@@ -358,7 +338,6 @@ class AppRoutes {
       page: () => InterestScrollSearchClickedScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         InterestScrollSearchClickedBinding(),
       ],
@@ -368,7 +347,6 @@ class AppRoutes {
       page: () => DiscoverScrollSearchClickedScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         DiscoverScrollSearchClickedBinding(),
       ],
@@ -378,7 +356,6 @@ class AppRoutes {
       page: () => DiscoverByInterestVoneScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         DiscoverByInterestVoneBinding(),
       ],
@@ -396,7 +373,6 @@ class AppRoutes {
       page: () => MatchesScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         MatchesBinding(),
       ],
@@ -406,31 +382,26 @@ class AppRoutes {
       page: () => DatingProfileDetailsVoneScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         DatingProfileDetailsVoneBinding(),
       ],
     ),
-
 
     GetPage(
       name: datingProfileDetailsScrollScreen,
       page: () => DatingProfileDetailsScrollScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         DatingProfileDetailsScrollBinding(),
       ],
     ),
-
 
     GetPage(
       name: firstTimeChatScreen,
       page: () => FirstTimeChatScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         FirstTimeChatBinding(),
       ],
@@ -440,20 +411,16 @@ class AppRoutes {
       page: () => FirstTimeChatOneScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         FirstTimeChatOneBinding(),
       ],
     ),
-
-
 
     GetPage(
       name: editProfileScreen,
       page: () => EditProfileScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         EditProfileBinding(),
       ],
@@ -463,7 +430,6 @@ class AppRoutes {
       page: () => MyAccountScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         MyAccountBinding(),
       ],
@@ -473,28 +439,25 @@ class AppRoutes {
       page: () => LanguageScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         LanguageBinding(),
       ],
     ),
     GetPage(
       name: profilePage,
-      page: () => ProfilePage(),transition: Transition.cupertino,
+      page: () => ProfilePage(),
+      transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
-
       bindings: [
         ProfileBinding(),
       ],
     ),
 
-    GetPage(
+    GetPage( 
       name: settingsScreen,
       page: () => SettingsScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         SettingsBinding(),
       ],
@@ -504,7 +467,6 @@ class AppRoutes {
       page: () => NotificationsScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         NotificationsBinding(),
       ],
@@ -514,7 +476,6 @@ class AppRoutes {
       page: () => PrivacyPolicyScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         PrivacyPolicyBinding(),
       ],
@@ -524,7 +485,6 @@ class AppRoutes {
       page: () => AppNavigationScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-
       bindings: [
         AppNavigationBinding(),
       ],
@@ -534,7 +494,6 @@ class AppRoutes {
       page: () => SpashScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(milliseconds: 500),
-
       bindings: [
         SpashBinding(),
       ],
