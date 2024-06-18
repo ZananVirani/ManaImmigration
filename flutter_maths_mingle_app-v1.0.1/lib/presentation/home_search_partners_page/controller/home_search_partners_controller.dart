@@ -10,9 +10,9 @@ class HomeSearchPartnersController extends GetxController {
   HomeSearchPartnersController(this.homeSearchPartnersModelObj);
 
   Rx<HomeSearchPartnersModel> homeSearchPartnersModelObj;
-  // final CardSwiperController swiperController = CardSwiperController();
-  // final CardSwiperController controller = CardSwiperController();
-  //
+  // // final CardSwiperController swiperController = CardSwiperController();
+  // // final CardSwiperController controller = CardSwiperController();
+  // //
   final CardSwiperController swiperController = CardSwiperController();
 
   @override
@@ -20,7 +20,4 @@ class HomeSearchPartnersController extends GetxController {
     // TODO: implement onInit
     super.onInit();
   }
-
-
-
 }

@@ -62,7 +62,7 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
                           left: 24.h, right: 24.h, bottom: 30.h),
                       onPressed: () async {
                         try {
-                          var accessToken =
+                          AccessTokenResponse? accessToken =
                               await SpotifyAuthService.getAccessToken();
 
                           if (!(accessToken is AccessTokenResponse))
@@ -70,8 +70,7 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
 
                           PrefData.setAccessToken(accessToken);
                           PrefData.setIntro(false);
-                          Get.offAndToNamed(
-                              AppRoutes.loginOtpAuthenticationScreen);
+                          Get.offAndToNamed(AppRoutes.bottomBarScreen);
                         } catch (e) {
                           showCupertinoDialog(
                               context: context, builder: createDialog);

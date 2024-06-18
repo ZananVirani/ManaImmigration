@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
@@ -184,20 +186,21 @@ class PrefData {
     return prefs.getBool(isClickMic) ?? true;
   }
 
-  static setAccessToken(AccessTokenResponse accessToken) async {
+  static void setAccessToken(AccessTokenResponse accessToken) async {
+    Map<String, dynamic> mapToken = accessToken.toMap();
+    String jsonMap = json.encode(mapToken);
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('accessToken', accessToken.accessToken!);
-    prefs.setString('refreshToken', accessToken.refreshToken!);
+    prefs.setString('accessToken', jsonMap);
   }
 
-  static Future<String?> getAccessToken() async {
+  static Future<AccessTokenResponse?> getAccessToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('accessToken');
-  }
+    String? jsonMap = prefs.getString('accessToken');
 
-  static Future<String?> getRefreshToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('refreshToken');
+    Map<String, dynamic> mapToken = json.decode(jsonMap!);
+    AccessTokenResponse accessToken = AccessTokenResponse.fromMap(mapToken);
+
+    return accessToken;
   }
 
   static setClickKeyboard(bool value) async {

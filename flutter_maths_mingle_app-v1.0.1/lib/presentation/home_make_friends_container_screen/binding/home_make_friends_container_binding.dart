@@ -1,4 +1,6 @@
-import '../controller/home_make_friends_container_controller.dart';
+import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/controller/home_search_partners_controller.dart';
+import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/models/home_search_partners_model.dart';
+
 import 'package:get/get.dart';
 
 /// A binding class for the HomeMakeFriendsContainerScreen.
@@ -8,6 +10,7 @@ import 'package:get/get.dart';
 class HomeMakeFriendsContainerBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut(() => HomeMakeFriendsContainerController());
+    Get.lazyPut(
+        () => HomeSearchPartnersController(HomeSearchPartnersModel().obs));
   }
 }

@@ -1,3 +1,5 @@
+import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/binding/home_search_partners_binding.dart';
+import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/home_search_partners_page.dart';
 import 'package:flutter_maths_mingle_app/presentation/profile_page/binding/profile_binding.dart';
 import 'package:flutter_maths_mingle_app/presentation/spash_screen/spash_screen.dart';
 import 'package:flutter_maths_mingle_app/presentation/spash_screen/binding/spash_binding.dart';
@@ -316,7 +318,7 @@ class AppRoutes {
     ),
     GetPage(
       name: homeMakeFriendsContainerScreen,
-      page: () => HomeMakeFriendsContainerScreen(),
+      page: () => HomeSearchPartnersPage(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
       bindings: [
@@ -497,6 +499,6 @@ class AppRoutes {
       bindings: [
         SpashBinding(),
       ],
-    )
+    ),
   ];
 }

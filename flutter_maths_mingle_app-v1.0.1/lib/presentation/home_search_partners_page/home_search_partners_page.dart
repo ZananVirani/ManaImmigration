@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:flutter_maths_mingle_app/API/api_calls.dart';
 import 'package:flutter_maths_mingle_app/data/list_data/app_listdata.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -230,10 +231,7 @@ class HomeSearchPartnersPage extends StatelessWidget {
                                 const EdgeInsets.symmetric(horizontal: 30.0),
                             child: GestureDetector(
                               onTap: () {
-                                controller.swiperController.swipe(
-                                  CardSwiperDirection.left,
-                                );
-                                controller.update();
+                                MakeAPICall.playTrack('5Y35SjAfXjjG0sFQ3KOxmm');
                               },
                               child: Container(
                                 width: 56.h,
