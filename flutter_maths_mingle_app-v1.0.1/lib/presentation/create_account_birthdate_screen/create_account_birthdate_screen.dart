@@ -78,7 +78,7 @@ class CreateAccountBirthdateScreen
               context: context,
               initialDate: DateTime(2003,DateTime.april),
               firstDate: DateTime(1950),
-              //DateTime.now() - not to allow to choose before today.
+
               lastDate: DateTime.now());
 
           if (pickedDate != null) {
