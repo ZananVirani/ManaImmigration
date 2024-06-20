@@ -129,7 +129,7 @@ class AppListData {
   ];
 
   static List<SearchPartnersModel> searchPersonList = [
-    SearchPartnersModel(img: ImageConstant.tester),
+    SearchPartnersModel(img: ImageConstant.travis),
     SearchPartnersModel(img: ImageConstant.tester),
     SearchPartnersModel(img: ImageConstant.tester),
   ];

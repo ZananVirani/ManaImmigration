@@ -147,8 +147,7 @@ class HomeSearchPartnersPage extends StatelessWidget {
                           ),
                           GestureDetector(
                             onTap: () {
-                              controller.swiperController
-                                  .swipe(CardSwiperDirection.right);
+                              controller.swiperController.swipe(CardSwiperDirection.right);
                               controller.update();
                             },
                             child: Container(
@@ -186,7 +185,7 @@ class HomeSearchPartnersPage extends StatelessWidget {
   }
 
   // DONT DELETE NEED FOR LATER SKBIDI
-  /// Navigates to the homeSearchPartnersSwipeLeftTabContainerScreen when the action is triggered.
+  // Navigates to the homeSearchPartnersSwipeLeftTabContainerScreen when the action is triggered.
   // onTapBtnClose() { 
   //   Get.toNamed(
   //     AppRoutes.homeSearchPartnersSwipeLeftTabContainerScreen,
