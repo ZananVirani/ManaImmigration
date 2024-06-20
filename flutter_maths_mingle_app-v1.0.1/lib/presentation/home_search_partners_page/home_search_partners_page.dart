@@ -1,30 +1,68 @@
 // ignore_for_file: unnecessary_import
 
+import 'dart:async';
+
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_maths_mingle_app/API/api_calls.dart';
-import 'package:flutter_maths_mingle_app/data/list_data/app_listdata.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:flutter_maths_mingle_app/API/track.dart';
+// import 'package:flutter_maths_mingle_app/data/list_data/app_listdata.dart';
+// import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import 'controller/home_search_partners_controller.dart';
 import 'models/home_search_partners_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
 
-// ignore_for_file: must_be_immutable
-class HomeSearchPartnersPage extends StatelessWidget {
-  HomeSearchPartnersPage({Key? key}) : super(key: key);
+class HomeSearchPartnersPage extends StatefulWidget {
+  const HomeSearchPartnersPage({super.key});
 
+  @override
+  State<HomeSearchPartnersPage> createState() => _HomeSearchPartnersPageState();
+}
+
+class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
+    with TickerProviderStateMixin {
+  bool isPlaying = false;
+  bool loaded = false;
   HomeSearchPartnersController controller =
       Get.put(HomeSearchPartnersController(HomeSearchPartnersModel().obs));
+
+  late AnimationController _animationController;
+  late AudioPlayer _player;
+  late Future<Track> track;
+
+  @override
+  void initState() {
+    track = fetchTrack().then(
+      (value) {
+        print("Success!!!");
+        _player.setSource(UrlSource(value.previewUrl!));
+        return value;
+      },
+    ).catchError((value) {
+      print("Error!!!");
+      print(value);
+      return value;
+    });
+    _player = AudioPlayer();
+    this._animationController = AnimationController(
+        value: 1.0, vsync: this, duration: Duration(milliseconds: 500));
+    super.initState();
+  }
+
+  Future<Track> fetchTrack() {
+    var newTrack = MakeAPICall.getTrack('0TK2YIli7K1leLovkQiNik');
+    return newTrack;
+  }
 
   @override
   Widget build(BuildContext context) {
     return _buildFiftyColumn();
   }
 
-  /// Section Widget
   Widget _buildFiftyColumn() {
     return SafeArea(
       child: Scaffold(
@@ -36,7 +74,7 @@ class HomeSearchPartnersPage extends StatelessWidget {
             shrinkWrap: true,
             children: [
               Container(
-                height: 550.v,
+                height: 575.v,
                 padding: EdgeInsets.only(
                     bottom: 24.h, top: 16.h, left: 16.h, right: 16.h),
                 decoration: BoxDecoration(
@@ -58,25 +96,262 @@ class HomeSearchPartnersPage extends StatelessWidget {
                     Stack(
                       clipBehavior: Clip.none,
                       children: [
-                        CustomImageView(
-                          imagePath: ImageConstant.travis,
-                          height: 299.h,
+                        FutureBuilder(
+                          future: track,
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData)
+                              return Image.network(
+                                  width: 400.h,
+                                  snapshot.data!.album!.images!.first.url);
+                            else if (snapshot.hasError)
+                              return CustomImageView(
+                                imagePath: ImageConstant.travis,
+                              );
+                            else
+                              return const CircularProgressIndicator();
+                          },
                         ),
-                        Container(
-                          height: 299.h,
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
-                                colors: [
-                                  Colors.transparent,
-                                  Color(0x0),
-                                  Color(0x8A000000)
-                                ]),
-                            borderRadius: BorderRadiusStyle.roundedBorder8,
+                      ],
+                    ),
+                    FutureBuilder(
+                        future: track,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            var songName = snapshot.data!.name!;
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 8.0),
+                              child: Text(
+                                songName.length > 65
+                                    ? songName.substring(0, 61) + "..."
+                                    : songName,
+                                style: theme.textTheme.bodyLarge!.copyWith(
+                                    fontSize: 18.fSize,
+                                    fontWeight: FontWeight.w700,
+                                    color: AppColor.black),
+                              ),
+                            );
+                          } else
+                            return Text(
+                              "Not found",
+                              style: theme.textTheme.bodyLarge!.copyWith(
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColor.black),
+                            );
+                        }),
+                    FutureBuilder(
+                        future: track,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData) {
+                            String allInfo =
+                                snapshot.data!.artists!.first.name! +
+                                    " - " +
+                                    snapshot.data!.album!.name!;
+                            return Text(
+                              allInfo.length > 40
+                                  ? allInfo.substring(0, 38) + "..."
+                                  : allInfo,
+                              style: theme.textTheme.bodyMedium,
+                            );
+                          } else {
+                            return Text(
+                              "Not found",
+                              style: theme.textTheme.bodyMedium,
+                            );
+                          }
+                        }),
+                    FutureBuilder(
+                        future: track,
+                        builder: (context, snapshot) {
+                          if (snapshot.hasData)
+                            return Text(
+                              "Popularity (0-100) : ${snapshot.data!.popularity!}",
+                              style: theme.textTheme.bodyMedium,
+                            );
+                          else {
+                            return Text(
+                              "Not found",
+                              style: theme.textTheme.bodyMedium,
+                            );
+                          }
+                        }),
+                    Padding(
+                      padding: EdgeInsets.only(top: 16.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              controller.swiperController.swipe(
+                                CardSwiperDirection.left,
+                              );
+                              controller.update();
+                            },
+                            child: Container(
+                              width: 56.h,
+                              height: 56.h,
+                              decoration: BoxDecoration(
+                                  color: AppColor.white,
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x11000000),
+                                      blurRadius: 16,
+                                      spreadRadius: 0,
+                                    )
+                                  ]),
+                              child: Icon(
+                                Icons.close_rounded,
+                                size: 24.h,
+                              ),
+                            ),
                           ),
-                        ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: GestureDetector(
+                              onTap: () async {
+                                setState(() {
+                                  isPlaying = !isPlaying;
+
+                                  isPlaying
+                                      ? _animationController.reverse()
+                                      : _animationController.forward();
+                                });
+                                isPlaying
+                                    ? await _player.resume()
+                                    : await _player.pause();
+                              },
+                              child: Container(
+                                width: 56.h,
+                                height: 56.h,
+                                decoration: BoxDecoration(
+                                    color: PrimaryColors().blueGray500,
+                                    shape: BoxShape.circle,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Color(0x11000000),
+                                        blurRadius: 16,
+                                        spreadRadius: 0,
+                                      )
+                                    ]),
+                                child: Center(
+                                  child: AnimatedIcon(
+                                      size: 24.h,
+                                      icon: AnimatedIcons.pause_play,
+                                      progress: _animationController),
+                                ),
+                              ),
+                            ),
+                          ),
+                          // Container(
+                          //   margin: EdgeInsets.symmetric(horizontal: 24.h),
+                          //   width: 56.h,
+                          //   height: 56.h,
+                          //   decoration: BoxDecoration(
+                          //       color: AppColor.primaryColor,
+                          //       shape: BoxShape.circle,
+                          //       boxShadow: [
+                          //         BoxShadow(
+                          //           color: Color(0x11000000),
+                          //           blurRadius: 16,
+                          //           spreadRadius: 0,
+                          //         )
+                          //       ]),
+                          //   child: CustomImageView(
+                          //     imagePath: ImageConstant.starWhiteIc,
+                          //     margin: EdgeInsets.all(16.h),
+                          //   ),
+                          // ),
+                          GestureDetector(
+                            onTap: () {
+                              controller.swiperController
+                                  .swipe(CardSwiperDirection.right);
+
+                              controller.update();
+                            },
+                            child: Container(
+                              width: 56.h,
+                              height: 56.h,
+                              decoration: BoxDecoration(
+                                  color: AppColor.primaryColor,
+                                  shape: BoxShape.circle,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Color(0x11000000),
+                                      blurRadius: 16,
+                                      spreadRadius: 0,
+                                    )
+                                  ]),
+                              child: CustomImageView(
+                                imagePath: ImageConstant.loveM,
+                                margin: EdgeInsets.all(16.h),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Navigates to the homeSearchPartnersSwipeLeftTabContainerScreen when the action is triggered.
+  onTapBtnClose() {
+    Get.toNamed(
+      AppRoutes.homeSearchPartnersSwipeLeftTabContainerScreen,
+    );
+  }
+
+  // String _generateArtistsText(List<TrackArtist> list) {
+  //   String finalString = list.first.name!;
+
+  //   if (list.length >= 2) {
+  //     finalString += " (feat. ";
+  //     for (int i = 1; i < list.length; i++) {
+  //       if (i == 1)
+  //         finalString += list[i].name!;
+  //       else
+  //         finalString += ", ${list[i].name!}";
+  //     }
+  //     finalString += ")";
+  //   }
+
+  //   return finalString;
+  // }
+}
+
+
+// delete later, keep for now just in case and apply the swipe logic to the new swipe screen
+                                // CustomImageView(
+                                //  imagePath:
+                                      // AppListData.searchPersonList[index].img,
+                                 //  height: 250.h,
+                                  // width: double.infinity,
+                                 //  radius: BorderRadius.circular(8.h),
+                               // ),
+
+
+// Container(
+                        //   height: 299.h,
+                        //   width: double.infinity,
+                        //   decoration: BoxDecoration(
+                        //     gradient: LinearGradient(
+                        //         begin: Alignment.topCenter,
+                        //         end: Alignment.bottomCenter,
+                        //         colors: [
+                        //           Colors.transparent,
+                        //           Color(0x0),
+                        //           Color(0x8A000000)
+                        //         ]),
+                        //     borderRadius: BorderRadiusStyle.roundedBorder8,
+                        //   ),
+                        // ),
                         // Positioned(
                         //   right: 8.h,
                         //   top: 8.h,
@@ -180,151 +455,3 @@ class HomeSearchPartnersPage extends StatelessWidget {
                         //     SizedBox(height: 20),
                         //   ],
                         // ),
-                      ],
-                    ),
-                    Text(
-                      'FEIN',
-                      style: theme.textTheme.bodyLarge!.copyWith(
-                          fontWeight: FontWeight.w600, color: AppColor.black),
-                    ),
-                    Text(
-                      'Travis Scott - UTOPIA',
-                      style: theme.textTheme.bodyMedium,
-                    ),
-                    Text(
-                      'Popularity (0-100): ',
-                      style: theme.textTheme.bodyMedium,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(top: 16.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              controller.swiperController.swipe(
-                                CardSwiperDirection.left,
-                              );
-                              controller.update();
-                            },
-                            child: Container(
-                              width: 56.h,
-                              height: 56.h,
-                              decoration: BoxDecoration(
-                                  color: AppColor.white,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0x11000000),
-                                      blurRadius: 16,
-                                      spreadRadius: 0,
-                                    )
-                                  ]),
-                              child: Icon(
-                                Icons.close_rounded,
-                                size: 24.h,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 30.0),
-                            child: GestureDetector(
-                              onTap: () {
-                                MakeAPICall.playTrack('5Y35SjAfXjjG0sFQ3KOxmm');
-                              },
-                              child: Container(
-                                width: 56.h,
-                                height: 56.h,
-                                decoration: BoxDecoration(
-                                    color: PrimaryColors().blueGray500,
-                                    shape: BoxShape.circle,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(0x11000000),
-                                        blurRadius: 16,
-                                        spreadRadius: 0,
-                                      )
-                                    ]),
-                                child: Icon(
-                                  Icons.pause,
-                                  size: 24.h,
-                                ),
-                              ),
-                            ),
-                          ),
-                          // Container(
-                          //   margin: EdgeInsets.symmetric(horizontal: 24.h),
-                          //   width: 56.h,
-                          //   height: 56.h,
-                          //   decoration: BoxDecoration(
-                          //       color: AppColor.primaryColor,
-                          //       shape: BoxShape.circle,
-                          //       boxShadow: [
-                          //         BoxShadow(
-                          //           color: Color(0x11000000),
-                          //           blurRadius: 16,
-                          //           spreadRadius: 0,
-                          //         )
-                          //       ]),
-                          //   child: CustomImageView(
-                          //     imagePath: ImageConstant.starWhiteIc,
-                          //     margin: EdgeInsets.all(16.h),
-                          //   ),
-                          // ),
-                          GestureDetector(
-                            onTap: () {
-                              controller.swiperController
-                                  .swipe(CardSwiperDirection.right);
-
-                              controller.update();
-                            },
-                            child: Container(
-                              width: 56.h,
-                              height: 56.h,
-                              decoration: BoxDecoration(
-                                  color: AppColor.primaryColor,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0x11000000),
-                                      blurRadius: 16,
-                                      spreadRadius: 0,
-                                    )
-                                  ]),
-                              child: CustomImageView(
-                                imagePath: ImageConstant.loveM,
-                                margin: EdgeInsets.all(16.h),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  /// Navigates to the homeSearchPartnersSwipeLeftTabContainerScreen when the action is triggered.
-  onTapBtnClose() {
-    Get.toNamed(
-      AppRoutes.homeSearchPartnersSwipeLeftTabContainerScreen,
-    );
-  }
-}
-
-
-// delete later, keep for now just in case and apply the swipe logic to the new swipe screen
-                                // CustomImageView(
-                                //  imagePath:
-                                      // AppListData.searchPersonList[index].img,
-                                 //  height: 250.h,
-                                  // width: double.infinity,
-                                 //  radius: BorderRadius.circular(8.h),
-                               // ),

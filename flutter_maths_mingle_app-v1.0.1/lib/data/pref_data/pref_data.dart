@@ -193,6 +193,30 @@ class PrefData {
     prefs.setString('accessToken', jsonMap);
   }
 
+  static void setUserID(String id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('userID', id);
+  }
+
+  static Future<String?> getUserID() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id = prefs.getString('userID');
+
+    return id;
+  }
+
+  static void setPlaylistID(String id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('playlistID', id);
+  }
+
+  static Future<String?> getPlaylistID() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id = prefs.getString('playlistID');
+
+    return id;
+  }
+
   static Future<AccessTokenResponse?> getAccessToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? jsonMap = prefs.getString('accessToken');

@@ -25,11 +25,8 @@ class SpotifyAuthService {
         await client.requestAuthorization(clientId: clientID, customParams: {
       'show_dialog': 'true'
     }, scopes: [
-      'user-read-private',
-      'user-read-playback-state',
-      'user-modify-playback-state',
-      'user-read-currently-playing',
-      'user-read-email'
+      'playlist-modify-public',
+      'playlist-modify-private',
     ]);
     var authCode = authResp.code;
 
