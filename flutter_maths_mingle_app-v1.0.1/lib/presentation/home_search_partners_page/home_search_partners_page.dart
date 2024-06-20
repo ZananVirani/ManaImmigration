@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_maths_mingle_app/API/api_calls.dart';
 import 'package:flutter_maths_mingle_app/API/track.dart';
+import 'package:flutter_maths_mingle_app/data/list_data/app_listdata.dart';
 // import 'package:flutter_maths_mingle_app/data/list_data/app_listdata.dart';
 // import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -69,237 +70,253 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
         backgroundColor: PrimaryColors().mainColor,
         body: Padding(
           padding: EdgeInsets.only(top: 8.h),
-          child: ListView(
-            padding: EdgeInsets.only(top: 70.h, right: 24.h, left: 24.h),
-            shrinkWrap: true,
-            children: [
-              Container(
-                height: 575.v,
-                padding: EdgeInsets.only(
-                    bottom: 24.h, top: 16.h, left: 16.h, right: 16.h),
-                decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                      color: Color(0x11000000),
-                      blurRadius: 16.h,
-                      offset: Offset(0, 5),
-                      spreadRadius: 0,
+          child: CardSwiper(
+            backCardOffset: Offset(0, 0),
+            cardBuilder: (context, index, horizontalOffsetPercentage,
+                verticalOffsetPercentage) {
+              return ListView(
+                padding: EdgeInsets.only(top: 70.h, right: 24.h, left: 24.h),
+                shrinkWrap: true,
+                children: [
+                  Container(
+                    height: 575.v,
+                    padding: EdgeInsets.only(
+                        bottom: 24.h, top: 16.h, left: 16.h, right: 16.h),
+                    decoration: BoxDecoration(
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0x11000000),
+                          blurRadius: 16.h,
+                          offset: Offset(0, 5),
+                          spreadRadius: 0,
+                        ),
+                      ],
+                      borderRadius: BorderRadiusStyle.roundedBorder8,
+                      color: PrimaryColors().secondaryColor,
                     ),
-                  ],
-                  borderRadius: BorderRadiusStyle.roundedBorder8,
-                  color: PrimaryColors().secondaryColor,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Stack(
-                      clipBehavior: Clip.none,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
+                        Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            FutureBuilder(
+                              future: track,
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData)
+                                  return Image.network(
+                                      width: 400.h,
+                                      snapshot.data!.album!.images!.first.url);
+                                else if (snapshot.hasError)
+                                  return CustomImageView(
+                                    imagePath: ImageConstant.travis,
+                                  );
+                                else
+                                  return const CircularProgressIndicator();
+                              },
+                            ),
+                          ],
+                        ),
                         FutureBuilder(
-                          future: track,
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData)
-                              return Image.network(
-                                  width: 400.h,
-                                  snapshot.data!.album!.images!.first.url);
-                            else if (snapshot.hasError)
-                              return CustomImageView(
-                                imagePath: ImageConstant.travis,
-                              );
-                            else
-                              return const CircularProgressIndicator();
-                          },
+                            future: track,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                var songName = snapshot.data!.name!;
+                                return Padding(
+                                  padding: const EdgeInsets.only(top: 8.0),
+                                  child: Text(
+                                    songName.length > 65
+                                        ? songName.substring(0, 61) + "..."
+                                        : songName,
+                                    style: theme.textTheme.bodyLarge!.copyWith(
+                                        fontSize: 18.fSize,
+                                        fontWeight: FontWeight.w700,
+                                        color: AppColor.black),
+                                  ),
+                                );
+                              } else
+                                return Text(
+                                  "Not found",
+                                  style: theme.textTheme.bodyLarge!.copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      color: AppColor.black),
+                                );
+                            }),
+                        FutureBuilder(
+                            future: track,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                String allInfo =
+                                    snapshot.data!.artists!.first.name! +
+                                        " - " +
+                                        snapshot.data!.album!.name!;
+                                return Text(
+                                  allInfo.length > 40
+                                      ? allInfo.substring(0, 38) + "..."
+                                      : allInfo,
+                                  style: theme.textTheme.bodyMedium,
+                                );
+                              } else {
+                                return Text(
+                                  "Not found",
+                                  style: theme.textTheme.bodyMedium,
+                                );
+                              }
+                            }),
+                        FutureBuilder(
+                            future: track,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData)
+                                return Text(
+                                  "Popularity (0-100) : ${snapshot.data!.popularity!}",
+                                  style: theme.textTheme.bodyMedium,
+                                );
+                              else {
+                                return Text(
+                                  "Not found",
+                                  style: theme.textTheme.bodyMedium,
+                                );
+                              }
+                            }),
+                        Padding(
+                          padding: EdgeInsets.only(top: 16.h),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  controller.swiperController.swipe(
+                                    CardSwiperDirection.left,
+                                  );
+                                  controller.update();
+                                },
+                                child: Container(
+                                  width: 56.h,
+                                  height: 56.h,
+                                  decoration: BoxDecoration(
+                                      color: AppColor.white,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0x11000000),
+                                          blurRadius: 16,
+                                          spreadRadius: 0,
+                                        )
+                                      ]),
+                                  child: Icon(
+                                    Icons.close_rounded,
+                                    size: 24.h,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 30.0),
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    setState(() {
+                                      isPlaying = !isPlaying;
+
+                                      isPlaying
+                                          ? _animationController.reverse()
+                                          : _animationController.forward();
+                                    });
+                                    isPlaying
+                                        ? await _player.resume()
+                                        : await _player.pause();
+                                  },
+                                  child: Container(
+                                    width: 56.h,
+                                    height: 56.h,
+                                    decoration: BoxDecoration(
+                                        color: PrimaryColors().blueGray500,
+                                        shape: BoxShape.circle,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: Color(0x11000000),
+                                            blurRadius: 16,
+                                            spreadRadius: 0,
+                                          )
+                                        ]),
+                                    child: Center(
+                                      child: AnimatedIcon(
+                                          size: 24.h,
+                                          icon: AnimatedIcons.pause_play,
+                                          progress: _animationController),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              // Container(
+                              //   margin: EdgeInsets.symmetric(horizontal: 24.h),
+                              //   width: 56.h,
+                              //   height: 56.h,
+                              //   decoration: BoxDecoration(
+                              //       color: AppColor.primaryColor,
+                              //       shape: BoxShape.circle,
+                              //       boxShadow: [
+                              //         BoxShadow(
+                              //           color: Color(0x11000000),
+                              //           blurRadius: 16,
+                              //           spreadRadius: 0,
+                              //         )
+                              //       ]),
+                              //   child: CustomImageView(
+                              //     imagePath: ImageConstant.starWhiteIc,
+                              //     margin: EdgeInsets.all(16.h),
+                              //   ),
+                              // ),
+                              GestureDetector(
+                                onTap: () {
+                                  controller.swiperController
+                                      .swipe(CardSwiperDirection.right);
+
+                                  controller.update();
+                                },
+                                child: Container(
+                                  width: 56.h,
+                                  height: 56.h,
+                                  decoration: BoxDecoration(
+                                      color: AppColor.primaryColor,
+                                      shape: BoxShape.circle,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0x11000000),
+                                          blurRadius: 16,
+                                          spreadRadius: 0,
+                                        )
+                                      ]),
+                                  child: CustomImageView(
+                                    imagePath: ImageConstant.loveM,
+                                    margin: EdgeInsets.all(16.h),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                    FutureBuilder(
-                        future: track,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            var songName = snapshot.data!.name!;
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 8.0),
-                              child: Text(
-                                songName.length > 65
-                                    ? songName.substring(0, 61) + "..."
-                                    : songName,
-                                style: theme.textTheme.bodyLarge!.copyWith(
-                                    fontSize: 18.fSize,
-                                    fontWeight: FontWeight.w700,
-                                    color: AppColor.black),
-                              ),
-                            );
-                          } else
-                            return Text(
-                              "Not found",
-                              style: theme.textTheme.bodyLarge!.copyWith(
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColor.black),
-                            );
-                        }),
-                    FutureBuilder(
-                        future: track,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            String allInfo =
-                                snapshot.data!.artists!.first.name! +
-                                    " - " +
-                                    snapshot.data!.album!.name!;
-                            return Text(
-                              allInfo.length > 40
-                                  ? allInfo.substring(0, 38) + "..."
-                                  : allInfo,
-                              style: theme.textTheme.bodyMedium,
-                            );
-                          } else {
-                            return Text(
-                              "Not found",
-                              style: theme.textTheme.bodyMedium,
-                            );
-                          }
-                        }),
-                    FutureBuilder(
-                        future: track,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData)
-                            return Text(
-                              "Popularity (0-100) : ${snapshot.data!.popularity!}",
-                              style: theme.textTheme.bodyMedium,
-                            );
-                          else {
-                            return Text(
-                              "Not found",
-                              style: theme.textTheme.bodyMedium,
-                            );
-                          }
-                        }),
-                    Padding(
-                      padding: EdgeInsets.only(top: 16.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              controller.swiperController.swipe(
-                                CardSwiperDirection.left,
-                              );
-                              controller.update();
-                            },
-                            child: Container(
-                              width: 56.h,
-                              height: 56.h,
-                              decoration: BoxDecoration(
-                                  color: AppColor.white,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0x11000000),
-                                      blurRadius: 16,
-                                      spreadRadius: 0,
-                                    )
-                                  ]),
-                              child: Icon(
-                                Icons.close_rounded,
-                                size: 24.h,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 30.0),
-                            child: GestureDetector(
-                              onTap: () async {
-                                setState(() {
-                                  isPlaying = !isPlaying;
-
-                                  isPlaying
-                                      ? _animationController.reverse()
-                                      : _animationController.forward();
-                                });
-                                isPlaying
-                                    ? await _player.resume()
-                                    : await _player.pause();
-                              },
-                              child: Container(
-                                width: 56.h,
-                                height: 56.h,
-                                decoration: BoxDecoration(
-                                    color: PrimaryColors().blueGray500,
-                                    shape: BoxShape.circle,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Color(0x11000000),
-                                        blurRadius: 16,
-                                        spreadRadius: 0,
-                                      )
-                                    ]),
-                                child: Center(
-                                  child: AnimatedIcon(
-                                      size: 24.h,
-                                      icon: AnimatedIcons.pause_play,
-                                      progress: _animationController),
-                                ),
-                              ),
-                            ),
-                          ),
-                          // Container(
-                          //   margin: EdgeInsets.symmetric(horizontal: 24.h),
-                          //   width: 56.h,
-                          //   height: 56.h,
-                          //   decoration: BoxDecoration(
-                          //       color: AppColor.primaryColor,
-                          //       shape: BoxShape.circle,
-                          //       boxShadow: [
-                          //         BoxShadow(
-                          //           color: Color(0x11000000),
-                          //           blurRadius: 16,
-                          //           spreadRadius: 0,
-                          //         )
-                          //       ]),
-                          //   child: CustomImageView(
-                          //     imagePath: ImageConstant.starWhiteIc,
-                          //     margin: EdgeInsets.all(16.h),
-                          //   ),
-                          // ),
-                          GestureDetector(
-                            onTap: () {
-                              controller.swiperController
-                                  .swipe(CardSwiperDirection.right);
-
-                              controller.update();
-                            },
-                            child: Container(
-                              width: 56.h,
-                              height: 56.h,
-                              decoration: BoxDecoration(
-                                  color: AppColor.primaryColor,
-                                  shape: BoxShape.circle,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color(0x11000000),
-                                      blurRadius: 16,
-                                      spreadRadius: 0,
-                                    )
-                                  ]),
-                              child: CustomImageView(
-                                imagePath: ImageConstant.loveM,
-                                margin: EdgeInsets.all(16.h),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                  )
+                ],
+              );
+            },
+            cardsCount: AppListData.searchPersonList.length,
+            controller: controller.swiperController,
           ),
         ),
       ),
     );
   }
+
+  // child: CardSwiper(
+  //         backCardOffset: Offset(0, 0), // this is the reference for the swiping
+  //         cardBuilder: (context, index, horizontalOffsetPercentage, verticalOffsetPercentage) //this is the callback for the swiping
+  //          {
+  //           return Padding(
+  //             padding: EdgeInsets.only(top: 8.h, right: 24.h, left: 24.h),
+  //             child: Container(
 
   /// Navigates to the homeSearchPartnersSwipeLeftTabContainerScreen when the action is triggered.
   onTapBtnClose() {
