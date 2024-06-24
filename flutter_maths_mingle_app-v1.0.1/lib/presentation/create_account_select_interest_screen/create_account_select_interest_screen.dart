@@ -15,7 +15,7 @@ class CreateAccountSelectInterestScreen
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PrefData.getAppBar(
-            onTap: () => Get.back(), text: 'Select up to 5 interests'),
+            onTap: () => Get.back(), text: 'Select atleast 1 interest'),
         body: ListView(
             padding: EdgeInsets.symmetric(horizontal: 24.h),
             children: [
