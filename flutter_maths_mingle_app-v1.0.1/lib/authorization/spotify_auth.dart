@@ -47,25 +47,31 @@ class SpotifyAuthService {
   }
 
   static Future<AccessTokenResponse> refreshToken() async {
-    AccessTokenResponse? accessToken = await PrefData.getAccessToken();
+    String? refreshToken = await PrefData.getRefreshToken();
 
     String credentials = "$clientID:$clientSecret";
     String encoded = base64.encode(utf8.encode(credentials));
 
-    Response<dynamic> responseToken =
-        await _dio.post('https://accounts.spotify.com/api/token',
-            queryParameters: {
-              'grant_type': 'refresh_token',
-              'refresh_token': accessToken!.refreshToken,
-              'client_id': clientID
-            },
-            options: Options(headers: {
-              'Content-Type': 'application/x-www-form-urlencoded',
-              'Authorization': "Basic $encoded"
-            }));
+    try {
+      Response<dynamic> responseToken =
+          await _dio.post('https://accounts.spotify.com/api/token',
+              queryParameters: {
+                'grant_type': 'refresh_token',
+                'refresh_token': refreshToken,
+              },
+              options: Options(headers: {
+                'content-type': 'application/x-www-form-urlencoded',
+                'Authorization': 'Basic $encoded'
+              }));
 
-    Map<String, dynamic> mapToken = responseToken.data;
-    accessToken = AccessTokenResponse.fromMap(mapToken);
+      Map<String, dynamic> mapToken = responseToken.data;
+      AccessTokenResponse accessToken = AccessTokenResponse.fromMap(mapToken);
+      print(accessToken.refreshToken);
+      return accessToken;
+    } catch (e) {
+      print("ERRORRRRR");
+      print(e);
+    }
 
     // final refresh = Refresh.fromJson(newToken.data);
 
@@ -79,6 +85,6 @@ class SpotifyAuthService {
     //   print("Something crashed!");
     // }
 
-    return accessToken;
+    return AccessTokenResponse();
   }
 }

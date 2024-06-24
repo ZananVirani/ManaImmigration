@@ -1,50 +1,66 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
-import 'package:flutter_maths_mingle_app/presentation/discover_page/discover_page.dart';
-import 'package:flutter_maths_mingle_app/presentation/home_make_friends_tab_container_page/home_make_friends_tab_container_page.dart';
 import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/home_search_partners_page.dart';
-import 'package:flutter_maths_mingle_app/presentation/matches_screen/matches_screen.dart';
 import 'package:flutter_maths_mingle_app/presentation/messages_page/messages_page.dart';
 import '../../data/pref_data/pref_data.dart';
-import '../../widgets/custom_bottom_bar.dart';
+// import '../../widgets/custom_bottom_bar.dart';
 import 'controller/bottombar_screen_controller.dart';
 
 class BottomBarScreen extends StatefulWidget {
   BottomBarScreen({Key? key}) : super(key: key);
 
+  static List<Widget> pageList = [
+    HomeSearchPartnersPage(),
+    MessagesPage(),
+  ];
   @override
   State<BottomBarScreen> createState() => _BottomBarScreenState();
 }
 
 class _BottomBarScreenState extends State<BottomBarScreen> {
+  List<Widget> pageList = [
+    HomeSearchPartnersPage(),
+    MessagesPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<BottomBarScreenController>(
-      builder: (controller) {
-        // ignore: deprecated_member_use
-        return WillPopScope(
-          onWillPop: () {
-            if (PrefData.currentIndex == 0) {
-              {
-                exitDialogBox(context, controller);
-                controller.update();
-              }
-            } else {
-              PrefData.currentIndex = 0;
-              controller.update();
-            }
-            return Future(() => false);
-          },
-          child: Scaffold(
-              backgroundColor: AppColor.white,
-              body: Center(
-                child: pageList.elementAt(PrefData.currentIndex),
-              ),
-              bottomNavigationBar: CustomBottomBar()),
-        );
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      color: AppColor.white,
+      home: Center(child: HomeSearchPartnersPage()),
+      routes: {
+        '/home_page': (context) => const HomeSearchPartnersPage(),
+        '/liked_songs': (context) => const MessagesPage()
       },
-      init: BottomBarScreenController(),
+      initialRoute: 'home_page',
     );
+    // return GetBuilder<BottomBarScreenController>(
+    //   builder: (controller) {
+    //     // ignore: deprecated_member_use
+    //     return WillPopScope(
+    //       onWillPop: () {
+    //         if (PrefData.currentIndex == 0) {
+    //           {
+    //             exitDialogBox(context, controller);
+    //             controller.update();
+    //           }
+    //         } else {
+    //           PrefData.currentIndex = 0;
+    //           controller.update();
+    //         }
+    //         return Future(() => false);
+    //       },
+    //       child: Scaffold(
+    //           backgroundColor: AppColor.white,
+    //           body: Center(
+    //             child: pageList.elementAt(0),
+    //           ),
+    //           bottomNavigationBar: CustomBottomBar()),
+    //     );
+    //   },
+    //   init: BottomBarScreenController(),
+    // );
   }
 
   void exitDialogBox(
@@ -141,11 +157,4 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
       ),
     );
   }
-
-  List<Widget> pageList = [
-    HomeSearchPartnersPage(),
-    //DiscoverPage(),
-    //MatchesScreen(),
-    MessagesPage(),
-  ];
 }

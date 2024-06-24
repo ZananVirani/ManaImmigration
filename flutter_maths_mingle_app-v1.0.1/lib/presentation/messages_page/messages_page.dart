@@ -3,6 +3,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
 import 'package:flutter_maths_mingle_app/presentation/bottombar_screen/controller/bottombar_screen_controller.dart';
+import 'package:flutter_maths_mingle_app/widgets/custom_bottom_bar.dart';
 
 // import '../messages_page/widgets/chatcomponent_item_widget.dart';
 // import '../messages_page/widgets/frame_item_widget.dart';
@@ -15,7 +16,7 @@ import 'package:flutter_maths_mingle_app/core/app_export.dart';
 
 class MessagesPage extends StatefulWidget {
   // Add List of songs
-  MessagesPage({super.key});
+  const MessagesPage({super.key});
 
   @override
   State<MessagesPage> createState() => _MessagesPageState();
@@ -32,102 +33,103 @@ class _MessagesPageState extends State<MessagesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Container(
-        padding:
-            EdgeInsets.only(left: 24.h, right: 24.h, top: 50.h, bottom: 25.h),
-        decoration:
-            BoxDecoration(color: PrimaryColors().secondaryColor, boxShadow: [
-          BoxShadow(
-            color: Color(0x11000000),
-            blurRadius: 12.h,
-            offset: Offset(0, 5),
-            spreadRadius: 0,
-          )
-        ]),
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                PrefData.currentIndex = 0;
-                bottomBarScreenController.update();
-                controller.update();
-                // CommonPop.popScreen(context, RoutesPath.loginScreen);
-              },
-              child: Container(
-                margin: EdgeInsets.only(right: 20.h),
-                height: 35.h,
-                width: 35.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColor.lightGray,
-                ),
-                child: Icon(
-                  Icons.arrow_back_ios_new_rounded,
-                  color: AppColor.black,
-                  size: 18.h,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 5.0),
-              child: Text(
-                'My Liked Songs',
-                style: theme.textTheme.titleLarge!.copyWith(
-                  color: AppColor.black,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      _buildSubMenu((value) {
-        setState(() {
-          checkAll = value;
-        });
-      }),
-      Expanded(
-        child: ListView.builder(
-          shrinkWrap: true,
-          physics: ClampingScrollPhysics(),
-          primary: true,
-          padding: EdgeInsets.zero,
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            bool isChecked = checkAll;
-
-            return StatefulBuilder(builder: (context, setState) {
-              return Column(
-                children: [
-                  ListTile(
-                    leading: Checkbox(
-                        activeColor: Colors.orange,
-                        fillColor: WidgetStateProperty.all(AppColor.white),
-                        value: isChecked,
-                        tristate: false,
-                        onChanged: (newBool) {
-                          setState(() => isChecked = !isChecked);
-                        }),
-                    title: Text("Song Name"),
-                    subtitle: Text("Song Artist"),
-                    trailing: Padding(
-                      padding: const EdgeInsets.only(right: 8.0),
-                      child: Text("Song Preview"),
-                    ),
-                    contentPadding: EdgeInsets.all(8.0),
+    return Scaffold(
+      bottomNavigationBar: CustomBottomBar(),
+      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Container(
+          padding:
+              EdgeInsets.only(left: 24.h, right: 24.h, top: 50.h, bottom: 25.h),
+          decoration:
+              BoxDecoration(color: PrimaryColors().secondaryColor, boxShadow: [
+            BoxShadow(
+              color: Color(0x11000000),
+              blurRadius: 12.h,
+              offset: Offset(0, 5),
+              spreadRadius: 0,
+            )
+          ]),
+          child: Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  PrefData.currentIndex = 0;
+                  Navigator.pop(context);
+                  // CommonPop.popScreen(context, RoutesPath.loginScreen);
+                },
+                child: Container(
+                  margin: EdgeInsets.only(right: 20.h),
+                  height: 35.h,
+                  width: 35.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColor.lightGray,
                   ),
-                  Container(
-                      width: double.infinity,
-                      height: 2.0,
-                      color: Colors.black12),
-                ],
-              );
-            });
-          },
+                  child: Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    color: AppColor.black,
+                    size: 18.h,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 5.0),
+                child: Text(
+                  'My Liked Songs',
+                  style: theme.textTheme.titleLarge!.copyWith(
+                    color: AppColor.black,
+                    fontWeight: FontWeight.w900,
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
-      )
-    ]);
+        _buildSubMenu((value) {
+          setState(() {
+            checkAll = value;
+          });
+        }),
+        Expanded(
+          child: ListView.builder(
+            shrinkWrap: true,
+            physics: ClampingScrollPhysics(),
+            primary: true,
+            padding: EdgeInsets.zero,
+            itemCount: 10,
+            itemBuilder: (context, index) {
+              bool isChecked = checkAll;
+
+              return StatefulBuilder(builder: (context, setState) {
+                return Column(
+                  children: [
+                    ListTile(
+                      leading: Checkbox(
+                          activeColor: AppColor.primaryColor,
+                          value: isChecked,
+                          tristate: false,
+                          onChanged: (newBool) {
+                            setState(() => isChecked = !isChecked);
+                          }),
+                      title: Text("Song Name"),
+                      subtitle: Text("Song Artist"),
+                      trailing: Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Text("Song Preview"),
+                      ),
+                      contentPadding: EdgeInsets.all(8.0),
+                    ),
+                    Container(
+                        width: double.infinity,
+                        height: 2.0,
+                        color: Colors.black12),
+                  ],
+                );
+              });
+            },
+          ),
+        )
+      ]),
+    );
   }
 
   // _setToValue(bool value) {

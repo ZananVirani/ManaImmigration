@@ -120,10 +120,13 @@ class CustomBottomBar extends StatelessWidget {
             // ),
           ],
           onTap: (index) {
-            PrefData.currentIndex = index;
-            controller.update();
-            // onChanged?.call(bottomMenuList[index].type);
-            controller.update();
+            if (index != PrefData.currentIndex) {
+              PrefData.currentIndex = index;
+              if (index == 0)
+                Navigator.pop(context);
+              else
+                Navigator.pushNamed(context, '/liked_songs');
+            }
           },
         );
       },

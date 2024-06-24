@@ -186,13 +186,6 @@ class PrefData {
     return prefs.getBool(isClickMic) ?? true;
   }
 
-  static void setAccessToken(AccessTokenResponse accessToken) async {
-    Map<String, dynamic> mapToken = accessToken.toMap();
-    String jsonMap = json.encode(mapToken);
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('accessToken', jsonMap);
-  }
-
   static void setUserID(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('userID', id);
@@ -225,6 +218,25 @@ class PrefData {
     AccessTokenResponse accessToken = AccessTokenResponse.fromMap(mapToken);
 
     return accessToken;
+  }
+
+  static void setAccessToken(AccessTokenResponse accessToken) async {
+    Map<String, dynamic> mapToken = accessToken.toMap();
+    String jsonMap = json.encode(mapToken);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('accessToken', jsonMap);
+  }
+
+  static void setRefreshToken(AccessTokenResponse accessToken) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('refreshToken', accessToken.refreshToken!);
+  }
+
+  static Future<String?> getRefreshToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? refreshToken = prefs.getString('refreshToken');
+
+    return refreshToken;
   }
 
   static setClickKeyboard(bool value) async {
