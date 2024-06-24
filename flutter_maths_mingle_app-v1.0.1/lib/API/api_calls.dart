@@ -116,13 +116,9 @@ class MakeAPICall {
         await makeGenericGetCall(path, data);
 
     if (searchResponse != null) {
-      print("reached good stuff");
-      print(searchResponse.data);
       if (searchResponse.data != null) {
         final SearchResult searchResult =
             SearchResult.fromJson(searchResponse.data!);
-        print("WHATTTTT");
-        print(searchResult.tracks);
         final tracks = searchResult.tracks!.items;
         return tracks!;
       }
