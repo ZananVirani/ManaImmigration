@@ -71,7 +71,7 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
                           PrefData.setAccessToken(accessToken);
                           PrefData.setRefreshToken(accessToken);
                           PrefData.setIntro(false);
-                          Get.offAndToNamed(AppRoutes.bottomBarScreen);
+                          Get.offAndToNamed(AppRoutes.createAccountBirthdateScreen);
                         } catch (e) {
                           showCupertinoDialog(
                               context: context, builder: createDialog);
