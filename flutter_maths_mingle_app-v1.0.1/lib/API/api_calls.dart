@@ -102,11 +102,11 @@ class MakeAPICall {
       print("Did not work");
   }
 
-  static Future<List<Track>> searchForSong() async {
+  static Future<List<Track>> searchForSong(String genre) async {
     String path = "search";
 
     Map<String, dynamic> data = {
-      'q': 'track:Fe!n',
+      'q': 'genre:$genre',
       'type': 'track',
     };
 
@@ -114,17 +114,14 @@ class MakeAPICall {
         await makeGenericGetCall(path, data);
 
     if (searchResponse != null) {
-      if (searchResponse.data != null) {
-        final SearchResult searchResult =
-            SearchResult.fromJson(searchResponse.data!);
-        final tracks = searchResult.tracks!.items;
-        return tracks!;
-      }
+      final SearchResult searchResult =
+          SearchResult.fromJson(searchResponse.data!);
+      final tracks = searchResult.tracks!.items;
+      tracks!.removeWhere((item) => item.previewUrl == null);
+      return tracks;
     } else {
       throw Exception("Did not get profile");
     }
-
-    return [];
   }
 
   static Future<Profile> getProfile() async {
