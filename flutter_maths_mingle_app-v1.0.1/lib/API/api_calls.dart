@@ -7,11 +7,9 @@ import 'package:flutter_maths_mingle_app/API/search.dart';
 import 'package:flutter_maths_mingle_app/API/track.dart';
 import 'package:flutter_maths_mingle_app/authorization/spotify_auth.dart';
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
-import 'package:audioplayers/audioplayers.dart';
 import 'package:oauth2_client/access_token_response.dart';
 
 class MakeAPICall {
-  static final player = AudioPlayer();
   static AccessTokenResponse? accessToken;
   static final _dio = Dio();
 
