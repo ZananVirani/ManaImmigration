@@ -8,6 +8,7 @@ import 'package:flutter_maths_mingle_app/authorization/spotify_auth.dart';
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:oauth2_client/access_token_response.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MakeAPICall {
   static final player = AudioPlayer();
@@ -99,7 +100,7 @@ class MakeAPICall {
 
   static void searchForSong() async {}
 
-  static Future<Profile> getProfile() async {
+  static Future<Profile> getProfile(CollectionReference users) async {
     String path = 'me';
 
     final Response<Map<String, dynamic>>? prof =
@@ -108,6 +109,9 @@ class MakeAPICall {
     if (prof != null) {
       final profile = Profile.fromJson(prof.data!);
       PrefData.setUserID(profile.id!);
+      print("save data");
+      saveProfileData(users, profile);
+      print("done");
       return profile;
     } else {
       throw Exception("Did not get profile");
@@ -146,5 +150,29 @@ class MakeAPICall {
       print("Songs added");
     } else
       print("Did not work");
+  }
+
+  static void saveProfileData (CollectionReference users, Profile profile){
+    print("here");
+    var userEmail = profile.email;
+    var userDisplayName = profile.displayName;
+    var userCountry = profile.country;
+    var userId = profile.id;
+    
+    print(userEmail);
+    print(userDisplayName);
+    print(userCountry);
+    print(userId);
+    try{
+    users.add({
+    'email': userEmail,
+    'displayName': userDisplayName,
+    'userCountry': userCountry,
+    'userID': userId
+    });
+    print("works");
+    } catch(e){
+      print("error");
+    }
   }
 }

@@ -27,6 +27,8 @@ class SpotifyAuthService {
     }, scopes: [
       'playlist-modify-public',
       'playlist-modify-private',
+      'user-read-private',
+      'user-read-email'
     ]);
     var authCode = authResp.code;
 

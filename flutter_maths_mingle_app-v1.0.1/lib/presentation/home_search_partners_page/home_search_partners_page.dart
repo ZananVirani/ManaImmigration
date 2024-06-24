@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_import
 
 import 'dart:async';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
@@ -51,6 +51,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     this._animationController = AnimationController(
         value: 1.0, vsync: this, duration: Duration(milliseconds: 500));
     super.initState();
+    
   }
 
   Future<Track> fetchTrack() {
@@ -60,10 +61,12 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
 
   @override
   Widget build(BuildContext context) {
-    return _buildFiftyColumn();
+     CollectionReference users = FirebaseFirestore.instance.collection('users');
+    // MakeAPICall.saveProfileData(users, MakeAPICall().getProfile());
+    return _buildFiftyColumn(users);
   }
 
-  Widget _buildFiftyColumn() {
+  Widget _buildFiftyColumn(CollectionReference users) {
     return SafeArea(
       child: Scaffold(
         backgroundColor: PrimaryColors().mainColor,
@@ -210,6 +213,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                 const EdgeInsets.symmetric(horizontal: 30.0),
                             child: GestureDetector(
                               onTap: () async {
+                                
+                                MakeAPICall.getProfile(users);
                                 setState(() {
                                   isPlaying = !isPlaying;
 
