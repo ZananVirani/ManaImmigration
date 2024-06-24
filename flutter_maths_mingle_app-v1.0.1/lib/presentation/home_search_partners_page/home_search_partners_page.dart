@@ -82,7 +82,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                 shrinkWrap: true,
                 children: [
                   Container(
-                    height: 575.v,
+                    height: 475.v,
                     padding: EdgeInsets.only(
                         bottom: 24.h, top: 16.h, left: 16.h, right: 16.h),
                     decoration: BoxDecoration(
