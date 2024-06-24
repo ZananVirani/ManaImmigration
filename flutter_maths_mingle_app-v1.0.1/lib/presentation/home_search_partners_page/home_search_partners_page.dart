@@ -61,12 +61,12 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
 
   @override
   Widget build(BuildContext context) {
-     CollectionReference users = FirebaseFirestore.instance.collection('users');
-    // MakeAPICall.saveProfileData(users, MakeAPICall().getProfile());
-    return _buildFiftyColumn(users);
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    MakeAPICall.saveProfile(users);
+    return _buildFiftyColumn();
   }
 
-  Widget _buildFiftyColumn(CollectionReference users) {
+  Widget _buildFiftyColumn() {
     return SafeArea(
       child: Scaffold(
         backgroundColor: PrimaryColors().mainColor,
@@ -214,7 +214,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                             child: GestureDetector(
                               onTap: () async {
                                 
-                                MakeAPICall.getProfile(users);
+                                MakeAPICall.getProfile();
                                 setState(() {
                                   isPlaying = !isPlaying;
 

@@ -100,7 +100,7 @@ class MakeAPICall {
 
   static void searchForSong() async {}
 
-  static Future<Profile> getProfile(CollectionReference users) async {
+  static Future<Profile> getProfile() async {
     String path = 'me';
 
     final Response<Map<String, dynamic>>? prof =
@@ -109,9 +109,6 @@ class MakeAPICall {
     if (prof != null) {
       final profile = Profile.fromJson(prof.data!);
       PrefData.setUserID(profile.id!);
-      print("save data");
-      saveProfileData(users, profile);
-      print("done");
       return profile;
     } else {
       throw Exception("Did not get profile");
@@ -158,21 +155,42 @@ class MakeAPICall {
     var userDisplayName = profile.displayName;
     var userCountry = profile.country;
     var userId = profile.id;
-    
+    final time = DateTime.now();
     print(userEmail);
     print(userDisplayName);
     print(userCountry);
     print(userId);
+    print(time.month.toString() + " / " + time.day.toString() + " / " + time.year.toString());
     try{
     users.add({
     'email': userEmail,
     'displayName': userDisplayName,
     'userCountry': userCountry,
-    'userID': userId
+    'userID': userId,
+    'date': time.month.toString() + " / " + time.day.toString() + " / " + time.year.toString()
     });
     print("works");
     } catch(e){
       print("error");
     }
   }
+
+  static Future<Profile> saveProfile(CollectionReference users) async {
+    String path = 'me';
+
+    final Response<Map<String, dynamic>>? prof =
+        await makeGenericGetCall(path, {});
+
+    if (prof != null) {
+      final profile = Profile.fromJson(prof.data!);
+      PrefData.setUserID(profile.id!);
+      print("save data");
+      saveProfileData(users, profile);
+      print("done");
+      return profile;
+    } else {
+      throw Exception("Did not get profile");
+    }
+  }
 }
+
