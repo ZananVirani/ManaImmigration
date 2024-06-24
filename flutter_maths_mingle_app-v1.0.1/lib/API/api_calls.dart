@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:flutter_maths_mingle_app/API/playlist.dart' as playlistTrack;
 import 'package:flutter_maths_mingle_app/API/profile.dart';
+import 'package:flutter_maths_mingle_app/API/search.dart';
 import 'package:flutter_maths_mingle_app/API/track.dart';
 import 'package:flutter_maths_mingle_app/authorization/spotify_auth.dart';
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
@@ -17,6 +18,7 @@ class MakeAPICall {
   static Future<AccessTokenResponse> _refreshToken() async {
     accessToken = await SpotifyAuthService.refreshToken();
     PrefData.setAccessToken(accessToken!);
+    print("Successful REFRESHHHHHHHH!!!!!");
     return accessToken!;
   }
 
@@ -24,53 +26,58 @@ class MakeAPICall {
       String path, Map<String, dynamic> queryParameters) async {
     accessToken = await PrefData.getAccessToken();
 
-    if (accessToken!.isExpired()) {
-      _refreshToken().then((value) {
-        accessToken = value;
-        return value;
-      });
-    }
-
     const base_url = 'https://api.spotify.com/v1/';
 
-    Response<Map<String, dynamic>> response = await _dio.get(base_url + path,
-        queryParameters: queryParameters,
-        options: Options(
-            headers: {'Authorization': 'Bearer ${accessToken!.accessToken}'}));
+    try {
+      Response<Map<String, dynamic>> response = await _dio.get(base_url + path,
+          queryParameters: queryParameters,
+          options: Options(headers: {
+            'Authorization': 'Bearer ${accessToken!.accessToken}'
+          }));
 
-    if (response.statusCode != 200) {
-      print("Not proper");
-      return null;
+      if (response.statusCode != 200) {
+        print("Not proper");
+        print(response.statusCode);
+        return null;
+      }
+      return response;
+    } catch (e) {
+      _refreshToken();
+      return makeGenericGetCall(path, queryParameters);
     }
-
-    return response;
   }
 
   static Future<Response<Map<String, dynamic>>?> makeGenericPostCall(
       String path, Map<String, dynamic> data) async {
     accessToken = await PrefData.getAccessToken();
 
-    if (accessToken!.isExpired()) {
-      _refreshToken().then((value) {
-        accessToken = value;
-        return value;
-      });
-    }
-
     const base_url = 'https://api.spotify.com/v1/';
 
-    Response<Map<String, dynamic>> response = await _dio.post(base_url + path,
-        data: data,
-        options: Options(
-            headers: {'Authorization': 'Bearer ${accessToken!.accessToken}'}));
+    try {
+      Response<Map<String, dynamic>> response = await _dio.post(base_url + path,
+          data: data,
+          options: Options(headers: {
+            'Authorization': 'Bearer ${accessToken!.accessToken}'
+          }));
 
-    if (response.statusCode != 201) {
-      print("Not proper");
-      return null;
+      if (response.statusCode != 201) {
+        print("Not proper");
+        return null;
+      }
+      return response;
+    } catch (e) {
+      _refreshToken();
+      return makeGenericPostCall(path, data);
     }
-
-    return response;
   }
+
+  /////////////////////////////////////////////////////////////////////////
+  ///
+  /////////////////////////////////////////////////////////////////////////
+  ///
+  /////////////////////////////////////////////////////////////////////////
+  ///
+  /////////////////////////////////////////////////////////////////////////
 
   static void createPlaylist() async {
     String? userID = await PrefData.getUserID();
@@ -97,7 +104,34 @@ class MakeAPICall {
       print("Did not work");
   }
 
-  static void searchForSong() async {}
+  static Future<List<Track>> searchForSong() async {
+    String path = "search";
+
+    Map<String, dynamic> data = {
+      'q': 'track:Fe!n',
+      'type': 'track',
+    };
+
+    final Response<Map<String, dynamic>>? searchResponse =
+        await makeGenericGetCall(path, data);
+
+    if (searchResponse != null) {
+      print("reached good stuff");
+      print(searchResponse.data);
+      if (searchResponse.data != null) {
+        final SearchResult searchResult =
+            SearchResult.fromJson(searchResponse.data!);
+        print("WHATTTTT");
+        print(searchResult.tracks);
+        final tracks = searchResult.tracks!.items;
+        return tracks!;
+      }
+    } else {
+      throw Exception("Did not get profile");
+    }
+
+    return [];
+  }
 
   static Future<Profile> getProfile() async {
     String path = 'me';

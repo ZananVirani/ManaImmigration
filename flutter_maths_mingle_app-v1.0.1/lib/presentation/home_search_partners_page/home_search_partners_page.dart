@@ -9,6 +9,7 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_maths_mingle_app/API/api_calls.dart';
 import 'package:flutter_maths_mingle_app/API/track.dart';
 import 'package:flutter_maths_mingle_app/data/list_data/app_listdata.dart';
+import 'package:flutter_maths_mingle_app/widgets/custom_bottom_bar.dart';
 // import 'package:flutter_maths_mingle_app/data/list_data/app_listdata.dart';
 // import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -54,8 +55,9 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     super.initState();
   }
 
-  Future<Track> fetchTrack() {
-    var newTrack = MakeAPICall.getTrack('0TK2YIli7K1leLovkQiNik');
+  Future<Track> fetchTrack() async {
+    var trackList = await MakeAPICall.searchForSong();
+    var newTrack = trackList.first;
     return newTrack;
   }
 
@@ -67,6 +69,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
   Widget _buildFiftyColumn() {
     return SafeArea(
       child: Scaffold(
+        bottomNavigationBar: CustomBottomBar(),
         backgroundColor: PrimaryColors().mainColor,
         body: Padding(
           padding: EdgeInsets.only(top: 8.h),

@@ -69,6 +69,7 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
                             throw Exception();
 
                           PrefData.setAccessToken(accessToken);
+                          PrefData.setRefreshToken(accessToken);
                           PrefData.setIntro(false);
                           Get.offAndToNamed(AppRoutes.bottomBarScreen);
                         } catch (e) {
