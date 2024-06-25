@@ -31,25 +31,22 @@ class AppListData {
         gender: 'Female', genImg: ImageConstant.femaleIcon),
   ];
   static List<CreateAccountSelectInterestModel> interestList = [
-    CreateAccountSelectInterestModel(inrerestName: 'Games', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Dancing', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Language', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Music', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Movie', isCheck: false),
-    CreateAccountSelectInterestModel(
-        inrerestName: 'Photography', isCheck: false),
-    CreateAccountSelectInterestModel(
-        inrerestName: 'Architecture', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Fashion', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Book', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Writing', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Nature', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Painting', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Football', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'People', isCheck: false),
-    CreateAccountSelectInterestModel(inrerestName: 'Animals', isCheck: false),
-    CreateAccountSelectInterestModel(
-        inrerestName: 'Gym & fitness', isCheck: false),
+    CreateAccountSelectInterestModel(inrerestName: 'Rap', isCheck: false),//Games
+    CreateAccountSelectInterestModel(inrerestName: 'Pop', isCheck: false),//Dancing
+    CreateAccountSelectInterestModel(inrerestName: 'Rock', isCheck: false),//Language
+    CreateAccountSelectInterestModel(inrerestName: 'Country', isCheck: false),//Music
+    CreateAccountSelectInterestModel(inrerestName: 'Metal', isCheck: false),//Movie
+    CreateAccountSelectInterestModel(inrerestName: 'Blues', isCheck: false),//Photography
+    CreateAccountSelectInterestModel(inrerestName: 'K-pop', isCheck: false),//Architecture
+    CreateAccountSelectInterestModel(inrerestName: 'Hip-hop', isCheck: false),//Fasion
+    CreateAccountSelectInterestModel(inrerestName: 'EDM', isCheck: false),//Book
+    CreateAccountSelectInterestModel(inrerestName: 'Classical', isCheck: false),//Writing
+    CreateAccountSelectInterestModel(inrerestName: 'Instrumental', isCheck: false), //Nature
+    CreateAccountSelectInterestModel(inrerestName: 'Lo-fi', isCheck: false),//Painting
+    CreateAccountSelectInterestModel(inrerestName: 'R&B', isCheck: false),//Football
+    CreateAccountSelectInterestModel(inrerestName: 'Folk', isCheck: false),//People
+    CreateAccountSelectInterestModel(inrerestName: 'Reggae', isCheck: false),//Animals
+    CreateAccountSelectInterestModel(inrerestName: 'Techno', isCheck: false),//Gym and fitness
   ];
 
   static List<UserStoryModel> usersStoryList = [
