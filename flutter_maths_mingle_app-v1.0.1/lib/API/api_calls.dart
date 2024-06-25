@@ -34,15 +34,28 @@ class MakeAPICall {
             'Authorization': 'Bearer ${accessToken!.accessToken}'
           }));
 
-      if (response.statusCode != 200) {
+      if (response.statusCode != 200 && response.statusCode != 201) {
         print("Not proper");
         print(response.statusCode);
         return null;
       }
       return response;
     } catch (e) {
-      _refreshToken();
-      return makeGenericGetCall(path, queryParameters);
+      await _refreshToken();
+      accessToken = await PrefData.getAccessToken();
+
+      Response<Map<String, dynamic>> response = await _dio.get(base_url + path,
+          queryParameters: queryParameters,
+          options: Options(headers: {
+            'Authorization': 'Bearer ${accessToken!.accessToken}'
+          }));
+
+      if (response.statusCode != 200 && response.statusCode != 201) {
+        print("Not proper");
+        print(response.statusCode);
+        return null;
+      }
+      return response;
     }
   }
 
@@ -67,7 +80,19 @@ class MakeAPICall {
       return response;
     } catch (e) {
       _refreshToken();
-      return makeGenericPostCall(path, data);
+      accessToken = await PrefData.getAccessToken();
+      Response<Map<String, dynamic>> response = await _dio.post(base_url + path,
+          data: data,
+          options: Options(headers: {
+            'Authorization': 'Bearer ${accessToken!.accessToken}'
+          }));
+
+      if (response.statusCode != 201 && response.statusCode != 200) {
+        print("Not proper");
+        print(response.statusCode);
+        return null;
+      }
+      return response;
     }
   }
 

@@ -223,23 +223,25 @@ class _MessagesPageState extends State<MessagesPage> {
                           content: Text("Page will refresh."),
                           actions: [
                             CupertinoDialogAction(
+                              child: Text("Cancel"),
+                              onPressed: () => Navigator.pop(context),
+                            ),
+                            CupertinoDialogAction(
                               child: Text("Export"),
                               onPressed: () async {
                                 MakeAPICall.addSongsToPlaylist(exportList);
                                 PrefData.setMusicList([]);
+                                player.stop();
                                 player.dispose();
+                                PrefData.currentIndex = 0;
                                 Navigator.pop(context);
-                                // Navigator.push(context,
-                                //     MaterialPageRoute(builder: (context) {
-                                //   return BottomBarScreen();
-                                // }));
-                                Navigator.pop(context);
+                                Navigator.push(context,
+                                    MaterialPageRoute(builder: (context) {
+                                  return BottomBarScreen();
+                                }));
+                                // Navigator.pop(context);
                               },
                             ),
-                            CupertinoDialogAction(
-                              child: Text("Cancel"),
-                              onPressed: () => Navigator.pop(context),
-                            )
                           ],
                         );
                       });
