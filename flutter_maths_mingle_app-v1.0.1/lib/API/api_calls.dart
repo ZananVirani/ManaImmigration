@@ -13,6 +13,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class MakeAPICall {
   static AccessTokenResponse? accessToken;
   static final _dio = Dio();
+  static var date;
 
   static Future<AccessTokenResponse> _refreshToken() async {
     accessToken = await SpotifyAuthService.refreshToken();
@@ -231,11 +232,8 @@ class MakeAPICall {
         'displayName': userDisplayName,
         'userCountry': userCountry,
         'userID': userId,
-        'date': time.month.toString() +
-            " / " +
-            time.day.toString() +
-            " / " +
-            time.year.toString()
+        'dateCreated': time.month.toString() + " / " + time.day.toString() + " / " + time.year.toString(),
+        'birthdate': date,
       });
       print("works");
     } catch (e) {
@@ -259,5 +257,10 @@ class MakeAPICall {
     } else {
       throw Exception("Did not get profile");
     }
-  }
+  }  
+static void setBirthday(DateTime d){
+  String setDate = d.toString().substring(0,10);
+  date = setDate;
+}
+
 }

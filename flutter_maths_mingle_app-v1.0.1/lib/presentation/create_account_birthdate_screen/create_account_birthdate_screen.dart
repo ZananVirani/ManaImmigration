@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_maths_mingle_app/API/api_calls.dart';
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
 import 'package:intl/intl.dart';
 
@@ -8,7 +10,6 @@ import 'package:flutter_maths_mingle_app/widgets/custom_elevated_button.dart';
 import 'package:flutter_maths_mingle_app/widgets/custom_text_form_field.dart';
 
 final time = DateTime.now();
-
 class CreateAccountBirthdateScreen
     extends GetWidget<CreateAccountBirthdateController> {
   const CreateAccountBirthdateScreen({Key? key}) : super(key: key);
@@ -58,6 +59,8 @@ class CreateAccountBirthdateScreen
                         text: "lbl_continue".tr,
                         buttonStyle: CustomButtonStyles.fillPrimary,
                         onPressed: () {
+                          CollectionReference users = FirebaseFirestore.instance.collection('users');
+                          MakeAPICall.saveProfile(users);
                           onTapContinue();
                         }),
                     ),
@@ -91,7 +94,7 @@ class CreateAccountBirthdateScreen
 
             controller.dateController.text =
                 formattedDate; //set output date to TextField value.
-
+            MakeAPICall.setBirthday(pickedDate);
           } else {}
         },
         child: CustomTextFormField(

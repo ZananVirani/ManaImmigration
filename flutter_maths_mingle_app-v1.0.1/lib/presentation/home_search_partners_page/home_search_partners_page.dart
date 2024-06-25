@@ -59,8 +59,6 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
-    MakeAPICall.saveProfile(users);
     return _buildFiftyColumn();
   }
 
