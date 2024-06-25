@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
 import 'package:flutter_maths_mingle_app/presentation/bottombar_screen/controller/bottombar_screen_controller.dart';
@@ -6,9 +7,13 @@ import '../data/pref_data/pref_data.dart';
 
 // ignore: must_be_immutable
 class CustomBottomBar extends StatelessWidget {
-  CustomBottomBar({
+  AudioPlayer player;
+
+  CustomBottomBar(
+    AudioPlayer player, {
     Key? key,
-  }) : super(
+  })  : this.player = player,
+        super(
           key: key,
         );
 
@@ -125,7 +130,7 @@ class CustomBottomBar extends StatelessWidget {
               if (index == 0)
                 Navigator.pop(context);
               else
-                Navigator.pushNamed(context, '/liked_songs');
+                Navigator.pushNamed(context, '/liked_songs', arguments: player);
             }
           },
         );

@@ -59,8 +59,9 @@ class MakeAPICall {
             'Authorization': 'Bearer ${accessToken!.accessToken}'
           }));
 
-      if (response.statusCode != 201) {
+      if (response.statusCode != 201 && response.statusCode != 200) {
         print("Not proper");
+        print(response.statusCode);
         return null;
       }
       return response;
@@ -78,17 +79,18 @@ class MakeAPICall {
   ///
   /////////////////////////////////////////////////////////////////////////
 
-  static void createPlaylist() async {
+  static Future<String> createPlaylist() async {
     String? userID = await PrefData.getUserID();
     if (userID == null) {
       print("UserID is null");
-      return;
+      throw Exception("UserID is null");
     }
 
     String path = 'users/$userID/playlists';
 
     Map<String, dynamic> data = {
       'name': 'Music4U :)',
+      'description': "Enjoy some tunes <3",
       'public': false,
     };
 
@@ -99,8 +101,11 @@ class MakeAPICall {
       print("Playlist Created");
       final playlist = playlistTrack.Playlist.fromJson(response.data!);
       PrefData.setPlaylistID(playlist.id!);
-    } else
+      return playlist.id!;
+    } else {
       print("Did not work");
+      throw Exception("Playlist not created proper");
+    }
   }
 
   static Future<List<Track>> searchForSong(String genre) async {
@@ -109,6 +114,7 @@ class MakeAPICall {
     Map<String, dynamic> data = {
       'q': 'genre:$genre',
       'type': 'track',
+      'limit': 30,
     };
 
     final Response<Map<String, dynamic>>? searchResponse =
@@ -125,20 +131,20 @@ class MakeAPICall {
     }
   }
 
-  static Future<Profile> getProfile() async {
-    String path = 'me';
+  // static Future<Profile> getProfile() async {
+  //   String path = 'me';
 
-    final Response<Map<String, dynamic>>? prof =
-        await makeGenericGetCall(path, {});
+  //   final Response<Map<String, dynamic>>? prof =
+  //       await makeGenericGetCall(path, {});
 
-    if (prof != null) {
-      final profile = Profile.fromJson(prof.data!);
-      PrefData.setUserID(profile.id!);
-      return profile;
-    } else {
-      throw Exception("Did not get profile");
-    }
-  }
+  //   if (prof != null) {
+  //     final profile = Profile.fromJson(prof.data!);
+  //     PrefData.setUserID(profile.id!);
+  //     return profile;
+  //   } else {
+  //     throw Exception("Did not get profile");
+  //   }
+  // }
 
   static Future<Track> getTrack(String trackID) async {
     String path = "tracks/$trackID";
@@ -153,15 +159,17 @@ class MakeAPICall {
     }
   }
 
-  static void addSongToPlaylist(String trackID, List<String> songList) async {
+  static void addSongsToPlaylist(List<Track> TrackList) async {
     String? playlistID = await PrefData.getPlaylistID();
-
-    if (playlistID == null) {
-      print("PlaylistID is null");
-      return;
-    }
+    if (playlistID == null) playlistID = await createPlaylist();
 
     String path = 'playlists/$playlistID/tracks';
+
+    Iterable<String> iterableList = TrackList.map((track) {
+      return track.uri!;
+    });
+
+    List<String> songList = iterableList.toList();
 
     Map<String, dynamic> data = {'uris': songList};
 
@@ -169,12 +177,14 @@ class MakeAPICall {
         await makeGenericPostCall(path, data);
 
     if (response != null) {
-      print("Songs added");
-    } else
+      print(response.data);
+    } else {
       print("Did not work");
+      throw Exception("Songs not added properly");
+    }
   }
 
-  static void saveProfileData (CollectionReference users, Profile profile){
+  static void saveProfileData(CollectionReference users, Profile profile) {
     print("here");
     var userEmail = profile.email;
     var userDisplayName = profile.displayName;
@@ -185,17 +195,25 @@ class MakeAPICall {
     print(userDisplayName);
     print(userCountry);
     print(userId);
-    print(time.month.toString() + " / " + time.day.toString() + " / " + time.year.toString());
-    try{
-    users.add({
-    'email': userEmail,
-    'displayName': userDisplayName,
-    'userCountry': userCountry,
-    'userID': userId,
-    'date': time.month.toString() + " / " + time.day.toString() + " / " + time.year.toString()
-    });
-    print("works");
-    } catch(e){
+    print(time.month.toString() +
+        " / " +
+        time.day.toString() +
+        " / " +
+        time.year.toString());
+    try {
+      users.add({
+        'email': userEmail,
+        'displayName': userDisplayName,
+        'userCountry': userCountry,
+        'userID': userId,
+        'date': time.month.toString() +
+            " / " +
+            time.day.toString() +
+            " / " +
+            time.year.toString()
+      });
+      print("works");
+    } catch (e) {
       print("error");
     }
   }
@@ -218,4 +236,3 @@ class MakeAPICall {
     }
   }
 }
-

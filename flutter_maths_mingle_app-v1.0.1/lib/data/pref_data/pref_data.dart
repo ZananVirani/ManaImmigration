@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_maths_mingle_app/API/track.dart';
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:oauth2_client/access_token_response.dart';
@@ -208,6 +209,44 @@ class PrefData {
     String? id = prefs.getString('playlistID');
 
     return id;
+  }
+
+  static void addSong(Track track) async {
+    getMusicList().then((list) {
+      list!.add(track);
+      setMusicList(list);
+    });
+  }
+
+  static void removeSong(Track track) async {
+    print(track.name);
+    getMusicList().then((list) {
+      list!.remove(track);
+      setMusicList(list);
+    });
+  }
+
+  static setMusicList(List<Track> trackList) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // Iterable<String> trackListString = trackList.map((track) {
+    //   return trackToJson(track);
+    // });
+
+    //print(trackListString);
+
+    String trackListJSON = json.encode(trackList);
+    prefs.setString('trackList', trackListJSON);
+  }
+
+  static Future<List<Track>?> getMusicList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id = prefs.getString('trackList');
+
+    List<dynamic> trackListString = json.decode(id!);
+    Iterable<Track> trackList = trackListString.map((track) {
+      return Track.fromJson(track);
+    });
+    return trackList.toList();
   }
 
   static Future<AccessTokenResponse?> getAccessToken() async {

@@ -49,6 +49,15 @@ class Track {
     this.isLocal,
   });
 
+  @override
+  bool operator ==(Object other) {
+    if (other is Track) {
+      return this.id == other.id;
+    }
+
+    return false;
+  }
+
   Track copyWith({
     Album? album,
     List<TrackArtist>? artists,

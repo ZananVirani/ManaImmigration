@@ -8,6 +8,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_maths_mingle_app/API/api_calls.dart';
 import 'package:flutter_maths_mingle_app/API/track.dart';
+import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
 import 'package:flutter_maths_mingle_app/widgets/custom_bottom_bar.dart';
 // import 'package:flutter_maths_mingle_app/data/list_data/app_listdata.dart';
 // import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -27,15 +28,11 @@ class HomeSearchPartnersPage extends StatefulWidget {
 class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     with TickerProviderStateMixin {
   bool isPlaying = false;
-  bool loaded = false;
   HomeSearchPartnersController controller =
       Get.put(HomeSearchPartnersController(HomeSearchPartnersModel().obs));
-
-  late AnimationController _animationController;
-  late AudioPlayer _player;
+  late AudioPlayer player;
   late Future<List<Track>> futureList;
-  late List<Track> trackList;
-  List<Track> likedList = [];
+  late AnimationController _animationController;
 
   @override
   void initState() {
@@ -49,7 +46,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
       print(value);
       return value;
     });
-    _player = AudioPlayer();
+    this.player = AudioPlayer();
     this._animationController = AnimationController(
         value: 1.0, vsync: this, duration: Duration(milliseconds: 500));
     super.initState();
@@ -68,9 +65,10 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
   }
 
   Widget _buildFiftyColumn() {
+    //PrefData.setMusicList([]);
     return SafeArea(
       child: Scaffold(
-        bottomNavigationBar: CustomBottomBar(),
+        bottomNavigationBar: CustomBottomBar(player),
         backgroundColor: PrimaryColors().mainColor,
         body: Center(
           child: FutureBuilder(
@@ -83,7 +81,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                     cardBuilder: (context, index, horizontalOffsetPercentage,
                         verticalOffsetPercentage) {
                       Track track = snapshot.data![index];
-                      _player.setSource(UrlSource(track.previewUrl!));
+                      player.setSource(UrlSource(track.previewUrl!));
                       String allInfo = track.artists!.first.name! +
                           " - " +
                           track.album!.name!;
@@ -219,8 +217,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                       .forward();
                                             });
                                             isPlaying
-                                                ? await _player.resume()
-                                                : await _player.pause();
+                                                ? await player.resume()
+                                                : await player.pause();
                                           },
                                           child: Container(
                                             width: 56.h,
@@ -301,16 +299,16 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                         ],
                       );
                     },
-                    onSwipe: (previousIndex, currentIndex, direction) {
-                      if (direction == CardSwiperDirection.right)
-                        likedList.add(snapshot.data![previousIndex]);
+                    onSwipe: (previousIndex, currentIndex, direction) async {
+                      if (direction == CardSwiperDirection.right) {
+                        PrefData.addSong(snapshot.data![previousIndex]);
+                      }
 
-                      print(likedList);
                       return true;
                     },
                     onUndo: (previousIndex, currentIndex, direction) {
-                      likedList.remove(snapshot.data![currentIndex]);
-                      print(likedList);
+                      print(snapshot.data![currentIndex].name);
+                      PrefData.removeSong(snapshot.data![currentIndex]);
                       return true;
                     },
                     cardsCount: snapshot.data!.length,
