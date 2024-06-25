@@ -36,12 +36,12 @@ class CreateAccountPhoneNumberScreen
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Obx(() => CustomPhoneNumber(
-                              country: controller.selectedCountry.value,
-                              controller: controller.phoneNumberController,
-                              onTap: (Country value) {
-                                controller.selectedCountry.value = value;
-                              }),),
+                          // Obx(() => CustomPhoneNumber(
+                          //     country: controller.selectedCountry.value,
+                          //     controller: controller.phoneNumberController,
+                          //     onTap: (Country value) {
+                          //       controller.selectedCountry.value = value;
+                          //     }),),
                           // IntlPhoneField(
                           //   decoration: InputDecoration(
                           //     filled: true,
@@ -103,22 +103,23 @@ class CreateAccountPhoneNumberScreen
                           //   },
                           // ),
 
-                          controller.errorShow? showError(controller):SizedBox(),
+                          controller.errorShow
+                              ? showError(controller)
+                              : SizedBox(),
                           SizedBox(height: 48.h),
                           CustomElevatedButton(
                               text: "lbl_continue".tr,
                               onPressed: () {
-                                if(controller.number.length >= 10 && controller.number.isNotEmpty){
+                                if (controller.number.length >= 10 &&
+                                    controller.number.isNotEmpty) {
                                   onTapContinue();
-                                  controller.errorShow=false;
+                                  controller.errorShow = false;
                                   controller.phoneNumberController.text = '';
                                   controller.number = '';
                                   controller.update();
-                                }
-                                else{
-                                  controller.errorShow=true;
+                                } else {
+                                  controller.errorShow = true;
                                   controller.update();
-
                                 }
                               }),
                           SizedBox(height: 5.v)

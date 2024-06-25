@@ -1,7 +1,7 @@
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
 import 'package:flutter_maths_mingle_app/presentation/messages_page/models/messages_model.dart';
 
-import '../../../data/pref_data/pref_data.dart';
+// import '../../../data/pref_data/pref_data.dart';
 
 /// A controller class for the MessagesPage.
 ///
@@ -14,13 +14,12 @@ class MessagesController extends GetxController {
   bool isFirstChat = false;
 
   isMathed() async {
-    isFirstChat = await PrefData.getChatFirstTime();
+    //isFirstChat = await PrefData.getChatFirstTime();
     update();
   }
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     isMathed();
   }

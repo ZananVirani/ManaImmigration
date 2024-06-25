@@ -1,6 +1,5 @@
-import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/binding/home_search_partners_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/home_search_partners_page.dart';
-import 'package:flutter_maths_mingle_app/presentation/profile_page/binding/profile_binding.dart';
+//import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/binding/home_search_partners_binding.dart';
+//import 'package:flutter_maths_mingle_app/presentation/profile_page/binding/profile_binding.dart';
 import 'package:flutter_maths_mingle_app/presentation/spash_screen/spash_screen.dart';
 import 'package:flutter_maths_mingle_app/presentation/spash_screen/binding/spash_binding.dart';
 // import 'package:flutter_maths_mingle_app/presentation/onboarding_one_screen/onboarding_one_screen.dart';
@@ -15,46 +14,27 @@ import 'package:flutter_maths_mingle_app/presentation/create_account_name_screen
 import 'package:flutter_maths_mingle_app/presentation/create_account_name_screen/binding/create_account_name_binding.dart';
 import 'package:flutter_maths_mingle_app/presentation/create_account_birthdate_screen/create_account_birthdate_screen.dart';
 import 'package:flutter_maths_mingle_app/presentation/create_account_birthdate_screen/binding/create_account_birthdate_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_gender_screen/create_account_gender_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_gender_screen/binding/create_account_gender_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/create_account_select_interest_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/binding/create_account_select_interest_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_upload_photo_screen/create_account_upload_photo_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_upload_photo_screen/binding/create_account_upload_photo_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/login_empty_state_screen/login_empty_state_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/login_empty_state_screen/binding/login_empty_state_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/login_otp_authentication_screen/login_otp_authentication_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/login_otp_authentication_screen/binding/login_otp_authentication_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/home_make_friends_container_screen/home_make_friends_container_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/home_make_friends_container_screen/binding/home_make_friends_container_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/discover_filter_screen/discover_filter_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/discover_filter_screen/binding/discover_filter_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/interest_scroll_search_clicked_screen/interest_scroll_search_clicked_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/interest_scroll_search_clicked_screen/binding/interest_scroll_search_clicked_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/discover_scroll_search_clicked_screen/discover_scroll_search_clicked_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/discover_scroll_search_clicked_screen/binding/discover_scroll_search_clicked_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/discover_by_interest_vone_screen/discover_by_interest_vone_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/discover_by_interest_vone_screen/binding/discover_by_interest_vone_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/matches_screen/matches_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/matches_screen/binding/matches_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/dating_profile_details_vone_screen/dating_profile_details_vone_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/dating_profile_details_vone_screen/binding/dating_profile_details_vone_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/dating_profile_details_scroll_screen/dating_profile_details_scroll_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/dating_profile_details_scroll_screen/binding/dating_profile_details_scroll_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/first_time_chat_screen/first_time_chat_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/first_time_chat_screen/binding/first_time_chat_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/first_time_chat_one_screen/first_time_chat_one_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/first_time_chat_one_screen/binding/first_time_chat_one_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/edit_profile_screen/edit_profile_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/edit_profile_screen/binding/edit_profile_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/my_account_screen/my_account_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/my_account_screen/binding/my_account_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/language_screen/language_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/language_screen/binding/language_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/settings_screen/settings_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/settings_screen/binding/settings_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/notifications_screen/notifications_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/notifications_screen/binding/notifications_binding.dart';
+// import 'package:flutter_maths_mingle_app/presentation/create_account_gender_screen/create_account_gender_screen.dart';
+//import 'package:flutter_maths_mingle_app/presentation/create_account_gender_screen/binding/create_account_gender_binding.dart';
+// import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/create_account_select_interest_screen.dart';
+//import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/binding/create_account_select_interest_binding.dart';
+// import 'package:flutter_maths_mingle_app/presentation/create_account_upload_photo_screen/create_account_upload_photo_screen.dart';
+// import 'package:flutter_maths_mingle_app/presentation/create_account_upload_photo_screen/binding/create_account_upload_photo_binding.dart';
+//import 'package:flutter_maths_mingle_app/presentation/home_make_friends_container_screen/home_make_friends_container_screen.dart';
+// import 'package:flutter_maths_mingle_app/presentation/discover_filter_screen/discover_filter_screen.dart';
+//import 'package:flutter_maths_mingle_app/presentation/discover_filter_screen/binding/discover_filter_binding.dart';
+// import 'package:flutter_maths_mingle_app/presentation/discover_scroll_search_clicked_screen/discover_scroll_search_clicked_screen.dart';
+// import 'package:flutter_maths_mingle_app/presentation/discover_scroll_search_clicked_screen/binding/discover_scroll_search_clicked_binding.dart';
+// import 'package:flutter_maths_mingle_app/presentation/discover_by_interest_vone_screen/discover_by_interest_vone_screen.dart';
+// import 'package:flutter_maths_mingle_app/presentation/discover_by_interest_vone_screen/binding/discover_by_interest_vone_binding.dart';
+// import 'package:flutter_maths_mingle_app/presentation/matches_screen/matches_screen.dart';
+// import 'package:flutter_maths_mingle_app/presentation/matches_screen/binding/matches_binding.dart';
+// import 'package:flutter_maths_mingle_app/presentation/first_time_chat_screen/first_time_chat_screen.dart';
+// import 'package:flutter_maths_mingle_app/presentation/first_time_chat_screen/binding/first_time_chat_binding.dart';
+// import 'package:flutter_maths_mingle_app/presentation/edit_profile_screen/edit_profile_screen.dart';
+// import 'package:flutter_maths_mingle_app/presentation/edit_profile_screen/binding/edit_profile_binding.dart';
+// import 'package:flutter_maths_mingle_app/presentation/my_account_screen/my_account_screen.dart';
+// import 'package:flutter_maths_mingle_app/presentation/my_account_screen/binding/my_account_binding.dart';
 import 'package:flutter_maths_mingle_app/presentation/privacy_policy_screen/privacy_policy_screen.dart';
 import 'package:flutter_maths_mingle_app/presentation/privacy_policy_screen/binding/privacy_policy_binding.dart';
 import 'package:flutter_maths_mingle_app/presentation/app_navigation_screen/app_navigation_screen.dart';
@@ -63,7 +43,7 @@ import 'package:get/get.dart';
 
 import '../presentation/bottombar_screen/binding/bottombar_screen_binding.dart';
 import '../presentation/bottombar_screen/bottombar_screen.dart';
-import '../presentation/profile_page/profile_page.dart';
+//import '../presentation/profile_page/profile_page.dart';
 
 class AppRoutes {
   static const String spashScreen = '/spash_screen';
@@ -254,42 +234,42 @@ class AppRoutes {
         CreateAccountBirthdateBinding(),
       ],
     ),
-    GetPage(
-      name: createAccountGenderScreen,
-      page: () => CreateAccountGenderScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        CreateAccountGenderBinding(),
-      ],
-    ),
-    GetPage(
-      name: createAccountSelectInterestScreen,
-      page: () => CreateAccountSelectInterestScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        CreateAccountSelectInterestBinding(),
-      ],
-    ),
-    GetPage(
-      name: createAccountUploadPhotoScreen,
-      page: () => CreateAccountUploadPhotoScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        CreateAccountUploadPhotoBinding(),
-      ],
-    ),
-    GetPage(
-      name: loginEmptyStateScreen,
-      page: () => LoginEmptyStateScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        LoginEmptyStateBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: createAccountGenderScreen,
+    //   page: () => CreateAccountGenderScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     CreateAccountGenderBinding(),
+    //   ],
+    // ),
+    // GetPage(
+    //   name: createAccountSelectInterestScreen,
+    //   page: () => CreateAccountSelectInterestScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     CreateAccountSelectInterestBinding(),
+    //   ],
+    // ),
+    // GetPage(
+    //   name: createAccountUploadPhotoScreen,
+    //   page: () => CreateAccountUploadPhotoScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     CreateAccountUploadPhotoBinding(),
+    //   ],
+    // ),
+    // GetPage(
+    //   name: loginEmptyStateScreen,
+    //   page: () => LoginEmptyStateScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     LoginEmptyStateBinding(),
+    //   ],
+    // ),
     // GetPage(
     //   name: loginActiveStateScreen,
     //   page: () => LoginActiveStateScreen(),
@@ -298,15 +278,15 @@ class AppRoutes {
     //   ],
     // ),
 
-    GetPage(
-      name: loginOtpAuthenticationScreen,
-      page: () => LoginOtpAuthenticationScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        LoginOtpAuthenticationBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: loginOtpAuthenticationScreen,
+    //   page: () => LoginOtpAuthenticationScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     LoginOtpAuthenticationBinding(),
+    //   ],
+    // ),
     GetPage(
       name: bottomBarScreen,
       page: () => BottomBarScreen(),
@@ -316,52 +296,52 @@ class AppRoutes {
         BottomBarScreenBinding(),
       ],
     ),
-    GetPage(
-      name: homeMakeFriendsContainerScreen,
-      page: () => HomeSearchPartnersPage(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        HomeMakeFriendsContainerBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: homeMakeFriendsContainerScreen,
+    //   page: () => HomeSearchPartnersPage(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     HomeMakeFriendsContainerBinding(),
+    //   ],
+    // ),
 
-    GetPage(
-      name: discoverFilterScreen,
-      page: () => DiscoverFilterScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        DiscoverFilterBinding(),
-      ],
-    ),
-    GetPage(
-      name: interestScrollSearchClickedScreen,
-      page: () => InterestScrollSearchClickedScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        InterestScrollSearchClickedBinding(),
-      ],
-    ),
-    GetPage(
-      name: discoverScrollSearchClickedScreen,
-      page: () => DiscoverScrollSearchClickedScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        DiscoverScrollSearchClickedBinding(),
-      ],
-    ),
-    GetPage(
-      name: discoverByInterestVoneScreen,
-      page: () => DiscoverByInterestVoneScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        DiscoverByInterestVoneBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: discoverFilterScreen,
+    //   page: () => DiscoverFilterScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     DiscoverFilterBinding(),
+    //   ],
+    // ),
+    // GetPage(
+    //   name: interestScrollSearchClickedScreen,
+    //   page: () => InterestScrollSearchClickedScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     InterestScrollSearchClickedBinding(),
+    //   ],
+    // ),
+    // GetPage(
+    //   name: discoverScrollSearchClickedScreen,
+    //   page: () => DiscoverScrollSearchClickedScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     DiscoverScrollSearchClickedBinding(),
+    //   ],
+    // ),
+    // GetPage(
+    //   name: discoverByInterestVoneScreen,
+    //   page: () => DiscoverByInterestVoneScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     DiscoverByInterestVoneBinding(),
+    //   ],
+    // ),
 
     // GetPage(
     //   name: connectMakeFriendsScreen,
@@ -370,109 +350,109 @@ class AppRoutes {
     //     ConnectMakeFriendsBinding(),
     //   ],
     // ),
-    GetPage(
-      name: matchesScreen,
-      page: () => MatchesScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        MatchesBinding(),
-      ],
-    ),
-    GetPage(
-      name: datingProfileDetailsVoneScreen,
-      page: () => DatingProfileDetailsVoneScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        DatingProfileDetailsVoneBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: matchesScreen,
+    //   page: () => MatchesScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     MatchesBinding(),
+    //   ],
+    // ),
+    // GetPage(
+    //   name: datingProfileDetailsVoneScreen,
+    //   page: () => DatingProfileDetailsVoneScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     DatingProfileDetailsVoneBinding(),
+    //   ],
+    // ),
 
-    GetPage(
-      name: datingProfileDetailsScrollScreen,
-      page: () => DatingProfileDetailsScrollScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        DatingProfileDetailsScrollBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: datingProfileDetailsScrollScreen,
+    //   page: () => DatingProfileDetailsScrollScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     DatingProfileDetailsScrollBinding(),
+    //   ],
+    // ),
 
-    GetPage(
-      name: firstTimeChatScreen,
-      page: () => FirstTimeChatScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        FirstTimeChatBinding(),
-      ],
-    ),
-    GetPage(
-      name: firstTimeChatOneScreen,
-      page: () => FirstTimeChatOneScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        FirstTimeChatOneBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: firstTimeChatScreen,
+    //   page: () => FirstTimeChatScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     FirstTimeChatBinding(),
+    //   ],
+    // ),
+    // GetPage(
+    //   name: firstTimeChatOneScreen,
+    //   page: () => FirstTimeChatOneScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     FirstTimeChatOneBinding(),
+    //   ],
+    // ),
 
-    GetPage(
-      name: editProfileScreen,
-      page: () => EditProfileScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        EditProfileBinding(),
-      ],
-    ),
-    GetPage(
-      name: myAccountScreen,
-      page: () => MyAccountScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        MyAccountBinding(),
-      ],
-    ),
-    GetPage(
-      name: languageScreen,
-      page: () => LanguageScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        LanguageBinding(),
-      ],
-    ),
-    GetPage(
-      name: profilePage,
-      page: () => ProfilePage(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        ProfileBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: editProfileScreen,
+    //   page: () => EditProfileScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     EditProfileBinding(),
+    //   ],
+    // ),
+    // GetPage(
+    //   name: myAccountScreen,
+    //   page: () => MyAccountScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     MyAccountBinding(),
+    //   ],
+    // ),
+    // GetPage(
+    //   name: languageScreen,
+    //   page: () => LanguageScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     LanguageBinding(),
+    //   ],
+    // ),
+    // GetPage(
+    //   name: profilePage,
+    //   page: () => ProfilePage(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     ProfileBinding(),
+    //   ],
+    // ),
 
-    GetPage(
-      name: settingsScreen,
-      page: () => SettingsScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        SettingsBinding(),
-      ],
-    ),
-    GetPage(
-      name: notificationsScreen,
-      page: () => NotificationsScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        NotificationsBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: settingsScreen,
+    //   page: () => SettingsScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     SettingsBinding(),
+    //   ],
+    // ),
+    // GetPage(
+    //   name: notificationsScreen,
+    //   page: () => NotificationsScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     NotificationsBinding(),
+    //   ],
+    // ),
     GetPage(
       name: privacyPolicyScreen,
       page: () => PrivacyPolicyScreen(),
