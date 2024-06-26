@@ -16,12 +16,14 @@ class SpashController extends GetxController {
   void onReady() {
     Future.delayed(const Duration(milliseconds: 3000), () async {
       bool isIntro = await PrefData.getIntro();
-      // bool isLogin = await PrefData.getLogin();
+      bool isLogin = await PrefData.getLogin();
 
       if (isIntro) {
         Get.offAndToNamed(AppRoutes.onboardingThree1Screen);
       } else {
-        Get.offAndToNamed(AppRoutes.bottomBarScreen);
+        Get.offAndToNamed(AppRoutes.createAccountBirthdateScreen);
+        // } else {
+        //   Get.offAndToNamed(AppRoutes.bottomBarScreen);
       }
     });
   }

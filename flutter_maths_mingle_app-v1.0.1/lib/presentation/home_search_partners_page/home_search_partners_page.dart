@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_import
 
 import 'dart:async';
-import 'package:cloud_firestore/cloud_firestore.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
@@ -53,7 +53,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
   }
 
   Future<List<Track>> fetchSongs() async {
-    var futureList = await MakeAPICall.searchForSong('alternative');
+    var futureList = await MakeAPICall.searchForSong();
     return futureList;
   }
 

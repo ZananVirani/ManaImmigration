@@ -134,11 +134,12 @@ class MakeAPICall {
     }
   }
 
-  static Future<List<Track>> searchForSong(String genre) async {
+  static Future<List<Track>> searchForSong() async {
+    List<String> genreList = await PrefData.getGenreList();
     String path = "search";
 
     Map<String, dynamic> data = {
-      'q': 'genre:$genre',
+      'q': 'genre:r-n-b',
       'type': 'track',
       'limit': 30,
     };
@@ -232,7 +233,11 @@ class MakeAPICall {
         'displayName': userDisplayName,
         'userCountry': userCountry,
         'userID': userId,
-        'dateCreated': time.month.toString() + " / " + time.day.toString() + " / " + time.year.toString(),
+        'dateCreated': time.month.toString() +
+            " / " +
+            time.day.toString() +
+            " / " +
+            time.year.toString(),
         'birthdate': date,
       });
       print("works");
@@ -257,10 +262,10 @@ class MakeAPICall {
     } else {
       throw Exception("Did not get profile");
     }
-  }  
-static void setBirthday(DateTime d){
-  String setDate = d.toString().substring(0,10);
-  date = setDate;
-}
+  }
 
+  static void setBirthday(DateTime d) {
+    String setDate = d.toString().substring(0, 10);
+    date = setDate;
+  }
 }

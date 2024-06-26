@@ -11,7 +11,9 @@
 // // import '../../presentation/matches_screen/models/userprofile3_item_model.dart';
 // //import '../../presentation/onboarding_one_screen/models/onboarding_one_model.dart';
 
-// class AppListData {
+import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/models/create_account_select_interest_model.dart';
+
+class AppListData {
 //   // static List<OnboardingOneModel> onboardingList = [
 //   //   OnboardingOneModel(
 //   //       img: ImageConstant.on1,
@@ -30,24 +32,54 @@
 //     CreateAccountGenderModel(
 //         gender: 'Female', genImg: ImageConstant.femaleIcon),
 //   ];
-//   static List<CreateAccountSelectInterestModel> interestList = [
-//     CreateAccountSelectInterestModel(inrerestName: 'Rap', isCheck: false),//Games
-//     CreateAccountSelectInterestModel(inrerestName: 'Pop', isCheck: false),//Dancing
-//     CreateAccountSelectInterestModel(inrerestName: 'Rock', isCheck: false),//Language
-//     CreateAccountSelectInterestModel(inrerestName: 'Country', isCheck: false),//Music
-//     CreateAccountSelectInterestModel(inrerestName: 'Metal', isCheck: false),//Movie
-//     CreateAccountSelectInterestModel(inrerestName: 'Blues', isCheck: false),//Photography
-//     CreateAccountSelectInterestModel(inrerestName: 'K-pop', isCheck: false),//Architecture
-//     CreateAccountSelectInterestModel(inrerestName: 'Hip-hop', isCheck: false),//Fasion
-//     CreateAccountSelectInterestModel(inrerestName: 'EDM', isCheck: false),//Book
-//     CreateAccountSelectInterestModel(inrerestName: 'Classical', isCheck: false),//Writing
-//     CreateAccountSelectInterestModel(inrerestName: 'Instrumental', isCheck: false), //Nature
-//     CreateAccountSelectInterestModel(inrerestName: 'Lo-fi', isCheck: false),//Painting
-//     CreateAccountSelectInterestModel(inrerestName: 'R&B', isCheck: false),//Football
-//     CreateAccountSelectInterestModel(inrerestName: 'Folk', isCheck: false),//People
-//     CreateAccountSelectInterestModel(inrerestName: 'Reggae', isCheck: false),//Animals
-//     CreateAccountSelectInterestModel(inrerestName: 'Techno', isCheck: false),//Gym and fitness
-//   ];
+  static List<CreateAccountSelectInterestModel> interestList = [
+    CreateAccountSelectInterestModel(
+        genreName: 'indie', inrerestName: 'Indie', isCheck: false), //Games
+    CreateAccountSelectInterestModel(
+        genreName: 'pop', inrerestName: 'Pop', isCheck: false), //Dancing
+    CreateAccountSelectInterestModel(
+        genreName: 'rock', inrerestName: 'Rock', isCheck: false), //Language
+    CreateAccountSelectInterestModel(
+        genreName: 'country', inrerestName: 'Country', isCheck: false), //Music
+    CreateAccountSelectInterestModel(
+        genreName: 'metal', inrerestName: 'Metal', isCheck: false), //Movie
+    CreateAccountSelectInterestModel(
+        genreName: 'jazz', inrerestName: 'Jazz', isCheck: false), //Photography
+    CreateAccountSelectInterestModel(
+        genreName: 'k-pop',
+        inrerestName: 'K-Pop',
+        isCheck: false), //Architecture
+    CreateAccountSelectInterestModel(
+        genreName: 'hip-hop', inrerestName: 'Hip-Hop', isCheck: false), //Fasion
+    CreateAccountSelectInterestModel(
+        genreName: 'edm', inrerestName: 'EDM', isCheck: false), //Book
+    CreateAccountSelectInterestModel(
+        genreName: 'classical',
+        inrerestName: 'Classical',
+        isCheck: false), //Writing
+    CreateAccountSelectInterestModel(
+        genreName: 'latin', inrerestName: 'Latin', isCheck: false), //Nature
+    CreateAccountSelectInterestModel(
+        genreName: 'sad', inrerestName: 'Sad', isCheck: false), //Painting
+    CreateAccountSelectInterestModel(
+        genreName: 'r-n-b', inrerestName: 'R&B', isCheck: false), //Football
+    CreateAccountSelectInterestModel(
+        genreName: 'alternative',
+        inrerestName: 'Alternative',
+        isCheck: false), //People
+    CreateAccountSelectInterestModel(
+        genreName: 'afrobeat',
+        inrerestName: 'Afro-Beat',
+        isCheck: false), //Animals
+    CreateAccountSelectInterestModel(
+        genreName: 'work-out',
+        inrerestName: 'Work-Out',
+        isCheck: false), //Gym and fitness
+    CreateAccountSelectInterestModel(
+        genreName: 'reggae', inrerestName: 'Reggae', isCheck: false),
+    CreateAccountSelectInterestModel(
+        genreName: 'study', inrerestName: 'Study', isCheck: false),
+  ];
 
 //   static List<UserStoryModel> usersStoryList = [
 //     UserStoryModel(
@@ -82,8 +114,8 @@
 
 //   static List<CreateAccountSelectInterestModel> userPreference = [
 //     CreateAccountSelectInterestModel(
-//         inrerestName: 'Make friends', isCheck: false),
-//     CreateAccountSelectInterestModel(inrerestName: 'Dating', isCheck: false),
+//         genreName: '', inrerestName: 'Make friends', isCheck: false),
+//     CreateAccountSelectInterestModel(genreName: '', inrerestName: 'Dating', isCheck: false),
 //   ];
 
 //   // static List<Userprofile3ItemModel> userMatchesList = [
@@ -180,4 +212,4 @@
 //     '4 Weeks',
 //     '5 Weeks',
 //   ];
-// }
+}

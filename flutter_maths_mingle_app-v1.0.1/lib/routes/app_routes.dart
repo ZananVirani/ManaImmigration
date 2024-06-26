@@ -1,17 +1,19 @@
 //import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/binding/home_search_partners_binding.dart';
 //import 'package:flutter_maths_mingle_app/presentation/profile_page/binding/profile_binding.dart';
+import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/binding/create_account_select_interest_binding.dart';
+import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/create_account_select_interest_screen.dart';
 import 'package:flutter_maths_mingle_app/presentation/spash_screen/spash_screen.dart';
 import 'package:flutter_maths_mingle_app/presentation/spash_screen/binding/spash_binding.dart';
 // import 'package:flutter_maths_mingle_app/presentation/onboarding_one_screen/onboarding_one_screen.dart';
 // import 'package:flutter_maths_mingle_app/presentation/onboarding_one_screen/binding/onboarding_one_binding.dart';
 import 'package:flutter_maths_mingle_app/presentation/onboarding_three1_screen/onboarding_three1_screen.dart';
 import 'package:flutter_maths_mingle_app/presentation/onboarding_three1_screen/binding/onboarding_three1_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_phone_number_screen/create_account_phone_number_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_phone_number_screen/binding/create_account_phone_number_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_otp_code_screen/create_account_otp_code_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_otp_code_screen/binding/create_account_otp_code_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_name_screen/create_account_name_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_name_screen/binding/create_account_name_binding.dart';
+// import 'package:flutter_maths_mingle_app/presentation/create_account_phone_number_screen/create_account_phone_number_screen.dart';
+// import 'package:flutter_maths_mingle_app/presentation/create_account_phone_number_screen/binding/create_account_phone_number_binding.dart';
+// import 'package:flutter_maths_mingle_app/presentation/create_account_otp_code_screen/create_account_otp_code_screen.dart';
+// import 'package:flutter_maths_mingle_app/presentation/create_account_otp_code_screen/binding/create_account_otp_code_binding.dart';
+// import 'package:flutter_maths_mingle_app/presentation/create_account_name_screen/create_account_name_screen.dart';
+// import 'package:flutter_maths_mingle_app/presentation/create_account_name_screen/binding/create_account_name_binding.dart';
 import 'package:flutter_maths_mingle_app/presentation/create_account_birthdate_screen/create_account_birthdate_screen.dart';
 import 'package:flutter_maths_mingle_app/presentation/create_account_birthdate_screen/binding/create_account_birthdate_binding.dart';
 // import 'package:flutter_maths_mingle_app/presentation/create_account_gender_screen/create_account_gender_screen.dart';
@@ -198,33 +200,33 @@ class AppRoutes {
         OnboardingThree1Binding(),
       ],
     ),
-    GetPage(
-      name: createAccountPhoneNumberScreen,
-      page: () => CreateAccountPhoneNumberScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        CreateAccountPhoneNumberBinding(),
-      ],
-    ),
-    GetPage(
-      name: createAccountOtpCodeScreen,
-      page: () => CreateAccountOtpCodeScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        CreateAccountOtpCodeBinding(),
-      ],
-    ),
-    GetPage(
-      name: createAccountNameScreen,
-      page: () => CreateAccountNameScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        CreateAccountNameBinding(),
-      ],
-    ),
+    // GetPage(
+    //   name: createAccountPhoneNumberScreen,
+    //   page: () => CreateAccountPhoneNumberScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     CreateAccountPhoneNumberBinding(),
+    //   ],
+    // ),
+    // GetPage(
+    //   name: createAccountOtpCodeScreen,
+    //   page: () => CreateAccountOtpCodeScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     CreateAccountOtpCodeBinding(),
+    //   ],
+    // ),
+    // GetPage(
+    //   name: createAccountNameScreen,
+    //   page: () => CreateAccountNameScreen(),
+    //   transition: Transition.cupertino,
+    //   transitionDuration: Duration(seconds: 1),
+    //   bindings: [
+    //     CreateAccountNameBinding(),
+    //   ],
+    // ),
     GetPage(
       name: createAccountBirthdateScreen,
       page: () => CreateAccountBirthdateScreen(),
@@ -243,15 +245,15 @@ class AppRoutes {
     //     CreateAccountGenderBinding(),
     //   ],
     // ),
-    // GetPage(
-    //   name: createAccountSelectInterestScreen,
-    //   page: () => CreateAccountSelectInterestScreen(),
-    //   transition: Transition.cupertino,
-    //   transitionDuration: Duration(seconds: 1),
-    //   bindings: [
-    //     CreateAccountSelectInterestBinding(),
-    //   ],
-    // ),
+    GetPage(
+      name: createAccountSelectInterestScreen,
+      page: () => CreateAccountSelectInterestScreen(),
+      transition: Transition.cupertino,
+      transitionDuration: Duration(seconds: 1),
+      bindings: [
+        CreateAccountSelectInterestBinding(),
+      ],
+    ),
     // GetPage(
     //   name: createAccountUploadPhotoScreen,
     //   page: () => CreateAccountUploadPhotoScreen(),
