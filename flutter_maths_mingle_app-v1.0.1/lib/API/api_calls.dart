@@ -14,6 +14,7 @@ class MakeAPICall {
   static AccessTokenResponse? accessToken;
   static final _dio = Dio();
   static var date;
+  static var userDisplayName;
 
   static Future<AccessTokenResponse> _refreshToken() async {
     accessToken = await SpotifyAuthService.refreshToken();
@@ -252,6 +253,7 @@ class MakeAPICall {
       PrefData.setUserID(profile.id!);
       print("save data");
       saveProfileData(users, profile);
+      setDisplayName(profile.displayName);
       print("done");
       return profile;
     } else {
@@ -262,5 +264,27 @@ static void setBirthday(DateTime d){
   String setDate = d.toString().substring(0,10);
   date = setDate;
 }
+static void setDisplayName(String? d){
+  userDisplayName = d;
+}
+static String? getDisplayName(){
+  if(userDisplayName == null){
+    return "null User";
+  }
+    return userDisplayName;
+}
 
+static void refreshName() async {
+    String path = 'me';
+
+    final Response<Map<String, dynamic>>? prof =
+        await makeGenericGetCall(path, {});
+
+    if (prof != null) {
+      final profile = Profile.fromJson(prof.data!);
+      setDisplayName(profile.displayName);
+    } else {
+      throw Exception("Name not set");
+    }
+  }  
 }

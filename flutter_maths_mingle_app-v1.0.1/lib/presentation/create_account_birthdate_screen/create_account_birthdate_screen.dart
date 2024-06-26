@@ -95,6 +95,7 @@ class CreateAccountBirthdateScreen
             controller.dateController.text =
                 formattedDate; //set output date to TextField value.
             MakeAPICall.setBirthday(pickedDate);
+            
           } else {}
         },
         child: CustomTextFormField(
@@ -113,7 +114,7 @@ class CreateAccountBirthdateScreen
   /// Navigates to the createAccountGenderScreen when the action is triggered.
   onTapContinue() {
     Get.toNamed(
-      AppRoutes.createAccountGenderScreen,
+      AppRoutes.createAccountSelectInterestScreen,
     );
   }
 }
