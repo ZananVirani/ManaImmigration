@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_maths_mingle_app/API/api_calls.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'core/app_export.dart';
 import 'data/pref_data/pref_data.dart';
@@ -20,7 +21,8 @@ Future<void> main() async {
             appId: "1:588489666068:web:e626cd8daf29286d41c101",
             measurementId: "G-388NLBEJCF"));
   } else {
-    await Firebase.initializeApp();
+      await Firebase.initializeApp();
+    MakeAPICall.refreshName();
   }
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([

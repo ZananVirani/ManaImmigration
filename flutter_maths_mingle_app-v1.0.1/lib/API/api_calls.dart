@@ -268,13 +268,14 @@ static void setDisplayName(String? d){
   userDisplayName = d;
 }
 static String? getDisplayName(){
+            print("hshssshshs");
   if(userDisplayName == null){
     return "null User";
   }
     return userDisplayName;
 }
 
-static void refreshName() async {
+static Future<Profile> refreshName() async {
     String path = 'me';
 
     final Response<Map<String, dynamic>>? prof =
@@ -283,6 +284,7 @@ static void refreshName() async {
     if (prof != null) {
       final profile = Profile.fromJson(prof.data!);
       setDisplayName(profile.displayName);
+      return profile;
     } else {
       throw Exception("Name not set");
     }

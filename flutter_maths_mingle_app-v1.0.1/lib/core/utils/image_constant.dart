@@ -73,7 +73,8 @@ class ImageConstant {
   static String rightSwip = '$imagePath/right_swip.png';
   static String leftSwip = '$imagePath/left_swip.png';
 
-  static String newLogo = '$imagePath/NEWLOGO.png';
+  static String newLogo = '$imagePath/Logbait.jpg';
+  
 
   static String imgRectangle24966271x327 =
       '$imagePath/img_rectangle_24966_271x327.png';
