@@ -131,18 +131,22 @@ class CreateAccountSelectInterestScreen
             onPressed: () async {
               int count = 0;
               List<String> finalList = [];
+              List<int> indexList = [];
               List<CreateAccountSelectInterestModel> genreList =
                   AppListData.interestList;
               genreList.forEach((element) {
                 if (element.isCheck) {
                   finalList.add(element.genreName);
+                  indexList += [0];
                   count++;
                 }
               });
 
-              if (count >= 1 && count <= 5)
+              if (count >= 1 && count <= 5) {
+                PrefData.setGenreList(finalList);
+                PrefData.setGenreIndexes(indexList);
                 onTapNext(context);
-              else
+              } else
                 await showCupertinoDialog(
                     context: context,
                     builder: (context) {
@@ -209,7 +213,7 @@ class CreateAccountSelectInterestScreen
                     text: "Get started".tr,
                     onPressed: () {
                       PrefData.setLogin(false);
-                      Get.toNamed(AppRoutes.bottomBarScreen);
+                      Get.offAndToNamed(AppRoutes.bottomBarScreen);
                     })
               ],
               backgroundColor: AppColor.white,

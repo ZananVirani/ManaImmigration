@@ -53,7 +53,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
   }
 
   Future<List<Track>> fetchSongs() async {
-    var futureList = await MakeAPICall.searchForSong();
+    var futureList = await MakeAPICall.compileGenres();
     return futureList;
   }
 
@@ -69,17 +69,14 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          
           centerTitle: false,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-            
-            Text('Welcome back, ' + MakeAPICall.getDisplayName().toString()),
+              Text('Welcome back, ' + MakeAPICall.getDisplayName().toString()),
             ],
           ),
         ),
-        
         bottomNavigationBar: CustomBottomBar(player),
         backgroundColor: PrimaryColors().mainColor,
         body: Center(
@@ -88,6 +85,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return CardSwiper(
+                    allowedSwipeDirection: AllowedSwipeDirection.symmetric(
+                        horizontal: true, vertical: false),
                     numberOfCardsDisplayed: 1,
                     backCardOffset: Offset(0, 0),
                     cardBuilder: (context, index, horizontalOffsetPercentage,
@@ -97,147 +96,113 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                       String allInfo = track.artists!.first.name! +
                           " - " +
                           track.album!.name!;
-                      return ListView(
-                        padding: EdgeInsets.fromLTRB(24, 70, 24, 24),
-                        shrinkWrap: true,
-                        children: [
-                          Container(
-                            height: 575.v,
-                            padding: EdgeInsets.only(
-                                bottom: 24.h,
-                                top: 16.h,
-                                left: 16.h,
-                                right: 16.h),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Color(0x11000000),
-                                  blurRadius: 16.h,
-                                  offset: Offset(0, 5),
-                                  spreadRadius: 0,
-                                ),
-                              ],
-                              borderRadius: BorderRadiusStyle.roundedBorder8,
-                              color: PrimaryColors().secondaryColor,
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        controller.swiperController.undo();
-                                        controller.update();
-                                      },
-                                      child: Padding(
-                                        padding: EdgeInsets.all(13.0),
-                                        child: Icon(Icons.refresh),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                Image.network(track.album!.images!.first.url),
-                                // Stack(
-                                //   clipBehavior: Clip.none,
-                                //   children: [
-                                //     // FutureBuilder(
-                                //     //   future: track,
-                                //     //   builder: (context, snapshot) {
-                                //     //     if (snapshot.hasData)
-                                //     //       return Image.network(
-                                //     //           width: 400.h,
-                                //     //           snapshot.data!.album!.images!.first.url);
-                                //     //     else if (snapshot.hasError)
-                                //     //       return CustomImageView(
-                                //     //         imagePath: ImageConstant.travis,
-                                //     //       );
-                                //     //     else
-                                //     //       return const CircularProgressIndicator();
-                                //     //   },
-                                //     // ),
-
-                                //   ],
-                                // ),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: Text(
-                                    track.name!.length > 28
-                                        ? track.name!.substring(0, 26) + "..."
-                                        : track.name!,
-                                    style: theme.textTheme.bodyLarge!.copyWith(
-                                        fontSize: 18.fSize,
-                                        fontWeight: FontWeight.w700,
-                                        color: AppColor.black),
+                      return Center(
+                        child: ListView(
+                          // physics: NeverScrollableScrollPhysics(),
+                          padding: EdgeInsets.fromLTRB(24, 15, 24, 24),
+                          shrinkWrap: true,
+                          children: [
+                            Container(
+                              height: 575.v,
+                              padding: EdgeInsets.only(
+                                  bottom: 24.h,
+                                  top: 16.h,
+                                  left: 16.h,
+                                  right: 16.h),
+                              decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color(0x11000000),
+                                    blurRadius: 16.h,
+                                    offset: Offset(0, 5),
+                                    spreadRadius: 0,
                                   ),
-                                ),
-                                Text(
-                                  allInfo.length > 39
-                                      ? allInfo.substring(0, 37) + "..."
-                                      : allInfo,
-                                  style: theme.textTheme.bodyMedium,
-                                ),
-                                Text(
-                                  "Popularity (0-100) : ${track.popularity!}",
-                                  style: theme.textTheme.bodyMedium,
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.only(top: 16.h),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                ],
+                                borderRadius: BorderRadiusStyle.roundedBorder8,
+                                color: PrimaryColors().secondaryColor,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       GestureDetector(
                                         onTap: () {
-                                          controller.swiperController.swipe(
-                                            CardSwiperDirection.left,
-                                          );
+                                          controller.swiperController.undo();
                                           controller.update();
                                         },
-                                        child: Container(
-                                          width: 56.h,
-                                          height: 56.h,
-                                          decoration: BoxDecoration(
-                                              color: AppColor.white,
-                                              shape: BoxShape.circle,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Color(0x11000000),
-                                                  blurRadius: 16,
-                                                  spreadRadius: 0,
-                                                )
-                                              ]),
-                                          child: Icon(
-                                            Icons.close_rounded,
-                                            size: 24.h,
-                                          ),
+                                        child: Padding(
+                                          padding: EdgeInsets.all(13.0),
+                                          child: Icon(Icons.refresh),
                                         ),
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 30.0),
-                                        child: GestureDetector(
-                                          onTap: () async {
-                                            setState(() {
-                                              isPlaying = !isPlaying;
+                                    ],
+                                  ),
+                                  Image.network(track.album!.images!.first.url),
+                                  // Stack(
+                                  //   clipBehavior: Clip.none,
+                                  //   children: [
+                                  //     // FutureBuilder(
+                                  //     //   future: track,
+                                  //     //   builder: (context, snapshot) {
+                                  //     //     if (snapshot.hasData)
+                                  //     //       return Image.network(
+                                  //     //           width: 400.h,
+                                  //     //           snapshot.data!.album!.images!.first.url);
+                                  //     //     else if (snapshot.hasError)
+                                  //     //       return CustomImageView(
+                                  //     //         imagePath: ImageConstant.travis,
+                                  //     //       );
+                                  //     //     else
+                                  //     //       return const CircularProgressIndicator();
+                                  //     //   },
+                                  //     // ),
 
-                                              isPlaying
-                                                  ? _animationController
-                                                      .reverse()
-                                                  : _animationController
-                                                      .forward();
-                                            });
-                                            isPlaying
-                                                ? await player.resume()
-                                                : await player.pause();
+                                  //   ],
+                                  // ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Text(
+                                      track.name!.length > 28
+                                          ? track.name!.substring(0, 26) + "..."
+                                          : track.name!,
+                                      style: theme.textTheme.bodyLarge!
+                                          .copyWith(
+                                              fontSize: 18.fSize,
+                                              fontWeight: FontWeight.w700,
+                                              color: AppColor.black),
+                                    ),
+                                  ),
+                                  Text(
+                                    allInfo.length > 39
+                                        ? allInfo.substring(0, 37) + "..."
+                                        : allInfo,
+                                    style: theme.textTheme.bodyMedium,
+                                  ),
+                                  Text(
+                                    "Popularity (0-100) : ${track.popularity!}",
+                                    style: theme.textTheme.bodyMedium,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(top: 16.h),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        GestureDetector(
+                                          onTap: () {
+                                            controller.swiperController.swipe(
+                                              CardSwiperDirection.left,
+                                            );
+                                            controller.update();
                                           },
                                           child: Container(
                                             width: 56.h,
                                             height: 56.h,
                                             decoration: BoxDecoration(
-                                                color:
-                                                    PrimaryColors().blueGray500,
+                                                color: AppColor.white,
                                                 shape: BoxShape.circle,
                                                 boxShadow: [
                                                   BoxShadow(
@@ -246,69 +211,108 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                     spreadRadius: 0,
                                                   )
                                                 ]),
-                                            child: Center(
-                                              child: AnimatedIcon(
-                                                  size: 24.h,
-                                                  icon:
-                                                      AnimatedIcons.pause_play,
-                                                  progress:
-                                                      _animationController),
+                                            child: Icon(
+                                              Icons.close_rounded,
+                                              size: 24.h,
                                             ),
                                           ),
                                         ),
-                                      ),
-                                      // Container(
-                                      //   margin: EdgeInsets.symmetric(horizontal: 24.h),
-                                      //   width: 56.h,
-                                      //   height: 56.h,
-                                      //   decoration: BoxDecoration(
-                                      //       color: AppColor.primaryColor,
-                                      //       shape: BoxShape.circle,
-                                      //       boxShadow: [
-                                      //         BoxShadow(
-                                      //           color: Color(0x11000000),
-                                      //           blurRadius: 16,
-                                      //           spreadRadius: 0,
-                                      //         )
-                                      //       ]),
-                                      //   child: CustomImageView(
-                                      //     imagePath: ImageConstant.starWhiteIc,
-                                      //     margin: EdgeInsets.all(16.h),
-                                      //   ),
-                                      // ),
-                                      GestureDetector(
-                                        onTap: () {
-                                          controller.swiperController
-                                              .swipe(CardSwiperDirection.right);
+                                        Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 30.0),
+                                          child: GestureDetector(
+                                            onTap: () async {
+                                              setState(() {
+                                                isPlaying = !isPlaying;
 
-                                          controller.update();
-                                        },
-                                        child: Container(
-                                          width: 56.h,
-                                          height: 56.h,
-                                          decoration: BoxDecoration(
-                                              color: AppColor.primaryColor,
-                                              shape: BoxShape.circle,
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: Color(0x11000000),
-                                                  blurRadius: 16,
-                                                  spreadRadius: 0,
-                                                )
-                                              ]),
-                                          child: CustomImageView(
-                                            imagePath: ImageConstant.loveM,
-                                            margin: EdgeInsets.all(16.h),
+                                                isPlaying
+                                                    ? _animationController
+                                                        .reverse()
+                                                    : _animationController
+                                                        .forward();
+                                              });
+                                              isPlaying
+                                                  ? await player.resume()
+                                                  : await player.pause();
+                                            },
+                                            child: Container(
+                                              width: 56.h,
+                                              height: 56.h,
+                                              decoration: BoxDecoration(
+                                                  color: PrimaryColors()
+                                                      .blueGray500,
+                                                  shape: BoxShape.circle,
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Color(0x11000000),
+                                                      blurRadius: 16,
+                                                      spreadRadius: 0,
+                                                    )
+                                                  ]),
+                                              child: Center(
+                                                child: AnimatedIcon(
+                                                    size: 24.h,
+                                                    icon: AnimatedIcons
+                                                        .pause_play,
+                                                    progress:
+                                                        _animationController),
+                                              ),
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                        // Container(
+                                        //   margin: EdgeInsets.symmetric(horizontal: 24.h),
+                                        //   width: 56.h,
+                                        //   height: 56.h,
+                                        //   decoration: BoxDecoration(
+                                        //       color: AppColor.primaryColor,
+                                        //       shape: BoxShape.circle,
+                                        //       boxShadow: [
+                                        //         BoxShadow(
+                                        //           color: Color(0x11000000),
+                                        //           blurRadius: 16,
+                                        //           spreadRadius: 0,
+                                        //         )
+                                        //       ]),
+                                        //   child: CustomImageView(
+                                        //     imagePath: ImageConstant.starWhiteIc,
+                                        //     margin: EdgeInsets.all(16.h),
+                                        //   ),
+                                        // ),
+                                        GestureDetector(
+                                          onTap: () {
+                                            controller.swiperController.swipe(
+                                                CardSwiperDirection.right);
+
+                                            controller.update();
+                                          },
+                                          child: Container(
+                                            width: 56.h,
+                                            height: 56.h,
+                                            decoration: BoxDecoration(
+                                                color: AppColor.primaryColor,
+                                                shape: BoxShape.circle,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Color(0x11000000),
+                                                    blurRadius: 16,
+                                                    spreadRadius: 0,
+                                                  )
+                                                ]),
+                                            child: CustomImageView(
+                                              imagePath: ImageConstant.loveM,
+                                              margin: EdgeInsets.all(16.h),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       );
                     },
                     onSwipe: (previousIndex, currentIndex, direction) async {
@@ -334,7 +338,6 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
               }),
         ),
       ),
-      
     );
   }
 

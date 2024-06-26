@@ -135,14 +135,15 @@ class MakeAPICall {
     }
   }
 
-  static Future<List<Track>> searchForSong() async {
-    List<String> genreList = await PrefData.getGenreList();
+  static Future<List<Track>> searchForGenre(
+      String genre, int limit, int offset) async {
     String path = "search";
 
     Map<String, dynamic> data = {
-      'q': 'genre:r-n-b',
+      'q': 'genre:$genre',
       'type': 'track',
-      'limit': 30,
+      'limit': limit,
+      'offset': offset,
     };
 
     final Response<Map<String, dynamic>>? searchResponse =
@@ -157,6 +158,11 @@ class MakeAPICall {
     } else {
       throw Exception("Did not get profile");
     }
+  }
+
+  static Future<List<Track>> compileGenres() async {
+    List<String> genreList = await PrefData.getGenreList();
+    List<int> indexList = await PrefData.getGenreIndexes();
   }
 
   // static Future<Profile> getProfile() async {

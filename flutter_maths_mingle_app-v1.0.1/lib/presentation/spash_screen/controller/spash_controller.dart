@@ -18,13 +18,13 @@ class SpashController extends GetxController {
       bool isIntro = await PrefData.getIntro();
       bool isLogin = await PrefData.getLogin();
 
-      if (isIntro) {
-        Get.offAndToNamed(AppRoutes.onboardingThree1Screen);
-      } else {
-        Get.offAndToNamed(AppRoutes.createAccountBirthdateScreen);
-        // } else {
-        //   Get.offAndToNamed(AppRoutes.bottomBarScreen);
-      }
+      // if (isIntro) {
+      //   Get.offAndToNamed(AppRoutes.onboardingThree1Screen);
+      // } else {
+      //   Get.offAndToNamed(AppRoutes.createAccountBirthdateScreen);
+      //   // } else {
+      //   //   Get.offAndToNamed(AppRoutes.bottomBarScreen);
+      // }
     });
   }
 }
