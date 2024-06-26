@@ -89,6 +89,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                 'Welcome back, ' + MakeAPICall.getDisplayName().toString(),
                 style: GoogleFonts.lato(
                   textStyle: TextStyle(
+                    fontSize: 27,
                     color: Colors.white,  // White background
                     fontWeight: FontWeight.w900,
                   ),
@@ -97,11 +98,12 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
               Text('Welcome back, ' + MakeAPICall.getDisplayName().toString(),
               style: GoogleFonts.lato(
                 textStyle: TextStyle(
+                fontSize: 27,
                 fontWeight: FontWeight.w900,
                 foreground: Paint()
                 ..style = PaintingStyle.stroke
                 ..color = Colors.black
-                ..strokeWidth = 1.5
+                ..strokeWidth = 1.6
               
               )
             )),
@@ -130,7 +132,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                           " - " +
                           track.album!.name!;
                       return ListView(
-                        padding: EdgeInsets.fromLTRB(24, 70, 24, 24),
+                        padding: EdgeInsets.fromLTRB(24, 15, 24, 24),
                         shrinkWrap: true,
                         children: [
                           Container(
