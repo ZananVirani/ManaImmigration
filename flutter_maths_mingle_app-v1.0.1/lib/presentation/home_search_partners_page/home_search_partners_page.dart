@@ -59,6 +59,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
 
   @override
   Widget build(BuildContext context) {
+    MakeAPICall.refreshName();
+    print("refreshname");
     return _buildFiftyColumn();
   }
 
@@ -66,6 +68,18 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     //PrefData.setMusicList([]);
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          
+          centerTitle: false,
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+            
+            Text('Welcome back, ' + MakeAPICall.getDisplayName().toString()),
+            ],
+          ),
+        ),
+        
         bottomNavigationBar: CustomBottomBar(player),
         backgroundColor: PrimaryColors().mainColor,
         body: Center(
@@ -320,6 +334,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
               }),
         ),
       ),
+      
     );
   }
 
