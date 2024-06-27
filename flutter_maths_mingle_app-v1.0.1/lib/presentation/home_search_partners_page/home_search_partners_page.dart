@@ -191,6 +191,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                             GestureDetector(
                                               onTap: () {
                                                 //Insert redirect
+                                                MakeAPICall.setLoginStatus(true);
                                                 Get.toNamed(AppRoutes.createAccountSelectInterestScreen);
                                                 controller.update();
                                               },

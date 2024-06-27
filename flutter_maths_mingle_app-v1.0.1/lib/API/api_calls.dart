@@ -15,7 +15,8 @@ class MakeAPICall {
   static final _dio = Dio();
   static var date;
   static var userDisplayName;
-
+  static bool loginStatus = false;
+  
   static Future<AccessTokenResponse> _refreshToken() async {
     accessToken = await SpotifyAuthService.refreshToken();
     PrefData.setAccessToken(accessToken!);
@@ -349,5 +350,8 @@ class MakeAPICall {
     } else {
       throw Exception("Name not set");
     }
+  }
+  static void setLoginStatus (bool b){
+    loginStatus = b;
   }
 }
