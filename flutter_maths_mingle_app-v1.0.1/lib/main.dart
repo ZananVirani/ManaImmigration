@@ -22,7 +22,7 @@ Future<void> main() async {
             measurementId: "G-388NLBEJCF"));
   } else {
     await Firebase.initializeApp();
-    MakeAPICall.refreshName();
+    
   }
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
