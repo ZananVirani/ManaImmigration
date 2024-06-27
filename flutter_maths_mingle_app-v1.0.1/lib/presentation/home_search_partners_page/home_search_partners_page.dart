@@ -1,7 +1,6 @@
 // ignore_for_file: unnecessary_import
 
 import 'dart:async';
-//import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
@@ -10,6 +9,7 @@ import 'package:flutter_maths_mingle_app/API/api_calls.dart';
 import 'package:flutter_maths_mingle_app/API/track.dart';
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
 import 'package:flutter_maths_mingle_app/widgets/custom_bottom_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
 // import 'package:flutter_maths_mingle_app/data/list_data/app_listdata.dart';
 // import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -37,6 +37,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
 
   @override
   void initState() {
+    MakeAPICall.refreshName();
     futureList = fetchSongs().then(
       (value) {
         print("Success!!!");
@@ -60,8 +61,6 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
 
   @override
   Widget build(BuildContext context) {
-    MakeAPICall.refreshName();
-    print("refreshname");
     return _buildFiftyColumn();
   }
 
@@ -69,11 +68,44 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          flexibleSpace: FlexibleSpaceBar(
+            background: Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                image: AssetImage('assets/images/appback.gif'),
+                fit: BoxFit.cover,
+              )),
+            ),
+          ),
           centerTitle: false,
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('Welcome back, ' + MakeAPICall.getDisplayName().toString()),
+              Stack(
+                children: [
+                  Text(
+                    'Welcome back, ' + MakeAPICall.getDisplayName().toString(),
+                    style: GoogleFonts.lato(
+                      textStyle: TextStyle(
+                        fontSize: 27,
+                        color: Colors.white, // White background
+                        fontWeight: FontWeight.w900,
+                      ),
+                    ),
+                  ),
+                  Text(
+                      'Welcome back, ' +
+                          MakeAPICall.getDisplayName().toString(),
+                      style: GoogleFonts.lato(
+                          textStyle: TextStyle(
+                              fontSize: 27,
+                              fontWeight: FontWeight.w900,
+                              foreground: Paint()
+                                ..style = PaintingStyle.stroke
+                                ..color = Colors.black
+                                ..strokeWidth = 1.6))),
+                ],
+              ),
             ],
           ),
         ),

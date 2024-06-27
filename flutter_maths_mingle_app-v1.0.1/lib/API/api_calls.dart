@@ -336,7 +336,7 @@ class MakeAPICall {
     return userDisplayName;
   }
 
-  static void refreshName() async {
+  static Future<Profile> refreshName() async {
     String path = 'me';
 
     final Response<Map<String, dynamic>>? prof =
@@ -345,6 +345,7 @@ class MakeAPICall {
     if (prof != null) {
       final profile = Profile.fromJson(prof.data!);
       setDisplayName(profile.displayName);
+      return profile;
     } else {
       throw Exception("Name not set");
     }
