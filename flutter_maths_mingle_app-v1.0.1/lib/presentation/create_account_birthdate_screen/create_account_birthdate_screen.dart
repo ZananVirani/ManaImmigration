@@ -98,7 +98,6 @@ class CreateAccountBirthdateScreen
             controller.dateController.text =
                 formattedDate; //set output date to TextField value.
             MakeAPICall.setBirthday(pickedDate);
-            
           } else {}
         },
         child: CustomTextFormField(

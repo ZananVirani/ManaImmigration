@@ -144,7 +144,8 @@ class CreateAccountSelectInterestScreen
 
               if (count >= 1 && count <= 5) {
                 PrefData.setGenreList(finalList);
-                PrefData.setGenreIndexes(indexList);
+                PrefData.setNumGenres(count);
+                PrefData.setGenreIndex(0);
                 onTapNext(context);
               } else
                 await showCupertinoDialog(

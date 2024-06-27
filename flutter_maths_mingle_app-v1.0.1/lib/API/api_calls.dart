@@ -137,6 +137,7 @@ class MakeAPICall {
 
   static Future<List<Track>> searchForGenre(
       String genre, int limit, int offset) async {
+    String market = await PrefData.getUserCountry();
     String path = "search";
 
     Map<String, dynamic> data = {
@@ -144,6 +145,7 @@ class MakeAPICall {
       'type': 'track',
       'limit': limit,
       'offset': offset,
+      'market': market,
     };
 
     final Response<Map<String, dynamic>>? searchResponse =
@@ -162,7 +164,52 @@ class MakeAPICall {
 
   static Future<List<Track>> compileGenres() async {
     List<String> genreList = await PrefData.getGenreList();
-    List<int> indexList = await PrefData.getGenreIndexes();
+    int genreIndex = await PrefData.getGenreIndex();
+    print(genreIndex);
+    List<List<Track>> trackList = [];
+    List<Track> finalTracks = [];
+
+    int limit = 40;
+
+    switch (genreList.length) {
+      case 1:
+        limit = 50;
+      case 2:
+        limit = 35;
+      case 3:
+        limit = 26;
+      case 4:
+        limit = 20;
+      case 5:
+        limit = 16;
+    }
+
+    for (String genre in genreList) {
+      trackList.add(await searchForGenre(genre, limit, genreIndex));
+    }
+
+    int maxLength = calculateMax(trackList);
+    for (int i = 0; i < maxLength; i++) {
+      for (List<Track> specificGenre in trackList) {
+        if (i < specificGenre.length) finalTracks.add(specificGenre[i]);
+      }
+    }
+
+    Set<Track> setList = finalTracks.toSet();
+    finalTracks = setList.toList();
+
+    return finalTracks;
+  }
+
+  static int calculateMax(List<List<Track>> trackList) {
+    int max = trackList[0].length;
+    for (int i = 1; i < trackList.length; i++) {
+      int length = trackList[i].length;
+
+      if (length > max) max = length;
+    }
+
+    return max;
   }
 
   // static Future<Profile> getProfile() async {
@@ -262,6 +309,7 @@ class MakeAPICall {
     if (prof != null) {
       final profile = Profile.fromJson(prof.data!);
       PrefData.setUserID(profile.id!);
+      PrefData.setUserCountry(profile.country!);
       print("save data");
       saveProfileData(users, profile);
       setDisplayName(profile.displayName);

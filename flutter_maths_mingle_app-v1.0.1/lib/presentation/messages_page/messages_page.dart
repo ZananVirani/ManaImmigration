@@ -43,7 +43,7 @@ class _MessagesPageState extends State<MessagesPage> {
                 print("THERE IS AN ERRROROROORORORORORO!!!");
                 print(snapshot.error);
                 return Center(
-                  child: Text("This shit is not working brother"),
+                  child: Text(""),
                 );
               } else if (snapshot.hasData) {
                 List<Track> likedList = snapshot.data!;
