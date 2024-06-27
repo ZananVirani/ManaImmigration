@@ -165,6 +165,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                           CrossAxisAlignment.start,
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
+                                        Stack(
+                                          children: [
                                         Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.end,
@@ -176,11 +178,31 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                 controller.update();
                                               },
                                               child: Padding(
-                                                padding: EdgeInsets.all(13.0),
+                                                padding: EdgeInsets.all(12.0),
                                                 child: Icon(Icons.refresh),
                                               ),
                                             ),
                                           ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            GestureDetector(
+                                              onTap: () {
+                                                //Insert redirect
+                                                Get.toNamed(AppRoutes.createAccountSelectInterestScreen);
+                                                controller.update();
+                                              },
+                                              child: Padding(
+                                                padding: EdgeInsets.all(12.0),
+                                                child: Icon(Icons.settings),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                          ],
+                                          
                                         ),
                                         Image.network(
                                             track.album!.images!.first.url),
