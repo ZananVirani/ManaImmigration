@@ -142,10 +142,15 @@ class CreateAccountSelectInterestScreen
 
               if (count >= 1 && count <= 5) {
                 PrefData.setGenreList(finalList);
-                PrefData.setNumGenres(count);
-                PrefData.setAvailableSongs(null);
                 PrefData.setGenreIndex(null);
-                onTapNext(context);
+                PrefData.setAvailableSongs(null);
+                bool isLogin = await PrefData.getLogin();
+
+                if (isLogin) {
+                  onTapNext(context);
+                } else {
+                  Get.offAndToNamed(AppRoutes.bottomBarScreen);
+                }
               } else
                 await showCupertinoDialog(
                     context: context,
@@ -193,7 +198,7 @@ class CreateAccountSelectInterestScreen
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 16.h, bottom: 8.h),
-                      child: Text('You\'re verified!',
+                      child: Text('You\'re all set!',
                           style: CustomTextStyles.headlineSmallff000000),
                     ),
                     Padding(

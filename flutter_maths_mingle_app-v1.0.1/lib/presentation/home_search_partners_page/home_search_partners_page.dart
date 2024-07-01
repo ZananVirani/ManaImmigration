@@ -11,7 +11,6 @@ import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
 import 'package:flutter_maths_mingle_app/presentation/bottombar_screen/bottombar_screen.dart';
 import 'package:flutter_maths_mingle_app/widgets/custom_bottom_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:icons_plus/icons_plus.dart';
 // import 'package:flutter_maths_mingle_app/data/list_data/app_listdata.dart';
 // import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -173,8 +172,20 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                         children: [
                                           Row(
                                             mainAxisAlignment:
-                                                MainAxisAlignment.end,
+                                                MainAxisAlignment.spaceBetween,
                                             children: [
+                                              GestureDetector(
+                                                onTap: () {
+                                                  player.dispose();
+                                                  Get.toNamed(AppRoutes
+                                                      .createAccountSelectInterestScreen);
+                                                  controller.update();
+                                                },
+                                                child: Padding(
+                                                  padding: EdgeInsets.all(12.0),
+                                                  child: Icon(Icons.settings),
+                                                ),
+                                              ),
                                               GestureDetector(
                                                 onTap: () {
                                                   controller.swiperController
@@ -182,7 +193,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                   controller.update();
                                                 },
                                                 child: Padding(
-                                                  padding: EdgeInsets.all(13.0),
+                                                  padding: EdgeInsets.all(12.0),
                                                   child: Icon(Icons.refresh),
                                                 ),
                                               ),
@@ -211,6 +222,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
 
                                           //   ],
                                           // ),
+
                                           Padding(
                                             padding:
                                                 const EdgeInsets.only(top: 8.0),

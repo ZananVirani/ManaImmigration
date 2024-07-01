@@ -140,9 +140,9 @@ class MakeAPICall {
     String path = "search";
     int timesRun = 0;
     List<Track> finalTracks = genreMap[genre]!;
-    int limit = 20;
+    int limit = 50;
 
-    while (finalTracks.length < 5) {
+    while (finalTracks.length < 20) {
       if (timesRun >= 20) break;
       Map<String, dynamic> data = {
         'q': 'genre:$genre',
@@ -156,7 +156,6 @@ class MakeAPICall {
           await makeGenericGetCall(path, data);
 
       if (searchResponse != null) {
-        if (finalTracks.length >= 15) limit = 10;
         final SearchResult searchResult =
             SearchResult.fromJson(searchResponse.data!);
         final tracks = searchResult.tracks!.items;
@@ -164,7 +163,7 @@ class MakeAPICall {
         tracks!.removeWhere((item) => item.previewUrl == null);
         finalTracks += tracks;
       }
-
+      print(timesRun);
       timesRun++;
     }
 

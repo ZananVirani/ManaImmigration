@@ -333,7 +333,7 @@ class PrefData {
         "r-n-b": 0,
         "alternative": 0,
         "afrobeat": 0,
-        "work-out": 0,
+        "techno": 0,
         "reggae": 0,
         "study": 0
       };
@@ -377,7 +377,7 @@ class PrefData {
         "r-n-b": [],
         "alternative": [],
         "afrobeat": [],
-        "work-out": [],
+        "techno": [],
         "reggae": [],
         "study": []
       };

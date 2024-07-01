@@ -72,8 +72,8 @@ class AppListData {
         inrerestName: 'Afro-Beat',
         isCheck: false), //Animals
     CreateAccountSelectInterestModel(
-        genreName: 'work-out',
-        inrerestName: 'Work-Out',
+        genreName: 'techno',
+        inrerestName: 'Techno',
         isCheck: false), //Gym and fitness
     CreateAccountSelectInterestModel(
         genreName: 'reggae', inrerestName: 'Reggae', isCheck: false),
