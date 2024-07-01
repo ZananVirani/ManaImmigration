@@ -135,70 +135,78 @@ class MakeAPICall {
     }
   }
 
-  static Future<List<Track>> searchForGenre(
-      String genre, int limit, int offset) async {
-    String market = await PrefData.getUserCountry();
+  static Future<void> searchForGenre(String genre, Map<String, int> genreIndex,
+      Map<String, List<Track>> genreMap, String market) async {
     String path = "search";
+    int timesRun = 0;
+    List<Track> finalTracks = genreMap[genre]!;
+    int limit = 20;
 
-    Map<String, dynamic> data = {
-      'q': 'genre:$genre',
-      'type': 'track',
-      'limit': limit,
-      'offset': offset,
-      'market': market,
-    };
+    while (finalTracks.length < 5) {
+      if (timesRun >= 20) break;
+      Map<String, dynamic> data = {
+        'q': 'genre:$genre',
+        'type': 'track',
+        'limit': limit,
+        'offset': genreIndex[genre],
+        'market': "CA",
+      };
 
-    final Response<Map<String, dynamic>>? searchResponse =
-        await makeGenericGetCall(path, data);
+      final Response<Map<String, dynamic>>? searchResponse =
+          await makeGenericGetCall(path, data);
 
-    if (searchResponse != null) {
-      final SearchResult searchResult =
-          SearchResult.fromJson(searchResponse.data!);
-      final tracks = searchResult.tracks!.items;
-      tracks!.removeWhere((item) => item.previewUrl == null);
-      return tracks;
+      if (searchResponse != null) {
+        if (finalTracks.length >= 15) limit = 10;
+        final SearchResult searchResult =
+            SearchResult.fromJson(searchResponse.data!);
+        final tracks = searchResult.tracks!.items;
+        genreIndex[genre] = genreIndex[genre]! + limit;
+        tracks!.removeWhere((item) => item.previewUrl == null);
+        finalTracks += tracks;
+      }
+
+      timesRun++;
+    }
+
+    if (timesRun >= 20) {
+      print("Something went wrong!!!");
+      print(finalTracks);
     } else {
-      throw Exception("Did not get profile");
+      genreMap[genre] = finalTracks;
     }
   }
 
   static Future<List<Track>> compileGenres() async {
     List<String> genreList = await PrefData.getGenreList();
-    int genreIndex = await PrefData.getGenreIndex();
-    print(genreIndex);
-    List<List<Track>> trackList = [];
-    List<Track> finalTracks = [];
-
-    int limit = 40;
-
-    switch (genreList.length) {
-      case 1:
-        limit = 50;
-      case 2:
-        limit = 35;
-      case 3:
-        limit = 26;
-      case 4:
-        limit = 20;
-      case 5:
-        limit = 16;
-    }
+    Map<String, List<Track>> genreMap = await PrefData.getAvailableSongs();
+    Map<String, int> genreIndex = await PrefData.getGenreIndex();
+    String market = await PrefData.getUserCountry();
+    List<Track> finalList = [];
 
     for (String genre in genreList) {
-      trackList.add(await searchForGenre(genre, limit, genreIndex));
+      await searchForGenre(genre, genreIndex, genreMap, market);
     }
 
-    int maxLength = calculateMax(trackList);
+    Map<String, List<Track>> newMap = Map.from(genreMap);
+    newMap.removeWhere((key, value) => !genreList.contains(key));
+
+    List<List<Track>> validLists = newMap.values.toList();
+    print(validLists);
+    int maxLength = calculateMax(validLists);
     for (int i = 0; i < maxLength; i++) {
-      for (List<Track> specificGenre in trackList) {
-        if (i < specificGenre.length) finalTracks.add(specificGenre[i]);
+      for (int j = 0; j < validLists.length; j++) {
+        if (i < validLists[j].length) finalList.add(validLists[j][i]);
       }
     }
 
-    Set<Track> setList = finalTracks.toSet();
-    finalTracks = setList.toList();
+    print(genreMap);
 
-    return finalTracks;
+    await PrefData.setGenreIndex(genreIndex);
+    await PrefData.setAvailableSongs(genreMap);
+    print("before the finalList");
+    print(finalList);
+
+    return finalList;
   }
 
   static int calculateMax(List<List<Track>> trackList) {
@@ -336,7 +344,7 @@ class MakeAPICall {
     return userDisplayName;
   }
 
-  static Future<Profile> refreshName() async {
+  static Future<void> refreshName() async {
     String path = 'me';
 
     final Response<Map<String, dynamic>>? prof =
@@ -345,7 +353,6 @@ class MakeAPICall {
     if (prof != null) {
       final profile = Profile.fromJson(prof.data!);
       setDisplayName(profile.displayName);
-      return profile;
     } else {
       throw Exception("Name not set");
     }

@@ -26,7 +26,7 @@ class PrefData {
   }
 
   ///will clear all the data stored in preference
-  static void clearPreferencesData() async {
+  static Future<void> clearPreferencesData() async {
     _sharedPreferences!.clear();
   }
 
@@ -223,7 +223,7 @@ class PrefData {
     return id;
   }
 
-  static void addSong(Track track) async {
+  static Future<void> addSong(Track track) async {
     getMusicList().then((list) {
       list!.add(track);
       setMusicList(list);
@@ -273,14 +273,14 @@ class PrefData {
     return accessToken;
   }
 
-  static void setAccessToken(AccessTokenResponse accessToken) async {
+  static Future<void> setAccessToken(AccessTokenResponse accessToken) async {
     Map<String, dynamic> mapToken = accessToken.toMap();
     String jsonMap = json.encode(mapToken);
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('accessToken', jsonMap);
   }
 
-  static void setRefreshToken(AccessTokenResponse accessToken) async {
+  static Future<void> setRefreshToken(AccessTokenResponse accessToken) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('refreshToken', accessToken.refreshToken!);
   }
@@ -299,21 +299,110 @@ class PrefData {
 
   static Future<List<String>> getGenreList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> genreList = prefs.getStringList('genreList') ?? [];
+    List<String> genreList =
+        prefs.getStringList('genreList') ?? ["alternative"];
 
     return genreList;
   }
 
-  static void setGenreIndex(int genreIndex) async {
+  static setGenreIndex(Map<String, int>? genreIndex) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setInt('genreIndex', genreIndex);
+
+    String trackListJSON = json.encode(genreIndex);
+    prefs.setString('genreIndex', trackListJSON);
   }
 
-  static Future<int> getGenreIndex() async {
+  static Future<Map<String, int>> getGenreIndex() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    int genreIndex = prefs.getInt('genreIndex') ?? 0;
+    String? id = prefs.getString('genreIndex');
 
-    return genreIndex;
+    if (id == null || id == "null") {
+      return {
+        "indie": 0,
+        "pop": 0,
+        "rock": 0,
+        "country": 0,
+        "metal": 0,
+        "jazz": 0,
+        "k-pop": 0,
+        "hip-hop": 0,
+        "edm": 0,
+        "classical": 0,
+        "latin": 0,
+        "sad": 0,
+        "r-n-b": 0,
+        "alternative": 0,
+        "afrobeat": 0,
+        "work-out": 0,
+        "reggae": 0,
+        "study": 0
+      };
+    } else {
+      Map<String, dynamic> trackListString = json.decode(id);
+      var newMap = trackListString.map((key, value) {
+        if (value is int)
+          return MapEntry(key, value);
+        else
+          return MapEntry(key, int.parse(value));
+      });
+      return newMap;
+    }
+  }
+
+  static Future<void> setAvailableSongs(
+      Map<String, List<Track>>? genreMapTracks) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String trackListJSON = json.encode(genreMapTracks);
+    prefs.setString('genreMap', trackListJSON);
+  }
+
+  static Future<Map<String, List<Track>>> getAvailableSongs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id = prefs.getString('genreMap');
+    if (id == null || id == "null") {
+      return {
+        "indie": [],
+        "pop": [],
+        "rock": [],
+        "country": [],
+        "metal": [],
+        "jazz": [],
+        "k-pop": [],
+        "hip-hop": [],
+        "edm": [],
+        "classical": [],
+        "latin": [],
+        "sad": [],
+        "r-n-b": [],
+        "alternative": [],
+        "afrobeat": [],
+        "work-out": [],
+        "reggae": [],
+        "study": []
+      };
+    }
+
+    Map<String, dynamic> trackListString = json.decode(id);
+    print("Number 1");
+    print(trackListString.runtimeType);
+    try {
+      Map<String, List<Track>> mapStringAndDynamic =
+          trackListString.map((key, value) {
+        if (value == []) return MapEntry(key, value);
+        List<Track> newList = [];
+        for (int i = 0; i < value.length; i++) {
+          newList.add(Track.fromJson(value[i]));
+        }
+        return MapEntry(key, newList);
+      });
+
+      return mapStringAndDynamic;
+    } catch (e) {
+      print("ERROROROROR");
+      print(e);
+      return {};
+    }
   }
 
   static void setNumGenres(int num) {

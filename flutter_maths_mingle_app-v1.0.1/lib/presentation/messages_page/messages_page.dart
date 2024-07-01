@@ -5,7 +5,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_maths_mingle_app/API/api_calls.dart';
 import 'package:flutter_maths_mingle_app/API/track.dart';
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
-import 'package:flutter_maths_mingle_app/presentation/bottombar_screen/bottombar_screen.dart';
 import 'package:flutter_maths_mingle_app/widgets/custom_bottom_bar.dart';
 import 'controller/messages_controller.dart';
 
@@ -216,9 +215,9 @@ class _MessagesPageState extends State<MessagesPage> {
               child: GestureDetector(
                 onTap: () async {
                   await showCupertinoDialog(
-                      context: context,
-                      builder: (context) {
-                        return CupertinoAlertDialog(
+                    context: context,
+                    builder: (context) {
+                      return CupertinoAlertDialog(
                           title: Text("Are you happy with your selections?"),
                           content: Text("Page will refresh."),
                           actions: [
@@ -227,24 +226,22 @@ class _MessagesPageState extends State<MessagesPage> {
                               onPressed: () => Navigator.pop(context),
                             ),
                             CupertinoDialogAction(
-                              child: Text("Export"),
-                              onPressed: () async {
-                                MakeAPICall.addSongsToPlaylist(exportList);
-                                PrefData.setMusicList([]);
-                                player.stop();
-                                player.dispose();
-                                PrefData.currentIndex = 0;
-                                Navigator.pop(context);
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return BottomBarScreen();
-                                }));
-                                // Navigator.pop(context);
-                              },
-                            ),
-                          ],
-                        );
-                      });
+                                child: Text("Export"),
+                                onPressed: () async {
+                                  MakeAPICall.addSongsToPlaylist(exportList);
+                                  PrefData.setMusicList([]);
+                                  setState(() {
+                                    exportList = [];
+                                  });
+                                  Navigator.pop(context);
+                                }
+                                // Navigator.push(context,
+                                //     MaterialPageRoute(builder: (context) {
+                                //   return BottomBarScreen();}
+                                )
+                          ]);
+                    },
+                  );
                 },
                 child: Text("Export to Spotify",
                     style: theme.textTheme.titleSmall!.copyWith(

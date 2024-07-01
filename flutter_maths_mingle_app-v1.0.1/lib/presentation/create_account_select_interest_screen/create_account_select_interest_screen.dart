@@ -131,13 +131,11 @@ class CreateAccountSelectInterestScreen
             onPressed: () async {
               int count = 0;
               List<String> finalList = [];
-              List<int> indexList = [];
               List<CreateAccountSelectInterestModel> genreList =
                   AppListData.interestList;
               genreList.forEach((element) {
                 if (element.isCheck) {
                   finalList.add(element.genreName);
-                  indexList += [0];
                   count++;
                 }
               });
@@ -145,7 +143,8 @@ class CreateAccountSelectInterestScreen
               if (count >= 1 && count <= 5) {
                 PrefData.setGenreList(finalList);
                 PrefData.setNumGenres(count);
-                PrefData.setGenreIndex(0);
+                PrefData.setAvailableSongs(null);
+                PrefData.setGenreIndex(null);
                 onTapNext(context);
               } else
                 await showCupertinoDialog(
