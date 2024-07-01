@@ -41,6 +41,12 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     MakeAPICall.refreshName();
     futureList = fetchSongs();
     this.player = AudioPlayer();
+    player.onPlayerComplete.listen((data) {
+      setState(() {
+        isPlaying = false;
+        _animationController.forward();
+      });
+    });
     this._animationController = AnimationController(
         value: 1.0, vsync: this, duration: Duration(milliseconds: 500));
     super.initState();
@@ -110,8 +116,6 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
               future: futureList,
               builder: (context, trackList) {
                 if (trackList.hasData) {
-                  print(trackList.data!);
-                  print("Builds here");
                   return FutureBuilder(
                       future: tempGenreMap,
                       builder: (context, anotherTempGenreMap) {
@@ -120,8 +124,6 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                         } else {
                           Map<String, List<Track>> genreMap =
                               anotherTempGenreMap.data!;
-                          print(genreMap.keys);
-                          print(genreMap.values);
                           Iterable<String> tempGenreKeys = genreMap.keys;
                           List<String> genreKeys = tempGenreKeys.toList();
                           return CardSwiper(
@@ -384,7 +386,6 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                               for (int i = 0; i < genreMap.length; i++) {
                                 if (genreMap[genreKeys[i]]!
                                     .contains(trackList.data![previousIndex])) {
-                                  print("Popped!!RAHHHHHHHH");
                                   genreMap[genreKeys[i]]!
                                       .remove(trackList.data![previousIndex]);
                                   await PrefData.setAvailableSongs(genreMap);
@@ -447,15 +448,6 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     );
   }
 
-  // child: CardSwiper(
-  //         backCardOffset: Offset(0, 0), // this is the reference for the swiping
-  //         cardBuilder: (context, index, horizontalOffsetPercentage, verticalOffsetPercentage) //this is the callback for the swiping
-  //          {
-  //           return Padding(
-  //             padding: EdgeInsets.only(top: 8.h, right: 24.h, left: 24.h),
-  //             child: Container(
-
-  /// Navigates to the homeSearchPartnersSwipeLeftTabContainerScreen when the action is triggered.
   onTapBtnClose() {
     Get.toNamed(
       AppRoutes.homeSearchPartnersSwipeLeftTabContainerScreen,
@@ -472,133 +464,3 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     );
   }
 }
-
-
-// delete later, keep for now just in case and apply the swipe logic to the new swipe screen
-                                // CustomImageView(
-                                //  imagePath:
-                                      // AppListData.searchPersonList[index].img,
-                                 //  height: 250.h,
-                                  // width: double.infinity,
-                                 //  radius: BorderRadius.circular(8.h),
-                               // ),
-
-
-// Container(
-                        //   height: 299.h,
-                        //   width: double.infinity,
-                        //   decoration: BoxDecoration(
-                        //     gradient: LinearGradient(
-                        //         begin: Alignment.topCenter,
-                        //         end: Alignment.bottomCenter,
-                        //         colors: [
-                        //           Colors.transparent,
-                        //           Color(0x0),
-                        //           Color(0x8A000000)
-                        //         ]),
-                        //     borderRadius: BorderRadiusStyle.roundedBorder8,
-                        //   ),
-                        // ),
-                        // Positioned(
-                        //   right: 8.h,
-                        //   top: 8.h,
-                        //   child: CircularPercentIndicator(
-                        //     radius: 25.h,
-                        //     lineWidth: 5.h,
-                        //     percent: 0.5,
-                        //     circularStrokeCap: CircularStrokeCap.round,
-                        //     progressColor: AppColor.primaryColor,
-                        //     animation: true,
-                        //     backgroundColor: AppColor.white,
-                        //     center: Text(
-                        //       '92%',
-                        //       style: theme.textTheme.labelLarge,
-                        //     ),
-                        //   ),
-                        // ),
-                        // Positioned(
-                        //     bottom: 8.h,
-                        //     left: 5.h,
-                        //     child: Text(
-                        //       'Liked by 10k+ Others',
-                        //       style: CustomTextStyles.bodyLargeWhiteA700,
-                        //     )),
-                        // Center(
-                        //   child: SizedBox(
-                        //     height: 280.h,
-                        //     width: 280.h,
-                        //     child: CardSwiper(
-                        //       backCardOffset: Offset(0, 0),
-                        //       cardBuilder: (context,
-                        //           index,
-                        //           horizontalOffsetPercentage,
-                        //           verticalOffsetPercentage) {
-                        //         print('index---->$index');
-                        //         return Stack(
-                        //           clipBehavior: Clip.none,
-                        //           children: [
-                        //             Container(
-                        //               height: 250.h,
-                        //               width: double.infinity,
-                        //               decoration: BoxDecoration(
-                        //                 gradient: LinearGradient(
-                        //                     begin: Alignment.topCenter,
-                        //                     end: Alignment.bottomCenter,
-                        //                     colors: [
-                        //                       Colors.transparent,
-                        //                       Color(0x0),
-                        //                       Color(0x8A000000)
-                        //                     ]),
-                        //                 borderRadius:
-                        //                     BorderRadiusStyle.roundedBorder8,
-                        //               ),
-                        //             ),
-                        // Positioned(
-                        //   right: 8.h,
-                        //   top: 8.h,
-                        //   child: CircularPercentIndicator(
-                        //     radius: 22.h,
-                        //     lineWidth: 3.5.h,
-                        //     percent: 0.5,
-                        //     circularStrokeCap: CircularStrokeCap.round,
-                        //     progressColor: AppColor.primaryColor,
-                        //     animation: true,
-                        //     backgroundColor: AppColor.white,
-                        //     center: Text(
-                        //       '50%',
-                        //       style: theme.textTheme.labelLarge,
-                        //     ),
-                        // ),
-                        // ),
-                        //     Positioned(
-                        //         bottom: 8.h,
-                        //         left: 5.h,
-                        //         child: Text(
-                        //           ' ',
-                        //           style:
-                        //               CustomTextStyles.bodyLargeWhiteA700,
-                        //         )),
-                        //     index / 2 == 0
-                        //         ? Center(
-                        //             child: CustomImageView(
-                        //               imagePath: ImageConstant.tester,
-                        //               height: 56.h,
-                        //             ),
-                        //           )
-                        //         : Center(
-                        //             child: CustomImageView(
-                        //               imagePath: ImageConstant.tester,
-                        //               height: 56.h,
-                        //             ),
-                        //           )
-                        //   ],
-                        // );
-                        //},
-                        //           cardsCount: AppListData.searchPersonList.length,
-                        //           controller: controller.swiperController,
-                        //         ),
-                        //       ),
-                        //     ),
-                        //     SizedBox(height: 20),
-                        //   ],
-                        // ),
