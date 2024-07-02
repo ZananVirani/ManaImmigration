@@ -211,7 +211,7 @@ class PrefData {
     return id;
   }
 
-  static void setUserCountry(String id) async {
+  static Future<void> setUserCountry(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('userCountry', id);
   }

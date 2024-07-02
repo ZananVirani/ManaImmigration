@@ -152,6 +152,8 @@ class MakeAPICall {
         'market': "CA",
       };
 
+      if (genreIndex[genre]! >= 1000) throw Exception("Too much offset");
+
       final Response<Map<String, dynamic>>? searchResponse =
           await makeGenericGetCall(path, data);
 
@@ -175,7 +177,7 @@ class MakeAPICall {
     }
   }
 
-  static Future<List<Track>> compileGenres() async {
+  static FutureOr<List<Track>> compileGenres() async {
     List<String> genreList = await PrefData.getGenreList();
     Map<String, List<Track>> genreMap = await PrefData.getAvailableSongs();
     Map<String, int> genreIndex = await PrefData.getGenreIndex();
@@ -183,14 +185,21 @@ class MakeAPICall {
     List<Track> finalList = [];
 
     for (String genre in genreList) {
-      await searchForGenre(genre, genreIndex, genreMap, market);
+      try {
+        await searchForGenre(genre, genreIndex, genreMap, market);
+      } catch (e) {
+        if (e is DioException) {
+          print("Something went wrong with Dio");
+        } else {
+          throw Exception(genre);
+        }
+      }
     }
 
     Map<String, List<Track>> newMap = Map.from(genreMap);
     newMap.removeWhere((key, value) => !genreList.contains(key));
 
     List<List<Track>> validLists = newMap.values.toList();
-    print(validLists);
     int maxLength = calculateMax(validLists);
     for (int i = 0; i < maxLength; i++) {
       for (int j = 0; j < validLists.length; j++) {
@@ -198,12 +207,8 @@ class MakeAPICall {
       }
     }
 
-    print(genreMap);
-
     await PrefData.setGenreIndex(genreIndex);
     await PrefData.setAvailableSongs(genreMap);
-    print("before the finalList");
-    print(finalList);
 
     return finalList;
   }
@@ -257,7 +262,8 @@ class MakeAPICall {
       return track.uri!;
     });
 
-    List<String> songList = iterableList.toList();
+    Set<String> songSet = iterableList.toSet();
+    List<String> songList = songSet.toList();
 
     Map<String, dynamic> data = {'uris': songList};
 
@@ -349,7 +355,9 @@ class MakeAPICall {
 
     if (prof != null) {
       final profile = Profile.fromJson(prof.data!);
+      PrefData.setUserID(profile.id!);
       await setDisplayName(profile.displayName!);
+      await PrefData.setUserCountry(profile.country!);
     } else {
       throw Exception("Name not set");
     }

@@ -19,6 +19,7 @@ class SpashController extends GetxController {
       bool isLogin = await PrefData.getLogin();
 
       Get.offAndToNamed(AppRoutes.onboardingThree1Screen);
+
       // if (isIntro) {
       //   Get.offAndToNamed(AppRoutes.onboardingThree1Screen);
       // } else {
