@@ -20,10 +20,10 @@ class SpashController extends GetxController {
 
       if (isIntro) {
         Get.offAndToNamed(AppRoutes.onboardingThree1Screen);
-      } else {
+      } else if (isLogin) {
         Get.offAndToNamed(AppRoutes.createAccountSelectInterestScreen);
-        // } else {
-        //   Get.offAndToNamed(AppRoutes.bottomBarScreen);
+      } else {
+        Get.offAndToNamed(AppRoutes.bottomBarScreen);
       }
     });
   }
