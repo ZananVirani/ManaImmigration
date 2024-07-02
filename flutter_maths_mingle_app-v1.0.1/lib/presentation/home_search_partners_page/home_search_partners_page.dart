@@ -211,7 +211,9 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                   shrinkWrap: true,
                                   children: [
                                     Container(
-                                      height: 575.v,
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              .65,
                                       padding: EdgeInsets.only(
                                           bottom: 24.h,
                                           top: 16.h,
@@ -292,9 +294,9 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                             padding:
                                                 const EdgeInsets.only(top: 8.0),
                                             child: Text(
-                                              track.name!.length > 28
+                                              track.name!.length > 25
                                                   ? track.name!
-                                                          .substring(0, 26) +
+                                                          .substring(0, 23) +
                                                       "..."
                                                   : track.name!,
                                               style: theme.textTheme.bodyLarge!
@@ -306,8 +308,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                             ),
                                           ),
                                           Text(
-                                            allInfo.length > 39
-                                                ? allInfo.substring(0, 37) +
+                                            allInfo.length > 32
+                                                ? allInfo.substring(0, 30) +
                                                     "..."
                                                 : allInfo,
                                             style: theme.textTheme.bodyMedium,
@@ -357,6 +359,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                   child: GestureDetector(
                                                     onTap: () async {
                                                       setState(() {
+                                                        print(track.id);
                                                         isPlaying = !isPlaying;
 
                                                         isPlaying

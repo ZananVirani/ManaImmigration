@@ -6,7 +6,6 @@ import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
 import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/models/create_account_select_interest_model.dart';
 import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/widget/int_ope.dart';
 import 'package:flutter_maths_mingle_app/widgets/custom_elevated_button.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import 'controller/create_account_select_interest_controller.dart';
 

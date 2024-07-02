@@ -58,6 +58,29 @@ class Track {
     return false;
   }
 
+  @override
+  int get hashCode =>
+      album.hashCode ^
+      artists.hashCode ^
+      availableMarkets.hashCode ^
+      discNumber.hashCode ^
+      durationMs.hashCode ^
+      explicit.hashCode ^
+      externalIds.hashCode ^
+      externalUrls.hashCode ^
+      href.hashCode ^
+      id.hashCode ^
+      isPlayable.hashCode ^
+      linkedFrom.hashCode ^
+      restrictions.hashCode ^
+      name.hashCode ^
+      popularity.hashCode ^
+      previewUrl.hashCode ^
+      trackNumber.hashCode ^
+      type.hashCode ^
+      uri.hashCode ^
+      isLocal.hashCode;
+
   Track copyWith({
     Album? album,
     List<TrackArtist>? artists,

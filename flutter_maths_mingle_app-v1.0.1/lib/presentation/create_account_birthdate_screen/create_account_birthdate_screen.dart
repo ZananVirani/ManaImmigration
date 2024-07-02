@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_maths_mingle_app/API/api_calls.dart';
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
 import 'package:intl/intl.dart';
 
@@ -65,8 +63,8 @@ class CreateAccountBirthdateScreen
                         text: "lbl_continue".tr,
                         buttonStyle: CustomButtonStyles.fillPrimary,
                         onPressed: () {
-                          CollectionReference users =
-                              FirebaseFirestore.instance.collection('users');
+                          // CollectionReference users =
+                          //     FirebaseFirestore.instance.collection('users');
                           // MakeAPICall.saveProfile(users);
                           onTapContinue();
                         }),

@@ -66,7 +66,6 @@ class SpotifyAuthService {
 
       Map<String, dynamic> mapToken = responseToken.data;
       AccessTokenResponse accessToken = AccessTokenResponse.fromMap(mapToken);
-      print(accessToken.refreshToken);
       return accessToken;
     } catch (e) {
       print("ERRORRRRR");

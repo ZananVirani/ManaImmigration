@@ -8,7 +8,6 @@ import 'package:flutter_maths_mingle_app/API/track.dart';
 import 'package:flutter_maths_mingle_app/authorization/spotify_auth.dart';
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
 import 'package:oauth2_client/access_token_response.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MakeAPICall {
   static AccessTokenResponse? accessToken;
@@ -18,7 +17,7 @@ class MakeAPICall {
 
   static Future<AccessTokenResponse> _refreshToken() async {
     accessToken = await SpotifyAuthService.refreshToken();
-    PrefData.setAccessToken(accessToken!);
+    await PrefData.setAccessToken(accessToken!);
     print("Successful REFRESHHHHHHHH!!!!!");
     return accessToken!;
   }
@@ -81,7 +80,7 @@ class MakeAPICall {
       }
       return response;
     } catch (e) {
-      _refreshToken();
+      await _refreshToken();
       accessToken = await PrefData.getAccessToken();
       Response<Map<String, dynamic>> response = await _dio.post(base_url + path,
           data: data,
@@ -208,7 +207,8 @@ class MakeAPICall {
     int maxLength = calculateMax(validLists);
     for (int i = 0; i < maxLength; i++) {
       for (int j = 0; j < validLists.length; j++) {
-        if (i < validLists[j].length) finalList.add(validLists[j][i]);
+        if (i < validLists[j].length && !finalList.contains(validLists[j][i]))
+          finalList.add(validLists[j][i]);
       }
     }
 
@@ -270,53 +270,70 @@ class MakeAPICall {
     Set<String> songSet = iterableList.toSet();
     List<String> songList = songSet.toList();
 
-    Map<String, dynamic> data = {'uris': songList};
+    int songsLeft = songList.length;
 
-    final Response<Map<String, dynamic>>? response =
-        await makeGenericPostCall(path, data);
+    while (songsLeft > 0) {
+      int lowerLimit = 0;
+      List<String> tempList;
+      if (songList.length > 80) {
+        tempList = songList.getRange(lowerLimit, lowerLimit + 80).toList();
+      } else {
+        tempList = songList;
+      }
+      print(tempList.length);
+      songsLeft -= tempList.length;
+      lowerLimit += tempList.length;
+      songList = songList.getRange(lowerLimit, songList.length).toList();
+      print(songList.length);
 
-    if (response != null) {
-      print(response.data);
-    } else {
-      print("Did not work");
-      throw Exception("Songs not added properly");
+      Map<String, dynamic> data = {'uris': tempList};
+
+      final Response<Map<String, dynamic>>? response =
+          await makeGenericPostCall(path, data);
+
+      if (response != null) {
+        print(response.data);
+      } else {
+        print("Did not work");
+        throw Exception("Songs not added properly");
+      }
     }
   }
 
-  static void saveProfileData(CollectionReference users, Profile profile) {
-    print("here");
-    var userEmail = profile.email;
-    var userDisplayName = profile.displayName;
-    var userCountry = profile.country;
-    var userId = profile.id;
-    final time = DateTime.now();
-    print(userEmail);
-    print(userDisplayName);
-    print(userCountry);
-    print(userId);
-    print(time.month.toString() +
-        " / " +
-        time.day.toString() +
-        " / " +
-        time.year.toString());
-    try {
-      users.add({
-        'email': userEmail,
-        'displayName': userDisplayName,
-        'userCountry': userCountry,
-        'userID': userId,
-        'dateCreated': time.month.toString() +
-            " / " +
-            time.day.toString() +
-            " / " +
-            time.year.toString(),
-        'birthdate': date,
-      });
-      print("works");
-    } catch (e) {
-      print("error");
-    }
-  }
+  // static void saveProfileData(CollectionReference users, Profile profile) {
+  //   print("here");
+  //   var userEmail = profile.email;
+  //   var userDisplayName = profile.displayName;
+  //   var userCountry = profile.country;
+  //   var userId = profile.id;
+  //   final time = DateTime.now();
+  //   print(userEmail);
+  //   print(userDisplayName);
+  //   print(userCountry);
+  //   print(userId);
+  //   print(time.month.toString() +
+  //       " / " +
+  //       time.day.toString() +
+  //       " / " +
+  //       time.year.toString());
+  //   try {
+  //     users.add({
+  //       'email': userEmail,
+  //       'displayName': userDisplayName,
+  //       'userCountry': userCountry,
+  //       'userID': userId,
+  //       'dateCreated': time.month.toString() +
+  //           " / " +
+  //           time.day.toString() +
+  //           " / " +
+  //           time.year.toString(),
+  //       'birthdate': date,
+  //     });
+  //     print("works");
+  //   } catch (e) {
+  //     print("error");
+  //   }
+  // }
 
   // static Future<Profile> saveProfile(CollectionReference users) async {
   //   String path = 'me';
@@ -367,4 +384,48 @@ class MakeAPICall {
       throw Exception("Name not set");
     }
   }
+
+  // static List<Track> shortenList(List<Track> list, int start) {
+  //   List<Track> newList = [];
+  //   List.copyRange(list, 0, newList, start, list.length - 1);
+  //   return newList;
+  // }
+
+  // static List<Track> get80List(List<Track> list) {
+  //   List<Track> newList = [];
+  //   List.copyRange(list, 0, newList, 0, 80);
+  //   return newList;
+  // }
+
+  // static void addSongsToPlaylist(List<Track> TrackList) async {
+  //   if (TrackList.length >= 80) {
+  //     List<Track> newList = shortenList(TrackList, 80);
+  //     addSongsToPlaylist(newList);
+  //     List<Track> uploadList = get80List(TrackList);
+  //     TrackList = uploadList;
+  //   }
+
+  //   String? playlistID = await PrefData.getPlaylistID();
+  //   if (playlistID == null) playlistID = await createPlaylist();
+
+  //   String path = 'playlists/$playlistID/tracks';
+
+  //   Iterable<String> iterableList = TrackList.map((track) {
+  //     return track.uri!;
+  //   });
+
+  //   List<String> songList = iterableList.toList();
+
+  //   Map<String, dynamic> data = {'uris': songList};
+
+  //   final Response<Map<String, dynamic>>? response =
+  //       await makeGenericPostCall(path, data);
+
+  //   if (response != null) {
+  //     print(response.data);
+  //   } else {
+  //     print("Did not work");
+  //     throw Exception("Songs not added properly");
+  //   }
+  // }
 }

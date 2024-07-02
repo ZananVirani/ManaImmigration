@@ -25,7 +25,7 @@ class _MessagesPageState extends State<MessagesPage> {
       Get.put(MessagesController(MessagesModel().obs));
 
   bool checkAll = true;
-
+  List<Track>? exportList;
   @override
   Widget build(BuildContext context) {
     final arguments = ModalRoute.of(context)?.settings.arguments;
@@ -46,7 +46,6 @@ class _MessagesPageState extends State<MessagesPage> {
                 );
               } else if (snapshot.hasData) {
                 List<Track> likedList = snapshot.data!;
-                List<Track> exportList = List.from(likedList);
                 return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -99,11 +98,7 @@ class _MessagesPageState extends State<MessagesPage> {
                           ],
                         ),
                       ),
-                      _buildSubMenu(exportList, likedList, (value) {
-                        setState(() {
-                          checkAll = value;
-                        });
-                      }, _player),
+                      _buildSubMenu(likedList, _player),
                       Expanded(
                         child: ListView.builder(
                           shrinkWrap: true,
@@ -127,10 +122,14 @@ class _MessagesPageState extends State<MessagesPage> {
                                         onChanged: (newBool) {
                                           setState(() {
                                             isChecked = !isChecked;
-
+                                            print(exportList);
+                                            if (exportList == null)
+                                              exportList = List.from(likedList);
                                             isChecked
-                                                ? exportList.add(track)
-                                                : exportList.remove(track);
+                                                ? exportList!.add(track)
+                                                : exportList!.remove(track);
+
+                                            print(exportList);
                                           });
                                         }),
                                     title: Text(track.name!),
@@ -166,8 +165,7 @@ class _MessagesPageState extends State<MessagesPage> {
     );
   }
 
-  Widget _buildSubMenu(List<Track> exportList, List<Track> likedList,
-      Function(bool), AudioPlayer player) {
+  Widget _buildSubMenu(List<Track> likedList, AudioPlayer player) {
     return Container(
       decoration: BoxDecoration(
           border:
@@ -176,13 +174,17 @@ class _MessagesPageState extends State<MessagesPage> {
       height: 55.v,
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.fromLTRB(8, 8, 8, 8.0),
           child: GestureDetector(
             onTap: () {
               setState(() {
+                print(exportList);
                 exportList = List.from(likedList);
+                print(exportList);
               });
-              Function(true);
+              setState(() {
+                checkAll = true;
+              });
             },
             child: Text("Select All",
                 style: theme.textTheme.titleSmall!.copyWith(
@@ -196,9 +198,13 @@ class _MessagesPageState extends State<MessagesPage> {
           child: GestureDetector(
             onTap: () {
               setState(() {
+                print(exportList);
                 exportList = [];
+                print(exportList);
               });
-              Function(false);
+              setState(() {
+                checkAll = false;
+              });
             },
             child: Text("Deselect All",
                 style: theme.textTheme.titleSmall!.copyWith(
@@ -214,6 +220,8 @@ class _MessagesPageState extends State<MessagesPage> {
               padding: const EdgeInsets.only(right: 16.0),
               child: GestureDetector(
                 onTap: () async {
+                  if (exportList == null) exportList = List.from(likedList);
+                  print(exportList);
                   await showCupertinoDialog(
                     context: context,
                     builder: (context) {
@@ -228,7 +236,7 @@ class _MessagesPageState extends State<MessagesPage> {
                             CupertinoDialogAction(
                                 child: Text("Export"),
                                 onPressed: () async {
-                                  MakeAPICall.addSongsToPlaylist(exportList);
+                                  MakeAPICall.addSongsToPlaylist(exportList!);
                                   PrefData.setMusicList([]);
                                   setState(() {
                                     exportList = [];
