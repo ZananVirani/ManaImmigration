@@ -11,6 +11,7 @@ import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
 import 'package:flutter_maths_mingle_app/presentation/bottombar_screen/bottombar_screen.dart';
 import 'package:flutter_maths_mingle_app/widgets/custom_bottom_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:icons_plus/icons_plus.dart';
 // import 'package:flutter_maths_mingle_app/data/list_data/app_listdata.dart';
 // import 'package:percent_indicator/circular_percent_indicator.dart';
 
@@ -32,10 +33,11 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
   HomeSearchPartnersController controller =
       Get.put(HomeSearchPartnersController(HomeSearchPartnersModel().obs));
   late AudioPlayer player;
-  late Future<List<Track>> futureList;
+  late Future<List<Track>?> futureList;
   late AnimationController _animationController;
   late Future<Map<String, List<Track>>> tempGenreMap;
   Future<String?> name = MakeAPICall.getDisplayName();
+  String? errorString;
 
   @override
   void initState() {
@@ -53,11 +55,20 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     super.initState();
   }
 
-  Future<List<Track>> fetchSongs() async {
-    var futureList = await MakeAPICall.compileGenres();
-    await Future.delayed(Duration(seconds: 2));
-    tempGenreMap = PrefData.getAvailableSongs();
-    return futureList;
+  Future<List<Track>?> fetchSongs() async {
+    try {
+      var futureList = await MakeAPICall.compileGenres();
+      await Future.delayed(Duration(seconds: 2));
+      tempGenreMap = PrefData.getAvailableSongs();
+      return futureList;
+    } catch (e) {
+      if (e is String) {
+        setState(() {
+          errorString = e;
+        });
+      }
+      return null;
+    }
   }
 
   @override
@@ -122,6 +133,51 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
           child: FutureBuilder(
               future: futureList,
               builder: (context, trackList) {
+                if (errorString != null) {
+                  return Stack(
+                      alignment: AlignmentDirectional.center,
+                      children: [
+                        Opacity(
+                          opacity: 0.2,
+                          child: Container(
+                            color: Colors.black,
+                            width: double.infinity,
+                            height: double.infinity,
+                          ),
+                        ),
+                        AlertDialog(
+                          elevation: 5.0,
+                          icon: Icon(HeroIcons.magnifying_glass,
+                              size: 120.adaptSize),
+                          title: Text(
+                              "You have reached the end of the following genres:",
+                              style: CustomTextStyles.bodyLargeGray700),
+                          content: Text(
+                            errorString!,
+                            style: CustomTextStyles.bodyMediumBlack600,
+                            textAlign: TextAlign.center,
+                          ),
+                          actions: [
+                            GestureDetector(
+                              child: Center(
+                                  child: Text(
+                                "Go to Interests Screen",
+                                style: GoogleFonts.bonaNova(
+                                    decoration: TextDecoration.underline,
+                                    fontSize: 18.fSize,
+                                    backgroundColor: AppColor.lightGray,
+                                    color: AppColor.primaryColor,
+                                    fontWeight: FontWeight.bold),
+                              )),
+                              onTap: () {
+                                Get.offAndToNamed(AppRoutes
+                                    .createAccountSelectInterestScreen);
+                              },
+                            )
+                          ],
+                        ),
+                      ]);
+                }
                 if (trackList.hasData) {
                   return FutureBuilder(
                       future: tempGenreMap,
@@ -430,24 +486,6 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                   color: Colors.white, fontSize: 30.fSize)),
                         )
                       ]);
-                  // return Stack(
-                  //     alignment: AlignmentDirectional.center,
-                  //     children: [
-                  //       Opacity(
-                  //         opacity: 0.2,
-                  //         child: Container(
-                  //           color: Colors.black,
-                  //           width: double.infinity,
-                  //           height: double.infinity,
-                  //         ),
-                  //       ),
-                  //       AlertDialog(
-                  //           elevation: 5.0,
-                  //           icon: Icon(HeroIcons.magnifying_glass,
-                  //               size: 150.adaptSize),
-                  //           title: Text("Fetching songs...",
-                  //               style: CustomTextStyles.bodyLargeGray700)),
-                  //     ]);
                 }
               }),
         ),

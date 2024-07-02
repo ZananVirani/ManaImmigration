@@ -152,7 +152,7 @@ class MakeAPICall {
         'market': "CA",
       };
 
-      if (genreIndex[genre]! >= 1000) throw Exception("Too much offset");
+      if (genreIndex[genre]! > 950) throw Exception("Too much offset");
 
       final Response<Map<String, dynamic>>? searchResponse =
           await makeGenericGetCall(path, data);
@@ -177,23 +177,28 @@ class MakeAPICall {
     }
   }
 
-  static FutureOr<List<Track>> compileGenres() async {
+  static Future<List<Track>> compileGenres() async {
     List<String> genreList = await PrefData.getGenreList();
     Map<String, List<Track>> genreMap = await PrefData.getAvailableSongs();
     Map<String, int> genreIndex = await PrefData.getGenreIndex();
     String market = await PrefData.getUserCountry();
     List<Track> finalList = [];
+    List<String> errorList = [];
 
     for (String genre in genreList) {
       try {
         await searchForGenre(genre, genreIndex, genreMap, market);
       } catch (e) {
         if (e is DioException) {
-          print("Something went wrong with Dio");
+          throw "DioException";
         } else {
-          throw Exception(genre);
+          errorList.add(genre);
         }
       }
+    }
+
+    if (errorList.length != 0) {
+      throw errorList.join(', ');
     }
 
     Map<String, List<Track>> newMap = Map.from(genreMap);
