@@ -7,21 +7,21 @@ import 'core/app_export.dart';
 import 'data/pref_data/pref_data.dart';
 
 Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  // WidgetsFlutterBinding.ensureInitialized();
 
-  if (kIsWeb) {
-    await Firebase.initializeApp(
-        options: FirebaseOptions(
-            apiKey: "AIzaSyB66EQNOWWouIZ4oEP978q0v_9pMTIySlo",
-            authDomain: "mana-music-9aebf.firebaseapp.com",
-            projectId: "mana-music-9aebf",
-            storageBucket: "mana-music-9aebf.appspot.com",
-            messagingSenderId: "588489666068",
-            appId: "1:588489666068:web:e626cd8daf29286d41c101",
-            measurementId: "G-388NLBEJCF"));
-  } else {
-    await Firebase.initializeApp();
-  }
+  // if (kIsWeb) {
+  //   await Firebase.initializeApp(
+  //       options: FirebaseOptions(
+  //           apiKey: "AIzaSyB66EQNOWWouIZ4oEP978q0v_9pMTIySlo",
+  //           authDomain: "mana-music-9aebf.firebaseapp.com",
+  //           projectId: "mana-music-9aebf",
+  //           storageBucket: "mana-music-9aebf.appspot.com",
+  //           messagingSenderId: "588489666068",
+  //           appId: "1:588489666068:web:e626cd8daf29286d41c101",
+  //           measurementId: "G-388NLBEJCF"));
+  // } else {
+  //   await Firebase.initializeApp();
+  // }
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

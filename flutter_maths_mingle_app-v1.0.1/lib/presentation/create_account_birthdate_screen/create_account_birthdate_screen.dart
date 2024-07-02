@@ -67,7 +67,7 @@ class CreateAccountBirthdateScreen
                         onPressed: () {
                           CollectionReference users =
                               FirebaseFirestore.instance.collection('users');
-                          MakeAPICall.saveProfile(users);
+                          // MakeAPICall.saveProfile(users);
                           onTapContinue();
                         }),
                   ),
@@ -97,7 +97,7 @@ class CreateAccountBirthdateScreen
 
             controller.dateController.text =
                 formattedDate; //set output date to TextField value.
-            MakeAPICall.setBirthday(pickedDate);
+            // MakeAPICall.setBirthday(pickedDate);
           } else {}
         },
         child: CustomTextFormField(

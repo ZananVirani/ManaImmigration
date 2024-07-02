@@ -35,6 +35,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
   late Future<List<Track>> futureList;
   late AnimationController _animationController;
   late Future<Map<String, List<Track>>> tempGenreMap;
+  Future<String?> name = MakeAPICall.getDisplayName();
 
   @override
   void initState() {
@@ -81,31 +82,37 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Stack(
-                children: [
-                  Text(
-                    'Welcome back, ' + MakeAPICall.getDisplayName().toString(),
-                    style: GoogleFonts.lato(
-                      textStyle: TextStyle(
-                        fontSize: 27,
-                        color: Colors.white, // White background
-                        fontWeight: FontWeight.w900,
-                      ),
-                    ),
-                  ),
-                  Text(
-                      'Welcome back, ' +
-                          MakeAPICall.getDisplayName().toString(),
-                      style: GoogleFonts.lato(
-                          textStyle: TextStyle(
-                              fontSize: 27,
-                              fontWeight: FontWeight.w900,
-                              foreground: Paint()
-                                ..style = PaintingStyle.stroke
-                                ..color = Colors.black
-                                ..strokeWidth = 1.6))),
-                ],
-              ),
+              FutureBuilder(
+                  future: name,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Stack(
+                        children: [
+                          Text(
+                            'Welcome back, ' + snapshot.data!,
+                            style: GoogleFonts.lato(
+                              textStyle: TextStyle(
+                                fontSize: 27,
+                                color: Colors.white, // White background
+                                fontWeight: FontWeight.w900,
+                              ),
+                            ),
+                          ),
+                          Text('Welcome back, ' + snapshot.data!,
+                              style: GoogleFonts.lato(
+                                  textStyle: TextStyle(
+                                      fontSize: 27,
+                                      fontWeight: FontWeight.w900,
+                                      foreground: Paint()
+                                        ..style = PaintingStyle.stroke
+                                        ..color = Colors.black
+                                        ..strokeWidth = 1.6))),
+                        ],
+                      );
+                    } else {
+                      return Text("");
+                    }
+                  }),
             ],
           ),
         ),

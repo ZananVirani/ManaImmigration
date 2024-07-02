@@ -199,6 +199,18 @@ class PrefData {
     return id;
   }
 
+  static Future<void> setDisplayName(String id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('displayName', id);
+  }
+
+  static Future<String?> getDisplayName() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id = prefs.getString('displayName');
+
+    return id;
+  }
+
   static void setUserCountry(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('userCountry', id);

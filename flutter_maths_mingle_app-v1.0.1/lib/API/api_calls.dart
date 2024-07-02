@@ -307,39 +307,37 @@ class MakeAPICall {
     }
   }
 
-  static Future<Profile> saveProfile(CollectionReference users) async {
-    String path = 'me';
+  // static Future<Profile> saveProfile(CollectionReference users) async {
+  //   String path = 'me';
 
-    final Response<Map<String, dynamic>>? prof =
-        await makeGenericGetCall(path, {});
+  //   final Response<Map<String, dynamic>>? prof =
+  //       await makeGenericGetCall(path, {});
 
-    if (prof != null) {
-      final profile = Profile.fromJson(prof.data!);
-      PrefData.setUserID(profile.id!);
-      PrefData.setUserCountry(profile.country!);
-      print("save data");
-      saveProfileData(users, profile);
-      setDisplayName(profile.displayName);
-      print("done");
-      return profile;
-    } else {
-      throw Exception("Did not get profile");
-    }
+  //   if (prof != null) {
+  //     final profile = Profile.fromJson(prof.data!);
+  //     PrefData.setUserID(profile.id!);
+  //     PrefData.setUserCountry(profile.country!);
+  //     print("save data");
+  //     saveProfileData(users, profile);
+  //     setDisplayName(profile.displayName);
+  //     print("done");
+  //     return profile;
+  //   } else {
+  //     throw Exception("Did not get profile");
+  //   }
+  // }
+
+  // static void setBirthday(DateTime d) {
+  //   String setDate = d.toString().substring(0, 10);
+  //   date = setDate;
+  // }
+
+  static Future<void> setDisplayName(String d) async {
+    await PrefData.setDisplayName(d);
   }
 
-  static void setBirthday(DateTime d) {
-    String setDate = d.toString().substring(0, 10);
-    date = setDate;
-  }
-
-  static void setDisplayName(String? d) {
-    userDisplayName = d;
-  }
-
-  static String? getDisplayName() {
-    if (userDisplayName == null) {
-      return "null User";
-    }
+  static Future<String?> getDisplayName() async {
+    String? userDisplayName = await PrefData.getDisplayName();
     return userDisplayName;
   }
 
@@ -351,7 +349,7 @@ class MakeAPICall {
 
     if (prof != null) {
       final profile = Profile.fromJson(prof.data!);
-      setDisplayName(profile.displayName);
+      await setDisplayName(profile.displayName!);
     } else {
       throw Exception("Name not set");
     }

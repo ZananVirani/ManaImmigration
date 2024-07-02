@@ -18,7 +18,9 @@ class CreateAccountSelectInterestScreen
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: PrefData.getAppBar(
-            onTap: () => Get.back(), text: 'Select 1-5 interests'),
+            onTap: () => Get.back(),
+            text: 'Select 1-5 interests',
+            isLeadingIcon: true),
         body: ListView(
             padding: EdgeInsets.symmetric(horizontal: 24.h),
             children: [
@@ -38,14 +40,14 @@ class CreateAccountSelectInterestScreen
                             valueColor: AlwaysStoppedAnimation<Color>(
                                 theme.colorScheme.primary)))),
               ),
-              RichText(
-                  text: TextSpan(
-                      text: "2/2",
-                      style: GoogleFonts.aDLaMDisplay(
-                        color: AppColor.primaryColor,
-                        fontSize: 20,
-                      )),
-                  textAlign: TextAlign.left),
+              // RichText(
+              //     text: TextSpan(
+              //         text: "2/2",
+              //         style: GoogleFonts.aDLaMDisplay(
+              //           color: AppColor.primaryColor,
+              //           fontSize: 20,
+              //         )),
+              //     textAlign: TextAlign.left),
               SizedBox(height: 50.h),
               // Padding(
               //     padding: EdgeInsets.only(right: 61.h),
@@ -149,7 +151,7 @@ class CreateAccountSelectInterestScreen
                 if (isLogin) {
                   onTapNext(context);
                 } else {
-                  Get.offAndToNamed(AppRoutes.bottomBarScreen);
+                  Get.toNamed(AppRoutes.bottomBarScreen);
                 }
               } else
                 await showCupertinoDialog(
