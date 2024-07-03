@@ -9,10 +9,10 @@ import 'package:dio/dio.dart';
 
 class SpotifyAuthService {
   static SpotifyOAuth2Client client = SpotifyOAuth2Client(
-    customUriScheme: 'my.test.app',
+    customUriScheme: 'com.fluttermathsmingleapp.app',
     //Must correspond to the AndroidManifest's "android:scheme" attribute
     redirectUri:
-        'my.test.app:/', //Can be any URI, but the scheme part must correspond to the customeUriScheme
+        'com.fluttermathsmingleapp.app:/', //Can be any URI, but the scheme part must correspond to the customeUriScheme
   );
   static const clientID = 'e07c50e68b85419eafe9e829beccd607';
   static final _dio = Dio();

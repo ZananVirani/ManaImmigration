@@ -45,7 +45,7 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="my.test.app" /> <!-- This must correspond to the custom scheme used for instantiatng the client... See below -->
+                <data android:scheme="com.fluttermathsmingleapp.app" /> <!-- This must correspond to the custom scheme used for instantiatng the client... See below -->
             </intent-filter>
         </activity>
         <!-- Don't delete the meta-data below.
