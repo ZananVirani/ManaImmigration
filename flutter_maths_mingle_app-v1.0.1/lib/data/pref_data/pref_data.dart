@@ -1,15 +1,18 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_maths_mingle_app/API/track.dart';
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
+import 'package:flutter_maths_mingle_app/data/pref_data/nav_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:oauth2_client/access_token_response.dart';
 
 class PrefData {
   static String prefName = "com.fluttermathsmingleapp.app";
   static SharedPreferences? _sharedPreferences;
+  final context = null;
 
   PrefData() {
     SharedPreferences.getInstance().then((value) {
@@ -330,14 +333,14 @@ class PrefData {
 
     if (id == null || id == "null") {
       return {
+        "hip-hop": 0,
         "indie": 0,
         "pop": 0,
         "rock": 0,
         "country": 0,
         "metal": 0,
         "jazz": 0,
-        "k-pop": 0,
-        "hip-hop": 0,
+        "k-pop": 4,
         "edm": 0,
         "classical": 0,
         "latin": 0,
@@ -374,6 +377,7 @@ class PrefData {
     String? id = prefs.getString('genreMap');
     if (id == null || id == "null") {
       return {
+        "hip-hop": [],
         "indie": [],
         "pop": [],
         "rock": [],
@@ -381,7 +385,6 @@ class PrefData {
         "metal": [],
         "jazz": [],
         "k-pop": [],
-        "hip-hop": [],
         "edm": [],
         "classical": [],
         "latin": [],
@@ -488,9 +491,10 @@ class PrefData {
 //
 //
 //
+
   static int currentIndex = 0;
 
-  static getAppBar({
+   static getAppBar({
     SystemUiOverlayStyle? systemUiOverlayStyle,
     String? text,
     Color? color,
@@ -510,12 +514,24 @@ class PrefData {
               fontWeight: FontWeight.w700,
             ),
       ),
+      // actions:<Widget>[
+      //   IconButton(
+      //     // onPressed: () => showLogoutDialog(context),
+      //     // () async {
+      //     //   await PrefData.logout();
+      //     // },
+      //     icon: Icon(
+      //       Icons.logout,
+      //       color: Colors.red),
+          
+      //   )
+      // ],
       surfaceTintColor: AppColor.white,
       shadowColor: Color(0x34E7E4E4),
       systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
         statusBarColor: Colors.transparent,
       ),
-      actions: action,
+      // actions: action,
       leadingWidth: 60.h,
       leading: isLeadingIcon
           ? SizedBox(
@@ -550,7 +566,116 @@ class PrefData {
       backgroundColor: color ?? Colors.white,
     );
   }
-//
-//
-// }
+  static getInterestAppbar(BuildContext context,{ //Used only for interest page
+    SystemUiOverlayStyle? systemUiOverlayStyle,
+    String? text,
+    Color? color,
+    double? toolbarHeight,
+    TextStyle? textStyle,
+    List<Widget>? action,
+    Icon? leadingIcon,
+    required void Function()? onTap,
+    bool isLeadingIcon = false,
+  }) {
+    return AppBar(
+      title: Text(
+        text!,
+        style: textStyle ??
+            theme.textTheme.titleLarge!.copyWith(
+              color: AppColor.black,
+              fontWeight: FontWeight.w700,
+            ),
+      ),
+      actions:<Widget>[
+        IconButton(
+          onPressed: () => showLogoutDialog(context),
+          // () async {
+          //   await PrefData.logout();
+          // },
+          icon: Icon(
+            Icons.logout,
+            color: Colors.red),
+          
+        )
+      ],
+      surfaceTintColor: AppColor.white,
+      shadowColor: Color(0x34E7E4E4),
+      systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
+        statusBarColor: Colors.transparent,
+      ),
+      // actions: action,
+      leadingWidth: 60.h,
+      leading: isLeadingIcon
+          ? SizedBox(
+              height: 0.h,
+              width: 0.h,
+            )
+          : GestureDetector(
+              onTap: () {
+                Get.back();
+                // CommonPop.popScreen(context, RoutesPath.loginScreen);
+              },
+              child: Container(
+                  margin: EdgeInsets.only(left: 24.h),
+                  padding: EdgeInsets.all(8.h),
+                  height: 40.h,
+                  width: 40.h,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColor.lightGray,
+                  ),
+                  child: leadingIcon ??
+                      CustomImageView(
+                        imagePath: ImageConstant.arrowLeftIc,
+                        fit: BoxFit.contain,
+                      )),
+            ),
+      centerTitle: false,
+      toolbarHeight: 70.h,
+      elevation: 12.h,
+      scrolledUnderElevation: 0,
+      automaticallyImplyLeading: false,
+      backgroundColor: color ?? Colors.white,
+    );
+  }
+  // static logout() async{
+  //   print("logging out");
+  //   Get.toNamed(AppRoutes.onboardingThree1Screen);
+  // }
+  static Future<void> logout() async {
+    print("logging out");
+    // Clear user data or perform logout actions
+    await NavigationHelper.navigateToOnboardingThree();
+  }
+  static void showLogoutDialog(BuildContext context){
+    showCupertinoModalPopup(
+      context: context, 
+      builder: (BuildContext context) => CupertinoAlertDialog(
+      title: const Text('Logout?'),
+      content: const Text('Would you like to logout now?'),
+      actions: <CupertinoDialogAction>[
+        CupertinoDialogAction(
+          isDefaultAction: true,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: const Text('No')
+        ),
+        CupertinoDialogAction(
+          isDefaultAction: true,
+          onPressed: () async {
+            await PrefData.logout();
+          },
+          child: const Text('Yes')
+        ),
+      ],
+     ),
+    );
+  }
+  static void setContext(BuildContext context){
+      context = context;
+  }
+  BuildContext getContext(){
+    return context;
+  }
 }

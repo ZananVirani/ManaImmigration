@@ -80,13 +80,17 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          toolbarHeight: 80.v,
           flexibleSpace: FlexibleSpaceBar(
-            background: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                image: AssetImage('assets/images/appback.gif'),
-                fit: BoxFit.cover,
-              )),
+            background: Opacity(
+              opacity: 0.85,
+              child: Container(
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                  image: AssetImage('assets/images/appback.gif'),
+                  fit: BoxFit.cover,
+                )),
+              ),
             ),
           ),
           centerTitle: false,
@@ -101,23 +105,34 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                         children: [
                           Text(
                             'Welcome back, ' + snapshot.data!,
-                            style: GoogleFonts.lato(
-                              textStyle: TextStyle(
-                                fontSize: 27,
-                                color: Colors.white, // White background
-                                fontWeight: FontWeight.w900,
-                              ),
+                            style: theme.textTheme.titleLarge!.copyWith(
+                              color: AppColor.black,
+                              fontWeight: FontWeight.w900,
+                              fontSize: 30.fSize,
+                              // GoogleFonts.lato(
+                              //   textStyle: TextStyle(
+                              //     fontSize: 27,
+                              //     color: Colors.white, // White background
+                              //     fontWeight: FontWeight.w900,
+                              //   ),
                             ),
                           ),
-                          Text('Welcome back, ' + snapshot.data!,
-                              style: GoogleFonts.lato(
-                                  textStyle: TextStyle(
-                                      fontSize: 27,
-                                      fontWeight: FontWeight.w900,
-                                      foreground: Paint()
-                                        ..style = PaintingStyle.stroke
-                                        ..color = Colors.black
-                                        ..strokeWidth = 1.6))),
+                          Text(
+                            'Welcome back, ' + snapshot.data!,
+                            style: theme.textTheme.titleLarge!.copyWith(
+                                color: AppColor.white,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 28.6.fSize,
+                                letterSpacing: 0.8,
+                                wordSpacing: 0
+                                // GoogleFonts.lato(
+                                //   textStyle: TextStyle(
+                                //     fontSize: 27,
+                                //     color: Colors.white, // White background
+                                //     fontWeight: FontWeight.w900,
+                                //   ),
+                                ),
+                          ),
                         ],
                       );
                     } else {
@@ -237,34 +252,41 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                             CrossAxisAlignment.start,
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              GestureDetector(
-                                                onTap: () {
-                                                  player.dispose();
-                                                  Get.toNamed(AppRoutes
-                                                      .createAccountSelectInterestScreen);
-                                                  controller.update();
-                                                },
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(12.0),
-                                                  child: Icon(Icons.settings),
+                                          Padding(
+                                            padding: const EdgeInsets.only(
+                                                bottom: 2),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    player.dispose();
+                                                    Get.toNamed(AppRoutes
+                                                        .createAccountSelectInterestScreen);
+                                                    controller.update();
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(11.0),
+                                                    child: Icon(Icons.settings),
+                                                  ),
                                                 ),
-                                              ),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  controller.swiperController
-                                                      .undo();
-                                                  controller.update();
-                                                },
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(12.0),
-                                                  child: Icon(Icons.refresh),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    controller.swiperController
+                                                        .undo();
+                                                    controller.update();
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(12.0),
+                                                    child: Icon(Icons.refresh),
+                                                  ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                           Image.network(
                                               track.album!.images!.first.url),
@@ -319,7 +341,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                             style: theme.textTheme.bodyMedium,
                                           ),
                                           Padding(
-                                            padding: EdgeInsets.only(top: 16.h),
+                                            padding: EdgeInsets.only(top: 24.h),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -484,9 +506,13 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 12.0),
-                          child: Text("Fetching Songs...",
-                              style: GoogleFonts.aBeeZee(
-                                  color: Colors.white, fontSize: 30.fSize)),
+                          child: Text(
+                            "Fetching Songs...",
+                            style: theme.textTheme.titleLarge!.copyWith(
+                                color: AppColor.white,
+                                fontWeight: FontWeight.w700,
+                                fontSize: 33.fSize),
+                          ),
                         )
                       ]);
                 }

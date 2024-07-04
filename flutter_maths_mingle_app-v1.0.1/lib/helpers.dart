@@ -25,4 +25,5 @@ extension CountryExtensions on List<Country> {
                   .any((element) => removeDiacritics(element.toLowerCase()).contains(search)),
     ).toList();
   }
+
 }

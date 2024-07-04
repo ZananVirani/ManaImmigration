@@ -257,7 +257,7 @@ class MakeAPICall {
     }
   }
 
-  static void addSongsToPlaylist(List<Track> TrackList) async {
+  static Future<void> addSongsToPlaylist(List<Track> TrackList) async {
     String? playlistID = await PrefData.getPlaylistID();
     if (playlistID == null) playlistID = await createPlaylist();
 
@@ -280,11 +280,9 @@ class MakeAPICall {
       } else {
         tempList = songList;
       }
-      print(tempList.length);
       songsLeft -= tempList.length;
       lowerLimit += tempList.length;
       songList = songList.getRange(lowerLimit, songList.length).toList();
-      print(songList.length);
 
       Map<String, dynamic> data = {'uris': tempList};
 
