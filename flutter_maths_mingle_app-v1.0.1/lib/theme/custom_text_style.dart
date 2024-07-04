@@ -14,6 +14,7 @@ class CustomTextStyles {
       );
   static get bodyLargeGray700 => theme.textTheme.bodyLarge!.copyWith(
         color: appTheme.gray700,
+        fontSize: 18.fSize,
       );
   static get bodyLargeOutfitGray700 =>
       theme.textTheme.bodyLarge!.outfit.copyWith(
@@ -36,6 +37,7 @@ class CustomTextStyles {
 
   static get bodyLargeWhiteA700 => theme.textTheme.bodyLarge!.copyWith(
         color: appTheme.whiteA700,
+        fontSize: 30.fSize,
       );
   static get bodyLargeff000000 => theme.textTheme.bodyLarge!.copyWith(
         color: Color(0XFF000000),
@@ -51,9 +53,7 @@ class CustomTextStyles {
       );
 
   static get bodyMediumBlack600 => theme.textTheme.bodyMedium!.copyWith(
-        color: AppColor.black,
-        fontWeight: FontWeight.w600,
-      );
+      color: AppColor.black, fontWeight: FontWeight.w600, fontSize: 18.fSize);
   static get bodyMediumPoppins => theme.textTheme.bodyMedium!.poppins.copyWith(
         fontSize: 14.fSize,
       );

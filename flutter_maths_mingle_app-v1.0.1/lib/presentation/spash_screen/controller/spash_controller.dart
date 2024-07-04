@@ -14,8 +14,8 @@ class SpashController extends GetxController {
   @override
   void onReady() {
     Future.delayed(const Duration(milliseconds: 3000), () async {
-      // bool isIntro = await PrefData.getIntro();
-      // bool isLogin = await PrefData.getLogin();
+      bool isIntro = await PrefData.getIntro();
+      bool isLogin = await PrefData.getLogin();
 
       // if (isIntro) {
       //   Get.offAndToNamed(

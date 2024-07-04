@@ -3,6 +3,10 @@
 class CreateAccountSelectInterestModel {
   String inrerestName;
   bool isCheck;
+  String genreName;
 
-  CreateAccountSelectInterestModel({required this.inrerestName,required this.isCheck});
+  CreateAccountSelectInterestModel(
+      {required this.inrerestName,
+      required this.isCheck,
+      required this.genreName});
 }

@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_maths_mingle_app/API/track.dart';
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:oauth2_client/access_token_response.dart';
@@ -23,7 +26,7 @@ class PrefData {
   }
 
   ///will clear all the data stored in preference
-  void clearPreferencesData() async {
+  static Future<void> clearPreferencesData() async {
     _sharedPreferences!.clear();
   }
 
@@ -42,29 +45,29 @@ class PrefData {
   static String isMatched = '${prefName}isMatched';
   static String chatFirstTime = '${prefName}firstTimeChat';
 
-  static Future<List<String>> getCartList() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    //Return String
-    return prefs.getStringList(keyCart) ?? [];
-    // return  await prefs.getString('name')??'';
-  }
+  // static Future<List<String>> getCartList() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   //Return String
+  //   return prefs.getStringList(keyCart) ?? [];
+  //   // return  await prefs.getString('name')??'';
+  // }
 
-  static setCartList(List<String> value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList(keyCart, value);
-  }
+  // static setCartList(List<String> value) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setStringList(keyCart, value);
+  // }
 
-  static Future<List<String>> getFevList() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    //Return String
-    // return json.decode(prefs.getString(fevCart)!);
-    return prefs.getStringList(fevCart) ?? [];
-  }
+  // static Future<List<String>> getFevList() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   //Return String
+  //   // return json.decode(prefs.getString(fevCart)!);
+  //   return prefs.getStringList(fevCart) ?? [];
+  // }
 
-  static setFevList(List<String> value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setStringList(fevCart, value);
-  }
+  // static setFevList(List<String> value) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setStringList(fevCart, value);
+  // }
 
   static setIntro(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -76,75 +79,103 @@ class PrefData {
     return prefs.getBool(isIntro) ?? true;
   }
 
-  static setChatFirstTime(bool value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(chatFirstTime, value);
-  }
+  // static setChatFirstTime(bool value) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool(chatFirstTime, value);
+  // }
 
-  static Future<bool> getChatFirstTime() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(chatFirstTime) ?? true;
-  }
+  // static Future<bool> getChatFirstTime() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getBool(chatFirstTime) ?? true;
+  // }
 
-  static setMatched(bool value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(isMatched, value);
-  }
+  // static setMatched(bool value) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool(isMatched, value);
+  // }
 
-  static Future<bool> getIsMatched() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(isMatched) ?? false;
-  }
+  // static Future<bool> getIsMatched() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getBool(isMatched) ?? false;
+  // }
 
-  static setLoc(bool value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(isLoc, value);
-  }
+  // static setLoc(bool value) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool(isLoc, value);
+  // }
 
-  static Future<bool> getLoc() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(isLoc) ?? true;
-  }
+  // static Future<bool> getLoc() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getBool(isLoc) ?? true;
+  // }
 
-  static setProfilePicPath(String value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(isProfilePic, value);
-  }
+  // static setProfilePicPath(String value) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setString(isProfilePic, value);
+  // }
 
-  static Future<String> getProfilePicPath() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(isProfilePic) ?? '';
-  }
+  // static Future<String> getProfilePicPath() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString(isProfilePic) ?? '';
+  // }
 
-  static setSubProfile(String value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString(isSubProfile, value);
-  }
+  // static setSubProfile(String value) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setString(isSubProfile, value);
+  // }
 
-  static Future<String> getSubProfile() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(isSubProfile) ?? '';
-  }
+  // static Future<String> getSubProfile() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString(isSubProfile) ?? '';
+  // }
 
-  static setInfo(bool value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(isInfo, value);
-  }
+  // static setInfo(bool value) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool(isInfo, value);
+  // }
 
-  static Future<bool> getInfo() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(isInfo) ?? true;
-  }
+  // static Future<bool> getInfo() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getBool(isInfo) ?? true;
+  // }
 
-  static setNotify(bool value) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(isNotify, value);
-  }
+  // static setNotify(bool value) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool(isNotify, value);
+  // }
 
-  static Future<bool> getNotify() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(isNotify) ?? true;
-  }
+  // static Future<bool> getNotify() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getBool(isNotify) ?? true;
+  // }
+
+  // static setPerson(bool value) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool(isLogin, value);
+  // }
+
+  // static Future<bool> getPerson() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getBool(isLogin) ?? true;
+  // }
+
+  // static setDarkMode(bool? value) {
+  //   _sharedPreferences!.setBool(isDakMode, value!);
+  // }
+
+  // static bool getDarkMode() {
+  //   return _sharedPreferences!.getBool(isDakMode) ?? false;
+  // }
+
+  // static setClickMic(bool value) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool(isClickMic, value);
+  // }
+
+  // static Future<bool> getClickMic() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getBool(isClickMic) ?? true;
+  // }
 
   static setLogin(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -156,59 +187,257 @@ class PrefData {
     return prefs.getBool(isLogin) ?? true;
   }
 
-  static setPerson(bool value) async {
+  static void setUserID(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(isLogin, value);
+    prefs.setString('userID', id);
   }
 
-  static Future<bool> getPerson() async {
+  static Future<String?> getUserID() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(isLogin) ?? true;
+    String? id = prefs.getString('userID');
+
+    return id;
   }
 
-  static setDarkMode(bool? value) {
-    _sharedPreferences!.setBool(isDakMode, value!);
-  }
-
-  static bool getDarkMode() {
-    return _sharedPreferences!.getBool(isDakMode) ?? false;
-  }
-
-  static setClickMic(bool value) async {
+  static Future<void> setDisplayName(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(isClickMic, value);
+    prefs.setString('displayName', id);
   }
 
-  static Future<bool> getClickMic() async {
+  static Future<String?> getDisplayName() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(isClickMic) ?? true;
+    String? id = prefs.getString('displayName');
+
+    return id;
   }
 
-  static setAccessToken(AccessTokenResponse accessToken) async {
+  static Future<void> setUserCountry(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('accessToken', accessToken.accessToken!);
+    prefs.setString('userCountry', id);
+  }
+
+  static Future<String> getUserCountry() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id = prefs.getString('userCountry') ?? "CA";
+
+    return id;
+  }
+
+  static void setPlaylistID(String id) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('playlistID', id);
+  }
+
+  static Future<String?> getPlaylistID() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id = prefs.getString('playlistID');
+
+    return id;
+  }
+
+  static Future<void> addSong(Track track) async {
+    getMusicList().then((list) {
+      list!.add(track);
+      setMusicList(list);
+    });
+  }
+
+  static void removeSong(Track track) async {
+    print(track.name);
+    getMusicList().then((list) {
+      list!.remove(track);
+      setMusicList(list);
+    });
+  }
+
+  static setMusicList(List<Track> trackList) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    // Iterable<String> trackListString = trackList.map((track) {
+    //   return trackToJson(track);
+    // });
+
+    //print(trackListString);
+
+    String trackListJSON = json.encode(trackList);
+    prefs.setString('trackList', trackListJSON);
+  }
+
+  static Future<List<Track>?> getMusicList() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String id = prefs.getString('trackList') ?? '[]';
+
+    List<dynamic> trackListString = json.decode(id);
+    Iterable<Track> trackList = trackListString.map((track) {
+      return Track.fromJson(track);
+    });
+
+    Set<Track> setList = trackList.toSet();
+    return setList.toList();
+  }
+
+  static Future<AccessTokenResponse?> getAccessToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? jsonMap = prefs.getString('accessToken');
+
+    Map<String, dynamic> mapToken = json.decode(jsonMap!);
+    AccessTokenResponse accessToken = AccessTokenResponse.fromMap(mapToken);
+
+    return accessToken;
+  }
+
+  static Future<void> setAccessToken(AccessTokenResponse accessToken) async {
+    Map<String, dynamic> mapToken = accessToken.toMap();
+    String jsonMap = json.encode(mapToken);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('accessToken', jsonMap);
+  }
+
+  static Future<void> setRefreshToken(AccessTokenResponse accessToken) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('refreshToken', accessToken.refreshToken!);
-  }
-
-  static Future<String?> getAccessToken() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('accessToken');
   }
 
   static Future<String?> getRefreshToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('refreshToken');
+    String? refreshToken = prefs.getString('refreshToken');
+
+    return refreshToken;
   }
 
-  static setClickKeyboard(bool value) async {
+  static void setGenreList(List<String> genreList) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(isClickKeyboard, value);
+    prefs.setStringList('genreList', genreList);
   }
 
-  static Future<bool> getClickKeyboard() async {
+  static Future<List<String>> getGenreList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(isClickKeyboard) ?? false;
+    List<String> genreList =
+        prefs.getStringList('genreList') ?? ["alternative"];
+
+    return genreList;
   }
+
+  static setGenreIndex(Map<String, int>? genreIndex) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String trackListJSON = json.encode(genreIndex);
+    prefs.setString('genreIndex', trackListJSON);
+  }
+
+  static Future<Map<String, int>> getGenreIndex() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id = prefs.getString('genreIndex');
+
+    if (id == null || id == "null") {
+      return {
+        "indie": 0,
+        "pop": 0,
+        "rock": 0,
+        "country": 0,
+        "metal": 0,
+        "jazz": 0,
+        "k-pop": 0,
+        "hip-hop": 0,
+        "edm": 0,
+        "classical": 0,
+        "latin": 0,
+        "sad": 0,
+        "r-n-b": 0,
+        "alternative": 0,
+        "afrobeat": 0,
+        "techno": 0,
+        "reggae": 0,
+        "study": 0
+      };
+    } else {
+      Map<String, dynamic> trackListString = json.decode(id);
+      var newMap = trackListString.map((key, value) {
+        if (value is int)
+          return MapEntry(key, value);
+        else
+          return MapEntry(key, int.parse(value));
+      });
+      return newMap;
+    }
+  }
+
+  static Future<void> setAvailableSongs(
+      Map<String, List<Track>>? genreMapTracks) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    String trackListJSON = json.encode(genreMapTracks);
+    prefs.setString('genreMap', trackListJSON);
+  }
+
+  static Future<Map<String, List<Track>>> getAvailableSongs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id = prefs.getString('genreMap');
+    if (id == null || id == "null") {
+      return {
+        "indie": [],
+        "pop": [],
+        "rock": [],
+        "country": [],
+        "metal": [],
+        "jazz": [],
+        "k-pop": [],
+        "hip-hop": [],
+        "edm": [],
+        "classical": [],
+        "latin": [],
+        "sad": [],
+        "r-n-b": [],
+        "alternative": [],
+        "afrobeat": [],
+        "techno": [],
+        "reggae": [],
+        "study": []
+      };
+    }
+
+    Map<String, dynamic> trackListString = json.decode(id);
+    print("Number 1");
+    print(trackListString.runtimeType);
+    try {
+      Map<String, List<Track>> mapStringAndDynamic =
+          trackListString.map((key, value) {
+        if (value == []) return MapEntry(key, value);
+        List<Track> newList = [];
+        for (int i = 0; i < value.length; i++) {
+          newList.add(Track.fromJson(value[i]));
+        }
+        return MapEntry(key, newList);
+      });
+
+      return mapStringAndDynamic;
+    } catch (e) {
+      print("ERROROROROR");
+      print(e);
+      return {};
+    }
+  }
+
+  static void setNumGenres(int num) {
+    SharedPreferences.getInstance().then((element) {
+      element.setInt('numGenres', num);
+    });
+  }
+
+  static Future<int> getNumGenres() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    int numGenres = prefs.getInt('numGenres') ?? 2;
+
+    return numGenres;
+  }
+  // static setClickKeyboard(bool value) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setBool(isClickKeyboard, value);
+  // }
+
+  // static Future<bool> getClickKeyboard() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getBool(isClickKeyboard) ?? false;
+  // }
 
   Future<void> setThemeData(String value) {
     return _sharedPreferences!.setString('themeData', value);
@@ -222,31 +451,31 @@ class PrefData {
     }
   }
 
-  static Future<String?> getEmail() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    //Return String
-    return prefs.getString('email');
-  }
+  // static Future<String?> getEmail() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   //Return String
+  //   return prefs.getString('email');
+  // }
 
-  static Future<String?> getUsername() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('name');
-  }
+  // static Future<String?> getUsername() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString('name');
+  // }
 
-  static Future<String?> getLastname() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('lastname');
-  }
+  // static Future<String?> getLastname() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString('lastname');
+  // }
 
-  static setNum() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('num', '(303) 555-0105');
-  }
+  // static setNum() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setString('num', '(303) 555-0105');
+  // }
 
-  static Future<String> getNum() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString('num') ?? '';
-  }
+  // static Future<String> getNum() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   return prefs.getString('num') ?? '';
+  // }
 
 //  static  Future<String> getSurname() async {
 //     SharedPreferences prefs = await SharedPreferences.getInstance();

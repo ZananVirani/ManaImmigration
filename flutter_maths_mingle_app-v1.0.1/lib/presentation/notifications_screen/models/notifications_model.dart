@@ -1,5 +1,0 @@
-import '../../../core/app_export.dart';import 'notificationlist_item_model.dart';/// This class defines the variables used in the [notifications_screen],
-/// and is typically used to hold data that is passed between different parts of the application.
-class NotificationsModel {Rx<List<NotificationlistItemModel>> notificationlistItemList = Rx([NotificationlistItemModel(notificationText1: "There are many synonyms".obs,notificationText2: "5 mins ago".obs),NotificationlistItemModel(notificationText1: "Intermix match mingle parallel".obs,notificationText2: "6 mins ago".obs),NotificationlistItemModel(notificationText1: "Mingle as many Prompts want".obs,notificationText2: "7 mins ago".obs),NotificationlistItemModel(notificationText1: "Arouse all our Senses in a Sultry ".obs,notificationText2: "8 mins ago".obs),NotificationlistItemModel(notificationText1: "Tale of seduction no smutinatuio".obs,notificationText2: "9 mins ago".obs),NotificationlistItemModel(notificationText1: "Keep it Clean and Poetic motor".obs,notificationText2: "10 mins ago".obs),NotificationlistItemModel(notificationText1: "Sultry tale of seduction ".obs,notificationText2: "11 mins ago".obs)]);
-
- }

@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import, deprecated_member_use
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_maths_mingle_app/API/api_calls.dart';
 import 'package:flutter_maths_mingle_app/authorization/spotify_auth.dart';
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -62,17 +63,19 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
                           left: 24.h, right: 24.h, bottom: 30.h),
                       onPressed: () async {
                         try {
-                          var accessToken =
+                          AccessTokenResponse? accessToken =
                               await SpotifyAuthService.getAccessToken();
                           print("here:");
                           print(accessToken);
                           if (!(accessToken is AccessTokenResponse))
                             throw Exception();
 
-                          PrefData.setAccessToken(accessToken);
+                          await PrefData.setAccessToken(accessToken);
+                          await PrefData.setRefreshToken(accessToken);
                           PrefData.setIntro(false);
+                          await MakeAPICall.refreshName();
                           Get.offAndToNamed(
-                              AppRoutes.loginOtpAuthenticationScreen);
+                              AppRoutes.createAccountSelectInterestScreen);
                         } catch (e) {
                           showCupertinoDialog(
                               context: context, builder: createDialog);
