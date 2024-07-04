@@ -34,6 +34,10 @@ class AppListData {
 //   ];
   static List<CreateAccountSelectInterestModel> interestList = [
     CreateAccountSelectInterestModel(
+        genreName: 'hip-hop',
+        inrerestName: 'Hip-Hop (Rap)',
+        isCheck: false), //Fasion
+    CreateAccountSelectInterestModel(
         genreName: 'indie', inrerestName: 'Indie', isCheck: false), //Games
     CreateAccountSelectInterestModel(
         genreName: 'pop', inrerestName: 'Pop', isCheck: false), //Dancing
@@ -49,8 +53,6 @@ class AppListData {
         genreName: 'k-pop',
         inrerestName: 'K-Pop',
         isCheck: false), //Architecture
-    CreateAccountSelectInterestModel(
-        genreName: 'hip-hop', inrerestName: 'Hip-Hop', isCheck: false), //Fasion
     CreateAccountSelectInterestModel(
         genreName: 'edm', inrerestName: 'EDM', isCheck: false), //Book
     CreateAccountSelectInterestModel(

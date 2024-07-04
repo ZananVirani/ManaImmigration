@@ -330,14 +330,14 @@ class PrefData {
 
     if (id == null || id == "null") {
       return {
+        "hip-hop": 0,
         "indie": 0,
         "pop": 0,
         "rock": 0,
         "country": 0,
         "metal": 0,
         "jazz": 0,
-        "k-pop": 0,
-        "hip-hop": 0,
+        "k-pop": 4,
         "edm": 0,
         "classical": 0,
         "latin": 0,
@@ -374,6 +374,7 @@ class PrefData {
     String? id = prefs.getString('genreMap');
     if (id == null || id == "null") {
       return {
+        "hip-hop": [],
         "indie": [],
         "pop": [],
         "rock": [],
@@ -381,7 +382,6 @@ class PrefData {
         "metal": [],
         "jazz": [],
         "k-pop": [],
-        "hip-hop": [],
         "edm": [],
         "classical": [],
         "latin": [],

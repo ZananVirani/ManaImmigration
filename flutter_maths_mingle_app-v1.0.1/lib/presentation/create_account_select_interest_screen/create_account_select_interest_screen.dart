@@ -11,113 +11,132 @@ import 'controller/create_account_select_interest_controller.dart';
 
 class CreateAccountSelectInterestScreen
     extends GetWidget<CreateAccountSelectInterestController> {
-  const CreateAccountSelectInterestScreen({Key? key}) : super(key: key);
+  CreateAccountSelectInterestScreen({Key? key}) : super(key: key);
 
+  final trackList = PrefData.getGenreList();
+  final checkedMap = {};
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: PrefData.getAppBar(
-            onTap: () => Get.back(),
-            text: 'Select 1-5 interests',
-            isLeadingIcon: true),
-        body: ListView(
-            padding: EdgeInsets.symmetric(horizontal: 24.h),
-            children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 24, 0.0, 16),
-                child: Container(
-                    height: 8.v,
-                    width: 327.h,
-                    decoration: BoxDecoration(
-                        color: appTheme.gray10002,
-                        borderRadius: BorderRadius.circular(4.h)),
-                    child: ClipRRect(
-                        borderRadius: BorderRadius.circular(4.h),
-                        child: LinearProgressIndicator(
-                            value: 1.0,
-                            backgroundColor: appTheme.gray10002,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                                theme.colorScheme.primary)))),
-              ),
-              // RichText(
-              //     text: TextSpan(
-              //         text: "2/2",
-              //         style: GoogleFonts.aDLaMDisplay(
-              //           color: AppColor.primaryColor,
-              //           fontSize: 20,
-              //         )),
-              //     textAlign: TextAlign.left),
-              SizedBox(height: 50.h),
-              // Padding(
-              //     padding: EdgeInsets.only(right: 61.h),
-              //     child: Row(
-              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //         children: [_buildGames(), _buildDancing()])),
-              // SizedBox(height: 15.v),
-              // Padding(
-              //     padding: EdgeInsets.only(right: 81.h),
-              //     child: Row(children: [_buildLanguage(), _buildMusic()])),
-              // SizedBox(height: 15.v),
-              // _buildMovie(),
-              // SizedBox(height: 15.v),
-              // Padding(
-              //     padding: EdgeInsets.only(right: 66.h),
-              //     child:
-              //         Row(children: [_buildArchitecture(), _buildFashion()])),
-              // SizedBox(height: 17.v),
-              // Padding(
-              //     padding: EdgeInsets.only(right: 70.h),
-              //     child: Row(
-              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //         children: [_buildBook(), _buildWriting()])),
-              // SizedBox(height: 15.v),
-              // Padding(
-              //     padding: EdgeInsets.only(right: 61.h),
-              //     child: Row(
-              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //         children: [_buildNature(), _buildPainting()])),
-              // SizedBox(height: 15.v),
-              // Padding(
-              //     padding: EdgeInsets.only(right: 72.h),
-              //     child: Row(
-              //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //         children: [_buildFootball(), _buildPeople()])),
-              // SizedBox(height: 15.v),
-              // _buildAnimals(),
+    return FutureBuilder(
+        future: trackList,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData)
+            return Text("");
+          else {
+            for (CreateAccountSelectInterestModel genre
+                in AppListData.interestList) {
+              checkedMap[genre.genreName] =
+                  snapshot.data!.contains(genre.genreName);
+            }
+            return Scaffold(
+                appBar: PrefData.getAppBar(
+                    onTap: () => Navigator.pop(context),
+                    text: 'Select 1-5 interests',
+                    isLeadingIcon: true),
+                body: ListView(
+                    padding: EdgeInsets.symmetric(horizontal: 24.h),
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0.0, 24, 0.0, 16),
+                        child: Container(
+                            height: 8.v,
+                            width: 327.h,
+                            decoration: BoxDecoration(
+                                color: appTheme.gray10002,
+                                borderRadius: BorderRadius.circular(4.h)),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(4.h),
+                                child: LinearProgressIndicator(
+                                    value: 1.0,
+                                    backgroundColor: appTheme.gray10002,
+                                    valueColor: AlwaysStoppedAnimation<Color>(
+                                        theme.colorScheme.primary)))),
+                      ),
+                      // RichText(
+                      //     text: TextSpan(
+                      //         text: "2/2",
+                      //         style: GoogleFonts.aDLaMDisplay(
+                      //           color: AppColor.primaryColor,
+                      //           fontSize: 20,
+                      //         )),
+                      //     textAlign: TextAlign.left),
+                      SizedBox(height: 50.h),
+                      // Padding(
+                      //     padding: EdgeInsets.only(right: 61.h),
+                      //     child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: [_buildGames(), _buildDancing()])),
+                      // SizedBox(height: 15.v),
+                      // Padding(
+                      //     padding: EdgeInsets.only(right: 81.h),
+                      //     child: Row(children: [_buildLanguage(), _buildMusic()])),
+                      // SizedBox(height: 15.v),
+                      // _buildMovie(),
+                      // SizedBox(height: 15.v),
+                      // Padding(
+                      //     padding: EdgeInsets.only(right: 66.h),
+                      //     child:
+                      //         Row(children: [_buildArchitecture(), _buildFashion()])),
+                      // SizedBox(height: 17.v),
+                      // Padding(
+                      //     padding: EdgeInsets.only(right: 70.h),
+                      //     child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: [_buildBook(), _buildWriting()])),
+                      // SizedBox(height: 15.v),
+                      // Padding(
+                      //     padding: EdgeInsets.only(right: 61.h),
+                      //     child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: [_buildNature(), _buildPainting()])),
+                      // SizedBox(height: 15.v),
+                      // Padding(
+                      //     padding: EdgeInsets.only(right: 72.h),
+                      //     child: Row(
+                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //         children: [_buildFootball(), _buildPeople()])),
+                      // SizedBox(height: 15.v),
+                      // _buildAnimals(),
 
-              GetBuilder<CreateAccountSelectInterestController>(
-                builder: (controller) {
-                  return GridView.builder(
-                    shrinkWrap: true,
-                    padding: EdgeInsets.symmetric(horizontal: 8.h),
-                    scrollDirection: Axis.vertical,
-                    physics: NeverScrollableScrollPhysics(),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        mainAxisExtent: 24.h,
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 16.h,
-                        crossAxisSpacing: 21.h),
-                    itemCount: AppListData.interestList.length,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          AppListData.interestList[index].isCheck =
-                              !AppListData.interestList[index].isCheck;
-                          controller.update();
+                      GetBuilder<CreateAccountSelectInterestController>(
+                        builder: (controller) {
+                          return GridView.builder(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.symmetric(horizontal: 8.h),
+                            scrollDirection: Axis.vertical,
+                            physics: NeverScrollableScrollPhysics(),
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    mainAxisExtent: 24.h,
+                                    crossAxisCount: 2,
+                                    mainAxisSpacing: 16.h,
+                                    crossAxisSpacing: 21.h),
+                            itemCount: AppListData.interestList.length,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                onTap: () {
+                                  checkedMap[AppListData
+                                          .interestList[index].genreName] =
+                                      !checkedMap[AppListData
+                                          .interestList[index].genreName];
+                                  controller.update();
+                                },
+                                child: InterestOpe(
+                                  opValue: checkedMap[AppListData
+                                      .interestList[index].genreName],
+                                  valueText: AppListData
+                                      .interestList[index].inrerestName,
+                                ),
+                              );
+                            },
+                          );
                         },
-                        child: InterestOpe(
-                          opValue: AppListData.interestList[index].isCheck,
-                          valueText:
-                              AppListData.interestList[index].inrerestName,
-                        ),
-                      );
-                    },
-                  );
-                },
-              ),
-              SizedBox(height: 5.v)
-            ]),
-        bottomNavigationBar: _buildContinue(context));
+                      ),
+                      SizedBox(height: 5.v)
+                    ]),
+                bottomNavigationBar: _buildContinue(context));
+          }
+        });
   }
 
   /// Section Widget
@@ -132,19 +151,15 @@ class CreateAccountSelectInterestScreen
             onPressed: () async {
               int count = 0;
               List<String> finalList = [];
-              List<CreateAccountSelectInterestModel> genreList =
-                  AppListData.interestList;
-              genreList.forEach((element) {
-                if (element.isCheck) {
-                  finalList.add(element.genreName);
+              checkedMap.forEach((key, element) {
+                if (element == true) {
+                  finalList.add(key);
                   count++;
                 }
               });
 
               if (count >= 1 && count <= 5) {
                 PrefData.setGenreList(finalList);
-                PrefData.setGenreIndex(null);
-                PrefData.setAvailableSongs(null);
                 bool isLogin = await PrefData.getLogin();
 
                 if (isLogin) {

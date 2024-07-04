@@ -6,6 +6,7 @@ import 'package:flutter_maths_mingle_app/API/api_calls.dart';
 import 'package:flutter_maths_mingle_app/API/track.dart';
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
 import 'package:flutter_maths_mingle_app/widgets/custom_bottom_bar.dart';
+import 'package:pinput/pinput.dart';
 import 'controller/messages_controller.dart';
 
 import 'models/messages_model.dart';
@@ -51,7 +52,7 @@ class _MessagesPageState extends State<MessagesPage> {
                     children: [
                       Container(
                         padding: EdgeInsets.only(
-                            left: 24.h, right: 24.h, top: 50.h, bottom: 25.h),
+                            left: 24.h, right: 24.h, top: 40.h, bottom: 25.h),
                         decoration: BoxDecoration(
                             color: PrimaryColors().secondaryColor,
                             boxShadow: [
@@ -122,29 +123,45 @@ class _MessagesPageState extends State<MessagesPage> {
                                         onChanged: (newBool) {
                                           setState(() {
                                             isChecked = !isChecked;
-                                            print(exportList);
                                             if (exportList == null)
                                               exportList = List.from(likedList);
                                             isChecked
                                                 ? exportList!.add(track)
                                                 : exportList!.remove(track);
-
-                                            print(exportList);
                                           });
                                         }),
-                                    title: Text(track.name!),
+                                    title: Text(track.name!.length > 20
+                                        ? track.name!.substring(0, 21) + "..."
+                                        : track.name!),
                                     subtitle: Text(track.artists!.first.name!),
                                     trailing: Padding(
-                                      padding:
-                                          const EdgeInsets.only(right: 8.0),
-                                      child: GestureDetector(
-                                          onTap: () async {
+                                        padding:
+                                            const EdgeInsets.only(right: 8.0),
+                                        child: ElevatedButton(
+                                          style: ButtonStyle(
+                                            side: WidgetStateBorderSide
+                                                .resolveWith((Set) {
+                                              return BorderSide(
+                                                  color: AppColor.primaryColor);
+                                            }),
+                                            backgroundColor:
+                                                WidgetStateColor.resolveWith(
+                                                    (Set) {
+                                              return AppColor.white;
+                                            }),
+                                            iconColor:
+                                                WidgetStateColor.resolveWith(
+                                                    (Set) {
+                                              return AppColor.primaryColor;
+                                            }),
+                                          ),
+                                          child: Icon(Icons.music_note,
+                                              size: 26.adaptSize),
+                                          onPressed: () async {
                                             await _player.play(
                                                 UrlSource(track.previewUrl!));
                                           },
-                                          child: Text("Song Preview")),
-                                    ),
-                                    contentPadding: EdgeInsets.all(8.0),
+                                        )),
                                   ),
                                   Container(
                                       width: double.infinity,
@@ -171,36 +188,33 @@ class _MessagesPageState extends State<MessagesPage> {
           border:
               Border(bottom: BorderSide(color: AppColor.black, width: 0.8))),
       width: double.infinity,
-      height: 55.v,
+      height: 45.v,
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         Padding(
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 8.0),
           child: GestureDetector(
-            onTap: () {
-              setState(() {
-                print(exportList);
-                exportList = List.from(likedList);
-                print(exportList);
-              });
-              setState(() {
-                checkAll = true;
-              });
-            },
-            child: Text("Select All",
-                style: theme.textTheme.titleSmall!.copyWith(
-                  color: AppColor.black,
-                  wordSpacing: 0.0,
-                )),
-          ),
+              onTap: () {
+                setState(() {
+                  print(exportList);
+                  exportList = List.from(likedList);
+                  print(exportList);
+                });
+                setState(() {
+                  checkAll = true;
+                });
+              },
+              child: Text("Select All",
+                  style: theme.textTheme.titleSmall!.copyWith(
+                      color: AppColor.black,
+                      wordSpacing: -2,
+                      fontSize: 14.fSize))),
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 12.0),
+          padding: const EdgeInsets.only(left: 7.0),
           child: GestureDetector(
             onTap: () {
               setState(() {
-                print(exportList);
                 exportList = [];
-                print(exportList);
               });
               setState(() {
                 checkAll = false;
@@ -208,9 +222,47 @@ class _MessagesPageState extends State<MessagesPage> {
             },
             child: Text("Deselect All",
                 style: theme.textTheme.titleSmall!.copyWith(
-                  color: AppColor.black,
-                  wordSpacing: 0.0,
-                )),
+                    color: AppColor.black,
+                    wordSpacing: -2,
+                    fontSize: 14.fSize)),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15.5),
+          child: GestureDetector(
+            onTap: () async {
+              await showCupertinoDialog(
+                context: context,
+                builder: (context) {
+                  return CupertinoAlertDialog(
+                      title: Text("Clear Song List?"),
+                      actions: [
+                        CupertinoDialogAction(
+                          child: Text("Cancel"),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                        CupertinoDialogAction(
+                            child: Text("Clear"),
+                            onPressed: () async {
+                              PrefData.setMusicList([]);
+                              setState(() {
+                                exportList = [];
+                              });
+                              Navigator.pop(context);
+                            }
+                            // Navigator.push(context,
+                            //     MaterialPageRoute(builder: (context) {
+                            //   return BottomBarScreen();}
+                            )
+                      ]);
+                },
+              );
+            },
+            child: Text("Clear",
+                style: theme.textTheme.titleSmall!.copyWith(
+                    color: AppColor.black,
+                    wordSpacing: -2,
+                    fontSize: 15.fSize)),
           ),
         ),
         Expanded(
@@ -221,13 +273,13 @@ class _MessagesPageState extends State<MessagesPage> {
               child: GestureDetector(
                 onTap: () async {
                   if (exportList == null) exportList = List.from(likedList);
-                  print(exportList);
                   await showCupertinoDialog(
                     context: context,
                     builder: (context) {
                       return CupertinoAlertDialog(
                           title: Text("Are you happy with your selections?"),
-                          content: Text("Page will refresh."),
+                          content:
+                              Text("Selected songs will be added to playlist."),
                           actions: [
                             CupertinoDialogAction(
                               child: Text("Cancel"),
@@ -236,11 +288,24 @@ class _MessagesPageState extends State<MessagesPage> {
                             CupertinoDialogAction(
                                 child: Text("Export"),
                                 onPressed: () async {
-                                  MakeAPICall.addSongsToPlaylist(exportList!);
-                                  PrefData.setMusicList([]);
-                                  setState(() {
-                                    exportList = [];
-                                  });
+                                  if (exportList!.length == likedList.length) {
+                                    await MakeAPICall.addSongsToPlaylist(
+                                        exportList!);
+                                    PrefData.setMusicList([]);
+                                    setState(() {
+                                      exportList = [];
+                                    });
+                                  } else {
+                                    MakeAPICall.addSongsToPlaylist(exportList!);
+                                    for (Track track in exportList!) {
+                                      print(likedList.length);
+                                      likedList.remove(track);
+                                    }
+                                    PrefData.setMusicList(likedList);
+                                    setState(() {
+                                      exportList = [];
+                                    });
+                                  }
                                   Navigator.pop(context);
                                 }
                                 // Navigator.push(context,
