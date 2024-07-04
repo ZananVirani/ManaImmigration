@@ -229,7 +229,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                       height:
                                           MediaQuery.sizeOf(context).height *
                                               .65,
-                                      padding: EdgeInsets.all(18),
+                                      padding: EdgeInsets.all(18.adaptSize),
                                       // EdgeInsets.only(
                                       //     bottom: 24.h,
                                       //     top: 16.h,
@@ -269,8 +269,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                     controller.update();
                                                   },
                                                   child: Padding(
-                                                    padding:
-                                                        EdgeInsets.all(11.0),
+                                                    padding: EdgeInsets.all(
+                                                        10.0.adaptSize),
                                                     child: Icon(Icons.settings),
                                                   ),
                                                 ),
@@ -281,8 +281,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                     controller.update();
                                                   },
                                                   child: Padding(
-                                                    padding:
-                                                        EdgeInsets.all(12.0),
+                                                    padding: EdgeInsets.all(
+                                                        10.0.adaptSize),
                                                     child: Icon(Icons.refresh),
                                                   ),
                                                 ),
@@ -373,7 +373,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                             style: theme.textTheme.bodyMedium,
                                           ),
                                           Padding(
-                                            padding: EdgeInsets.only(top: 20.v),
+                                            padding: EdgeInsets.only(
+                                                top: 18.adaptSize),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -387,8 +388,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                     controller.update();
                                                   },
                                                   child: Container(
-                                                    padding:
-                                                        EdgeInsets.all(16.0),
+                                                    padding: EdgeInsets.all(
+                                                        15.0.adaptSize),
                                                     decoration: BoxDecoration(
                                                         color: AppColor.white,
                                                         shape: BoxShape.circle,
@@ -431,8 +432,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                               .pause();
                                                     },
                                                     child: Container(
-                                                      padding:
-                                                          EdgeInsets.all(16.0),
+                                                      padding: EdgeInsets.all(
+                                                          15.0.adaptSize),
                                                       decoration: BoxDecoration(
                                                           color: PrimaryColors()
                                                               .blueGray500,
@@ -470,8 +471,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                     controller.update();
                                                   },
                                                   child: Container(
-                                                    padding:
-                                                        EdgeInsets.all(20.0),
+                                                    padding: EdgeInsets.all(
+                                                        18.5.adaptSize),
                                                     decoration: BoxDecoration(
                                                         color: AppColor
                                                             .primaryColor,
