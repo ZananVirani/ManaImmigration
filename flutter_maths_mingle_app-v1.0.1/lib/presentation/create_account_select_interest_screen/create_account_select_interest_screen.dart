@@ -12,11 +12,12 @@ import 'controller/create_account_select_interest_controller.dart';
 class CreateAccountSelectInterestScreen
     extends GetWidget<CreateAccountSelectInterestController> {
   CreateAccountSelectInterestScreen({Key? key}) : super(key: key);
-
+  
   final trackList = PrefData.getGenreList();
   final checkedMap = {};
   @override
   Widget build(BuildContext context) {
+    PrefData.setContext(context);
     return FutureBuilder(
         future: trackList,
         builder: (context, snapshot) {
@@ -29,10 +30,12 @@ class CreateAccountSelectInterestScreen
                   snapshot.data!.contains(genre.genreName);
             }
             return Scaffold(
-                appBar: PrefData.getAppBar(
+                
+                appBar: PrefData.getInterestAppbar(context,
                     onTap: () => Navigator.pop(context),
                     text: 'Select 1-5 interests',
-                    isLeadingIcon: true),
+                    isLeadingIcon: true,
+                    ),
                 body: ListView(
                     padding: EdgeInsets.symmetric(horizontal: 24.h),
                     children: [
