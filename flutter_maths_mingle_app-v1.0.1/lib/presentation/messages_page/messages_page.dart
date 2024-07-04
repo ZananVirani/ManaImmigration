@@ -6,7 +6,6 @@ import 'package:flutter_maths_mingle_app/API/api_calls.dart';
 import 'package:flutter_maths_mingle_app/API/track.dart';
 import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
 import 'package:flutter_maths_mingle_app/widgets/custom_bottom_bar.dart';
-import 'package:pinput/pinput.dart';
 import 'controller/messages_controller.dart';
 
 import 'models/messages_model.dart';
@@ -288,25 +287,76 @@ class _MessagesPageState extends State<MessagesPage> {
                             CupertinoDialogAction(
                                 child: Text("Export"),
                                 onPressed: () async {
-                                  if (exportList!.length == likedList.length) {
-                                    await MakeAPICall.addSongsToPlaylist(
-                                        exportList!);
-                                    PrefData.setMusicList([]);
-                                    setState(() {
-                                      exportList = [];
-                                    });
-                                  } else {
-                                    MakeAPICall.addSongsToPlaylist(exportList!);
-                                    for (Track track in exportList!) {
-                                      print(likedList.length);
-                                      likedList.remove(track);
+                                  var connectionList =
+                                      await Connectivity().checkConnectivity();
+
+                                  if (!connectionList
+                                      .contains(ConnectivityResult.none)) {
+                                    if (exportList!.length ==
+                                        likedList.length) {
+                                      await MakeAPICall.addSongsToPlaylist(
+                                          exportList!);
+                                      PrefData.setMusicList([]);
+                                      setState(() {
+                                        exportList = [];
+                                        checkAll = false;
+                                      });
+                                    } else {
+                                      MakeAPICall.addSongsToPlaylist(
+                                          exportList!);
+                                      for (Track track in exportList!) {
+                                        likedList.remove(track);
+                                      }
+                                      PrefData.setMusicList(likedList);
+                                      setState(() {
+                                        exportList = [];
+                                        checkAll = false;
+                                      });
                                     }
-                                    PrefData.setMusicList(likedList);
-                                    setState(() {
-                                      exportList = [];
-                                    });
+                                    Navigator.pop(context);
+                                  } else {
+                                    Navigator.pop(context);
+                                    await showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          return AlertDialog(
+                                            elevation: 5.0,
+                                            icon: Icon(Icons.wifi_off,
+                                                size: 120.adaptSize,
+                                                color: AppColor
+                                                    .secondaryLightColor),
+                                            title: Text(
+                                                "Uh oh! Something went wrong!",
+                                                style: CustomTextStyles
+                                                    .bodyLargeGray700),
+                                            content: Text(
+                                              "Please check your network connection and try again.",
+                                              style: CustomTextStyles
+                                                  .bodyMediumBlack600,
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            actions: [
+                                              GestureDetector(
+                                                child: Center(
+                                                    child: Text(
+                                                  "Ok",
+                                                  style: TextStyle(
+                                                      fontSize: 18.fSize,
+                                                      backgroundColor:
+                                                          AppColor.lightGray,
+                                                      color:
+                                                          AppColor.primaryColor,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                )),
+                                                onTap: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              )
+                                            ],
+                                          );
+                                        });
                                   }
-                                  Navigator.pop(context);
                                 }
                                 // Navigator.push(context,
                                 //     MaterialPageRoute(builder: (context) {

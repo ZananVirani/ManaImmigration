@@ -229,11 +229,12 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                       height:
                                           MediaQuery.sizeOf(context).height *
                                               .65,
-                                      padding: EdgeInsets.only(
-                                          bottom: 24.h,
-                                          top: 16.h,
-                                          left: 16.h,
-                                          right: 16.h),
+                                      padding: EdgeInsets.all(18),
+                                      // EdgeInsets.only(
+                                      //     bottom: 24.h,
+                                      //     top: 16.h,
+                                      //     left: 16.h,
+                                      //     right: 16.h),
                                       decoration: BoxDecoration(
                                         boxShadow: [
                                           BoxShadow(
@@ -288,8 +289,39 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                               ],
                                             ),
                                           ),
-                                          Image.network(
-                                              track.album!.images!.first.url),
+                                          FutureBuilder(
+                                              future: Connectivity()
+                                                  .checkConnectivity(),
+                                              builder: (context, snapshot) {
+                                                if (!snapshot.hasData)
+                                                  return Text(
+                                                      "Please connect to the internet and refresh app",
+                                                      style: CustomTextStyles
+                                                          .titleLargeffd97bca);
+                                                else
+                                                  return snapshot.data!
+                                                          .contains(
+                                                              ConnectivityResult
+                                                                  .none)
+                                                      ? SizedBox(
+                                                          width: 350.h,
+                                                          height: 200.v,
+                                                          child: Center(
+                                                            child: Text(
+                                                                "Please connect to the internet for picture and audio.",
+                                                                style: CustomTextStyles
+                                                                    .titleLargeffd97bca),
+                                                          ),
+                                                        )
+                                                      : Image.network(
+                                                          track.album!.images!
+                                                              .first.url,
+                                                          height:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .height *
+                                                                  0.33);
+                                              }),
                                           // Stack(
                                           //   clipBehavior: Clip.none,
                                           //   children: [
@@ -341,7 +373,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                             style: theme.textTheme.bodyMedium,
                                           ),
                                           Padding(
-                                            padding: EdgeInsets.only(top: 24.h),
+                                            padding: EdgeInsets.only(top: 20.v),
                                             child: Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -355,8 +387,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                     controller.update();
                                                   },
                                                   child: Container(
-                                                    width: 56.h,
-                                                    height: 56.h,
+                                                    padding:
+                                                        EdgeInsets.all(16.0),
                                                     decoration: BoxDecoration(
                                                         color: AppColor.white,
                                                         shape: BoxShape.circle,
@@ -370,18 +402,20 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                         ]),
                                                     child: Icon(
                                                       Icons.close_rounded,
-                                                      size: 24.h,
+                                                      size: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .height *
+                                                          0.035,
                                                     ),
                                                   ),
                                                 ),
                                                 Padding(
                                                   padding: const EdgeInsets
                                                       .symmetric(
-                                                      horizontal: 30.0),
+                                                      horizontal: 32.0),
                                                   child: GestureDetector(
                                                     onTap: () async {
                                                       setState(() {
-                                                        print(track.id);
                                                         isPlaying = !isPlaying;
 
                                                         isPlaying
@@ -397,8 +431,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                               .pause();
                                                     },
                                                     child: Container(
-                                                      width: 56.h,
-                                                      height: 56.h,
+                                                      padding:
+                                                          EdgeInsets.all(16.0),
                                                       decoration: BoxDecoration(
                                                           color: PrimaryColors()
                                                               .blueGray500,
@@ -414,7 +448,10 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                           ]),
                                                       child: Center(
                                                         child: AnimatedIcon(
-                                                            size: 24.h,
+                                                            size: MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .height *
+                                                                0.035,
                                                             icon: AnimatedIcons
                                                                 .pause_play,
                                                             progress:
@@ -433,8 +470,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                     controller.update();
                                                   },
                                                   child: Container(
-                                                    width: 56.h,
-                                                    height: 56.h,
+                                                    padding:
+                                                        EdgeInsets.all(20.0),
                                                     decoration: BoxDecoration(
                                                         color: AppColor
                                                             .primaryColor,
@@ -448,11 +485,13 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                           )
                                                         ]),
                                                     child: CustomImageView(
-                                                      imagePath:
-                                                          ImageConstant.loveM,
-                                                      margin:
-                                                          EdgeInsets.all(16.h),
-                                                    ),
+                                                        imagePath:
+                                                            ImageConstant.loveM,
+                                                        height:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .height *
+                                                                0.03),
                                                   ),
                                                 ),
                                               ],

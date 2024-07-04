@@ -2,6 +2,7 @@
 //import 'package:flutter_maths_mingle_app/presentation/profile_page/binding/profile_binding.dart';
 import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/binding/create_account_select_interest_binding.dart';
 import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/create_account_select_interest_screen.dart';
+import 'package:flutter_maths_mingle_app/presentation/noConnectionPage/noConnection.dart';
 import 'package:flutter_maths_mingle_app/presentation/spash_screen/spash_screen.dart';
 import 'package:flutter_maths_mingle_app/presentation/spash_screen/binding/spash_binding.dart';
 // import 'package:flutter_maths_mingle_app/presentation/onboarding_one_screen/onboarding_one_screen.dart';
@@ -129,6 +130,8 @@ class AppRoutes {
   static const String datingProfileDetailsVtwoScreen =
       '/dating_profile_details_vtwo_screen';
 
+  static const String noConnectionPage = '/dating_profile_details_vtwo_screen';
+
   static const String datingProfileDetailsVthreeScreen =
       '/dating_profile_details_vthree_screen';
 
@@ -199,6 +202,13 @@ class AppRoutes {
       bindings: [
         OnboardingThree1Binding(),
       ],
+    ),
+    GetPage(
+      name: noConnectionPage,
+      page: () => NoConnectionPage(),
+      transition: Transition.upToDown,
+      transitionDuration: Duration(milliseconds: 500),
+      bindings: [],
     ),
     // GetPage(
     //   name: createAccountPhoneNumberScreen,

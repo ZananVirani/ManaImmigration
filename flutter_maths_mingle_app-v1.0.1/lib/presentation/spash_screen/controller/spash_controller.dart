@@ -17,13 +17,18 @@ class SpashController extends GetxController {
     Future.delayed(const Duration(milliseconds: 3000), () async {
       bool isIntro = await PrefData.getIntro();
       bool isLogin = await PrefData.getLogin();
+      var connectivityList = await Connectivity().checkConnectivity();
 
-      if (isIntro) {
-        Get.offAndToNamed(AppRoutes.onboardingThree1Screen);
-      } else if (isLogin) {
-        Get.offAndToNamed(AppRoutes.createAccountSelectInterestScreen);
+      if (connectivityList.contains(ConnectivityResult.none)) {
+        Get.offAndToNamed(AppRoutes.noConnectionPage);
       } else {
-        Get.offAndToNamed(AppRoutes.bottomBarScreen);
+        if (isIntro) {
+          Get.offAndToNamed(AppRoutes.onboardingThree1Screen);
+        } else if (isLogin) {
+          Get.offAndToNamed(AppRoutes.createAccountSelectInterestScreen);
+        } else {
+          Get.offAndToNamed(AppRoutes.bottomBarScreen);
+        }
       }
     });
   }
