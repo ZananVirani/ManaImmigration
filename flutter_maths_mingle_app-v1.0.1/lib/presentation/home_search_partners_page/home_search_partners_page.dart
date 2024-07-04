@@ -294,8 +294,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                   .checkConnectivity(),
                                               builder: (context, snapshot) {
                                                 if (!snapshot.hasData)
-                                                  return Text(
-                                                      "Please connect to the internet and refresh app",
+                                                  return Text("",
                                                       style: CustomTextStyles
                                                           .titleLargeffd97bca);
                                                 else

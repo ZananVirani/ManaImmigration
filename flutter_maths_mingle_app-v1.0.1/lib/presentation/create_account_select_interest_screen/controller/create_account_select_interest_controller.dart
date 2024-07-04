@@ -1,14 +1,12 @@
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
 // ignore: unused_import
-import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/models/create_account_select_interest_model.dart';
+import 'package:flutter_maths_mingle_app/data/models/create_account_select_interest_model.dart';
 
 /// A controller class for the CreateAccountSelectInterestScreen.
 ///
 /// This class manages the state of the CreateAccountSelectInterestScreen, including the
 /// current createAccountSelectInterestModelObj
 class CreateAccountSelectInterestController extends GetxController {
-
-
   Rx<bool> games = false.obs;
 
   bool isCheck = false;

@@ -11,7 +11,7 @@
 // // import '../../presentation/matches_screen/models/userprofile3_item_model.dart';
 // //import '../../presentation/onboarding_one_screen/models/onboarding_one_model.dart';
 
-import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/models/create_account_select_interest_model.dart';
+import 'package:flutter_maths_mingle_app/data/models/create_account_select_interest_model.dart';
 
 class AppListData {
 //   // static List<OnboardingOneModel> onboardingList = [
