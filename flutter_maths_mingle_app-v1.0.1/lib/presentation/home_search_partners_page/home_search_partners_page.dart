@@ -302,14 +302,28 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                           .contains(
                                                               ConnectivityResult
                                                                   .none)
-                                                      ? SizedBox(
-                                                          width: 350.h,
-                                                          height: 200.v,
-                                                          child: Center(
-                                                            child: Text(
-                                                                "Please connect to the internet for picture and audio.",
-                                                                style: CustomTextStyles
-                                                                    .titleLargeffd97bca),
+                                                      ? Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .only(
+                                                                  left: 8.0),
+                                                          child: SizedBox(
+                                                            height: MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .height *
+                                                                0.33,
+                                                            width: MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width *
+                                                                .55,
+                                                            child: Center(
+                                                              child: Text(
+                                                                  "Please connect to the internet for picture and audio.",
+                                                                  style: CustomTextStyles
+                                                                      .titleLargeffd97bca),
+                                                            ),
                                                           ),
                                                         )
                                                       : Image.network(

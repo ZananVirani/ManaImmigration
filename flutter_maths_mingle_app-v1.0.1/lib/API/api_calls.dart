@@ -105,35 +105,6 @@ class MakeAPICall {
   ///
   /////////////////////////////////////////////////////////////////////////
 
-  static Future<String> createPlaylist() async {
-    String? userID = await PrefData.getUserID();
-    if (userID == null) {
-      print("UserID is null");
-      throw Exception("UserID is null");
-    }
-
-    String path = 'users/$userID/playlists';
-
-    Map<String, dynamic> data = {
-      'name': 'Music4U :)',
-      'description': "Enjoy some tunes <3",
-      'public': false,
-    };
-
-    final Response<Map<String, dynamic>>? response =
-        await makeGenericPostCall(path, data);
-
-    if (response != null) {
-      print("Playlist Created");
-      final playlist = playlistTrack.Playlist.fromJson(response.data!);
-      PrefData.setPlaylistID(playlist.id!);
-      return playlist.id!;
-    } else {
-      print("Did not work");
-      throw Exception("Playlist not created proper");
-    }
-  }
-
   static Future<void> searchForGenre(String genre, Map<String, int> genreIndex,
       Map<String, List<Track>> genreMap, String market) async {
     String path = "search";
@@ -148,7 +119,7 @@ class MakeAPICall {
         'type': 'track',
         'limit': limit,
         'offset': genreIndex[genre],
-        'market': "CA",
+        'market': market,
       };
 
       if (genreIndex[genre]! > 950) throw Exception("Too much offset");
@@ -257,9 +228,41 @@ class MakeAPICall {
     }
   }
 
+  static Future<String> createPlaylist(String userID) async {
+    String path = 'users/$userID/playlists';
+
+    Map<String, dynamic> data = {
+      'name': 'Music4U :)',
+      'description': "Enjoy some tunes <3",
+      'public': false,
+    };
+
+    final Response<Map<String, dynamic>>? response =
+        await makeGenericPostCall(path, data);
+
+    if (response != null) {
+      print("Playlist Created");
+      final playlist = playlistTrack.Playlist.fromJson(response.data!);
+      return playlist.id!;
+    } else {
+      print("Did not work");
+      throw Exception("Playlist not created proper");
+    }
+  }
+
   static Future<void> addSongsToPlaylist(List<Track> TrackList) async {
-    String? playlistID = await PrefData.getPlaylistID();
-    if (playlistID == null) playlistID = await createPlaylist();
+    String? userID = await PrefData.getUserID();
+    if (userID == null) throw Exception("User ID is null");
+
+    var utp = await PrefData.getUserToPlaylist();
+    String playlistID;
+    if (utp.containsKey(userID))
+      playlistID = utp[userID]!;
+    else {
+      playlistID = await createPlaylist(userID);
+      utp[userID] = playlistID;
+      await PrefData.addUserToPlaylist(userID, playlistID);
+    }
 
     String path = 'playlists/$playlistID/tracks';
 
@@ -375,7 +378,7 @@ class MakeAPICall {
 
     if (prof != null) {
       final profile = Profile.fromJson(prof.data!);
-      PrefData.setUserID(profile.id!);
+      await PrefData.setUserID(profile.id!);
       await setDisplayName(profile.displayName!);
       await PrefData.setUserCountry(profile.country!);
     } else {

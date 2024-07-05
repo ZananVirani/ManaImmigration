@@ -71,9 +71,9 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
 
                           await PrefData.setAccessToken(accessToken);
                           await PrefData.setRefreshToken(accessToken);
-                          PrefData.setIntro(false);
+                          await PrefData.setIntro(false);
                           await MakeAPICall.refreshName();
-                          Get.offAndToNamed(
+                          await Get.offAndToNamed(
                               AppRoutes.createAccountSelectInterestScreen);
                         } catch (e) {
                           showCupertinoDialog(

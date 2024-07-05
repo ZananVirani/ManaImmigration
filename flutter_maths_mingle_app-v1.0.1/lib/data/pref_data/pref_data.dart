@@ -188,7 +188,7 @@ class PrefData {
     return prefs.getBool(isLogin) ?? true;
   }
 
-  static void setUserID(String id) async {
+  static Future<void> setUserID(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('userID', id);
   }
@@ -220,18 +220,6 @@ class PrefData {
   static Future<String> getUserCountry() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? id = prefs.getString('userCountry') ?? "CA";
-
-    return id;
-  }
-
-  static void setPlaylistID(String id) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('playlistID', id);
-  }
-
-  static Future<String?> getPlaylistID() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? id = prefs.getString('playlistID');
 
     return id;
   }
@@ -357,6 +345,33 @@ class PrefData {
           return MapEntry(key, value);
         else
           return MapEntry(key, int.parse(value));
+      });
+      return newMap;
+    }
+  }
+
+  static addUserToPlaylist(String userID, String playlistID) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    var utp = await getUserToPlaylist();
+    utp[userID] = playlistID;
+    String trackListJSON = json.encode(utp);
+    prefs.setString('utp', trackListJSON);
+  }
+
+  static Future<Map<String, String>> getUserToPlaylist() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? id = prefs.getString('utp');
+
+    if (id == null || id == "null") {
+      return {};
+    } else {
+      Map<String, dynamic> trackListString = json.decode(id);
+      var newMap = trackListString.map((key, value) {
+        if (value is String)
+          return MapEntry(key, value);
+        else
+          return MapEntry(key, value.toString());
       });
       return newMap;
     }
