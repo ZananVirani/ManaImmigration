@@ -29,7 +29,7 @@ class CreateAccountSelectInterestScreen
                   snapshot.data!.contains(genre.genreName);
             }
             return Scaffold(
-                appBar: PrefData.getAppBar(
+                appBar: PrefData.getInterestAppbar(context,
                     onTap: () => Navigator.pop(context),
                     text: 'Select 1-5 interests',
                     isLeadingIcon: true),
