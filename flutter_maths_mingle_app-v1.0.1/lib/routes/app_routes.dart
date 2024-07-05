@@ -40,8 +40,6 @@ import 'package:flutter_maths_mingle_app/presentation/create_account_birthdate_s
 // import 'package:flutter_maths_mingle_app/presentation/my_account_screen/binding/my_account_binding.dart';
 import 'package:flutter_maths_mingle_app/presentation/privacy_policy_screen/privacy_policy_screen.dart';
 import 'package:flutter_maths_mingle_app/presentation/privacy_policy_screen/binding/privacy_policy_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/app_navigation_screen/app_navigation_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/app_navigation_screen/binding/app_navigation_binding.dart';
 import 'package:get/get.dart';
 
 import '../presentation/bottombar_screen/binding/bottombar_screen_binding.dart';
@@ -472,15 +470,6 @@ class AppRoutes {
       transitionDuration: Duration(seconds: 1),
       bindings: [
         PrivacyPolicyBinding(),
-      ],
-    ),
-    GetPage(
-      name: appNavigationScreen,
-      page: () => AppNavigationScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        AppNavigationBinding(),
       ],
     ),
     GetPage(
