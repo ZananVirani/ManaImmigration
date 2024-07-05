@@ -15,8 +15,6 @@ import 'package:flutter_maths_mingle_app/presentation/onboarding_three1_screen/b
 // import 'package:flutter_maths_mingle_app/presentation/create_account_otp_code_screen/binding/create_account_otp_code_binding.dart';
 // import 'package:flutter_maths_mingle_app/presentation/create_account_name_screen/create_account_name_screen.dart';
 // import 'package:flutter_maths_mingle_app/presentation/create_account_name_screen/binding/create_account_name_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_birthdate_screen/create_account_birthdate_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_birthdate_screen/binding/create_account_birthdate_binding.dart';
 // import 'package:flutter_maths_mingle_app/presentation/create_account_gender_screen/create_account_gender_screen.dart';
 //import 'package:flutter_maths_mingle_app/presentation/create_account_gender_screen/binding/create_account_gender_binding.dart';
 // import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/create_account_select_interest_screen.dart';
@@ -38,8 +36,6 @@ import 'package:flutter_maths_mingle_app/presentation/create_account_birthdate_s
 // import 'package:flutter_maths_mingle_app/presentation/edit_profile_screen/binding/edit_profile_binding.dart';
 // import 'package:flutter_maths_mingle_app/presentation/my_account_screen/my_account_screen.dart';
 // import 'package:flutter_maths_mingle_app/presentation/my_account_screen/binding/my_account_binding.dart';
-import 'package:flutter_maths_mingle_app/presentation/privacy_policy_screen/privacy_policy_screen.dart';
-import 'package:flutter_maths_mingle_app/presentation/privacy_policy_screen/binding/privacy_policy_binding.dart';
 import 'package:get/get.dart';
 
 import '../presentation/bottombar_screen/binding/bottombar_screen_binding.dart';
@@ -235,15 +231,6 @@ class AppRoutes {
     //     CreateAccountNameBinding(),
     //   ],
     // ),
-    GetPage(
-      name: createAccountBirthdateScreen,
-      page: () => CreateAccountBirthdateScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        CreateAccountBirthdateBinding(),
-      ],
-    ),
     // GetPage(
     //   name: createAccountGenderScreen,
     //   page: () => CreateAccountGenderScreen(),
@@ -463,15 +450,6 @@ class AppRoutes {
     //     NotificationsBinding(),
     //   ],
     // ),
-    GetPage(
-      name: privacyPolicyScreen,
-      page: () => PrivacyPolicyScreen(),
-      transition: Transition.cupertino,
-      transitionDuration: Duration(seconds: 1),
-      bindings: [
-        PrivacyPolicyBinding(),
-      ],
-    ),
     GetPage(
       name: initialRoute,
       page: () => SpashScreen(),
