@@ -552,11 +552,7 @@ class PrefData {
                     shape: BoxShape.circle,
                     color: AppColor.lightGray,
                   ),
-                  child: leadingIcon ??
-                      CustomImageView(
-                        imagePath: ImageConstant.arrowLeftIc,
-                        fit: BoxFit.contain,
-                      )),
+                  child: leadingIcon ?? Icon(Icons.arrow_left)),
             ),
       centerTitle: false,
       toolbarHeight: 70.h,
@@ -618,20 +614,16 @@ class PrefData {
                 // CommonPop.popScreen(context, RoutesPath.loginScreen);
               },
               child: Container(
-                  margin: EdgeInsets.only(left: 24.h),
-                  padding: EdgeInsets.all(8.h),
-                  height: 40.h,
-                  width: 40.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColor.lightGray,
-                  ),
-                  child: leadingIcon ??
-                      CustomImageView(
-                        imagePath: ImageConstant.arrowLeftIc,
-                        fit: BoxFit.contain,
-                      )),
-            ),
+                margin: EdgeInsets.only(left: 24.h),
+                padding: EdgeInsets.all(8.h),
+                height: 40.h,
+                width: 40.h,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: AppColor.lightGray,
+                ),
+                child: leadingIcon ?? Icon(Icons.arrow_left),
+              )),
       centerTitle: false,
       toolbarHeight: 70.h,
       elevation: 12.h,

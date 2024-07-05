@@ -6,9 +6,6 @@ import 'package:Melofy/API/api_calls.dart';
 import 'package:Melofy/API/track.dart';
 import 'package:Melofy/data/pref_data/pref_data.dart';
 import 'package:Melofy/widgets/custom_bottom_bar.dart';
-import 'controller/messages_controller.dart';
-
-import 'models/messages_model.dart';
 import 'package:flutter/material.dart';
 import 'package:Melofy/core/app_export.dart';
 
@@ -21,9 +18,6 @@ class MessagesPage extends StatefulWidget {
 }
 
 class _MessagesPageState extends State<MessagesPage> {
-  MessagesController controller =
-      Get.put(MessagesController(MessagesModel().obs));
-
   bool checkAll = true;
   List<Track>? exportList;
   @override
