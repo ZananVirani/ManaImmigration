@@ -11,7 +11,6 @@ import 'controller/onboarding_three1_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_maths_mingle_app/core/app_export.dart';
 import 'package:flutter_maths_mingle_app/widgets/custom_elevated_button.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as fs;
 
 class OnboardingThree1Screen extends StatefulWidget {
   const OnboardingThree1Screen({super.key});
