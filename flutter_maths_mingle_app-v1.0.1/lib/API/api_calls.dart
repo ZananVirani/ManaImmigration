@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
-import 'package:flutter_maths_mingle_app/API/playlist.dart' as playlistTrack;
-import 'package:flutter_maths_mingle_app/API/profile.dart';
-import 'package:flutter_maths_mingle_app/API/search.dart';
-import 'package:flutter_maths_mingle_app/API/track.dart';
-import 'package:flutter_maths_mingle_app/authorization/spotify_auth.dart';
-import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
+import 'package:Melofy/API/playlist.dart' as playlistTrack;
+import 'package:Melofy/API/profile.dart';
+import 'package:Melofy/API/search.dart';
+import 'package:Melofy/API/track.dart';
+import 'package:Melofy/authorization/spotify_auth.dart';
+import 'package:Melofy/data/pref_data/pref_data.dart';
 import 'package:oauth2_client/access_token_response.dart';
 
 class MakeAPICall {
@@ -232,8 +232,8 @@ class MakeAPICall {
     String path = 'users/$userID/playlists';
 
     Map<String, dynamic> data = {
-      'name': 'Music4U :)',
-      'description': "Enjoy some tunes <3",
+      'name': 'Melofy <3',
+      'description': "Enjoy some tunes :)",
       'public': false,
     };
 

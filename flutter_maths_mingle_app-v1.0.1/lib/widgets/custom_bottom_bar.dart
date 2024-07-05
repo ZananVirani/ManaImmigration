@@ -1,7 +1,7 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_maths_mingle_app/core/app_export.dart';
-import 'package:flutter_maths_mingle_app/presentation/bottombar_screen/controller/bottombar_screen_controller.dart';
+import 'package:Melofy/core/app_export.dart';
+import 'package:Melofy/presentation/bottombar_screen/controller/bottombar_screen_controller.dart';
 
 import '../data/pref_data/pref_data.dart';
 

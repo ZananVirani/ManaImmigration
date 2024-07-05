@@ -1,7 +1,7 @@
 import '../controller/messages_controller.dart';
 import '../models/chatcomponent_item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_maths_mingle_app/core/app_export.dart';
+import 'package:Melofy/core/app_export.dart';
 
 // ignore: must_be_immutable
 class ChatcomponentItemWidget extends StatelessWidget {
@@ -28,16 +28,14 @@ class ChatcomponentItemWidget extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(12.h),
         decoration: AppDecoration.outlineErrorContainer.copyWith(
-          borderRadius: BorderRadiusStyle.roundedBorder8,
-          boxShadow: [
-            BoxShadow(
-              color: Color(0x11000000),
-              blurRadius: 16.h,
-
-              spreadRadius: 0,
-            )
-          ]
-        ),
+            borderRadius: BorderRadiusStyle.roundedBorder8,
+            boxShadow: [
+              BoxShadow(
+                color: Color(0x11000000),
+                blurRadius: 16.h,
+                spreadRadius: 0,
+              )
+            ]),
         child: Row(
           children: [
             Obx(

@@ -1,16 +1,16 @@
 // ignore_for_file: unused_import, deprecated_member_use
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_maths_mingle_app/API/api_calls.dart';
-import 'package:flutter_maths_mingle_app/authorization/spotify_auth.dart';
-import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
+import 'package:Melofy/API/api_calls.dart';
+import 'package:Melofy/authorization/spotify_auth.dart';
+import 'package:Melofy/data/pref_data/pref_data.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:oauth2_client/access_token_response.dart';
 
 import 'controller/onboarding_three1_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_maths_mingle_app/core/app_export.dart';
-import 'package:flutter_maths_mingle_app/widgets/custom_elevated_button.dart';
+import 'package:Melofy/core/app_export.dart';
+import 'package:Melofy/widgets/custom_elevated_button.dart';
 
 class OnboardingThree1Screen extends StatefulWidget {
   const OnboardingThree1Screen({super.key});
@@ -119,13 +119,12 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
               child: showErrorMessage
                   ? RichText(
                       text: TextSpan(
-                          text:
-                              "Please Authorize in order \nto access Music4U.",
+                          text: "Please Authorize in order \nto access Melofy.",
                           style: CustomTextStyles.titleMediumRed500),
                       textAlign: TextAlign.center,
                     )
                   : Text(
-                      "Must have a Spotify Account to access Music4U.",
+                      "Must have a Spotify Account to access Melofy.",
                       style: CustomTextStyles.titleSmallPrimary,
                     ))
         ]));

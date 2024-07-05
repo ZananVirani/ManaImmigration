@@ -12,7 +12,7 @@
 
 
     <application
-        android:label="flutter_maths_mingle_app"
+        android:label="Melofy"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

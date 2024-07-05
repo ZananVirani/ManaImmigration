@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:flutter_maths_mingle_app/core/app_export.dart';
-import 'package:flutter_maths_mingle_app/presentation/spash_screen/models/spash_model.dart';
+import 'package:Melofy/core/app_export.dart';
+import 'package:Melofy/presentation/spash_screen/models/spash_model.dart';
 
 import '../../../data/pref_data/pref_data.dart';
 

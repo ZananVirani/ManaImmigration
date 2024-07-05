@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_maths_mingle_app/core/app_export.dart';
-import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
+import 'package:Melofy/core/app_export.dart';
+import 'package:Melofy/data/pref_data/pref_data.dart';
 
 class NoConnectionPage extends StatelessWidget {
   const NoConnectionPage({super.key});

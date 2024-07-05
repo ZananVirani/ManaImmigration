@@ -1,4 +1,4 @@
-import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/models/home_search_partners_model.dart';
+import 'package:Melofy/presentation/home_search_partners_page/models/home_search_partners_model.dart';
 
 import '../controller/home_search_partners_controller.dart';
 import 'package:get/get.dart';

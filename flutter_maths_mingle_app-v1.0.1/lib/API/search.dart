@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:flutter_maths_mingle_app/API/track.dart';
+import 'package:Melofy/API/track.dart';
 
 SearchResult searchResultFromJson(String str) =>
     SearchResult.fromJson(json.decode(str));

@@ -1,11 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_maths_mingle_app/core/app_export.dart';
-import 'package:flutter_maths_mingle_app/data/list_data/app_listdata.dart';
-import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
-import 'package:flutter_maths_mingle_app/data/models/create_account_select_interest_model.dart';
-import 'package:flutter_maths_mingle_app/presentation/create_account_select_interest_screen/widget/int_ope.dart';
-import 'package:flutter_maths_mingle_app/widgets/custom_elevated_button.dart';
+import 'package:Melofy/core/app_export.dart';
+import 'package:Melofy/data/list_data/app_listdata.dart';
+import 'package:Melofy/data/pref_data/pref_data.dart';
+import 'package:Melofy/data/models/create_account_select_interest_model.dart';
+import 'package:Melofy/presentation/create_account_select_interest_screen/widget/int_ope.dart';
+import 'package:Melofy/widgets/custom_elevated_button.dart';
 
 import 'controller/create_account_select_interest_controller.dart';
 

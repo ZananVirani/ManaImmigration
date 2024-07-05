@@ -1,8 +1,8 @@
 //import 'package:oauth2_client/oauth2_helper.dart';
 import 'dart:convert';
 
-//import 'package:flutter_maths_mingle_app/core/app_export.dart';
-import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
+//import 'package:Melofy/core/app_export.dart';
+import 'package:Melofy/data/pref_data/pref_data.dart';
 import 'package:oauth2_client/access_token_response.dart';
 import 'package:oauth2_client/spotify_oauth2_client.dart';
 import 'package:dio/dio.dart';

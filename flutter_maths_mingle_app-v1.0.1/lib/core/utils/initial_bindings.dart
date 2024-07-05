@@ -1,5 +1,5 @@
-import 'package:flutter_maths_mingle_app/core/app_export.dart';
-import 'package:flutter_maths_mingle_app/data/apiClient/api_client.dart';
+import 'package:Melofy/core/app_export.dart';
+import 'package:Melofy/data/apiClient/api_client.dart';
 
 class InitialBindings extends Bindings {
   @override

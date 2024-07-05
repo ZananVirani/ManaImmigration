@@ -1,7 +1,7 @@
 import '../controller/messages_controller.dart';
 import '../models/frame_item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_maths_mingle_app/core/app_export.dart';
+import 'package:Melofy/core/app_export.dart';
 
 // ignore: must_be_immutable
 class FrameItemWidget extends StatelessWidget {

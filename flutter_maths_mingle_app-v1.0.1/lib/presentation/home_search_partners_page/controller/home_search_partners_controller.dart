@@ -1,6 +1,6 @@
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
-import 'package:flutter_maths_mingle_app/core/app_export.dart';
-import 'package:flutter_maths_mingle_app/presentation/home_search_partners_page/models/home_search_partners_model.dart';
+import 'package:Melofy/core/app_export.dart';
+import 'package:Melofy/presentation/home_search_partners_page/models/home_search_partners_model.dart';
 
 /// A controller class for the HomeSearchPartnersPage.
 ///

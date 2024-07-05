@@ -5,20 +5,20 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
-import 'package:flutter_maths_mingle_app/API/api_calls.dart';
-import 'package:flutter_maths_mingle_app/API/track.dart';
-import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
-import 'package:flutter_maths_mingle_app/presentation/bottombar_screen/bottombar_screen.dart';
-import 'package:flutter_maths_mingle_app/widgets/custom_bottom_bar.dart';
+import 'package:Melofy/API/api_calls.dart';
+import 'package:Melofy/API/track.dart';
+import 'package:Melofy/data/pref_data/pref_data.dart';
+import 'package:Melofy/presentation/bottombar_screen/bottombar_screen.dart';
+import 'package:Melofy/widgets/custom_bottom_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
-// import 'package:flutter_maths_mingle_app/data/list_data/app_listdata.dart';
+// import 'package:Melofy/data/list_data/app_listdata.dart';
 // import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import 'controller/home_search_partners_controller.dart';
 import 'models/home_search_partners_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_maths_mingle_app/core/app_export.dart';
+import 'package:Melofy/core/app_export.dart';
 
 class HomeSearchPartnersPage extends StatefulWidget {
   const HomeSearchPartnersPage({super.key});

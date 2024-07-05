@@ -2,15 +2,15 @@
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_maths_mingle_app/API/api_calls.dart';
-import 'package:flutter_maths_mingle_app/API/track.dart';
-import 'package:flutter_maths_mingle_app/data/pref_data/pref_data.dart';
-import 'package:flutter_maths_mingle_app/widgets/custom_bottom_bar.dart';
+import 'package:Melofy/API/api_calls.dart';
+import 'package:Melofy/API/track.dart';
+import 'package:Melofy/data/pref_data/pref_data.dart';
+import 'package:Melofy/widgets/custom_bottom_bar.dart';
 import 'controller/messages_controller.dart';
 
 import 'models/messages_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_maths_mingle_app/core/app_export.dart';
+import 'package:Melofy/core/app_export.dart';
 
 class MessagesPage extends StatefulWidget {
   // Add List of songs
