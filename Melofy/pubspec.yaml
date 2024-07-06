@@ -1,0 +1,43 @@
+name: Melofy
+description: A new Flutter project.
+version: 1.0.0+1
+environment:
+  sdk: ">=3.1.0 <4.0.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  get: ^4.6.6
+  connectivity_plus: ^6.0.3
+  shared_preferences: ^2.2.2
+  cached_network_image: ^3.3.1
+  flutter_card_swiper: ^7.0.0
+  oauth2_client: ^3.2.2
+  icons_plus: ^5.0.0
+  dio: ^5.4.3+1
+  audioplayers: ^6.0.0
+  google_fonts: ^6.2.1
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/PoppinsRegular.ttf
+          weight: 400
+        - asset: assets/fonts/PoppinsSemiBold.ttf
+          weight: 600
+    - family: Outfit
+      fonts:
+        - asset: assets/fonts/OutfitRegular.ttf
+          weight: 400
+    - family: Satoshi
+      fonts:
+        - asset: assets/fonts/SatoshiBold.ttf
+          weight: 700
+        - asset: assets/fonts/SatoshiRegular.ttf
+          weight: 400
