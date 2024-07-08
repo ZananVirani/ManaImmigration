@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_import
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:Melofy/API/api_calls.dart';
@@ -10,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:Melofy/core/app_export.dart';
 
 class MessagesPage extends StatefulWidget {
-  // Add List of songs
   const MessagesPage({super.key});
 
   @override
@@ -62,12 +59,11 @@ class _MessagesPageState extends State<MessagesPage> {
                               onTap: () {
                                 PrefData.currentIndex = 0;
                                 Navigator.pop(context);
-                                // CommonPop.popScreen(context, RoutesPath.loginScreen);
                               },
                               child: Container(
                                 margin: EdgeInsets.only(right: 20.h),
-                                height: 35.h,
-                                width: 35.h,
+                                height: 30.h,
+                                width: 30.h,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   color: AppColor.lightGray,
@@ -75,7 +71,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                 child: Icon(
                                   Icons.arrow_back_ios_new_rounded,
                                   color: AppColor.black,
-                                  size: 18.h,
+                                  size: 16.h,
                                 ),
                               ),
                             ),
@@ -188,9 +184,7 @@ class _MessagesPageState extends State<MessagesPage> {
           child: GestureDetector(
               onTap: () {
                 setState(() {
-                  print(exportList);
                   exportList = List.from(likedList);
-                  print(exportList);
                 });
                 setState(() {
                   checkAll = true;
@@ -242,11 +236,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                 exportList = [];
                               });
                               Navigator.pop(context);
-                            }
-                            // Navigator.push(context,
-                            //     MaterialPageRoute(builder: (context) {
-                            //   return BottomBarScreen();}
-                            )
+                            })
                       ]);
                 },
               );
@@ -351,11 +341,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                           );
                                         });
                                   }
-                                }
-                                // Navigator.push(context,
-                                //     MaterialPageRoute(builder: (context) {
-                                //   return BottomBarScreen();}
-                                )
+                                })
                           ]);
                     },
                   );
@@ -373,58 +359,3 @@ class _MessagesPageState extends State<MessagesPage> {
     );
   }
 }
-
-  /// Row of profile pictures
-  // Widget _buildFrame() {
-  //   return SizedBox(
-  //       height: 107.h,
-  //       child: Obx(() => GridView.builder(
-  //           padding: EdgeInsets.only(
-  //               top: 16.h, bottom: 24.h, right: 24.h, left: 24.h),
-  //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-  //             mainAxisExtent: 67.h,
-  //             crossAxisCount: 4,
-  //             crossAxisSpacing: 20.h,
-  //           ),
-  //           itemCount:
-  //               controller.messagesModelObj.value.frameItemList.value.length,
-  //           itemBuilder: (context, index) {
-  //             FrameItemModel model =
-  //                 controller.messagesModelObj.value.frameItemList.value[index];
-  //             return FrameItemWidget(model);
-  //           })));
-  // }
-
-  /// Chats Logs
-  // Widget _buildChatComponent() {
-  //   return Obx(() => ListView.separated(
-  //       padding: EdgeInsets.only(bottom: 50.h, left: 24.h, right: 24.h),
-  //       physics: BouncingScrollPhysics(),
-  //       shrinkWrap: true,
-  //       separatorBuilder: (context, index) {
-  //         return SizedBox(height: 16.h);
-  //       },
-  //       itemCount: controller
-  //           .messagesModelObj.value.chatcomponentItemList.value.length,
-  //       itemBuilder: (context, index) {
-  //         ChatcomponentItemModel model = controller
-  //             .messagesModelObj.value.chatcomponentItemList.value[index];
-  //         return ChatcomponentItemWidget(model, onTapChatComponent: () {
-  //           onTapChatComponent();
-  //         });
-  //       }));
-  // }
-
-  /// Navigates to the firstTimeChatScreen when the action is triggered.
-  /// 
-  ///    onTapChatComponent() {
-    //   controller.isFirstChat
-    //       ? Get.toNamed(AppRoutes.firstTimeChatScreen)
-    //       : Get.toNamed(AppRoutes.firstTimeChatOneScreen);
-    // }
-
-    // /// Navigates to the previous screen.
-    // onTapArrowLeft() {
-    //   Get.back();
-    // }
-

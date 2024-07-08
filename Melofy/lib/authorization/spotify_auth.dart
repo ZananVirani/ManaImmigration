@@ -1,7 +1,5 @@
-//import 'package:oauth2_client/oauth2_helper.dart';
 import 'dart:convert';
 
-//import 'package:Melofy/core/app_export.dart';
 import 'package:Melofy/data/pref_data/pref_data.dart';
 import 'package:oauth2_client/access_token_response.dart';
 import 'package:oauth2_client/spotify_oauth2_client.dart';
@@ -71,18 +69,6 @@ class SpotifyAuthService {
       print("ERRORRRRR");
       print(e);
     }
-
-    // final refresh = Refresh.fromJson(newToken.data);
-
-    // String? rToken = await PrefData.getRefreshToken();
-
-    // try {
-    //   accessToken = await client.refreshToken(rToken!, clientId: clientID);
-    //   print(accessToken.accessToken);
-    //   print(accessToken.errorDescription);
-    // } catch (e) {
-    //   print("Something crashed!");
-    // }
 
     return AccessTokenResponse();
   }

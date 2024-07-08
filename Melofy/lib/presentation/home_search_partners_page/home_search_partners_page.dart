@@ -1,9 +1,5 @@
-// ignore_for_file: unnecessary_import
-
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:Melofy/API/api_calls.dart';
 import 'package:Melofy/API/track.dart';
@@ -12,8 +8,6 @@ import 'package:Melofy/presentation/bottombar_screen/bottombar_screen.dart';
 import 'package:Melofy/widgets/custom_bottom_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
-// import 'package:Melofy/data/list_data/app_listdata.dart';
-// import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import 'controller/home_search_partners_controller.dart';
 import 'models/home_search_partners_model.dart';
@@ -36,7 +30,6 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
   late Future<List<Track>?> futureList;
   late AnimationController _animationController;
   late Future<Map<String, List<Track>>> tempGenreMap;
-  Future<String?> name = MakeAPICall.getDisplayName();
   String? errorString;
 
   @override
@@ -95,49 +88,15 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
           title: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FutureBuilder(
-                  future: name,
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Text(
-                        // Padding(
-                        //   padding: const EdgeInsets.only(left: 0.3),
-                        //   child: Text(
-                        //     'Welcome back, ' + snapshot.data!,
-                        //     style: theme.textTheme.titleLarge!.copyWith(
-                        //       color: AppColor.black,
-                        //       fontWeight: FontWeight.w900,
-                        //       fontSize: 30.fSize,
-                        //       // GoogleFonts.lato(
-                        //       //   textStyle: TextStyle(
-                        //       //     fontSize: 27,
-                        //       //     color: Colors.white, // White background
-                        //       //     fontWeight: FontWeight.w900,
-                        //       //   ),
-                        //     ),
-                        //   ),
-                        // ),
-
-                        snapshot.data!.length <= 9
-                            ? 'Welcome back, ' +
-                                snapshot.data!.capitalizeFirst! +
-                                "!"
-                            : 'Welcome back, ' +
-                                snapshot.data!
-                                    .substring(0, 6)
-                                    .capitalizeFirst! +
-                                "...!",
-                        style: theme.textTheme.titleLarge!.copyWith(
-                            color: AppColor.black,
-                            fontWeight: FontWeight.w900,
-                            fontSize: 24.fSize,
-                            letterSpacing: 0,
-                            wordSpacing: -2),
-                      );
-                    } else {
-                      return Text("");
-                    }
-                  }),
+              Text(
+                "Find the rhythm of your soul".capitalize!,
+                style: theme.textTheme.titleLarge!.copyWith(
+                    color: AppColor.black,
+                    fontWeight: FontWeight.w900,
+                    fontSize: 22.fSize,
+                    letterSpacing: 0,
+                    wordSpacing: -2),
+              )
             ],
           ),
         ),
@@ -242,11 +201,6 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                   .height *
                                               .65,
                                           padding: EdgeInsets.all(18.adaptSize),
-                                          // EdgeInsets.only(
-                                          //     bottom: 24.h,
-                                          //     top: 16.h,
-                                          //     left: 16.h,
-                                          //     right: 16.h),
                                           decoration: BoxDecoration(
                                             boxShadow: [
                                               BoxShadow(
@@ -353,28 +307,6 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                                       .height *
                                                                   0.33);
                                                   }),
-                                              // Stack(
-                                              //   clipBehavior: Clip.none,
-                                              //   children: [
-                                              //     // FutureBuilder(
-                                              //     //   future: track,
-                                              //     //   builder: (context, trackList) {
-                                              //     //     if (trackList.hasData)
-                                              //     //       return Image.network(
-                                              //     //           width: 400.h,
-                                              //     //           trackList.data!.album!.images!.first.url);
-                                              //     //     else if (trackList.hasError)
-                                              //     //       return CustomImageView(
-                                              //     //         imagePath: ImageConstant.travis,
-                                              //     //       );
-                                              //     //     else
-                                              //     //       return const CircularProgressIndicator();
-                                              //     //   },
-                                              //     // ),
-
-                                              //   ],
-                                              // ),
-
                                               Padding(
                                                 padding: const EdgeInsets.only(
                                                     top: 8.0),

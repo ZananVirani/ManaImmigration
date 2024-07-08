@@ -18,7 +18,6 @@ class MakeAPICall {
   static Future<AccessTokenResponse> _refreshToken() async {
     accessToken = await SpotifyAuthService.refreshToken();
     await PrefData.setAccessToken(accessToken!);
-    print("Successful REFRESHHHHHHHH!!!!!");
     return accessToken!;
   }
 
@@ -97,14 +96,6 @@ class MakeAPICall {
     }
   }
 
-  /////////////////////////////////////////////////////////////////////////
-  ///
-  /////////////////////////////////////////////////////////////////////////
-  ///
-  /////////////////////////////////////////////////////////////////////////
-  ///
-  /////////////////////////////////////////////////////////////////////////
-
   static Future<void> searchForGenre(String genre, Map<String, int> genreIndex,
       Map<String, List<Track>> genreMap, String market) async {
     String path = "search";
@@ -135,13 +126,11 @@ class MakeAPICall {
         tracks!.removeWhere((item) => item.previewUrl == null);
         finalTracks += tracks;
       }
-      print(timesRun);
       timesRun++;
     }
 
     if (timesRun >= 20) {
       print("Something went wrong!!!");
-      print(finalTracks);
     } else {
       genreMap[genre] = finalTracks;
     }
@@ -200,21 +189,6 @@ class MakeAPICall {
     return max;
   }
 
-  // static Future<Profile> getProfile() async {
-  //   String path = 'me';
-
-  //   final Response<Map<String, dynamic>>? prof =
-  //       await makeGenericGetCall(path, {});
-
-  //   if (prof != null) {
-  //     final profile = Profile.fromJson(prof.data!);
-  //     PrefData.setUserID(profile.id!);
-  //     return profile;
-  //   } else {
-  //     throw Exception("Did not get profile");
-  //   }
-  // }
-
   static Future<Track> getTrack(String trackID) async {
     String path = "tracks/$trackID";
     final Response<Map<String, dynamic>>? song =
@@ -241,7 +215,6 @@ class MakeAPICall {
         await makeGenericPostCall(path, data);
 
     if (response != null) {
-      print("Playlist Created");
       final playlist = playlistTrack.Playlist.fromJson(response.data!);
       return playlist.id!;
     } else {
@@ -301,75 +274,6 @@ class MakeAPICall {
     }
   }
 
-  // static void saveProfileData(CollectionReference users, Profile profile) {
-  //   print("here");
-  //   var userEmail = profile.email;
-  //   var userDisplayName = profile.displayName;
-  //   var userCountry = profile.country;
-  //   var userId = profile.id;
-  //   final time = DateTime.now();
-  //   print(userEmail);
-  //   print(userDisplayName);
-  //   print(userCountry);
-  //   print(userId);
-  //   print(time.month.toString() +
-  //       " / " +
-  //       time.day.toString() +
-  //       " / " +
-  //       time.year.toString());
-  //   try {
-  //     users.add({
-  //       'email': userEmail,
-  //       'displayName': userDisplayName,
-  //       'userCountry': userCountry,
-  //       'userID': userId,
-  //       'dateCreated': time.month.toString() +
-  //           " / " +
-  //           time.day.toString() +
-  //           " / " +
-  //           time.year.toString(),
-  //       'birthdate': date,
-  //     });
-  //     print("works");
-  //   } catch (e) {
-  //     print("error");
-  //   }
-  // }
-
-  // static Future<Profile> saveProfile(CollectionReference users) async {
-  //   String path = 'me';
-
-  //   final Response<Map<String, dynamic>>? prof =
-  //       await makeGenericGetCall(path, {});
-
-  //   if (prof != null) {
-  //     final profile = Profile.fromJson(prof.data!);
-  //     PrefData.setUserID(profile.id!);
-  //     PrefData.setUserCountry(profile.country!);
-  //     print("save data");
-  //     saveProfileData(users, profile);
-  //     setDisplayName(profile.displayName);
-  //     print("done");
-  //     return profile;
-  //   } else {
-  //     throw Exception("Did not get profile");
-  //   }
-  // }
-
-  // static void setBirthday(DateTime d) {
-  //   String setDate = d.toString().substring(0, 10);
-  //   date = setDate;
-  // }
-
-  static Future<void> setDisplayName(String d) async {
-    await PrefData.setDisplayName(d);
-  }
-
-  static Future<String?> getDisplayName() async {
-    String? userDisplayName = await PrefData.getDisplayName();
-    return userDisplayName;
-  }
-
   static Future<void> refreshName() async {
     String path = 'me';
 
@@ -379,54 +283,9 @@ class MakeAPICall {
     if (prof != null) {
       final profile = Profile.fromJson(prof.data!);
       await PrefData.setUserID(profile.id!);
-      await setDisplayName(profile.displayName!);
       await PrefData.setUserCountry(profile.country!);
     } else {
       throw Exception("Name not set");
     }
   }
-
-  // static List<Track> shortenList(List<Track> list, int start) {
-  //   List<Track> newList = [];
-  //   List.copyRange(list, 0, newList, start, list.length - 1);
-  //   return newList;
-  // }
-
-  // static List<Track> get80List(List<Track> list) {
-  //   List<Track> newList = [];
-  //   List.copyRange(list, 0, newList, 0, 80);
-  //   return newList;
-  // }
-
-  // static void addSongsToPlaylist(List<Track> TrackList) async {
-  //   if (TrackList.length >= 80) {
-  //     List<Track> newList = shortenList(TrackList, 80);
-  //     addSongsToPlaylist(newList);
-  //     List<Track> uploadList = get80List(TrackList);
-  //     TrackList = uploadList;
-  //   }
-
-  //   String? playlistID = await PrefData.getPlaylistID();
-  //   if (playlistID == null) playlistID = await createPlaylist();
-
-  //   String path = 'playlists/$playlistID/tracks';
-
-  //   Iterable<String> iterableList = TrackList.map((track) {
-  //     return track.uri!;
-  //   });
-
-  //   List<String> songList = iterableList.toList();
-
-  //   Map<String, dynamic> data = {'uris': songList};
-
-  //   final Response<Map<String, dynamic>>? response =
-  //       await makeGenericPostCall(path, data);
-
-  //   if (response != null) {
-  //     print(response.data);
-  //   } else {
-  //     print("Did not work");
-  //     throw Exception("Songs not added properly");
-  //   }
-  // }
 }
