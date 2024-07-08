@@ -194,6 +194,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                       track.album!.name!;
                                   return Center(
                                     child: ListView(
+                                      physics: NeverScrollableScrollPhysics(),
                                       padding:
                                           EdgeInsets.fromLTRB(24, 15, 24, 24),
                                       shrinkWrap: true,
