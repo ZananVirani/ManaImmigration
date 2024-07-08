@@ -37,11 +37,13 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     MakeAPICall.refreshName();
     futureList = fetchSongs();
     this.player = AudioPlayer();
-    player.onPlayerComplete.listen((data) {
-      setState(() {
-        isPlaying = false;
-        _animationController.forward();
-      });
+    player.onPlayerStateChanged.listen((data) {
+      if (data == PlayerState.completed || data == PlayerState.stopped) {
+        setState(() {
+          isPlaying = false;
+          _animationController.forward();
+        });
+      }
     });
     this._animationController = AnimationController(
         value: 1.0, vsync: this, duration: Duration(milliseconds: 500));

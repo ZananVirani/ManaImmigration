@@ -147,8 +147,9 @@ class _MessagesPageState extends State<MessagesPage> {
                                           child: Icon(Icons.music_note,
                                               size: 26.adaptSize),
                                           onPressed: () async {
-                                            await _player.play(
+                                            await _player.setSource(
                                                 UrlSource(track.previewUrl!));
+                                            await _player.resume();
                                           },
                                         )),
                                   ),
@@ -235,6 +236,7 @@ class _MessagesPageState extends State<MessagesPage> {
                               setState(() {
                                 exportList = [];
                               });
+                              player.stop();
                               Navigator.pop(context);
                             })
                       ]);
@@ -297,6 +299,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                         checkAll = false;
                                       });
                                     }
+                                    player.stop();
                                     Navigator.pop(context);
                                   } else {
                                     Navigator.pop(context);
