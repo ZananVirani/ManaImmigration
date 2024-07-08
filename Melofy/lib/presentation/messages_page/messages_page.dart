@@ -47,7 +47,7 @@ class _MessagesPageState extends State<MessagesPage> {
                         padding: EdgeInsets.only(
                             left: 24.h, right: 24.h, top: 40.h, bottom: 25.h),
                         decoration: BoxDecoration(
-                            color: PrimaryColors().secondaryColor,
+                            color: PrimaryColors().tertiaryColor,
                             boxShadow: [
                               BoxShadow(
                                 color: Color(0x11000000),

@@ -8,6 +8,8 @@ class ImageConstant {
   static String checkIc = '$imagePath/check_ic.png';
   static String unCheckIc = '$imagePath/unCheck_ic.png';
 
+  static String background = '$imagePath/main_background.png';
+
   // upload photo
   static String successIc = '$imagePath/sucssesIc.png';
 
