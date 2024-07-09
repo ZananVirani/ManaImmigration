@@ -26,7 +26,8 @@ class SpotifyAuthService {
       'playlist-modify-public',
       'playlist-modify-private',
       'user-read-private',
-      'user-read-email'
+      'user-read-email',
+      'playlist-read-private'
     ]);
     var authCode = authResp.code;
 
