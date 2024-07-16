@@ -452,7 +452,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                       },
                                                       child: Container(
                                                         padding: EdgeInsets.all(
-                                                            18.5.adaptSize),
+                                                            0.0.adaptSize),
                                                         decoration: BoxDecoration(
                                                             color: AppColor
                                                                 .primaryColor,
@@ -474,7 +474,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                                         .sizeOf(
                                                                             context)
                                                                     .height *
-                                                                0.03),
+                                                                0.075),
                                                       ),
                                                     ),
                                                   ],
