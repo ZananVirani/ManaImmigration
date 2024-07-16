@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:Melofy/API/playlist_search.dart';
 import 'package:dio/dio.dart';
 import 'package:Melofy/API/playlist.dart' as playlistTrack;
 import 'package:Melofy/API/profile.dart';
@@ -284,6 +285,25 @@ class MakeAPICall {
       final profile = Profile.fromJson(prof.data!);
       await PrefData.setUserID(profile.id!);
       await PrefData.setUserCountry(profile.country!);
+    } else {
+      throw Exception("Name not set");
+    }
+  }
+
+  static Future<List<Item>> getPlaylists() async {
+    String path = 'me/playlists';
+
+    final Response<Map<String, dynamic>>? prof =
+        await makeGenericGetCall(path, {});
+
+    if (prof != null) {
+      final userID = await PrefData.getUserID();
+      final playlistSearch = PlaylistSearch.fromJson(prof.data!);
+      final playlists = playlistSearch.items!;
+      playlists.removeWhere((element) {
+        return element.owner!.id != userID;
+      });
+      return playlists;
     } else {
       throw Exception("Name not set");
     }
