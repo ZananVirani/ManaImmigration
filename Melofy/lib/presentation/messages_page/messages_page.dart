@@ -277,8 +277,7 @@ class _MessagesPageState extends State<MessagesPage> {
                       context: context,
                       builder: (context) {
                         return AlertDialog(
-                          backgroundColor: AppColor
-                              .lightGray, //Color.fromARGB(255, 185, 248, 240),
+                          backgroundColor: AppColor.lightGray,
                           title: Text(
                             "Select a playlist for export...",
                             style: theme.textTheme.titleMedium!.copyWith(
@@ -318,7 +317,79 @@ class _MessagesPageState extends State<MessagesPage> {
                               child: Align(
                                 alignment: Alignment.bottomRight,
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    var connectionList = await Connectivity()
+                                        .checkConnectivity();
+
+                                    if (!connectionList
+                                        .contains(ConnectivityResult.none)) {
+                                      if (exportList!.length ==
+                                          likedList.length) {
+                                        await MakeAPICall.addSongsToPlaylist(
+                                            exportList!);
+                                        PrefData.setMusicList([]);
+                                        setState(() {
+                                          exportList = [];
+                                          checkAll = false;
+                                        });
+                                      } else {
+                                        MakeAPICall.addSongsToPlaylist(
+                                            exportList!);
+                                        for (Track track in exportList!) {
+                                          likedList.remove(track);
+                                        }
+                                        PrefData.setMusicList(likedList);
+                                        setState(() {
+                                          exportList = [];
+                                          checkAll = false;
+                                        });
+                                      }
+                                      player.stop();
+                                      Navigator.pop(context);
+                                    } else {
+                                      Navigator.pop(context);
+                                      await showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              elevation: 5.0,
+                                              icon: Icon(Icons.wifi_off,
+                                                  size: 120.adaptSize,
+                                                  color: AppColor
+                                                      .secondaryLightColor),
+                                              title: Text(
+                                                  "Uh oh! Something went wrong!",
+                                                  style: CustomTextStyles
+                                                      .bodyLargeGray700),
+                                              content: Text(
+                                                "Please check your network connection and try again.",
+                                                style: CustomTextStyles
+                                                    .bodyMediumBlack600,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              actions: [
+                                                GestureDetector(
+                                                  child: Center(
+                                                      child: Text(
+                                                    "Ok",
+                                                    style: TextStyle(
+                                                        fontSize: 18.fSize,
+                                                        backgroundColor:
+                                                            AppColor.lightGray,
+                                                        color: AppColor
+                                                            .primaryColor,
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  )),
+                                                  onTap: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                )
+                                              ],
+                                            );
+                                          });
+                                    }
+                                  },
                                   child: Text(
                                     "Export",
                                     style: theme.textTheme.titleSmall!.copyWith(
@@ -345,96 +416,6 @@ class _MessagesPageState extends State<MessagesPage> {
                           ],
                         );
                       });
-                  // await showCupertinoDialog(
-                  //   context: context,
-                  //   builder: (context) {
-                  //     return CupertinoAlertDialog(
-                  //         title: Text("Are you happy with your selections?"),
-                  //         content:
-                  //             Text("Selected songs will be added to playlist."),
-                  //         actions: [
-                  //           CupertinoDialogAction(
-                  //             child: Text("Cancel"),
-                  //             onPressed: () => Navigator.pop(context),
-                  //           ),
-                  //           CupertinoDialogAction(
-                  //               child: Text("Export"),
-                  //               onPressed: () async {
-                  //                 var connectionList =
-                  //                     await Connectivity().checkConnectivity();
-
-                  //                 if (!connectionList
-                  //                     .contains(ConnectivityResult.none)) {
-                  //                   if (exportList!.length ==
-                  //                       likedList.length) {
-                  //                     await MakeAPICall.addSongsToPlaylist(
-                  //                         exportList!);
-                  //                     PrefData.setMusicList([]);
-                  //                     setState(() {
-                  //                       exportList = [];
-                  //                       checkAll = false;
-                  //                     });
-                  //                   } else {
-                  //                     MakeAPICall.addSongsToPlaylist(
-                  //                         exportList!);
-                  //                     for (Track track in exportList!) {
-                  //                       likedList.remove(track);
-                  //                     }
-                  //                     PrefData.setMusicList(likedList);
-                  //                     setState(() {
-                  //                       exportList = [];
-                  //                       checkAll = false;
-                  //                     });
-                  //                   }
-                  //                   player.stop();
-                  //                   Navigator.pop(context);
-                  //                 } else {
-                  //                   Navigator.pop(context);
-                  //                   await showDialog(
-                  //                       context: context,
-                  //                       builder: (context) {
-                  //                         return AlertDialog(
-                  //                           elevation: 5.0,
-                  //                           icon: Icon(Icons.wifi_off,
-                  //                               size: 120.adaptSize,
-                  //                               color: AppColor
-                  //                                   .secondaryLightColor),
-                  //                           title: Text(
-                  //                               "Uh oh! Something went wrong!",
-                  //                               style: CustomTextStyles
-                  //                                   .bodyLargeGray700),
-                  //                           content: Text(
-                  //                             "Please check your network connection and try again.",
-                  //                             style: CustomTextStyles
-                  //                                 .bodyMediumBlack600,
-                  //                             textAlign: TextAlign.center,
-                  //                           ),
-                  //                           actions: [
-                  //                             GestureDetector(
-                  //                               child: Center(
-                  //                                   child: Text(
-                  //                                 "Ok",
-                  //                                 style: TextStyle(
-                  //                                     fontSize: 18.fSize,
-                  //                                     backgroundColor:
-                  //                                         AppColor.lightGray,
-                  //                                     color:
-                  //                                         AppColor.primaryColor,
-                  //                                     fontWeight:
-                  //                                         FontWeight.bold),
-                  //                               )),
-                  //                               onTap: () {
-                  //                                 Navigator.pop(context);
-                  //                               },
-                  //                             )
-                  //                           ],
-                  //                         );
-                  //                       });
-                  //                 }
-                  //               })
-                  //         ]);
-                  //   },
-                  // );
                 },
                 child: Text("Export to Spotify",
                     style: theme.textTheme.titleSmall!.copyWith(
