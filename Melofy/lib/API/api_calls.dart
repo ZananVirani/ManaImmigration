@@ -203,12 +203,13 @@ class MakeAPICall {
     }
   }
 
-  static Future<String> createPlaylist(String userID) async {
+  static Future<String> createPlaylist(String name) async {
+    String? userID = await PrefData.getUserID();
     String path = 'users/$userID/playlists';
 
     Map<String, dynamic> data = {
-      'name': 'Melofy <3',
-      'description': "Enjoy some tunes :)",
+      'name': name,
+      'description': "From Melofy <3",
       'public': false,
     };
 
@@ -224,19 +225,10 @@ class MakeAPICall {
     }
   }
 
-  static Future<void> addSongsToPlaylist(List<Track> TrackList) async {
+  static Future<void> addSongsToPlaylist(
+      List<Track> TrackList, String playlistID) async {
     String? userID = await PrefData.getUserID();
     if (userID == null) throw Exception("User ID is null");
-
-    var utp = await PrefData.getUserToPlaylist();
-    String playlistID;
-    if (utp.containsKey(userID))
-      playlistID = utp[userID]!;
-    else {
-      playlistID = await createPlaylist(userID);
-      utp[userID] = playlistID;
-      await PrefData.addUserToPlaylist(userID, playlistID);
-    }
 
     String path = 'playlists/$playlistID/tracks';
 

@@ -209,30 +209,19 @@ class PrefData {
     }
   }
 
-  static addUserToPlaylist(String userID, String playlistID) async {
+  static setPrefPlaylist(String playlistID) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    var utp = await getUserToPlaylist();
-    utp[userID] = playlistID;
-    String trackListJSON = json.encode(utp);
-    prefs.setString('utp', trackListJSON);
+    prefs.setString('prefPlaylist', playlistID);
   }
 
-  static Future<Map<String, String>> getUserToPlaylist() async {
+  static Future<String?> getPrefPlaylist() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? id = prefs.getString('utp');
+    String? id = prefs.getString('prefPlaylist');
 
-    if (id == null || id == "null") {
-      return {};
+    if (id == "null" || id == null) {
+      return null;
     } else {
-      Map<String, dynamic> trackListString = json.decode(id);
-      var newMap = trackListString.map((key, value) {
-        if (value is String)
-          return MapEntry(key, value);
-        else
-          return MapEntry(key, value.toString());
-      });
-      return newMap;
+      return id;
     }
   }
 
@@ -460,6 +449,7 @@ class PrefData {
                 await PrefData.setLogin(true);
                 await PrefData.setMusicList([]);
                 await PrefData.setGenreList([]);
+                await PrefData.setPrefPlaylist("null");
                 await Get.toNamed(AppRoutes.onboardingThree1Screen);
               },
               child: const Text('Logout')),
