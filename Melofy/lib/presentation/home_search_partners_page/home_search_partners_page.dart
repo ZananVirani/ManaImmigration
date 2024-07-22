@@ -37,13 +37,10 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
   final GlobalKey _dislikeButtonkey = GlobalKey();
   final GlobalKey _settingsButtonKey = GlobalKey();
   final GlobalKey _playButtonKey = GlobalKey();
-  final GlobalKey _boxKey = GlobalKey();
   final GlobalKey _undoButtonKey = GlobalKey();
 
   @override
   void initState() {
-    
-    
     MakeAPICall.refreshName();
     futureList = fetchSongs();
     this.player = AudioPlayer();
@@ -254,7 +251,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                             10.0.adaptSize),
                                                         child: Icon(
                                                             key:
-                                                          _settingsButtonKey, // tutorial for setting
+                                                                _settingsButtonKey, // tutorial for setting
                                                             Icons.settings),
                                                       ),
                                                     ),
@@ -269,12 +266,10 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                       child: Padding(
                                                         padding: EdgeInsets.all(
                                                             10.0.adaptSize),
-                                                        child:
-                                                            
-                                                            
-                                                            
-                                                            Icon(Icons.refresh),
-                                                            key: _undoButtonKey,
+                                                        child: Icon(
+                                                          Icons.refresh,
+                                                          key: _undoButtonKey,
+                                                        ),
                                                       ),
                                                     ),
                                                   ],
@@ -378,6 +373,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                         controller.update();
                                                       },
                                                       child: Container(
+                                                        key: _dislikeButtonkey,
                                                         padding: EdgeInsets.all(
                                                             15.0.adaptSize),
                                                         decoration:
@@ -395,7 +391,6 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                               )
                                                             ]),
                                                         child: Icon(
-                                                          key: _dislikeButtonkey,
                                                           Icons.close_rounded,
                                                           size: MediaQuery.sizeOf(
                                                                       context)
@@ -427,6 +422,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                                   .pause();
                                                         },
                                                         child: Container(
+                                                          key: _playButtonKey,
                                                           padding: EdgeInsets
                                                               .all(15.0
                                                                   .adaptSize),
@@ -446,9 +442,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                                 )
                                                               ]),
                                                           child: Center(
-                                                            child: AnimatedIcon
-                                                            (
-                                                                key: _playButtonKey,
+                                                            child: AnimatedIcon(
                                                                 size: MediaQuery.sizeOf(
                                                                             context)
                                                                         .height *
@@ -472,6 +466,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                         controller.update();
                                                       },
                                                       child: Container(
+                                                        key: _likeButtonKey,
                                                         padding: EdgeInsets.all(
                                                             0.0.adaptSize),
                                                         decoration: BoxDecoration(
@@ -488,7 +483,6 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                               )
                                                             ]),
                                                         child: CustomImageView(
-                                                            
                                                             imagePath:
                                                                 ImageConstant
                                                                     .loveM,
@@ -570,100 +564,100 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     );
   }
 
-  void _createTutorial() {
-    final targets = [
-      TargetFocus(
-        identify: "settingsButton",
-        keyTarget: _settingsButtonKey,
-        alignSkip: Alignment.topCenter,
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            builder: (context, controller) => Text(
-              'Want to change genres? Click here to select other genres',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.white),
+  Future<void> _createTutorial() async {
+    await Future.delayed(Duration(seconds: 0), () async {
+      final targets = [
+        TargetFocus(
+          identify: "settingsButton",
+          keyTarget: _settingsButtonKey,
+          alignSkip: Alignment.topCenter,
+          contents: [
+            TargetContent(
+              align: ContentAlign.top,
+              builder: (context, controller) => Text(
+                'Want to change genres? Click here to select other genres',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: Colors.white),
+              ),
             ),
-          ),
-        ],
-      ),
-      TargetFocus(
-        identify: "undoButton",
-        keyTarget: _undoButtonKey,
-        alignSkip: Alignment.topCenter,
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            builder: (context, controller) => Text(
-              'Regret Your Choice? Click here to undo your choice',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.white),
+          ],
+        ),
+        TargetFocus(
+          identify: "undoButton",
+          keyTarget: _undoButtonKey,
+          alignSkip: Alignment.topCenter,
+          contents: [
+            TargetContent(
+              align: ContentAlign.top,
+              builder: (context, controller) => Text(
+                'Regret Your Choice? Click here to undo your choice',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: Colors.white),
+              ),
             ),
-          ),
-        ],
-      ),
-      TargetFocus(
-        identify: "likeButton",
-        keyTarget: _likeButtonKey,
-        alignSkip: Alignment.topCenter,
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            builder: (context, controller) => Text(
-              'If you like the song, click here to add it to your liked songs',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.white),
+          ],
+        ),
+        TargetFocus(
+          identify: "likeButton",
+          keyTarget: _likeButtonKey,
+          alignSkip: Alignment.topCenter,
+          contents: [
+            TargetContent(
+              align: ContentAlign.top,
+              builder: (context, controller) => Text(
+                'If you like the song, click here to add it to your liked songs',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: Colors.white),
+              ),
             ),
-          ),
-        ],
-      ),
-      TargetFocus(
-        identify: "dislikeButton",
-        keyTarget: _dislikeButtonkey,
-        alignSkip: Alignment.topCenter,
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            builder: (context, controller) => Text(
-              'if you dont like a song, click here and we wont show it again',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.white),
+          ],
+        ),
+        TargetFocus(
+          identify: "dislikeButton",
+          keyTarget: _dislikeButtonkey,
+          alignSkip: Alignment.topCenter,
+          contents: [
+            TargetContent(
+              align: ContentAlign.top,
+              builder: (context, controller) => Text(
+                'if you dont like a song, click here and we wont show it again',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: Colors.white),
+              ),
             ),
-          ),
-        ],
-      ),
-      TargetFocus(
-        identify: "playButton",
-        keyTarget: _playButtonKey,
-        alignSkip: Alignment.topCenter,
-        contents: [
-          TargetContent(
-            align: ContentAlign.top,
-            builder: (context, controller) => Text(
-              'Click here to preview the current song',
-              style: Theme.of(context)
-                  .textTheme
-                  .titleLarge
-                  ?.copyWith(color: Colors.white),
+          ],
+        ),
+        TargetFocus(
+          identify: "playButton",
+          keyTarget: _playButtonKey,
+          alignSkip: Alignment.topCenter,
+          contents: [
+            TargetContent(
+              align: ContentAlign.top,
+              builder: (context, controller) => Text(
+                'Click here to preview the current song',
+                style: Theme.of(context)
+                    .textTheme
+                    .titleLarge
+                    ?.copyWith(color: Colors.white),
+              ),
             ),
-          ),
-        ],
-      ),
-    ];
-    final tutorial = TutorialCoachMark(
-      targets: targets,
-    );
-
-    Future.delayed(const Duration(milliseconds: 500), () {
-      tutorial.show(context: context);
+          ],
+        ),
+      ];
+      await Future.delayed(Duration(seconds: 4), () {
+        final tutorial = TutorialCoachMark(
+          targets: targets,
+        )..show(context: context);
+      });
     });
   }
 
