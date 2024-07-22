@@ -9,10 +9,16 @@ import 'package:Melofy/widgets/custom_elevated_button.dart';
 
 import 'controller/create_account_select_interest_controller.dart';
 
-class CreateAccountSelectInterestScreen
-    extends GetWidget<CreateAccountSelectInterestController> {
-  CreateAccountSelectInterestScreen({Key? key}) : super(key: key);
+class CreateAccountSelectInterestScreen extends StatefulWidget {
+  const CreateAccountSelectInterestScreen({super.key});
 
+  @override
+  State<CreateAccountSelectInterestScreen> createState() =>
+      _CreateAccountSelectInterestScreenState();
+}
+
+class _CreateAccountSelectInterestScreenState
+    extends State<CreateAccountSelectInterestScreen> {
   final trackList = PrefData.getGenreList();
   final checkedMap = {};
   @override
@@ -52,52 +58,7 @@ class CreateAccountSelectInterestScreen
                                     valueColor: AlwaysStoppedAnimation<Color>(
                                         theme.colorScheme.primary)))),
                       ),
-                      // RichText(
-                      //     text: TextSpan(
-                      //         text: "2/2",
-                      //         style: GoogleFonts.aDLaMDisplay(
-                      //           color: AppColor.primaryColor,
-                      //           fontSize: 20,
-                      //         )),
-                      //     textAlign: TextAlign.left),
                       SizedBox(height: 50.h),
-                      // Padding(
-                      //     padding: EdgeInsets.only(right: 61.h),
-                      //     child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //         children: [_buildGames(), _buildDancing()])),
-                      // SizedBox(height: 15.v),
-                      // Padding(
-                      //     padding: EdgeInsets.only(right: 81.h),
-                      //     child: Row(children: [_buildLanguage(), _buildMusic()])),
-                      // SizedBox(height: 15.v),
-                      // _buildMovie(),
-                      // SizedBox(height: 15.v),
-                      // Padding(
-                      //     padding: EdgeInsets.only(right: 66.h),
-                      //     child:
-                      //         Row(children: [_buildArchitecture(), _buildFashion()])),
-                      // SizedBox(height: 17.v),
-                      // Padding(
-                      //     padding: EdgeInsets.only(right: 70.h),
-                      //     child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //         children: [_buildBook(), _buildWriting()])),
-                      // SizedBox(height: 15.v),
-                      // Padding(
-                      //     padding: EdgeInsets.only(right: 61.h),
-                      //     child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //         children: [_buildNature(), _buildPainting()])),
-                      // SizedBox(height: 15.v),
-                      // Padding(
-                      //     padding: EdgeInsets.only(right: 72.h),
-                      //     child: Row(
-                      //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //         children: [_buildFootball(), _buildPeople()])),
-                      // SizedBox(height: 15.v),
-                      // _buildAnimals(),
-
                       GetBuilder<CreateAccountSelectInterestController>(
                         builder: (controller) {
                           return GridView.builder(
@@ -139,9 +100,6 @@ class CreateAccountSelectInterestScreen
         });
   }
 
-  /// Section Widget
-
-  /// Section Widget
   Widget _buildContinue(BuildContext context) {
     return Container(
         margin: EdgeInsets.only(left: 24.h, right: 24.h, bottom: 24.v),

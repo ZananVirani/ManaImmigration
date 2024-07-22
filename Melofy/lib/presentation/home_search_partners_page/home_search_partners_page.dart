@@ -241,10 +241,11 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                   children: [
                                                     GestureDetector(
                                                       onTap: () {
-                                                        player.dispose();
+                                                        player.stop();
+                                                        _animationController
+                                                            .stop();
                                                         Get.toNamed(AppRoutes
                                                             .createAccountSelectInterestScreen);
-                                                        controller.update();
                                                       },
                                                       child: Padding(
                                                         padding: EdgeInsets.all(
