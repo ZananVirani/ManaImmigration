@@ -7,14 +7,12 @@ class SpashScreen extends GetWidget<SpashController> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: Container(
-          width: MediaQuery.sizeOf(context).width,
-          height: MediaQuery.sizeOf(context).height,
-          child: CustomImageView(
-            imagePath: ImageConstant.newLogo,
-          ),
+    return Scaffold(
+      body: Container(
+        width: MediaQuery.sizeOf(context).width,
+        height: MediaQuery.sizeOf(context).height,
+        child: CustomImageView(
+          imagePath: ImageConstant.newLogo,
         ),
       ),
     );

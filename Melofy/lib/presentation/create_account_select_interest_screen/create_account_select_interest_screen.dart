@@ -6,6 +6,7 @@ import 'package:Melofy/data/pref_data/pref_data.dart';
 import 'package:Melofy/data/models/create_account_select_interest_model.dart';
 import 'package:Melofy/presentation/create_account_select_interest_screen/widget/int_ope.dart';
 import 'package:Melofy/widgets/custom_elevated_button.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'controller/create_account_select_interest_controller.dart';
 
@@ -35,66 +36,77 @@ class _CreateAccountSelectInterestScreenState
                   snapshot.data!.contains(genre.genreName);
             }
             return Scaffold(
-                appBar: PrefData.getInterestAppbar(context,
-                    onTap: () => Navigator.pop(context),
-                    text: 'Select 1-5 interests',
-                    isLeadingIcon: true),
-                body: ListView(
-                    padding: EdgeInsets.symmetric(horizontal: 24.h),
+                body: SafeArea(
+                  child: Stack(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0.0, 24, 0.0, 16),
-                        child: Container(
-                            height: 8.v,
-                            width: 327.h,
-                            decoration: BoxDecoration(
-                                color: appTheme.gray10002,
-                                borderRadius: BorderRadius.circular(4.h)),
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(4.h),
-                                child: LinearProgressIndicator(
-                                    value: 1.0,
-                                    backgroundColor: appTheme.gray10002,
-                                    valueColor: AlwaysStoppedAnimation<Color>(
-                                        theme.colorScheme.primary)))),
-                      ),
-                      SizedBox(height: 50.h),
-                      GetBuilder<CreateAccountSelectInterestController>(
-                        builder: (controller) {
-                          return GridView.builder(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.symmetric(horizontal: 8.h),
-                            scrollDirection: Axis.vertical,
-                            physics: NeverScrollableScrollPhysics(),
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    mainAxisExtent: 24.h,
-                                    crossAxisCount: 2,
-                                    mainAxisSpacing: 16.h,
-                                    crossAxisSpacing: 21.h),
-                            itemCount: AppListData.interestList.length,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  checkedMap[AppListData
-                                          .interestList[index].genreName] =
-                                      !checkedMap[AppListData
-                                          .interestList[index].genreName];
-                                  controller.update();
-                                },
-                                child: InterestOpe(
-                                  opValue: checkedMap[AppListData
-                                      .interestList[index].genreName],
-                                  valueText: AppListData
-                                      .interestList[index].inrerestName,
-                                ),
-                              );
-                            },
-                          );
-                        },
-                      ),
-                      SizedBox(height: 5.v)
-                    ]),
+                      CustomImageView(
+                          imagePath: ImageConstant.selectionScreen,
+                          width: double.infinity,
+                          height: double.infinity,
+                          fit: BoxFit.cover),
+                      ListView(
+                          padding: EdgeInsets.symmetric(horizontal: 24.h),
+                          children: [
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.fromLTRB(0.0, 24, 0.0, 16),
+                            //   child: Container(
+                            //       height: 8.v,
+                            //       width: 327.h,
+                            //       decoration: BoxDecoration(
+                            //           color: appTheme.gray10002,
+                            //           borderRadius: BorderRadius.circular(4.h)),
+                            //       child: ClipRRect(
+                            //           borderRadius: BorderRadius.circular(4.h),
+                            //           child: LinearProgressIndicator(
+                            //               value: 1.0,
+                            //               backgroundColor: appTheme.gray10002,
+                            //               valueColor:
+                            //                   AlwaysStoppedAnimation<Color>(
+                            //                       theme.colorScheme.primary)))),
+                            // ),
+                            SizedBox(height: 50.h),
+                            GetBuilder<CreateAccountSelectInterestController>(
+                              builder: (controller) {
+                                return GridView.builder(
+                                  shrinkWrap: true,
+                                  padding:
+                                      EdgeInsets.symmetric(horizontal: 8.h),
+                                  scrollDirection: Axis.vertical,
+                                  physics: NeverScrollableScrollPhysics(),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          mainAxisExtent: 24.h,
+                                          crossAxisCount: 2,
+                                          mainAxisSpacing: 16.h,
+                                          crossAxisSpacing: 21.h),
+                                  itemCount: AppListData.interestList.length,
+                                  itemBuilder: (context, index) {
+                                    return GestureDetector(
+                                      onTap: () {
+                                        checkedMap[AppListData
+                                                .interestList[index]
+                                                .genreName] =
+                                            !checkedMap[AppListData
+                                                .interestList[index].genreName];
+                                        controller.update();
+                                      },
+                                      child: InterestOpe(
+                                        opValue: checkedMap[AppListData
+                                            .interestList[index].genreName],
+                                        valueText: AppListData
+                                            .interestList[index].inrerestName,
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                            SizedBox(height: 5.v)
+                          ]),
+                    ],
+                  ),
+                ),
                 bottomNavigationBar: _buildContinue(context));
           }
         });
@@ -102,10 +114,23 @@ class _CreateAccountSelectInterestScreenState
 
   Widget _buildContinue(BuildContext context) {
     return Container(
-        margin: EdgeInsets.only(left: 24.h, right: 24.h, bottom: 24.v),
-        decoration: AppDecoration.white,
-        child: CustomElevatedButton(
-            text: "lbl_continue".tr,
+        margin: EdgeInsets.only(
+            right: MediaQuery.sizeOf(context).width * 0.07,
+            left: MediaQuery.sizeOf(context).width * 0.07,
+            bottom: MediaQuery.sizeOf(context).height * 0.05),
+        child: ElevatedButton(
+            child: Text("Continue",
+                style: GoogleFonts.poppins(
+                    color: AppColor.white,
+                    fontSize: 22.fSize,
+                    fontWeight: FontWeight.bold)),
+            style:
+                ButtonStyle(fixedSize: WidgetStateProperty.resolveWith((Set) {
+              return Size(MediaQuery.sizeOf(context).width * .7,
+                  MediaQuery.sizeOf(context).height * .08);
+            }), backgroundColor: WidgetStateColor.resolveWith((Set) {
+              return Color.fromARGB(255, 80, 194, 201);
+            })),
             onPressed: () async {
               int count = 0;
               List<String> finalList = [];

@@ -23,4 +23,5 @@ class ImageConstant {
   static String onBoard = '$imagePath/covers.png';
 
   static String newLogo = '$imagePath/Transparent.png';
+  static String selectionScreen = '$imagePath/selection_background.png';
 }
