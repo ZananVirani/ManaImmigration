@@ -24,62 +24,72 @@ class _CreateAccountSelectInterestScreenState
   final checkedMap = {};
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: trackList,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData)
-            return Text("");
-          else {
-            for (CreateAccountSelectInterestModel genre
-                in AppListData.interestList) {
-              checkedMap[genre.genreName] =
-                  snapshot.data!.contains(genre.genreName);
-            }
-            return Scaffold(
-                body: SafeArea(
-                  child: Stack(
-                    children: [
-                      CustomImageView(
-                          imagePath: ImageConstant.selectionScreen,
-                          width: double.infinity,
-                          height: double.infinity,
-                          fit: BoxFit.cover),
-                      ListView(
-                          padding: EdgeInsets.symmetric(horizontal: 24.h),
-                          children: [
-                            // Padding(
-                            //   padding:
-                            //       const EdgeInsets.fromLTRB(0.0, 24, 0.0, 16),
-                            //   child: Container(
-                            //       height: 8.v,
-                            //       width: 327.h,
-                            //       decoration: BoxDecoration(
-                            //           color: appTheme.gray10002,
-                            //           borderRadius: BorderRadius.circular(4.h)),
-                            //       child: ClipRRect(
-                            //           borderRadius: BorderRadius.circular(4.h),
-                            //           child: LinearProgressIndicator(
-                            //               value: 1.0,
-                            //               backgroundColor: appTheme.gray10002,
-                            //               valueColor:
-                            //                   AlwaysStoppedAnimation<Color>(
-                            //                       theme.colorScheme.primary)))),
-                            // ),
-                            SizedBox(height: 50.h),
-                            GetBuilder<CreateAccountSelectInterestController>(
+    return Stack(children: [
+      Scaffold(
+        body: CustomImageView(
+            imagePath: ImageConstant.selectionScreen,
+            width: double.infinity,
+            height: double.infinity,
+            fit: BoxFit.cover),
+      ),
+      Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SafeArea(
+              child: FutureBuilder(
+                  future: trackList,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasData)
+                      return Text("");
+                    else {
+                      for (CreateAccountSelectInterestModel genre
+                          in AppListData.interestList) {
+                        checkedMap[genre.genreName] =
+                            snapshot.data!.contains(genre.genreName);
+                      }
+                      return Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 12),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("        "),
+                                Text(
+                                  "Choose Your Genres!",
+                                  style: GoogleFonts.poppins(
+                                      letterSpacing: -1,
+                                      color: Colors.black,
+                                      fontSize: 24.fSize,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: IconButton(
+                                    onPressed: () => showLogoutDialog(context),
+                                    icon: Icon(Icons.logout,
+                                        color:
+                                            Color.fromARGB(255, 80, 194, 201),
+                                        size: 27.adaptSize),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(50),
+                            child: GetBuilder<
+                                CreateAccountSelectInterestController>(
                               builder: (controller) {
                                 return GridView.builder(
                                   shrinkWrap: true,
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 8.h),
                                   scrollDirection: Axis.vertical,
-                                  physics: NeverScrollableScrollPhysics(),
                                   gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                          mainAxisExtent: 24.h,
-                                          crossAxisCount: 2,
-                                          mainAxisSpacing: 16.h,
-                                          crossAxisSpacing: 21.h),
+                                      SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 200.h,
+                                    mainAxisSpacing: 0.v,
+                                    crossAxisSpacing: 80.h,
+                                  ),
                                   itemCount: AppListData.interestList.length,
                                   itemBuilder: (context, index) {
                                     return GestureDetector(
@@ -102,14 +112,45 @@ class _CreateAccountSelectInterestScreenState
                                 );
                               },
                             ),
-                            SizedBox(height: 5.v)
-                          ]),
-                    ],
-                  ),
-                ),
-                bottomNavigationBar: _buildContinue(context));
-          }
-        });
+                          ),
+                        ],
+                      );
+                    }
+                  })),
+          bottomNavigationBar: _buildContinue(context))
+    ]);
+  }
+
+  static void showLogoutDialog(BuildContext context) {
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: const Text(
+          'Are you sure you want to logout?',
+          style: TextStyle(fontSize: 20),
+        ),
+        actions: <CupertinoDialogAction>[
+          CupertinoDialogAction(
+              isDefaultAction: true,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel')),
+          CupertinoDialogAction(
+              isDefaultAction: true,
+              onPressed: () async {
+                await PrefData.setIntro(true);
+                await PrefData.setLogin(true);
+                await PrefData.setTutorial(true);
+                await PrefData.setMusicList([]);
+                await PrefData.setGenreList([]);
+                await PrefData.setPrefPlaylist("null");
+                await Get.toNamed(AppRoutes.onboardingThree1Screen);
+              },
+              child: const Text('Logout')),
+        ],
+      ),
+    );
   }
 
   Widget _buildContinue(BuildContext context) {
@@ -170,13 +211,6 @@ class _CreateAccountSelectInterestScreenState
   /// Navigates to the previous screen.
   onTapArrowLeft() {
     Get.back();
-  }
-
-  /// Navigates to the createAccountUploadPhotoScreen when the action is triggered.
-  onTapContinue() {
-    Get.toNamed(
-      AppRoutes.bottomBarScreen,
-    );
   }
 
   onTapNext(BuildContext context) {
