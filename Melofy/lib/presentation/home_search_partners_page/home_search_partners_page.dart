@@ -55,7 +55,12 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     this._animationController = AnimationController(
         value: 1.0, vsync: this, duration: Duration(milliseconds: 500));
     super.initState();
-    _createTutorial();
+    PrefData.getTutorial().then((value) {
+      if (value) {
+        PrefData.setTutorial(false);
+        _createTutorial();
+      }
+    });
   }
 
   Future<List<Track>?> fetchSongs() async {

@@ -55,6 +55,16 @@ class PrefData {
     return prefs.getBool(isIntro) ?? true;
   }
 
+  static setTutorial(bool value) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('tutorial', value);
+  }
+
+  static Future<bool> getTutorial() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('tutorial') ?? true;
+  }
+
   static setLogin(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool(isLogin, value);
