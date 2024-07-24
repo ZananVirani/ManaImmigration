@@ -32,8 +32,6 @@ class _MessagesPageState extends State<MessagesPage> {
             future: futureList,
             builder: (context, snapshot) {
               if (snapshot.hasError) {
-                print("THERE IS AN ERRROROROORORORORORO!!!");
-                print(snapshot.error);
                 return Center(
                   child: Text(""),
                 );

@@ -58,8 +58,7 @@ class _CreateAccountSelectInterestScreenState
                       child: IconButton(
                         onPressed: () => showLogoutDialog(context),
                         icon: Icon(Icons.logout,
-                            color: Color.fromARGB(255, 80, 194, 201),
-                            size: 27.adaptSize),
+                            color: AppColor.primaryColor, size: 27.adaptSize),
                       ),
                     )
                   ],
@@ -78,8 +77,6 @@ class _CreateAccountSelectInterestScreenState
                           checkedMap[genre.genreName] =
                               snapshot.data!.contains(genre.genreName);
                         }
-                        print(checkedMap);
-                        print(snapshot.data);
                         return SingleChildScrollView(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -221,7 +218,7 @@ class _CreateAccountSelectInterestScreenState
               return Size(MediaQuery.sizeOf(context).width * .7,
                   MediaQuery.sizeOf(context).height * .08);
             }), backgroundColor: WidgetStateColor.resolveWith((Set) {
-              return Color.fromARGB(255, 80, 194, 201);
+              return AppColor.primaryColor;
             })),
             onPressed: () async {
               int count = 0;
@@ -233,7 +230,7 @@ class _CreateAccountSelectInterestScreenState
                 }
               });
 
-              if (count >= 1 && count <= 5) {
+              if (count >= 1) {
                 PrefData.setGenreList(finalList);
                 bool isLogin = await PrefData.getLogin();
 
@@ -247,7 +244,7 @@ class _CreateAccountSelectInterestScreenState
                     context: context,
                     builder: (context) {
                       return CupertinoAlertDialog(
-                        title: Text("Select 1-5 (inclusive) items."),
+                        title: Text("Select at least 1 genre."),
                         actions: [
                           CupertinoDialogAction(
                             child: Text("Ok"),
@@ -315,7 +312,7 @@ class _CreateAccountSelectInterestScreenState
 
   Widget buildGenreImage(BuildContext context, String path) {
     return Container(
-        width: 90.h,
+        width: 80.h,
         decoration: BoxDecoration(
             shape: BoxShape.circle,
             border: Border.all(
@@ -328,7 +325,7 @@ class _CreateAccountSelectInterestScreenState
     return Stack(
       children: [
         Container(
-            width: 90.h,
+            width: 80.h,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
@@ -336,22 +333,20 @@ class _CreateAccountSelectInterestScreenState
             child: CustomImageView(
                 imagePath: 'assets/images/genre_$path.png', fit: BoxFit.cover)),
         Opacity(
-          opacity: 0.6,
-          child: AnimatedContainer(
-              duration: Duration(milliseconds: 5000),
-              width: 90.h,
+          opacity: 0.9,
+          child: Container(
+              width: 80.h,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
                       width: 0.5, strokeAlign: BorderSide.strokeAlignOutside)),
               child: CustomImageView(
-                  radius: BorderRadius.all(Radius.circular(45.h)),
+                  radius: BorderRadius.all(Radius.circular(40.h)),
                   imagePath: 'assets/images/app_icon.png',
                   fit: BoxFit.cover)),
         ),
-        AnimatedContainer(
-            duration: Duration(milliseconds: 5000),
-            width: 90.h,
+        Container(
+            width: 80.h,
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 border: Border.all(
