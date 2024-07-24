@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:Melofy/API/api_calls.dart';
 import 'package:Melofy/API/track.dart';
@@ -600,13 +601,46 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
           alignSkip: Alignment.topCenter,
           contents: [
             TargetContent(
-              align: ContentAlign.top,
-              builder: (context, controller) => Text(
-                'Want to change genres? Click here to select other genres',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(color: Colors.white),
+              align: ContentAlign.bottom,
+              builder: (context, controller) => Container(
+                padding: const EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  border: Border.all(
+                      color: Color.fromARGB(255, 118, 224, 32), width: 3.0),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      'Want to change genres? Click here to select other genres',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 10.0),
+                    SizedBox(
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          controller.next();
+                        },
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Continue ',
+                                  style: TextStyle(color: Colors.white)),
+                              Icon(Icons.arrow_circle_right,
+                                  color: Colors.white),
+                            ]),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 15, 95, 1)),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
