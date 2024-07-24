@@ -32,92 +32,130 @@ class _CreateAccountSelectInterestScreenState
             height: double.infinity,
             fit: BoxFit.cover),
       ),
-      Scaffold(
-          backgroundColor: Colors.transparent,
-          body: SafeArea(
-              child: FutureBuilder(
-                  future: trackList,
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData)
-                      return Text("");
-                    else {
-                      for (CreateAccountSelectInterestModel genre
-                          in AppListData.interestList) {
-                        checkedMap[genre.genreName] =
-                            snapshot.data!.contains(genre.genreName);
-                      }
-                      return Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 12),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("        "),
-                                Text(
-                                  "Choose Your Genres!",
-                                  style: GoogleFonts.poppins(
-                                      letterSpacing: -1,
-                                      color: Colors.black,
-                                      fontSize: 24.fSize,
-                                      fontWeight: FontWeight.bold),
+      SafeArea(
+        child: Scaffold(
+            backgroundColor: Colors.transparent,
+            appBar: PreferredSize(
+              preferredSize: Size(
+                  double.infinity, MediaQuery.sizeOf(context).height * 0.2),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 12),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Text(
+                      "Choose Your Genres!",
+                      style: GoogleFonts.poppins(
+                          letterSpacing: -1,
+                          color: Colors.black,
+                          fontSize: 24.fSize,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                        width: MediaQuery.sizeOf(context).width * 0.03,
+                        height: 0),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        onPressed: () => showLogoutDialog(context),
+                        icon: Icon(Icons.logout,
+                            color: Color.fromARGB(255, 80, 194, 201),
+                            size: 27.adaptSize),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            body: SafeArea(
+                child: FutureBuilder(
+                    future: trackList,
+                    builder: (context, snapshot) {
+                      if (!snapshot.hasData)
+                        return Text("");
+                      else {
+                        for (CreateAccountSelectInterestModel genre
+                            in AppListData.interestList) {
+                          checkedMap[genre.genreName] =
+                              snapshot.data!.contains(genre.genreName);
+                        }
+                        return SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 60, right: 60, top: 20, bottom: 20),
+                                child: SingleChildScrollView(
+                                  child: GetBuilder<
+                                      CreateAccountSelectInterestController>(
+                                    builder: (controller) {
+                                      return GridView.builder(
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        physics: ScrollPhysics(),
+                                        gridDelegate:
+                                            SliverGridDelegateWithMaxCrossAxisExtent(
+                                                maxCrossAxisExtent: 200.h,
+                                                mainAxisSpacing: 4.v,
+                                                crossAxisSpacing: 60.h,
+                                                mainAxisExtent: 135.v),
+                                        itemCount:
+                                            AppListData.interestList.length,
+                                        itemBuilder: (context, index) {
+                                          return Column(
+                                            children: [
+                                              GestureDetector(
+                                                  onTap: () {
+                                                    // checkedMap[AppListData
+                                                    //         .interestList[index]
+                                                    //         .genreName] =
+                                                    //     !checkedMap[AppListData
+                                                    //         .interestList[index]
+                                                    //         .genreName];
+                                                    // controller.update();
+                                                  },
+                                                  child: Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            8.0),
+                                                    child: buildGenreImage(
+                                                        context,
+                                                        AppListData
+                                                            .interestList[index]
+                                                            .genreName),
+                                                  )),
+                                              Text(
+                                                  AppListData
+                                                              .interestList[
+                                                                  index]
+                                                              .inrerestName
+                                                              .length >
+                                                          11
+                                                      ? "Rap"
+                                                      : AppListData
+                                                          .interestList[index]
+                                                          .inrerestName,
+                                                  style: GoogleFonts.poppins(
+                                                      color: AppColor.black,
+                                                      fontSize: 16.fSize,
+                                                      fontWeight:
+                                                          FontWeight.bold))
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                  ),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: IconButton(
-                                    onPressed: () => showLogoutDialog(context),
-                                    icon: Icon(Icons.logout,
-                                        color:
-                                            Color.fromARGB(255, 80, 194, 201),
-                                        size: 27.adaptSize),
-                                  ),
-                                )
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(50),
-                            child: GetBuilder<
-                                CreateAccountSelectInterestController>(
-                              builder: (controller) {
-                                return GridView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  gridDelegate:
-                                      SliverGridDelegateWithMaxCrossAxisExtent(
-                                    maxCrossAxisExtent: 200.h,
-                                    mainAxisSpacing: 0.v,
-                                    crossAxisSpacing: 80.h,
-                                  ),
-                                  itemCount: AppListData.interestList.length,
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        checkedMap[AppListData
-                                                .interestList[index]
-                                                .genreName] =
-                                            !checkedMap[AppListData
-                                                .interestList[index].genreName];
-                                        controller.update();
-                                      },
-                                      child: InterestOpe(
-                                        opValue: checkedMap[AppListData
-                                            .interestList[index].genreName],
-                                        valueText: AppListData
-                                            .interestList[index].inrerestName,
-                                      ),
-                                    );
-                                  },
-                                );
-                              },
-                            ),
-                          ),
-                        ],
-                      );
-                    }
-                  })),
-          bottomNavigationBar: _buildContinue(context))
+                        );
+                      }
+                    })),
+            bottomNavigationBar: _buildContinue(context)),
+      )
     ]);
   }
 
@@ -260,5 +298,16 @@ class _CreateAccountSelectInterestScreenState
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(16.h))),
             ));
+  }
+
+  Widget buildGenreImage(BuildContext context, String path) {
+    return Container(
+        width: 90.h,
+        decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(
+                width: 0.5, strokeAlign: BorderSide.strokeAlignOutside)),
+        child: CustomImageView(
+            imagePath: 'assets/images/genre_$path.png', fit: BoxFit.cover));
   }
 }
