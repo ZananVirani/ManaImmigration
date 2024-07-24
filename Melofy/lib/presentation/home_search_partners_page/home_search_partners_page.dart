@@ -651,13 +651,46 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
           alignSkip: Alignment.topCenter,
           contents: [
             TargetContent(
-              align: ContentAlign.top,
-              builder: (context, controller) => Text(
-                'Regret Your Choice? Click here to undo your choice',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(color: Colors.white),
+              align: ContentAlign.bottom,
+              builder: (context, controller) => Container(
+                padding: const EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  border: Border.all(
+                      color: Color.fromARGB(255, 118, 224, 32), width: 3.0),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      'Click here to undo your most recent action!',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 10.0),
+                    SizedBox(
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          controller.next();
+                        },
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Continue ',
+                                  style: TextStyle(color: Colors.white)),
+                              Icon(Icons.arrow_circle_right,
+                                  color: Colors.white),
+                            ]),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 15, 95, 1)),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -669,12 +702,45 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
           contents: [
             TargetContent(
               align: ContentAlign.top,
-              builder: (context, controller) => Text(
-                'If you like the song, click here to add it to your liked songs',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(color: Colors.white),
+              builder: (context, controller) => Container(
+                padding: const EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  border: Border.all(
+                      color: Color.fromARGB(255, 118, 224, 32), width: 3.0),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      'Add the songs you like by clicking here!',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 10.0),
+                    SizedBox(
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          controller.next();
+                        },
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Continue ',
+                                  style: TextStyle(color: Colors.white)),
+                              Icon(Icons.arrow_circle_right,
+                                  color: Colors.white),
+                            ]),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 15, 95, 1)),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -686,12 +752,45 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
           contents: [
             TargetContent(
               align: ContentAlign.top,
-              builder: (context, controller) => Text(
-                'if you dont like a song, click here and we wont show it again',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(color: Colors.white),
+              builder: (context, controller) => Container(
+                padding: const EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  border: Border.all(
+                      color: Color.fromARGB(255, 118, 224, 32), width: 3.0),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      "Click here if you don't like this song!",
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 10.0),
+                    SizedBox(
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          controller.next();
+                        },
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Continue ',
+                                  style: TextStyle(color: Colors.white)),
+                              Icon(Icons.arrow_circle_right,
+                                  color: Colors.white),
+                            ]),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 15, 95, 1)),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -703,12 +802,45 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
           contents: [
             TargetContent(
               align: ContentAlign.top,
-              builder: (context, controller) => Text(
-                'Click here to preview the current song',
-                style: Theme.of(context)
-                    .textTheme
-                    .titleLarge
-                    ?.copyWith(color: Colors.white),
+              builder: (context, controller) => Container(
+                padding: const EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  border: Border.all(
+                      color: Color.fromARGB(255, 118, 224, 32), width: 3.0),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      'Click here to preview the current song!',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 10.0),
+                    SizedBox(
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          controller.next();
+                        },
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Continue ',
+                                  style: TextStyle(color: Colors.white)),
+                              Icon(Icons.arrow_circle_right,
+                                  color: Colors.white),
+                            ]),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 15, 95, 1)),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
