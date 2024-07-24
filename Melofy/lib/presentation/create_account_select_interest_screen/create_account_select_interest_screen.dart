@@ -4,7 +4,6 @@ import 'package:Melofy/core/app_export.dart';
 import 'package:Melofy/data/list_data/app_listdata.dart';
 import 'package:Melofy/data/pref_data/pref_data.dart';
 import 'package:Melofy/data/models/create_account_select_interest_model.dart';
-import 'package:Melofy/presentation/create_account_select_interest_screen/widget/int_ope.dart';
 import 'package:Melofy/widgets/custom_elevated_button.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -79,6 +78,8 @@ class _CreateAccountSelectInterestScreenState
                           checkedMap[genre.genreName] =
                               snapshot.data!.contains(genre.genreName);
                         }
+                        print(checkedMap);
+                        print(snapshot.data);
                         return SingleChildScrollView(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -107,23 +108,35 @@ class _CreateAccountSelectInterestScreenState
                                             children: [
                                               GestureDetector(
                                                   onTap: () {
-                                                    // checkedMap[AppListData
-                                                    //         .interestList[index]
-                                                    //         .genreName] =
-                                                    //     !checkedMap[AppListData
-                                                    //         .interestList[index]
-                                                    //         .genreName];
-                                                    // controller.update();
+                                                    checkedMap[AppListData
+                                                            .interestList[index]
+                                                            .genreName] =
+                                                        !checkedMap[AppListData
+                                                            .interestList[index]
+                                                            .genreName];
+                                                    controller.update();
                                                   },
                                                   child: Padding(
                                                     padding:
                                                         const EdgeInsets.all(
                                                             8.0),
-                                                    child: buildGenreImage(
-                                                        context,
-                                                        AppListData
-                                                            .interestList[index]
-                                                            .genreName),
+                                                    child: checkedMap[
+                                                            AppListData
+                                                                .interestList[
+                                                                    index]
+                                                                .genreName]
+                                                        ? buildGenreImageLiked(
+                                                            context,
+                                                            AppListData
+                                                                .interestList[
+                                                                    index]
+                                                                .genreName)
+                                                        : buildGenreImage(
+                                                            context,
+                                                            AppListData
+                                                                .interestList[
+                                                                    index]
+                                                                .genreName),
                                                   )),
                                               Text(
                                                   AppListData
@@ -309,5 +322,43 @@ class _CreateAccountSelectInterestScreenState
                 width: 0.5, strokeAlign: BorderSide.strokeAlignOutside)),
         child: CustomImageView(
             imagePath: 'assets/images/genre_$path.png', fit: BoxFit.cover));
+  }
+
+  Widget buildGenreImageLiked(BuildContext context, String path) {
+    return Stack(
+      children: [
+        Container(
+            width: 90.h,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                    width: 0.5, strokeAlign: BorderSide.strokeAlignOutside)),
+            child: CustomImageView(
+                imagePath: 'assets/images/genre_$path.png', fit: BoxFit.cover)),
+        Opacity(
+          opacity: 0.6,
+          child: AnimatedContainer(
+              duration: Duration(milliseconds: 5000),
+              width: 90.h,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                      width: 0.5, strokeAlign: BorderSide.strokeAlignOutside)),
+              child: CustomImageView(
+                  radius: BorderRadius.all(Radius.circular(45.h)),
+                  imagePath: 'assets/images/app_icon.png',
+                  fit: BoxFit.cover)),
+        ),
+        AnimatedContainer(
+            duration: Duration(milliseconds: 5000),
+            width: 90.h,
+            decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                    width: 0.5, strokeAlign: BorderSide.strokeAlignOutside)),
+            child: CustomImageView(
+                imagePath: 'assets/images/musicM.png', fit: BoxFit.contain)),
+      ],
+    );
   }
 }
