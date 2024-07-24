@@ -217,6 +217,8 @@ class PrimaryColors {
   Color get mainColor => Color.fromARGB(255, 15, 95, 1);
   Color get secondaryColor => Color.fromARGB(255, 191, 255, 180);
   Color get tertiaryColor => Color.fromARGB(255, 115, 190, 127);
+  Color get cardColor => Color.fromARGB(255, 228, 255, 233);
+  Color get melofyColor => Color.fromARGB(255, 228, 228, 207);
 
   // BlueGray
   Color get blueGray50 => Color(0XFFF1F1F1);

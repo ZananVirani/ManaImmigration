@@ -58,7 +58,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     PrefData.getTutorial().then((value) {
       if (value) {
         PrefData.setTutorial(false);
-        _createTutorial();
+        _createTutorial(4);
       }
     });
   }
@@ -87,8 +87,10 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
   Widget _buildFiftyColumn() {
     return SafeArea(
       child: Scaffold(
+        drawer: Drawer(child: Center(child: Text("Opened"))),
         appBar: AppBar(
-          toolbarHeight: 80.v,
+          automaticallyImplyLeading: false,
+          toolbarHeight: 70.v,
           flexibleSpace: FlexibleSpaceBar(
             background: Opacity(
               opacity: 1,
@@ -101,17 +103,44 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
           ),
           centerTitle: false,
           title: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "Find the rhythm of your soul".capitalize!,
-                style: theme.textTheme.titleLarge!.copyWith(
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0),
+                child: Text(
+                  "Melofy",
+                  style: theme.textTheme.titleLarge!.copyWith(
                     color: AppColor.black,
                     fontWeight: FontWeight.w900,
-                    fontSize: 22.fSize,
+                    fontSize: 28.fSize,
                     letterSpacing: 0,
-                    wordSpacing: -2),
-              )
+                    wordSpacing: -2,
+                  ),
+                ),
+              ),
+              Row(
+                children: [
+                  IconButton(
+                      onPressed: () async {
+                        await _createTutorial(0);
+                      },
+                      icon: Icon(Icons.info_outlined, size: 26.adaptSize)),
+                  GestureDetector(
+                    onTap: () {
+                      player.stop();
+                      _animationController.stop();
+                      Get.toNamed(AppRoutes.createAccountSelectInterestScreen);
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.all(10.0.adaptSize),
+                      child: Icon(
+                          size: 26.adaptSize,
+                          key: _settingsButtonKey, // tutorial for setting
+                          Icons.settings),
+                    ),
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -119,15 +148,18 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
         body: Stack(
           children: [
             Center(
-              child: Opacity(
-                opacity: .92,
+                // child: Opacity(
+                //   opacity: .92,
+                //   child: Container(
+                //       height: MediaQuery.sizeOf(context).height,
+                //       child: CustomImageView(
+                //         imagePath: ImageConstant.background,
+                //       )),
+                // ),
                 child: Container(
-                    height: MediaQuery.sizeOf(context).height,
-                    child: CustomImageView(
-                      imagePath: ImageConstant.background,
-                    )),
-              ),
-            ),
+                    width: double.infinity,
+                    height: double.infinity,
+                    color: PrimaryColors().melofyColor)),
             Center(
               child: FutureBuilder(
                   future: futureList,
@@ -228,8 +260,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                             ],
                                             borderRadius: BorderRadiusStyle
                                                 .roundedBorder8,
-                                            color:
-                                                PrimaryColors().secondaryColor,
+                                            color: PrimaryColors().cardColor,
                                           ),
                                           child: Column(
                                             crossAxisAlignment:
@@ -244,23 +275,13 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                       MainAxisAlignment
                                                           .spaceBetween,
                                                   children: [
-                                                    GestureDetector(
-                                                      onTap: () {
-                                                        player.stop();
-                                                        _animationController
-                                                            .stop();
-                                                        Get.toNamed(AppRoutes
-                                                            .createAccountSelectInterestScreen);
-                                                      },
-                                                      child: Padding(
-                                                        padding: EdgeInsets.all(
-                                                            10.0.adaptSize),
-                                                        child: Icon(
-                                                            key:
-                                                                _settingsButtonKey, // tutorial for setting
-                                                            Icons.settings),
-                                                      ),
-                                                    ),
+                                                    IconButton(
+                                                        onPressed: () {
+                                                          Scaffold.of(context)
+                                                              .openDrawer();
+                                                        },
+                                                        icon: const Icon(
+                                                            Icons.face)),
                                                     GestureDetector(
                                                       onTap: () {
                                                         controller
@@ -570,7 +591,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     );
   }
 
-  Future<void> _createTutorial() async {
+  Future<void> _createTutorial(int delay) async {
     await Future.delayed(Duration(seconds: 0), () async {
       final targets = [
         TargetFocus(
@@ -659,7 +680,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
           ],
         ),
       ];
-      await Future.delayed(Duration(seconds: 4), () {
+      await Future.delayed(Duration(seconds: delay), () {
         final tutorial = TutorialCoachMark(
           targets: targets,
         )..show(context: context);

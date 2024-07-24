@@ -42,7 +42,7 @@ class _MessagesPageState extends State<MessagesPage> {
                     children: [
                       Container(
                         padding: EdgeInsets.only(
-                            left: 24.h, right: 24.h, top: 40.h, bottom: 25.h),
+                            left: 24.h, right: 24.h, top: 20.h, bottom: 20.h),
                         decoration: BoxDecoration(
                             color: PrimaryColors().tertiaryColor,
                             boxShadow: [
@@ -82,6 +82,9 @@ class _MessagesPageState extends State<MessagesPage> {
                                 style: theme.textTheme.titleLarge!.copyWith(
                                   color: AppColor.black,
                                   fontWeight: FontWeight.w900,
+                                  fontSize: 26.fSize,
+                                  letterSpacing: 0,
+                                  wordSpacing: -2,
                                 ),
                               ),
                             ),

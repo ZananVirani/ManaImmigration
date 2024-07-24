@@ -167,6 +167,7 @@ class AppColor {
   static Color secondaryLightColor = Color.fromARGB(255, 15, 95, 1);
   static Color secondaryULtaColor = Color.fromARGB(255, 71, 53, 192);
   static Color lightBorderColor = Color.fromARGB(255, 15, 95, 1);
+  static Color get melofyColor => Color.fromARGB(255, 228, 228, 207);
 
   static Color black = const Color(0xFF000000);
   static Color prLight = const Color(0xFFFFFFFF);
