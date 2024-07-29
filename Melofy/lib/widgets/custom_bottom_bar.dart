@@ -132,6 +132,7 @@ class CustomBottomBar extends StatelessWidget {
               else
                 Navigator.pushNamed(context, '/liked_songs', arguments: player);
             }
+            controller.update();
           },
         );
       },
