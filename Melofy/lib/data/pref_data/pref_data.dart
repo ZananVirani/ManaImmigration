@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:Melofy/API/track.dart';
+import 'package:Melofy/API/models/track.dart';
 import 'package:Melofy/core/app_export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:oauth2_client/access_token_response.dart';

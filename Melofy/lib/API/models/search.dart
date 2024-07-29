@@ -4,7 +4,7 @@
 
 import 'dart:convert';
 
-import 'package:Melofy/API/track.dart';
+import 'package:Melofy/API/models/track.dart';
 
 SearchResult searchResultFromJson(String str) =>
     SearchResult.fromJson(json.decode(str));

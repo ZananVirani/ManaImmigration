@@ -3,7 +3,6 @@ import 'package:Melofy/core/app_export.dart';
 import 'package:Melofy/presentation/home_search_partners_page/home_search_partners_page.dart';
 import 'package:Melofy/presentation/messages_page/messages_page.dart';
 import '../../data/pref_data/pref_data.dart';
-// import '../../widgets/custom_bottom_bar.dart';
 import 'controller/bottombar_screen_controller.dart';
 
 class BottomBarScreen extends StatefulWidget {

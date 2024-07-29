@@ -1,8 +1,8 @@
-import 'package:Melofy/API/playlist_search.dart' as playlistTrack;
+import 'package:Melofy/API/models/playlist_search.dart' as playlistTrack;
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:Melofy/API/api_calls.dart';
-import 'package:Melofy/API/track.dart';
+import 'package:Melofy/API/models/track.dart';
 import 'package:Melofy/data/pref_data/pref_data.dart';
 import 'package:Melofy/widgets/custom_bottom_bar.dart';
 import 'package:flutter/material.dart';
@@ -235,12 +235,12 @@ class _MessagesPageState extends State<MessagesPage> {
                         CupertinoDialogAction(
                             child: Text("Clear"),
                             onPressed: () async {
+                              Navigator.pop(context);
                               PrefData.setMusicList([]);
                               setState(() {
                                 exportList = [];
                               });
                               player.stop();
-                              Navigator.pop(context);
                             })
                       ]);
                 },

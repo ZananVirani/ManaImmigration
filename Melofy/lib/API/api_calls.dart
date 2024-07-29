@@ -1,11 +1,13 @@
 import 'dart:async';
 
-import 'package:Melofy/API/playlist_search.dart';
+import 'package:Melofy/API/models/artist.dart' as artist;
+import 'package:Melofy/API/models/artist_tracks.dart';
+import 'package:Melofy/API/models/playlist_search.dart';
 import 'package:dio/dio.dart';
-import 'package:Melofy/API/playlist.dart' as playlistTrack;
-import 'package:Melofy/API/profile.dart';
-import 'package:Melofy/API/search.dart';
-import 'package:Melofy/API/track.dart';
+import 'package:Melofy/API/models/playlist.dart' as playlistTrack;
+import 'package:Melofy/API/models/profile.dart';
+import 'package:Melofy/API/models/search.dart';
+import 'package:Melofy/API/models/track.dart';
 import 'package:Melofy/authorization/spotify_auth.dart';
 import 'package:Melofy/data/pref_data/pref_data.dart';
 import 'package:oauth2_client/access_token_response.dart';
@@ -190,16 +192,23 @@ class MakeAPICall {
     return max;
   }
 
-  static Future<Track> getTrack(String trackID) async {
-    String path = "tracks/$trackID";
-    final Response<Map<String, dynamic>>? song =
+  static Future<List<dynamic>> getArtistandTracks(String artistID) async {
+    String path = "artists/$artistID";
+    String market = await PrefData.getUserCountry();
+    final Response<Map<String, dynamic>>? artistResponse =
         await makeGenericGetCall(path, {});
 
-    if (song != null) {
-      final track = Track.fromJson(song.data!);
-      return track;
+    final Response<Map<String, dynamic>>? tracksResponse =
+        await makeGenericGetCall(path + "/top-tracks", {'market': market});
+
+    if (artistResponse != null && tracksResponse != null) {
+      final artistInfo = artist.Artist.fromJson(artistResponse.data!);
+      final trackInfo = ArtistTracks.fromJson(tracksResponse.data!);
+      final tracks = trackInfo.tracks!;
+      tracks.removeWhere((item) => item.previewUrl == null);
+      return [artistInfo, tracks];
     } else {
-      return Track();
+      throw Exception("Not good");
     }
   }
 

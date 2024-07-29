@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'package:Melofy/presentation/home_search_partners_page/models/custom_drawer.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:Melofy/API/api_calls.dart';
-import 'package:Melofy/API/track.dart';
+import 'package:Melofy/API/models/track.dart';
 import 'package:Melofy/data/pref_data/pref_data.dart';
 import 'package:Melofy/presentation/bottombar_screen/bottombar_screen.dart';
 import 'package:Melofy/widgets/custom_bottom_bar.dart';
@@ -33,6 +34,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
   late AnimationController _animationController;
   late Future<Map<String, List<Track>>> tempGenreMap;
   String? errorString;
+  String? artistID;
 
   final GlobalKey _likeButtonKey = GlobalKey();
   final GlobalKey _dislikeButtonkey = GlobalKey();
@@ -88,7 +90,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
   Widget _buildFiftyColumn() {
     return SafeArea(
       child: Scaffold(
-        drawer: Drawer(child: Center(child: Text("Opened"))),
+        drawer: CustomDrawer(artistID),
         appBar: AppBar(
           automaticallyImplyLeading: false,
           toolbarHeight: 70.v,
@@ -278,6 +280,13 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                   children: [
                                                     IconButton(
                                                         onPressed: () {
+                                                          setState(() {
+                                                            artistID = track
+                                                                .artists!
+                                                                .first
+                                                                .id;
+                                                          });
+
                                                           Scaffold.of(context)
                                                               .openDrawer();
                                                         },
@@ -570,14 +579,14 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CircularProgressIndicator(
-                              color: AppColor.white,
+                              color: AppColor.primaryColor,
                             ),
                             Padding(
                               padding: const EdgeInsets.only(top: 12.0),
                               child: Text(
                                 "Fetching Songs...",
                                 style: theme.textTheme.titleLarge!.copyWith(
-                                    color: AppColor.white,
+                                    color: AppColor.primaryColor,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 33.fSize),
                               ),
