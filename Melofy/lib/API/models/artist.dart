@@ -108,12 +108,12 @@ class Followers {
 }
 
 class Image {
-  String? url;
+  String url;
   int? height;
   int? width;
 
   Image({
-    this.url,
+    required this.url,
     this.height,
     this.width,
   });
@@ -129,4 +129,7 @@ class Image {
         "height": height,
         "width": width,
       };
+  String getUrl(){
+    return this.url;
+  }
 }
