@@ -200,13 +200,17 @@ class MakeAPICall {
 
     final Response<Map<String, dynamic>>? tracksResponse =
         await makeGenericGetCall(path + "/top-tracks", {'market': market});
+    // final Response<Map<String, dynamic>>? alikeResponse =
+    //     await makeGenericGetCall(path + "/related-artists", {});
+
 
     if (artistResponse != null && tracksResponse != null) {
       final artistInfo = artist.Artist.fromJson(artistResponse.data!);
       final trackInfo = ArtistTracks.fromJson(tracksResponse.data!);
       final tracks = trackInfo.tracks!;
+      //final alikeArtists = artist.Artist.fromJson(alikeResponse!.data!);
       tracks.removeWhere((item) => item.previewUrl == null);
-      return [artistInfo, tracks];
+      return [artistInfo, tracks]; //Add alikeArtists in here but doesnt work
     } else {
       throw Exception("Not good");
     }

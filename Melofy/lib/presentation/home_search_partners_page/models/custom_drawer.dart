@@ -26,6 +26,7 @@ class CustomDrawer extends StatelessWidget {
           if (snapshot.hasData) {
             alias.Artist artist = snapshot.data![0];
             List<Track> tracks = snapshot.data![1];
+            //List<alias.Artist> relatedArtist= snapshot.data![2];
             int? followers = artist.followers!.total;
             String artistImg = artist.images!.first.url;
             // String trackImg = tracks.first.album!.images![1].url;
@@ -35,6 +36,8 @@ class CustomDrawer extends StatelessWidget {
             String trackName1 = tracks[1].album!.name as String;
             String trackName2 = tracks[2].album!.name as String;
             String trackName3 = tracks[4].album!.name as String;
+            //String relatedArtist1 = relatedArtist[1].images!.first.url;
+            // String relatedArtist1 = relatedArtist.images!.first.url;
             //Array artistPhoto = artist.images
 
             return Container(
@@ -149,8 +152,71 @@ class CustomDrawer extends StatelessWidget {
                           ]
                         )
                       ),
-                  ],)
-
+                  ],),
+// Row(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       Padding(
+//                         padding: EdgeInsets.all(10),
+//                         child: Column(
+//                           children: [ 
+//                             ClipRRect(
+//                             borderRadius: BorderRadius.circular(25),
+//                             child: Image.network(
+//                                 relatedArtist1,
+//                                 width: 75, height: 75),
+//                           ),
+//                           // Container(
+//                           //   width: 75,
+//                           //   child: Text(
+//                           //     //relatedArtist[1].name as String,
+//                           //     textAlign: TextAlign.center,)
+//                           // )
+                          
+//                           ]
+//                         )
+//                       ),
+//                       // Padding(
+//                       //   padding: EdgeInsets.all(10),
+//                       //   child: Column(
+//                       //     children: [ 
+//                       //       ClipRRect(
+//                       //       borderRadius: BorderRadius.circular(25),
+//                       //       child: Image.network(
+//                       //           trackImg2,
+//                       //           width: 75, height: 75),
+//                       //     ),
+//                       //     Container(
+//                       //       width: 75,
+//                       //       child: Text(
+//                       //         trackName2,
+//                       //         textAlign: TextAlign.center,)
+//                       //     )
+                          
+//                       //     ]
+//                       //   )
+//                       // ),
+//                       // Padding(
+//                       //   padding: EdgeInsets.all(10),
+//                       //   child: Column(
+//                       //     children: [ 
+//                       //       ClipRRect(
+//                       //       borderRadius: BorderRadius.circular(25),
+//                       //       child: Image.network(
+//                       //           trackImg3,
+//                       //           width: 75, height: 75),
+//                       //     ),
+//                       //     Container(
+//                       //       width: 75,
+//                       //       child: Text(
+//                       //         trackName3,
+//                       //         textAlign: TextAlign.center,)
+//                       //     )
+                          
+//                       //     ]
+//                       //   )
+//                       // ),
+//                   ],)
                 ],
               ),
             );
