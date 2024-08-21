@@ -6,6 +6,7 @@ import 'package:Melofy/API/models/track.dart';
 import 'package:Melofy/core/app_export.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomDrawer extends StatelessWidget {
   late final String? artistID;
@@ -60,8 +61,11 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       Align(
                         alignment: Alignment.center,
-                        child: Text("About This Artist",
-                            textAlign: TextAlign.center),
+                        child: Text(
+                          "About This Artist",
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 16, color: Colors.black),
+                        ),
                       )
                     ],
                   ),
@@ -78,74 +82,153 @@ class CustomDrawer extends StatelessWidget {
                         ),
                         Text(
                           '$followers Followers',
-                          style: TextStyle(fontSize: 16, color: Colors.grey),
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Color.fromARGB(255, 214, 246, 221)),
                         ),
                         Padding(
                           padding: EdgeInsets.all(20),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20),
                             child: Image.network(artistImg,
-                                width: 200, height: 200),
+                                fit: BoxFit.cover,
+                                width: MediaQuery.sizeOf(context).height * 0.21,
+                                height:
+                                    MediaQuery.sizeOf(context).height * 0.21),
                           ),
                         ),
                       ],
                     ),
                   ),
-                  Text("Popular Albums"),
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Column(children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(25),
-                              child: Image.network(trackImg1,
-                                  width: 75, height: 75),
-                            ),
-                            Container(
-                                width: 75,
-                                child: Text(
-                                  trackName1,
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                ))
-                          ])),
-                      Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Column(children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(25),
-                              child: Image.network(trackImg2,
-                                  width: 75, height: 75),
-                            ),
-                            Container(
-                                width: 75,
-                                child: Text(
-                                  trackName2,
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                ))
-                          ])),
-                      Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Column(children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(25),
-                              child: Image.network(trackImg3,
-                                  width: 75, height: 75),
-                            ),
-                            Container(
-                                width: 75,
-                                child: Text(
-                                  trackName3,
-                                  textAlign: TextAlign.center,
-                                  maxLines: 2,
-                                ))
-                          ])),
-                    ],
+                  Text(
+                    "Popular Albums",
+                    style: GoogleFonts.inter(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 24,
+                        color: Color.fromARGB(255, 232, 225, 239)),
                   ),
-
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.sizeOf(context).height * 0.135,
+                          width: 20,
+                        ),
+                        Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: Column(children: [
+                              ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                child: Image.network(
+                                  trackImg1,
+                                  width:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Container(
+                                  width:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Text(
+                                      trackName1,
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      style: GoogleFonts.inter(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          height: 1.3),
+                                    ),
+                                  ))
+                            ])),
+                        Padding(
+                            padding: EdgeInsets.only(
+                                left: 20, right: 20, top: 20, bottom: 10),
+                            child: Column(children: [
+                              ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                child: Image.network(
+                                  trackImg2,
+                                  width:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Container(
+                                  width:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Text(
+                                      trackName2,
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      style: GoogleFonts.inter(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          height: 1.3),
+                                    ),
+                                  ))
+                            ])),
+                        Padding(
+                            padding: EdgeInsets.only(top: 20, bottom: 10),
+                            child: Column(children: [
+                              ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                child: Image.network(
+                                  trackImg3,
+                                  width:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Container(
+                                  width:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Text(
+                                      trackName3,
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      style: GoogleFonts.inter(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          height: 1.3),
+                                    ),
+                                  ))
+                            ])),
+                        SizedBox(
+                          height: MediaQuery.sizeOf(context).height * 0.135,
+                          width: 20,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                      padding: EdgeInsets.all(0),
+                      child: Text(
+                        "Related Artists",
+                        style: GoogleFonts.inter(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 24,
+                            color: Color.fromARGB(255, 232, 225, 239)),
+                      )),
                   /*
                   STARTS HERE 
                   WOOFNEWIOFNEWIFNOWENF
@@ -154,62 +237,118 @@ class CustomDrawer extends StatelessWidget {
                   FNUIEWINFIUEWNFi
                   */
 
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Column(children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(25),
-                              child: Image.network(
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        SizedBox(
+                          height: MediaQuery.sizeOf(context).height * 0.135,
+                          width: 20,
+                        ),
+                        Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20),
+                            child: Column(children: [
+                              ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                child: Image.network(
                                   relatedArtist1.images!.first.url!,
-                                  width: 75,
-                                  height: 75),
-                            ),
-                            Container(
-                                width: 75,
-                                child: Text(
-                                  relatedArtist1.name!,
-                                  textAlign: TextAlign.center,
-                                ))
-                          ])),
-                      Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Column(children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(25),
-                              child: Image.network(
+                                  width:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Container(
+                                  width:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Text(
+                                      relatedArtist1.name!,
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      style: GoogleFonts.inter(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          height: 1.3),
+                                    ),
+                                  ))
+                            ])),
+                        Padding(
+                            padding: EdgeInsets.all(20),
+                            child: Column(children: [
+                              ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                child: Image.network(
                                   relatedArtist2.images!.first.url!,
-                                  width: 75,
-                                  height: 75),
-                            ),
-                            Container(
-                                width: 75,
-                                child: Text(
-                                  relatedArtist2.name!,
-                                  textAlign: TextAlign.center,
-                                ))
-                          ])),
-                      Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Column(children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(25),
-                              child: Image.network(
+                                  width:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Container(
+                                  width:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Text(
+                                      relatedArtist2.name!,
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      style: GoogleFonts.inter(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          height: 1.3),
+                                    ),
+                                  ))
+                            ])),
+                        Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20),
+                            child: Column(children: [
+                              ClipRRect(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(25)),
+                                child: Image.network(
                                   relatedArtist3.images!.first.url!,
-                                  width: 75,
-                                  height: 75),
-                            ),
-                            Container(
-                                width: 75,
-                                child: Text(
-                                  relatedArtist3.name!,
-                                  textAlign: TextAlign.center,
-                                ))
-                          ])),
-                    ],
-                  )
+                                  width:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  height:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                              Container(
+                                  width:
+                                      MediaQuery.sizeOf(context).height * 0.135,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: Text(
+                                      relatedArtist3.name!,
+                                      textAlign: TextAlign.center,
+                                      maxLines: 2,
+                                      style: GoogleFonts.inter(
+                                          color: Colors.black,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          height: 1.3),
+                                    ),
+                                  ))
+                            ])),
+                        SizedBox(
+                          height: MediaQuery.sizeOf(context).height * 0.135,
+                          width: 20,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             );
