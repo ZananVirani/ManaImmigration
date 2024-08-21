@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:Melofy/API/models/artist.dart' as artist;
 import 'package:Melofy/API/models/artist_tracks.dart';
 import 'package:Melofy/API/models/playlist_search.dart';
+import 'package:Melofy/API/models/related.dart';
 import 'package:dio/dio.dart';
 import 'package:Melofy/API/models/playlist.dart' as playlistTrack;
 import 'package:Melofy/API/models/profile.dart';
@@ -200,17 +201,20 @@ class MakeAPICall {
 
     final Response<Map<String, dynamic>>? tracksResponse =
         await makeGenericGetCall(path + "/top-tracks", {'market': market});
-    // final Response<Map<String, dynamic>>? alikeResponse =
-    //     await makeGenericGetCall(path + "/related-artists", {});
-
+    final Response<Map<String, dynamic>>? alikeResponse =
+        await makeGenericGetCall(path + "/related-artists", {});
 
     if (artistResponse != null && tracksResponse != null) {
       final artistInfo = artist.Artist.fromJson(artistResponse.data!);
       final trackInfo = ArtistTracks.fromJson(tracksResponse.data!);
       final tracks = trackInfo.tracks!;
-      //final alikeArtists = artist.Artist.fromJson(alikeResponse!.data!);
+      final alikeArtists = RelatedArtists.fromJson(alikeResponse!.data!);
       tracks.removeWhere((item) => item.previewUrl == null);
-      return [artistInfo, tracks]; //Add alikeArtists in here but doesnt work
+      return [
+        artistInfo,
+        tracks,
+        alikeArtists
+      ]; //Add alikeArtists in here but doesnt work
     } else {
       throw Exception("Not good");
     }

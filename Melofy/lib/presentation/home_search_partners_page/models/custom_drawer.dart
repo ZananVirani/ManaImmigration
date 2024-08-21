@@ -1,6 +1,7 @@
 import 'dart:ffi';
 import 'package:Melofy/API/api_calls.dart';
 import 'package:Melofy/API/models/artist.dart' as alias;
+import 'package:Melofy/API/models/related.dart' as related;
 import 'package:Melofy/API/models/track.dart';
 import 'package:Melofy/core/app_export.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,19 +27,21 @@ class CustomDrawer extends StatelessWidget {
           if (snapshot.hasData) {
             alias.Artist artist = snapshot.data![0];
             List<Track> tracks = snapshot.data![1];
-            //List<alias.Artist> relatedArtist= snapshot.data![2];
+            related.RelatedArtists tempRelatedArtist = snapshot.data![2];
+            List<related.Artist> relatedArtist = tempRelatedArtist.artists!;
             int? followers = artist.followers!.total;
             String artistImg = artist.images!.first.url;
-            // String trackImg = tracks.first.album!.images![1].url;
+            //String trackImg = tracks.first.album!.images![1].url;
             String trackImg1 = tracks[1].album!.images![2].url;
             String trackImg2 = tracks[2].album!.images![2].url;
             String trackImg3 = tracks[4].album!.images![2].url;
             String trackName1 = tracks[1].album!.name as String;
             String trackName2 = tracks[2].album!.name as String;
             String trackName3 = tracks[4].album!.name as String;
-            //String relatedArtist1 = relatedArtist[1].images!.first.url;
-            // String relatedArtist1 = relatedArtist.images!.first.url;
-            //Array artistPhoto = artist.images
+            related.Artist relatedArtist1 = relatedArtist[0];
+            related.Artist relatedArtist2 = relatedArtist[1];
+            related.Artist relatedArtist3 = relatedArtist[2];
+            // Array artistPhoto = artist.images
 
             return Container(
               child: Column(
@@ -93,130 +96,120 @@ class CustomDrawer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          children: [ 
+                          padding: EdgeInsets.all(10),
+                          child: Column(children: [
                             ClipRRect(
-                            borderRadius: BorderRadius.circular(25),
-                            child: Image.network(
-                                trackImg1,
-                                width: 75, height: 75),
-                          ),
-                          Container(
-                            width: 75,
-                            child: Text(
-                              trackName1,
-                              textAlign: TextAlign.center,)
-                          )
-                          
-                          ]
-                        )
-                      ),
+                              borderRadius: BorderRadius.circular(25),
+                              child: Image.network(trackImg1,
+                                  width: 75, height: 75),
+                            ),
+                            Container(
+                                width: 75,
+                                child: Text(
+                                  trackName1,
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                ))
+                          ])),
                       Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          children: [ 
+                          padding: EdgeInsets.all(10),
+                          child: Column(children: [
                             ClipRRect(
-                            borderRadius: BorderRadius.circular(25),
-                            child: Image.network(
-                                trackImg2,
-                                width: 75, height: 75),
-                          ),
-                          Container(
-                            width: 75,
-                            child: Text(
-                              trackName2,
-                              textAlign: TextAlign.center,)
-                          )
-                          
-                          ]
-                        )
-                      ),
+                              borderRadius: BorderRadius.circular(25),
+                              child: Image.network(trackImg2,
+                                  width: 75, height: 75),
+                            ),
+                            Container(
+                                width: 75,
+                                child: Text(
+                                  trackName2,
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                ))
+                          ])),
                       Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Column(
-                          children: [ 
+                          padding: EdgeInsets.all(10),
+                          child: Column(children: [
                             ClipRRect(
-                            borderRadius: BorderRadius.circular(25),
-                            child: Image.network(
-                                trackImg3,
-                                width: 75, height: 75),
-                          ),
-                          Container(
-                            width: 75,
-                            child: Text(
-                              trackName3,
-                              textAlign: TextAlign.center,)
-                          )
-                          
-                          ]
-                        )
-                      ),
-                  ],),
-// Row(
-//                     crossAxisAlignment: CrossAxisAlignment.start,
-//                     children: [
-//                       Padding(
-//                         padding: EdgeInsets.all(10),
-//                         child: Column(
-//                           children: [ 
-//                             ClipRRect(
-//                             borderRadius: BorderRadius.circular(25),
-//                             child: Image.network(
-//                                 relatedArtist1,
-//                                 width: 75, height: 75),
-//                           ),
-//                           // Container(
-//                           //   width: 75,
-//                           //   child: Text(
-//                           //     //relatedArtist[1].name as String,
-//                           //     textAlign: TextAlign.center,)
-//                           // )
-                          
-//                           ]
-//                         )
-//                       ),
-//                       // Padding(
-//                       //   padding: EdgeInsets.all(10),
-//                       //   child: Column(
-//                       //     children: [ 
-//                       //       ClipRRect(
-//                       //       borderRadius: BorderRadius.circular(25),
-//                       //       child: Image.network(
-//                       //           trackImg2,
-//                       //           width: 75, height: 75),
-//                       //     ),
-//                       //     Container(
-//                       //       width: 75,
-//                       //       child: Text(
-//                       //         trackName2,
-//                       //         textAlign: TextAlign.center,)
-//                       //     )
-                          
-//                       //     ]
-//                       //   )
-//                       // ),
-//                       // Padding(
-//                       //   padding: EdgeInsets.all(10),
-//                       //   child: Column(
-//                       //     children: [ 
-//                       //       ClipRRect(
-//                       //       borderRadius: BorderRadius.circular(25),
-//                       //       child: Image.network(
-//                       //           trackImg3,
-//                       //           width: 75, height: 75),
-//                       //     ),
-//                       //     Container(
-//                       //       width: 75,
-//                       //       child: Text(
-//                       //         trackName3,
-//                       //         textAlign: TextAlign.center,)
-//                       //     )
-                          
-//                       //     ]
-//                       //   )
-//                       // ),
-//                   ],)
+                              borderRadius: BorderRadius.circular(25),
+                              child: Image.network(trackImg3,
+                                  width: 75, height: 75),
+                            ),
+                            Container(
+                                width: 75,
+                                child: Text(
+                                  trackName3,
+                                  textAlign: TextAlign.center,
+                                  maxLines: 2,
+                                ))
+                          ])),
+                    ],
+                  ),
+
+                  /*
+                  STARTS HERE 
+                  WOOFNEWIOFNEWIFNOWENF
+                  NWFOIEWNFIEWNFIEWN
+                  FIEWFNIWENFINWEUF
+                  FNUIEWINFIUEWNFi
+                  */
+
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(25),
+                              child: Image.network(
+                                  relatedArtist1.images!.first.url!,
+                                  width: 75,
+                                  height: 75),
+                            ),
+                            Container(
+                                width: 75,
+                                child: Text(
+                                  relatedArtist1.name!,
+                                  textAlign: TextAlign.center,
+                                ))
+                          ])),
+                      Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(25),
+                              child: Image.network(
+                                  relatedArtist2.images!.first.url!,
+                                  width: 75,
+                                  height: 75),
+                            ),
+                            Container(
+                                width: 75,
+                                child: Text(
+                                  relatedArtist2.name!,
+                                  textAlign: TextAlign.center,
+                                ))
+                          ])),
+                      Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Column(children: [
+                            ClipRRect(
+                              borderRadius: BorderRadius.circular(25),
+                              child: Image.network(
+                                  relatedArtist3.images!.first.url!,
+                                  width: 75,
+                                  height: 75),
+                            ),
+                            Container(
+                                width: 75,
+                                child: Text(
+                                  relatedArtist3.name!,
+                                  textAlign: TextAlign.center,
+                                ))
+                          ])),
+                    ],
+                  )
                 ],
               ),
             );
