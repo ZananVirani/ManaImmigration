@@ -41,6 +41,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
   final GlobalKey _settingsButtonKey = GlobalKey();
   final GlobalKey _playButtonKey = GlobalKey();
   final GlobalKey _undoButtonKey = GlobalKey();
+  final GlobalKey _artistButtonKey = GlobalKey();
 
   @override
   void initState() {
@@ -279,6 +280,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                           .spaceBetween,
                                                   children: [
                                                     IconButton(
+                                                        key: _artistButtonKey,
                                                         onPressed: () {
                                                           setState(() {
                                                             artistID = track
@@ -673,6 +675,56 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                   children: [
                     Text(
                       'Click here to undo your most recent action!',
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 10.0),
+                    SizedBox(
+                      width: 150,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          controller.next();
+                        },
+                        child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text('Continue ',
+                                  style: TextStyle(color: Colors.white)),
+                              Icon(Icons.arrow_circle_right,
+                                  color: Colors.white),
+                            ]),
+                        style: ElevatedButton.styleFrom(
+                            backgroundColor: Color.fromARGB(255, 15, 95, 1)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        TargetFocus(
+          identify: "artistButton",
+          keyTarget: _artistButtonKey,
+          alignSkip: Alignment.topCenter,
+          contents: [
+            TargetContent(
+              align: ContentAlign.bottom,
+              builder: (context, controller) => Container(
+                padding: const EdgeInsets.all(20.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12.0),
+                  border: Border.all(
+                      color: Color.fromARGB(255, 118, 224, 32), width: 3.0),
+                  color: Colors.white,
+                ),
+                child: Column(
+                  children: [
+                    Text(
+                      'Click here to learn more about the current artist!',
                       style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
