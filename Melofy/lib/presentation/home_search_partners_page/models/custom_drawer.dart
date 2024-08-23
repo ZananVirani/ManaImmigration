@@ -4,8 +4,10 @@ import 'package:Melofy/API/models/artist.dart' as alias;
 import 'package:Melofy/API/models/related.dart' as related;
 import 'package:Melofy/API/models/track.dart';
 import 'package:Melofy/core/app_export.dart';
+import 'package:change_case/change_case.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -15,7 +17,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Color.fromARGB(255, 204, 187, 156),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
             topRight: Radius.circular(30),
@@ -30,10 +32,26 @@ class CustomDrawer extends StatelessWidget {
             alias.Artist artist = snapshot.data![0];
             List<Track> tracks = snapshot.data![1];
             related.RelatedArtists tempRelatedArtist = snapshot.data![2];
+
             List<related.Artist> relatedArtist = tempRelatedArtist.artists!;
             var f = NumberFormat("###,###,###");
             String followers = f.format(artist.followers!.total);
             String artistImg = artist.images!.first.url;
+            List<String> genres = artist.genres as List<String>;
+            String genre1 = "";
+            String genre2 = "";
+            String genre3 = "";
+            if (genres.length >= 3) {
+                genre1 = genres[0].toCapitalCase() + ', ';
+                genre2 = genres[1].toCapitalCase() + ', ';
+                genre3 = genres[2].toCapitalCase();
+              } else if (genres.length == 2){
+                genre1 = genres[0].toCapitalCase() + ', ';
+                genre2 = genres[1].toCapitalCase();
+              } else {
+                genre1 = genres[0].toCapitalCase();
+              }
+            
             //String trackImg = tracks.first.album!.images![1].url;
             String trackImg1 = tracks[1].album!.images![0].url;
             String trackImg2 = tracks[2].album!.images![0].url;
@@ -43,6 +61,7 @@ class CustomDrawer extends StatelessWidget {
             String trackName2 = tracks[2].album!.name as String;
             String trackName3 = tracks[3].album!.name as String;
             String trackName4 = tracks[4].album!.name as String;
+
             related.Artist relatedArtist1 = relatedArtist[0];
             related.Artist relatedArtist2 = relatedArtist[1];
             related.Artist relatedArtist3 = relatedArtist[2];
@@ -53,9 +72,9 @@ class CustomDrawer extends StatelessWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.vertical,
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Row(
-                      //mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
                           padding: EdgeInsets.all(16),
@@ -108,589 +127,252 @@ class CustomDrawer extends StatelessWidget {
                         ],
                       ),
                     ),
-                    
-                    ExpansionTile(
-                      backgroundColor: Colors.lightGreen,
-                      title: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children:[
-                        Text(
-                      "Popular Albums",
-                      style: GoogleFonts.inter(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                          color: Color.fromARGB(255, 232, 225, 239)),
-                    ),
-                      ],
-                      ),
-                      children: <Widget>[
-                        ListTile(
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                              leading: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
-                                  child: Image.network(
-                                    trackImg2,
-                                    width: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                          title: Text(
-                                        trackName2,
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
-                                        style: GoogleFonts.inter(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                            height: 1.3),
-                                      ),),
-                                      ListTile(
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                              leading: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
-                                  child: Image.network(
-                                    trackImg1,
-                                    width: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                          title: Text(
-                                        trackName1,
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
-                                        style: GoogleFonts.inter(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                            height: 1.3),
-                                      ),),
-                                      ListTile(
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                              leading: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
-                                  child: Image.network(
-                                    trackImg3,
-                                    width: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                          title: Text(
-                                        trackName3,
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
-                                        style: GoogleFonts.inter(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                            height: 1.3),
-                                      ),),
-                                      ListTile(
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                              leading: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
-                                  child: Image.network(
-                                    trackImg4,
-                                    width: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                          title: Text(
-                                        trackName4,
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
-                                        style: GoogleFonts.inter(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                            height: 1.3),
-                                      ),),
+                    Column(
+                      children: [
+                        Text("This Artist's Genres",
+                            style: GoogleFonts.inter(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                              color: Color.fromARGB(234, 201, 35, 35),
+                            )),
+                        Padding(
+                          padding: EdgeInsets.all(5),
+                          child:Text(genre1 + genre2 + genre3,
+                        textAlign: TextAlign.center,
+                            style: GoogleFonts.inter(
+                                
+                                fontWeight: FontWeight.bold, fontSize: 16))
+                        )
                       ],
                     ),
                     ExpansionTile(
                       backgroundColor: Colors.lightGreen,
                       title: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children:[
-                        Text(
-                      "Related Artists",
-                      style: GoogleFonts.inter(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 22,
-                          color: Color.fromARGB(255, 232, 225, 239)),
-                    ),
-                      ],
+                        children: [
+                          Text(
+                            "Popular Albums",
+                            style: GoogleFonts.inter(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22,
+                                color: Color.fromARGB(255, 232, 225, 239)),
+                          ),
+                        ],
                       ),
                       children: <Widget>[
                         ListTile(
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                              leading: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
-                                  child: Image.network(
-                                    relatedArtist1.images!.first.url!,
-                                    width: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10),
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            child: Image.network(
+                              trackImg2,
+                              width: MediaQuery.sizeOf(context).height * 0.135,
+                              height: MediaQuery.sizeOf(context).height * 0.135,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
                           title: Text(
-                                        relatedArtist1.name as String,
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
-                                        style: GoogleFonts.inter(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                            height: 1.3),
-                                      ),),
-                                      ListTile(
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                              leading: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
-                                  child: Image.network(
-                                    relatedArtist2.images!.first.url!,
-                                    width: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
+                            trackName2,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: GoogleFonts.inter(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                height: 1.3),
+                          ),
+                        ),
+                        ListTile(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10),
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            child: Image.network(
+                              trackImg1,
+                              width: MediaQuery.sizeOf(context).height * 0.135,
+                              height: MediaQuery.sizeOf(context).height * 0.135,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
                           title: Text(
-                                        relatedArtist2.name as String,
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
-                                        style: GoogleFonts.inter(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                            height: 1.3),
-                                      ),),
-                                      ListTile(
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                              leading: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
-                                  child: Image.network(
-                                    relatedArtist3.images!.first.url!,
-                                    width: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
+                            trackName1,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: GoogleFonts.inter(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                height: 1.3),
+                          ),
+                        ),
+                        ListTile(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10),
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            child: Image.network(
+                              trackImg3,
+                              width: MediaQuery.sizeOf(context).height * 0.135,
+                              height: MediaQuery.sizeOf(context).height * 0.135,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
                           title: Text(
-                                        relatedArtist3.name as String,
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
-                                        style: GoogleFonts.inter(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                            height: 1.3),
-                                      ),),
-                                      ListTile(
-                          contentPadding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 10),
-                              leading: ClipRRect(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(5)),
-                                  child: Image.network(
-                                    relatedArtist4.images!.first.url!,
-                                    width: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    height: MediaQuery.sizeOf(context).height *
-                                        0.135,
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
+                            trackName3,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: GoogleFonts.inter(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                height: 1.3),
+                          ),
+                        ),
+                        ListTile(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10),
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            child: Image.network(
+                              trackImg4,
+                              width: MediaQuery.sizeOf(context).height * 0.135,
+                              height: MediaQuery.sizeOf(context).height * 0.135,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
                           title: Text(
-                                        relatedArtist4.name as String,
-                                        textAlign: TextAlign.center,
-                                        maxLines: 2,
-                                        style: GoogleFonts.inter(
-                                            color: Colors.black,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w700,
-                                            height: 1.3),
-                                      ),),
+                            trackName4,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: GoogleFonts.inter(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                height: 1.3),
+                          ),
+                        ),
                       ],
                     ),
-                    // SingleChildScrollView(
-                    //   scrollDirection: Axis.horizontal,
-                    //   // child: Row(
-                    //   //   crossAxisAlignment: CrossAxisAlignment.start,
-                    //   //   children: [
-                    //   //     SizedBox(
-                    //   //       height: MediaQuery.sizeOf(context).height * 0.135,
-                    //   //       width: 20,
-                    //   //     ),
-                    //   //     Padding(
-                    //   //         padding: EdgeInsets.only(top: 20, bottom: 10),
-                    //   //         child: Column(children: [
-                    //   //           ClipRRect(
-                    //   //             borderRadius:
-                    //   //                 BorderRadius.all(Radius.circular(25)),
-                    //   //             child: Image.network(
-                    //   //               trackImg1,
-                    //   //               width: MediaQuery.sizeOf(context).height *
-                    //   //                   0.135,
-                    //   //               height: MediaQuery.sizeOf(context).height *
-                    //   //                   0.135,
-                    //   //               fit: BoxFit.cover,
-                    //   //             ),
-                    //   //           ),
-                    //   //           Container(
-                    //   //               width: MediaQuery.sizeOf(context).height *
-                    //   //                   0.135,
-                    //   //               child: Padding(
-                    //   //                 padding: const EdgeInsets.only(top: 8.0),
-                    //   //                 child: Text(
-                    //   //                   trackName1,
-                    //   //                   textAlign: TextAlign.center,
-                    //   //                   maxLines: 2,
-                    //   //                   style: GoogleFonts.inter(
-                    //   //                       color: Colors.black,
-                    //   //                       fontSize: 16,
-                    //   //                       fontWeight: FontWeight.w700,
-                    //   //                       height: 1.3),
-                    //   //                 ),
-                    //   //               ))
-                    //   //         ])),
-                    //   //     Padding(
-                    //   //         padding: EdgeInsets.only(
-                    //   //             left: 20, right: 20, top: 20, bottom: 10),
-                    //   //         child: Column(children: [
-                    //   //           ClipRRect(
-                    //   //             borderRadius:
-                    //   //                 BorderRadius.all(Radius.circular(25)),
-                    //   //             child: Image.network(
-                    //   //               trackImg2,
-                    //   //               width: MediaQuery.sizeOf(context).height *
-                    //   //                   0.135,
-                    //   //               height: MediaQuery.sizeOf(context).height *
-                    //   //                   0.135,
-                    //   //               fit: BoxFit.cover,
-                    //   //             ),
-                    //   //           ),
-                    //   //           Container(
-                    //   //               width: MediaQuery.sizeOf(context).height *
-                    //   //                   0.135,
-                    //   //               child: Padding(
-                    //   //                 padding: const EdgeInsets.only(top: 8.0),
-                    //   //                 child: Text(
-                    //   //                   trackName2,
-                    //   //                   textAlign: TextAlign.center,
-                    //   //                   maxLines: 2,
-                    //   //                   style: GoogleFonts.inter(
-                    //   //                       color: Colors.black,
-                    //   //                       fontSize: 16,
-                    //   //                       fontWeight: FontWeight.w700,
-                    //   //                       height: 1.3),
-                    //   //                 ),
-                    //   //               ))
-                    //   //         ])),
-                    //   //     Padding(
-                    //   //         padding: EdgeInsets.only(top: 20, bottom: 10),
-                    //   //         child: Column(children: [
-                    //   //           ClipRRect(
-                    //   //             borderRadius:
-                    //   //                 BorderRadius.all(Radius.circular(25)),
-                    //   //             child: Image.network(
-                    //   //               trackImg3,
-                    //   //               width: MediaQuery.sizeOf(context).height *
-                    //   //                   0.135,
-                    //   //               height: MediaQuery.sizeOf(context).height *
-                    //   //                   0.135,
-                    //   //               fit: BoxFit.cover,
-                    //   //             ),
-                    //   //           ),
-                    //   //           Container(
-                    //   //               width: MediaQuery.sizeOf(context).height *
-                    //   //                   0.135,
-                    //   //               child: Padding(
-                    //   //                 padding: const EdgeInsets.only(top: 8.0),
-                    //   //                 child: Text(
-                    //   //                   trackName3,
-                    //   //                   textAlign: TextAlign.center,
-                    //   //                   maxLines: 2,
-                    //   //                   style: GoogleFonts.inter(
-                    //   //                       color: Colors.black,
-                    //   //                       fontSize: 16,
-                    //   //                       fontWeight: FontWeight.w700,
-                    //   //                       height: 1.3),
-                    //   //                 ),
-                    //   //               ))
-                    //   //         ])),
-                              
-                    //   //     SizedBox(
-                    //   //       height: MediaQuery.sizeOf(context).height * 0.135,
-                    //   //       width: 20,
-                    //   //     ),
-                    //   //   ],
-                    //   // ),
-                    // ),
-                    // Padding(
-                    //     padding: EdgeInsets.all(0),
-                    //     child: Text(
-                    //       "Related Artists",
-                    //       style: GoogleFonts.inter(
-                    //           fontWeight: FontWeight.bold,
-                    //           fontSize: 22,
-                    //           color: Color.fromARGB(255, 232, 225, 239)),
-                    //     )),
-                    /*
-                  STARTS HERE 
-                  WOOFNEWIOFNEWIFNOWENF
-                  NWFOIEWNFIEWNFIEWN
-                  FIEWFNIWENFINWEUF
-                  FNUIEWINFIUEWNFi
-                  */
-
-                    // SingleChildScrollView(
-                    //   scrollDirection: Axis.horizontal,
-                    //   child: Row(
-                    //     crossAxisAlignment: CrossAxisAlignment.start,
-                    //     children: [
-                    //       SizedBox(
-                    //         height: MediaQuery.sizeOf(context).height * 0.135,
-                    //         width: 20,
-                    //       ),
-                    //       Padding(
-                    //           padding: EdgeInsets.symmetric(vertical: 20),
-                    //           child: Column(children: [
-                    //             ClipRRect(
-                    //               borderRadius:
-                    //                   BorderRadius.all(Radius.circular(25)),
-                    //               child: Image.network(
-                    //                 relatedArtist1.images!.first.url!,
-                    //                 width: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 height: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 fit: BoxFit.cover,
-                    //               ),
-                    //             ),
-                    //             Container(
-                    //                 width: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 child: Padding(
-                    //                   padding: const EdgeInsets.only(top: 8.0),
-                    //                   child: Text(
-                    //                     relatedArtist1.name!,
-                    //                     textAlign: TextAlign.center,
-                    //                     maxLines: 2,
-                    //                     style: GoogleFonts.inter(
-                    //                         color: Colors.black,
-                    //                         fontSize: 16,
-                    //                         fontWeight: FontWeight.w700,
-                    //                         height: 1.3),
-                    //                   ),
-                    //                 ))
-                    //           ])),
-                    //       Padding(
-                    //           padding: EdgeInsets.all(20),
-                    //           child: Column(children: [
-                    //             ClipRRect(
-                    //               borderRadius:
-                    //                   BorderRadius.all(Radius.circular(25)),
-                    //               child: Image.network(
-                    //                 relatedArtist2.images!.first.url!,
-                    //                 width: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 height: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 fit: BoxFit.cover,
-                    //               ),
-                    //             ),
-                    //             Container(
-                    //                 width: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 child: Padding(
-                    //                   padding: const EdgeInsets.only(top: 8.0),
-                    //                   child: Text(
-                    //                     relatedArtist2.name!,
-                    //                     textAlign: TextAlign.center,
-                    //                     maxLines: 2,
-                    //                     style: GoogleFonts.inter(
-                    //                         color: Colors.black,
-                    //                         fontSize: 16,
-                    //                         fontWeight: FontWeight.w700,
-                    //                         height: 1.3),
-                    //                   ),
-                    //                 ))
-                    //           ])),
-                    //       Padding(
-                    //           padding: EdgeInsets.symmetric(vertical: 20),
-                    //           child: Column(children: [
-                    //             ClipRRect(
-                    //               borderRadius:
-                    //                   BorderRadius.all(Radius.circular(25)),
-                    //               child: Image.network(
-                    //                 relatedArtist3.images!.first.url!,
-                    //                 width: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 height: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 fit: BoxFit.cover,
-                    //               ),
-                    //             ),
-                    //             Container(
-                    //                 width: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 child: Padding(
-                    //                   padding: const EdgeInsets.only(top: 8.0),
-                    //                   child: Text(
-                    //                     relatedArtist3.name!,
-                    //                     textAlign: TextAlign.center,
-                    //                     maxLines: 2,
-                    //                     style: GoogleFonts.inter(
-                    //                         color: Colors.black,
-                    //                         fontSize: 16,
-                    //                         fontWeight: FontWeight.w700,
-                    //                         height: 1.3),
-                    //                   ),
-                    //                 ))
-                    //           ])),
-                    //       SizedBox(
-                    //         height: MediaQuery.sizeOf(context).height * 0.135,
-                    //         width: 20,
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
-                    // SingleChildScrollView(
-                    //   scrollDirection: Axis.horizontal,
-                    //   child: Row(
-                    //     crossAxisAlignment: CrossAxisAlignment.start,
-                    //     children: [
-                    //       SizedBox(
-                    //         height: MediaQuery.sizeOf(context).height * 0.135,
-                    //         width: 20,
-                    //       ),
-                    //       Padding(
-                    //           padding: EdgeInsets.symmetric(vertical: 20),
-                    //           child: Column(children: [
-                    //             ClipRRect(
-                    //               borderRadius:
-                    //                   BorderRadius.all(Radius.circular(25)),
-                    //               child: Image.network(
-                    //                 relatedArtist1.images!.first.url!,
-                    //                 width: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 height: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 fit: BoxFit.cover,
-                    //               ),
-                    //             ),
-                    //             Container(
-                    //                 width: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 child: Padding(
-                    //                   padding: const EdgeInsets.only(top: 8.0),
-                    //                   child: Text(
-                    //                     relatedArtist1.name!,
-                    //                     textAlign: TextAlign.center,
-                    //                     maxLines: 2,
-                    //                     style: GoogleFonts.inter(
-                    //                         color: Colors.black,
-                    //                         fontSize: 16,
-                    //                         fontWeight: FontWeight.w700,
-                    //                         height: 1.3),
-                    //                   ),
-                    //                 ))
-                    //           ])),
-                    //       Padding(
-                    //           padding: EdgeInsets.all(20),
-                    //           child: Column(children: [
-                    //             ClipRRect(
-                    //               borderRadius:
-                    //                   BorderRadius.all(Radius.circular(25)),
-                    //               child: Image.network(
-                    //                 relatedArtist2.images!.first.url!,
-                    //                 width: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 height: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 fit: BoxFit.cover,
-                    //               ),
-                    //             ),
-                    //             Container(
-                    //                 width: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 child: Padding(
-                    //                   padding: const EdgeInsets.only(top: 8.0),
-                    //                   child: Text(
-                    //                     relatedArtist2.name!,
-                    //                     textAlign: TextAlign.center,
-                    //                     maxLines: 2,
-                    //                     style: GoogleFonts.inter(
-                    //                         color: Colors.black,
-                    //                         fontSize: 16,
-                    //                         fontWeight: FontWeight.w700,
-                    //                         height: 1.3),
-                    //                   ),
-                    //                 ))
-                    //           ])),
-                    //       Padding(
-                    //           padding: EdgeInsets.symmetric(vertical: 20),
-                    //           child: Column(children: [
-                    //             ClipRRect(
-                    //               borderRadius:
-                    //                   BorderRadius.all(Radius.circular(25)),
-                    //               child: Image.network(
-                    //                 relatedArtist3.images!.first.url!,
-                    //                 width: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 height: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 fit: BoxFit.cover,
-                    //               ),
-                    //             ),
-                    //             Container(
-                    //                 width: MediaQuery.sizeOf(context).height *
-                    //                     0.135,
-                    //                 child: Padding(
-                    //                   padding: const EdgeInsets.only(top: 8.0),
-                    //                   child: Text(
-                    //                     relatedArtist3.name!,
-                    //                     textAlign: TextAlign.center,
-                    //                     maxLines: 2,
-                    //                     style: GoogleFonts.inter(
-                    //                         color: Colors.black,
-                    //                         fontSize: 16,
-                    //                         fontWeight: FontWeight.w700,
-                    //                         height: 1.3),
-                    //                   ),
-                    //                 ))
-                    //           ])),
-                    //       SizedBox(
-                    //         height: MediaQuery.sizeOf(context).height * 0.135,
-                    //         width: 20,
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
+                    ExpansionTile(
+                      backgroundColor: Colors.lightGreen,
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Text(
+                            "Related Artists",
+                            style: GoogleFonts.inter(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 22,
+                                color: Color.fromARGB(255, 232, 225, 239)),
+                          ),
+                        ],
+                      ),
+                      children: <Widget>[
+                        ListTile(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10),
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            child: Image.network(
+                              relatedArtist1.images!.first.url!,
+                              width: MediaQuery.sizeOf(context).height * 0.135,
+                              height: MediaQuery.sizeOf(context).height * 0.135,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          title: Text(
+                            relatedArtist1.name as String,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: GoogleFonts.inter(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                height: 1.3),
+                          ),
+                        ),
+                        ListTile(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10),
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            child: Image.network(
+                              relatedArtist2.images!.first.url!,
+                              width: MediaQuery.sizeOf(context).height * 0.135,
+                              height: MediaQuery.sizeOf(context).height * 0.135,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          title: Text(
+                            relatedArtist2.name as String,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: GoogleFonts.inter(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                height: 1.3),
+                          ),
+                        ),
+                        ListTile(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10),
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            child: Image.network(
+                              relatedArtist3.images!.first.url!,
+                              width: MediaQuery.sizeOf(context).height * 0.135,
+                              height: MediaQuery.sizeOf(context).height * 0.135,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          title: Text(
+                            relatedArtist3.name as String,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: GoogleFonts.inter(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                height: 1.3),
+                          ),
+                        ),
+                        ListTile(
+                          contentPadding: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 10),
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.all(Radius.circular(5)),
+                            child: Image.network(
+                              relatedArtist4.images!.first.url!,
+                              width: MediaQuery.sizeOf(context).height * 0.135,
+                              height: MediaQuery.sizeOf(context).height * 0.135,
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          title: Text(
+                            relatedArtist4.name as String,
+                            textAlign: TextAlign.center,
+                            maxLines: 2,
+                            style: GoogleFonts.inter(
+                                color: Colors.black,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                height: 1.3),
+                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(8),
+                      
+                       child:  SizedBox(
+                         height: 20,
+                          child:Text("Created by Arsham, Zanan, and Hayden")
+                        )
+                    )
                   ],
+                  
                 ),
               ),
             );
