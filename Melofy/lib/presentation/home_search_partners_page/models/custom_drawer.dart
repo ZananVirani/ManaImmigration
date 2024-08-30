@@ -363,14 +363,7 @@ class CustomDrawer extends StatelessWidget {
                         ),
                       ],
                     ),
-                    Padding(
-                      padding: EdgeInsets.all(8),
-                      
-                       child:  SizedBox(
-                         height: 20,
-                          child:Text("Created by Arsham, Zanan, and Hayden")
-                        )
-                    )
+                   
                   ],
                   
                 ),
