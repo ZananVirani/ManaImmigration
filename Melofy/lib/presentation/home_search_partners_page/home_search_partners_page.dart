@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:Melofy/presentation/home_search_partners_page/models/custom_drawer.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:Melofy/API/api_calls.dart';
 import 'package:Melofy/API/models/track.dart';
