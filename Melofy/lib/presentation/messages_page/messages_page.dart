@@ -637,7 +637,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                                 (Set) {
                                           return Size(
                                               MediaQuery.sizeOf(context).width *
-                                                  .35,
+                                                  .4,
                                               4);
                                         }), side:
                                             WidgetStateProperty.resolveWith(
@@ -756,7 +756,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                                 (Set) {
                                           return Size(
                                               MediaQuery.sizeOf(context).width *
-                                                  .3,
+                                                  .25,
                                               4);
                                         }), side:
                                             WidgetStateProperty.resolveWith(

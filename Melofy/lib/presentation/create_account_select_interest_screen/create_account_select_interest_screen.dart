@@ -94,9 +94,9 @@ class _CreateAccountSelectInterestScreenState
                                         physics: ScrollPhysics(),
                                         gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
-                                                maxCrossAxisExtent: 200.h,
+                                                maxCrossAxisExtent: 90.h,
                                                 mainAxisSpacing: 4.v,
-                                                crossAxisSpacing: 60.h,
+                                                crossAxisSpacing: 20.h,
                                                 mainAxisExtent: 135.v),
                                         itemCount:
                                             AppListData.interestList.length,
