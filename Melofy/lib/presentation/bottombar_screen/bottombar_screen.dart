@@ -24,15 +24,18 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      color: AppColor.white,
-      home: Center(child: HomeSearchPartnersPage()),
-      routes: {
-        '/home_page': (context) => const HomeSearchPartnersPage(),
-        '/liked_songs': (context) => const MessagesPage()
-      },
-      initialRoute: 'home_page',
+    return PopScope(
+      canPop: false,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        color: AppColor.white,
+        home: Center(child: HomeSearchPartnersPage()),
+        routes: {
+          '/home_page': (context) => const HomeSearchPartnersPage(),
+          '/liked_songs': (context) => const MessagesPage()
+        },
+        initialRoute: 'home_page',
+      ),
     );
     // return GetBuilder<BottomBarScreenController>(
     //   builder: (controller) {

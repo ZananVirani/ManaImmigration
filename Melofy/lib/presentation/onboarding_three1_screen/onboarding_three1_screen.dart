@@ -25,10 +25,8 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: WillPopScope(
-        onWillPop: () {
-          return Future(() => false);
-        },
+      child: PopScope(
+        canPop: false,
         child: Scaffold(
             backgroundColor: appTheme.secondaryColor,
             body: Column(
@@ -53,7 +51,7 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
                     //     margin: EdgeInsets.only(
                     //         left: 24.h, right: 24.h, top: 5.h, bottom: 16.h),
                     //     onPressed: () {
-                    //       Get.toNamed(AppRoutes.createAccountPhoneNumberScreen);
+                    //       Get.offAndToNamed(AppRoutes.createAccountPhoneNumberScreen);
                     //     },
                     //     buttonStyle: CustomButtonStyles.fillPrimary),
                     CustomElevatedButton(

@@ -23,150 +23,157 @@ class _CreateAccountSelectInterestScreenState
   final checkedMap = {};
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      Scaffold(
-        body: CustomImageView(
-            imagePath: ImageConstant.selectionScreen,
-            width: double.infinity,
-            height: double.infinity,
-            fit: BoxFit.cover),
-      ),
-      SafeArea(
-        child: Scaffold(
-            backgroundColor: Colors.transparent,
-            appBar: PreferredSize(
-              preferredSize: Size(
-                  double.infinity, MediaQuery.sizeOf(context).height * 0.2),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 12),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Text(
-                      "Choose Your Genres!",
-                      style: GoogleFonts.poppins(
-                          letterSpacing: -1,
-                          color: Colors.black,
-                          fontSize: 24.fSize,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                        width: MediaQuery.sizeOf(context).width * 0.03,
-                        height: 0),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: IconButton(
-                        onPressed: () => showLogoutDialog(context),
-                        icon: Icon(Icons.logout,
-                            color: AppColor.primaryColor, size: 27.adaptSize),
+    return PopScope(
+      canPop: false,
+      child: Stack(children: [
+        Scaffold(
+          body: CustomImageView(
+              imagePath: ImageConstant.selectionScreen,
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.cover),
+        ),
+        SafeArea(
+          child: Scaffold(
+              backgroundColor: Colors.transparent,
+              appBar: PreferredSize(
+                preferredSize: Size(
+                    double.infinity, MediaQuery.sizeOf(context).height * 0.2),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        "Choose Your Genres!",
+                        style: GoogleFonts.poppins(
+                            letterSpacing: -1,
+                            color: Colors.black,
+                            fontSize: 24.fSize,
+                            fontWeight: FontWeight.bold),
                       ),
-                    )
-                  ],
+                      SizedBox(
+                          width: MediaQuery.sizeOf(context).width * 0.03,
+                          height: 0),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: IconButton(
+                          onPressed: () => showLogoutDialog(context),
+                          icon: Icon(Icons.logout,
+                              color: AppColor.primaryColor, size: 27.adaptSize),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-            body: SafeArea(
-                child: FutureBuilder(
-                    future: trackList,
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasData)
-                        return Text("");
-                      else {
-                        for (CreateAccountSelectInterestModel genre
-                            in AppListData.interestList) {
-                          checkedMap[genre.genreName] =
-                              snapshot.data!.contains(genre.genreName);
-                        }
-                        return SingleChildScrollView(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 60, right: 60, top: 20, bottom: 20),
-                                child: SingleChildScrollView(
-                                  child: GetBuilder<
-                                      CreateAccountSelectInterestController>(
-                                    builder: (controller) {
-                                      return GridView.builder(
-                                        shrinkWrap: true,
-                                        scrollDirection: Axis.vertical,
-                                        physics: ScrollPhysics(),
-                                        gridDelegate:
-                                            SliverGridDelegateWithMaxCrossAxisExtent(
-                                                maxCrossAxisExtent: 90.h,
-                                                mainAxisSpacing: 4.v,
-                                                crossAxisSpacing: 20.h,
-                                                mainAxisExtent: 135.v),
-                                        itemCount:
-                                            AppListData.interestList.length,
-                                        itemBuilder: (context, index) {
-                                          return Column(
-                                            children: [
-                                              GestureDetector(
-                                                  onTap: () {
-                                                    checkedMap[AppListData
+              body: SafeArea(
+                  child: FutureBuilder(
+                      future: trackList,
+                      builder: (context, snapshot) {
+                        if (!snapshot.hasData)
+                          return Text("");
+                        else {
+                          for (CreateAccountSelectInterestModel genre
+                              in AppListData.interestList) {
+                            checkedMap[genre.genreName] =
+                                snapshot.data!.contains(genre.genreName);
+                          }
+                          return SingleChildScrollView(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 60, right: 60, top: 20, bottom: 20),
+                                  child: SingleChildScrollView(
+                                    child: GetBuilder<
+                                        CreateAccountSelectInterestController>(
+                                      builder: (controller) {
+                                        return GridView.builder(
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          physics: ScrollPhysics(),
+                                          gridDelegate:
+                                              SliverGridDelegateWithMaxCrossAxisExtent(
+                                                  maxCrossAxisExtent: 150.h,
+                                                  mainAxisSpacing: 4.v,
+                                                  crossAxisSpacing: 20.h,
+                                                  mainAxisExtent: 135.v),
+                                          itemCount:
+                                              AppListData.interestList.length,
+                                          itemBuilder: (context, index) {
+                                            return Column(
+                                              children: [
+                                                GestureDetector(
+                                                    onTap: () {
+                                                      checkedMap[
+                                                              AppListData
+                                                                  .interestList[
+                                                                      index]
+                                                                  .genreName] =
+                                                          !checkedMap[
+                                                              AppListData
+                                                                  .interestList[
+                                                                      index]
+                                                                  .genreName];
+                                                      controller.update();
+                                                    },
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              8.0),
+                                                      child: checkedMap[
+                                                              AppListData
+                                                                  .interestList[
+                                                                      index]
+                                                                  .genreName]
+                                                          ? buildGenreImageLiked(
+                                                              context,
+                                                              AppListData
+                                                                  .interestList[
+                                                                      index]
+                                                                  .genreName)
+                                                          : buildGenreImage(
+                                                              context,
+                                                              AppListData
+                                                                  .interestList[
+                                                                      index]
+                                                                  .genreName),
+                                                    )),
+                                                Text(
+                                                    AppListData
+                                                                .interestList[
+                                                                    index]
+                                                                .inrerestName
+                                                                .length >
+                                                            11
+                                                        ? "Rap"
+                                                        : AppListData
                                                             .interestList[index]
-                                                            .genreName] =
-                                                        !checkedMap[AppListData
-                                                            .interestList[index]
-                                                            .genreName];
-                                                    controller.update();
-                                                  },
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: checkedMap[
-                                                            AppListData
-                                                                .interestList[
-                                                                    index]
-                                                                .genreName]
-                                                        ? buildGenreImageLiked(
-                                                            context,
-                                                            AppListData
-                                                                .interestList[
-                                                                    index]
-                                                                .genreName)
-                                                        : buildGenreImage(
-                                                            context,
-                                                            AppListData
-                                                                .interestList[
-                                                                    index]
-                                                                .genreName),
-                                                  )),
-                                              Text(
-                                                  AppListData
-                                                              .interestList[
-                                                                  index]
-                                                              .inrerestName
-                                                              .length >
-                                                          11
-                                                      ? "Rap"
-                                                      : AppListData
-                                                          .interestList[index]
-                                                          .inrerestName,
-                                                  style: GoogleFonts.poppins(
-                                                      color: AppColor.black,
-                                                      fontSize: 16.fSize,
-                                                      fontWeight:
-                                                          FontWeight.bold))
-                                            ],
-                                          );
-                                        },
-                                      );
-                                    },
+                                                            .inrerestName,
+                                                    style: GoogleFonts.poppins(
+                                                        color: AppColor.black,
+                                                        fontSize: 16.fSize,
+                                                        fontWeight:
+                                                            FontWeight.bold))
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        );
-                      }
-                    })),
-            bottomNavigationBar: _buildContinue(context)),
-      )
-    ]);
+                              ],
+                            ),
+                          );
+                        }
+                      })),
+              bottomNavigationBar: _buildContinue(context)),
+        )
+      ]),
+    );
   }
 
   static void showLogoutDialog(BuildContext context) {
@@ -187,13 +194,14 @@ class _CreateAccountSelectInterestScreenState
           CupertinoDialogAction(
               isDefaultAction: true,
               onPressed: () async {
+                Navigator.pop(context);
                 await PrefData.setIntro(true);
                 await PrefData.setLogin(true);
                 await PrefData.setTutorial(true);
                 await PrefData.setMusicList([]);
                 await PrefData.setGenreList([]);
                 await PrefData.setPrefPlaylist("null");
-                await Get.toNamed(AppRoutes.onboardingThree1Screen);
+                await Get.offAndToNamed(AppRoutes.onboardingThree1Screen);
               },
               child: const Text('Logout')),
         ],
@@ -237,7 +245,7 @@ class _CreateAccountSelectInterestScreenState
                 if (isLogin) {
                   onTapNext(context);
                 } else {
-                  Get.toNamed(AppRoutes.bottomBarScreen);
+                  Get.offAndToNamed(AppRoutes.bottomBarScreen);
                 }
               } else
                 await showCupertinoDialog(

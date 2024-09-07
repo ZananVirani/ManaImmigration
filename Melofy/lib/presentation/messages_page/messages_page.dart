@@ -25,152 +25,159 @@ class _MessagesPageState extends State<MessagesPage> {
     AudioPlayer _player = arguments as AudioPlayer;
     Future<List<Track>?> futureList = PrefData.getMusicList();
 
-    return SafeArea(
-      child: Scaffold(
-        bottomNavigationBar: CustomBottomBar(_player),
-        body: FutureBuilder(
-            future: futureList,
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Center(
-                  child: Text(""),
-                );
-              } else if (snapshot.hasData) {
-                List<Track> likedList = snapshot.data!;
-                return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.only(
-                            left: 24.h, right: 24.h, top: 20.h, bottom: 20.h),
-                        decoration: BoxDecoration(
-                            color: PrimaryColors().tertiaryColor,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color(0x11000000),
-                                blurRadius: 12.h,
-                                offset: Offset(0, 5),
-                                spreadRadius: 0,
-                              )
-                            ]),
-                        child: Row(
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                PrefData.currentIndex = 0;
-                                Navigator.pop(context);
-                              },
-                              child: Container(
-                                margin: EdgeInsets.only(right: 20.h),
-                                height: 30.h,
-                                width: 30.h,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: AppColor.lightGray,
-                                ),
-                                child: Icon(
-                                  Icons.arrow_back_ios_new_rounded,
-                                  color: AppColor.black,
-                                  size: 16.h,
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 5.0),
-                              child: Text(
-                                'My Liked Songs',
-                                style: theme.textTheme.titleLarge!.copyWith(
-                                  color: AppColor.black,
-                                  fontWeight: FontWeight.w900,
-                                  fontSize: 26.fSize,
-                                  letterSpacing: 0,
-                                  wordSpacing: -2,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      _buildSubMenu(likedList, _player),
-                      Expanded(
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: ClampingScrollPhysics(),
-                          primary: true,
-                          padding: EdgeInsets.zero,
-                          itemCount: likedList.length,
-                          itemBuilder: (context, index) {
-                            bool isChecked = checkAll;
-                            Track track = likedList[index];
-
-                            return StatefulBuilder(
-                                builder: (context, setState) {
-                              return Column(
-                                children: [
-                                  ListTile(
-                                    leading: Checkbox(
-                                        activeColor: AppColor.primaryColor,
-                                        value: isChecked,
-                                        tristate: false,
-                                        onChanged: (newBool) {
-                                          setState(() {
-                                            isChecked = !isChecked;
-                                            if (exportList == null)
-                                              exportList = List.from(likedList);
-                                            isChecked
-                                                ? exportList!.add(track)
-                                                : exportList!.remove(track);
-                                          });
-                                        }),
-                                    title: Text(track.name!.length > 20
-                                        ? track.name!.substring(0, 21) + "..."
-                                        : track.name!),
-                                    subtitle: Text(track.artists!.first.name!),
-                                    trailing: Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 8.0),
-                                        child: ElevatedButton(
-                                          style: ButtonStyle(
-                                            side: WidgetStateBorderSide
-                                                .resolveWith((Set) {
-                                              return BorderSide(
-                                                  color: AppColor.primaryColor);
-                                            }),
-                                            backgroundColor:
-                                                WidgetStateColor.resolveWith(
-                                                    (Set) {
-                                              return AppColor.white;
-                                            }),
-                                            iconColor:
-                                                WidgetStateColor.resolveWith(
-                                                    (Set) {
-                                              return AppColor.primaryColor;
-                                            }),
-                                          ),
-                                          child: Icon(Icons.music_note,
-                                              size: 26.adaptSize),
-                                          onPressed: () async {
-                                            await _player.setSource(
-                                                UrlSource(track.previewUrl!));
-                                            await _player.resume();
-                                          },
-                                        )),
+    return PopScope(
+      canPop: false,
+      child: SafeArea(
+        child: Scaffold(
+          bottomNavigationBar: CustomBottomBar(_player),
+          body: FutureBuilder(
+              future: futureList,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Center(
+                    child: Text(""),
+                  );
+                } else if (snapshot.hasData) {
+                  List<Track> likedList = snapshot.data!;
+                  return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(
+                              left: 24.h, right: 24.h, top: 20.h, bottom: 20.h),
+                          decoration: BoxDecoration(
+                              color: PrimaryColors().tertiaryColor,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color(0x11000000),
+                                  blurRadius: 12.h,
+                                  offset: Offset(0, 5),
+                                  spreadRadius: 0,
+                                )
+                              ]),
+                          child: Row(
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  PrefData.currentIndex = 0;
+                                  Navigator.pop(context);
+                                },
+                                child: Container(
+                                  margin: EdgeInsets.only(right: 20.h),
+                                  height: 30.h,
+                                  width: 30.h,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColor.lightGray,
                                   ),
-                                  Container(
-                                      width: double.infinity,
-                                      height: 2.0,
-                                      color: Colors.black12),
-                                ],
-                              );
-                            });
-                          },
+                                  child: Icon(
+                                    Icons.arrow_back_ios_new_rounded,
+                                    color: AppColor.black,
+                                    size: 16.h,
+                                  ),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 5.0),
+                                child: Text(
+                                  'My Liked Songs',
+                                  style: theme.textTheme.titleLarge!.copyWith(
+                                    color: AppColor.black,
+                                    fontWeight: FontWeight.w900,
+                                    fontSize: 26.fSize,
+                                    letterSpacing: 0,
+                                    wordSpacing: -2,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      )
-                    ]);
-              } else {
-                return CircularProgressIndicator(color: AppColor.primaryColor);
-              }
-            }),
+                        _buildSubMenu(likedList, _player),
+                        Expanded(
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: ClampingScrollPhysics(),
+                            primary: true,
+                            padding: EdgeInsets.zero,
+                            itemCount: likedList.length,
+                            itemBuilder: (context, index) {
+                              bool isChecked = checkAll;
+                              Track track = likedList[index];
+
+                              return StatefulBuilder(
+                                  builder: (context, setState) {
+                                return Column(
+                                  children: [
+                                    ListTile(
+                                      leading: Checkbox(
+                                          activeColor: AppColor.primaryColor,
+                                          value: isChecked,
+                                          tristate: false,
+                                          onChanged: (newBool) {
+                                            setState(() {
+                                              isChecked = !isChecked;
+                                              if (exportList == null)
+                                                exportList =
+                                                    List.from(likedList);
+                                              isChecked
+                                                  ? exportList!.add(track)
+                                                  : exportList!.remove(track);
+                                            });
+                                          }),
+                                      title: Text(track.name!.length > 20
+                                          ? track.name!.substring(0, 21) + "..."
+                                          : track.name!),
+                                      subtitle:
+                                          Text(track.artists!.first.name!),
+                                      trailing: Padding(
+                                          padding:
+                                              const EdgeInsets.only(right: 8.0),
+                                          child: ElevatedButton(
+                                            style: ButtonStyle(
+                                              side: WidgetStateBorderSide
+                                                  .resolveWith((Set) {
+                                                return BorderSide(
+                                                    color:
+                                                        AppColor.primaryColor);
+                                              }),
+                                              backgroundColor:
+                                                  WidgetStateColor.resolveWith(
+                                                      (Set) {
+                                                return AppColor.white;
+                                              }),
+                                              iconColor:
+                                                  WidgetStateColor.resolveWith(
+                                                      (Set) {
+                                                return AppColor.primaryColor;
+                                              }),
+                                            ),
+                                            child: Icon(Icons.music_note,
+                                                size: 26.adaptSize),
+                                            onPressed: () async {
+                                              await _player.setSource(
+                                                  UrlSource(track.previewUrl!));
+                                              await _player.resume();
+                                            },
+                                          )),
+                                    ),
+                                    Container(
+                                        width: double.infinity,
+                                        height: 2.0,
+                                        color: Colors.black12),
+                                  ],
+                                );
+                              });
+                            },
+                          ),
+                        )
+                      ]);
+                } else {
+                  return CircularProgressIndicator(
+                      color: AppColor.primaryColor);
+                }
+              }),
+        ),
       ),
     );
   }

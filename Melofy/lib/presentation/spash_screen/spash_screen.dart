@@ -20,7 +20,7 @@ class SpashScreen extends GetWidget<SpashController> {
 
   /// Navigates to the onboardingOneScreen when the action is triggered.
   onTapFrame() {
-    // Get.toNamed(
+    // Get.offAndToNamed(
     //   // AppRoutes.onboardingOneScreen,
     // );
   }

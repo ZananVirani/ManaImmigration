@@ -36,18 +36,24 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Sizer(builder: (context, orientation, deviceType) {
-      return GetMaterialApp(
-        debugShowCheckedModeBanner: false,
-        theme: theme,
-        translations: AppLocalization(),
-        locale: Get.deviceLocale, //for setting localization strings
-        fallbackLocale: Locale('en', 'US'),
-        title: 'Melofy',
-        initialBinding: InitialBindings(),
-        initialRoute: AppRoutes.initialRoute,
-        getPages: AppRoutes.pages,
-      );
-    });
+    return PopScope(
+      canPop: false,
+      child: Sizer(builder: (context, orientation, deviceType) {
+        return PopScope(
+          canPop: false,
+          child: GetMaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: theme,
+            translations: AppLocalization(),
+            locale: Get.deviceLocale, //for setting localization strings
+            fallbackLocale: Locale('en', 'US'),
+            title: 'Melofy',
+            initialBinding: InitialBindings(),
+            initialRoute: AppRoutes.initialRoute,
+            getPages: AppRoutes.pages,
+          ),
+        );
+      }),
+    );
   }
 }

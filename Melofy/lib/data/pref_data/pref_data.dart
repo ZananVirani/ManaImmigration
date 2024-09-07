@@ -460,7 +460,7 @@ class PrefData {
                 await PrefData.setMusicList([]);
                 await PrefData.setGenreList([]);
                 await PrefData.setPrefPlaylist("null");
-                await Get.toNamed(AppRoutes.onboardingThree1Screen);
+                await Get.offAndToNamed(AppRoutes.onboardingThree1Screen);
               },
               child: const Text('Logout')),
         ],
