@@ -1,13 +1,9 @@
-import 'dart:ffi';
 import 'package:Melofy/API/api_calls.dart';
 import 'package:Melofy/API/models/artist.dart' as alias;
 import 'package:Melofy/API/models/related.dart' as related;
 import 'package:Melofy/API/models/track.dart';
-import 'package:Melofy/core/app_export.dart';
 import 'package:change_case/change_case.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -42,16 +38,16 @@ class CustomDrawer extends StatelessWidget {
             String genre2 = "";
             String genre3 = "";
             if (genres.length >= 3) {
-                genre1 = genres[0].toCapitalCase() + ', ';
-                genre2 = genres[1].toCapitalCase() + ', ';
-                genre3 = genres[2].toCapitalCase();
-              } else if (genres.length == 2){
-                genre1 = genres[0].toCapitalCase() + ', ';
-                genre2 = genres[1].toCapitalCase();
-              } else {
-                genre1 = genres[0].toCapitalCase();
-              }
-            
+              genre1 = genres[0].toCapitalCase() + ', ';
+              genre2 = genres[1].toCapitalCase() + ', ';
+              genre3 = genres[2].toCapitalCase();
+            } else if (genres.length == 2) {
+              genre1 = genres[0].toCapitalCase() + ', ';
+              genre2 = genres[1].toCapitalCase();
+            } else {
+              genre1 = genres[0].toCapitalCase();
+            }
+
             //String trackImg = tracks.first.album!.images![1].url;
             String trackImg1 = tracks[1].album!.images![0].url;
             String trackImg2 = tracks[2].album!.images![0].url;
@@ -136,13 +132,11 @@ class CustomDrawer extends StatelessWidget {
                               color: Color.fromARGB(234, 201, 35, 35),
                             )),
                         Padding(
-                          padding: EdgeInsets.all(5),
-                          child:Text(genre1 + genre2 + genre3,
-                        textAlign: TextAlign.center,
-                            style: GoogleFonts.inter(
-                                
-                                fontWeight: FontWeight.bold, fontSize: 16))
-                        )
+                            padding: EdgeInsets.all(5),
+                            child: Text(genre1 + genre2 + genre3,
+                                textAlign: TextAlign.center,
+                                style: GoogleFonts.inter(
+                                    fontWeight: FontWeight.bold, fontSize: 16)))
                       ],
                     ),
                     ExpansionTile(
@@ -363,9 +357,7 @@ class CustomDrawer extends StatelessWidget {
                         ),
                       ],
                     ),
-                   
                   ],
-                  
                 ),
               ),
             );
