@@ -5,7 +5,7 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:Melofy/API/api_calls.dart';
 import 'package:Melofy/API/models/track.dart';
 import 'package:Melofy/data/pref_data/pref_data.dart';
-//import 'package:Melofy/presentation/bottombar_screen/bottombar_screen.dart';
+import 'package:Melofy/presentation/bottombar_screen/bottombar_screen.dart';
 import 'package:Melofy/widgets/custom_bottom_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -969,13 +969,13 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     );
   }
 
-  // Route _createRoute() {
-  //   return PageRouteBuilder(
-  //     pageBuilder: (context, animation, secondaryAnimation) =>
-  //         BottomBarScreen(),
-  //     transitionsBuilder: (context, animation, secondaryAnimation, child) {
-  //       return child;
-  //     },
-  //   );
-  // }
+  Route _createRoute() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) =>
+          BottomBarScreen(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return child;
+      },
+    );
+  }
 }
