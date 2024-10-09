@@ -26,6 +26,7 @@ class HomeSearchPartnersPage extends StatefulWidget {
 class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     with TickerProviderStateMixin {
   bool isPlaying = false;
+  bool doIt = true;
   HomeSearchPartnersController controller =
       Get.put(HomeSearchPartnersController(HomeSearchPartnersModel().obs));
   late AudioPlayer player;
@@ -85,566 +86,563 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
   @override
   Widget build(BuildContext context) {
     return PopScope(
-      canPop: false,
+      canPop: true,
+      onPopInvokedWithResult: (didPop, smth) {
+        print("here");
+        Scaffold.of(context).openDrawer();
+      },
       child: SafeArea(
-        child: PopScope(
-          canPop: false,
-          child: Scaffold(
-            drawer: CustomDrawer(artistID),
-            appBar: AppBar(
-              automaticallyImplyLeading: false,
-              toolbarHeight: 70.v,
-              flexibleSpace: FlexibleSpaceBar(
-                background: Opacity(
-                  opacity: 1,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: PrimaryColors().tertiaryColor,
-                    ),
+        child: Scaffold(
+          drawer: CustomDrawer(artistID),
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            toolbarHeight: 70.v,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Opacity(
+                opacity: 1,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: PrimaryColors().tertiaryColor,
                   ),
                 ),
               ),
-              centerTitle: false,
-              title: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 8.0),
-                    child: Text(
-                      "Melofy",
-                      style: theme.textTheme.titleLarge!.copyWith(
-                        color: AppColor.black,
-                        fontWeight: FontWeight.w900,
-                        fontSize: 28.fSize,
-                        letterSpacing: 0,
-                        wordSpacing: -2,
-                      ),
+            ),
+            centerTitle: false,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(left: 8.0),
+                  child: Text(
+                    "Melofy",
+                    style: theme.textTheme.titleLarge!.copyWith(
+                      color: AppColor.black,
+                      fontWeight: FontWeight.w900,
+                      fontSize: 28.fSize,
+                      letterSpacing: 0,
+                      wordSpacing: -2,
                     ),
                   ),
-                  Row(
-                    children: [
-                      IconButton(
-                          onPressed: () async {
-                            await _createTutorial(0);
-                          },
-                          icon: Icon(Icons.info_outlined, size: 26.adaptSize)),
-                      GestureDetector(
-                        onTap: () {
-                          player.stop();
-                          _animationController.stop();
-                          Get.offAndToNamed(
-                              AppRoutes.createAccountSelectInterestScreen);
+                ),
+                Row(
+                  children: [
+                    IconButton(
+                        onPressed: () async {
+                          await _createTutorial(0);
                         },
-                        child: Padding(
-                          padding: EdgeInsets.all(10.0.adaptSize),
-                          child: Icon(
-                              size: 26.adaptSize,
-                              key: _settingsButtonKey, // tutorial for setting
-                              Icons.settings),
-                        ),
+                        icon: Icon(Icons.info_outlined, size: 26.adaptSize)),
+                    GestureDetector(
+                      onTap: () {
+                        player.stop();
+                        _animationController.stop();
+                        Get.offAndToNamed(
+                            AppRoutes.createAccountSelectInterestScreen);
+                      },
+                      child: Padding(
+                        padding: EdgeInsets.all(10.0.adaptSize),
+                        child: Icon(
+                            size: 26.adaptSize,
+                            key: _settingsButtonKey, // tutorial for setting
+                            Icons.settings),
                       ),
-                    ],
-                  ),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+              ],
             ),
-            bottomNavigationBar: CustomBottomBar(player),
-            body: PopScope(
-              canPop: false,
-              child: Stack(
-                children: [
-                  Center(
-                      // child: Opacity(
-                      //   opacity: .92,
-                      //   child: Container(
-                      //       height: MediaQuery.sizeOf(context).height,
-                      //       child: CustomImageView(
-                      //         imagePath: ImageConstant.background,
-                      //       )),
-                      // ),
-                      child: Container(
-                          width: double.infinity,
-                          height: double.infinity,
-                          color: PrimaryColors().melofyColor)),
-                  Center(
-                    child: FutureBuilder(
-                        future: futureList,
-                        builder: (context, trackList) {
-                          if (errorString != null) {
-                            return Stack(
-                                alignment: AlignmentDirectional.center,
-                                children: [
-                                  Opacity(
-                                    opacity: 0.2,
-                                    child: Container(
-                                      color: Colors.black,
-                                      width: double.infinity,
-                                      height: double.infinity,
-                                    ),
-                                  ),
-                                  AlertDialog(
-                                    elevation: 5.0,
-                                    icon: Icon(HeroIcons.magnifying_glass,
-                                        size: 120.adaptSize),
-                                    title: Text(
-                                        "You have reached the end of the following genres:",
-                                        style:
-                                            CustomTextStyles.bodyLargeGray700),
-                                    content: Text(
-                                      errorString!,
-                                      style:
-                                          CustomTextStyles.bodyMediumBlack600,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                    actions: [
-                                      GestureDetector(
-                                        child: Center(
-                                            child: Text(
-                                          "Go to Interests Screen",
-                                          style: GoogleFonts.bonaNova(
-                                              decoration:
-                                                  TextDecoration.underline,
-                                              fontSize: 18.fSize,
-                                              backgroundColor:
-                                                  AppColor.lightGray,
-                                              color: AppColor.primaryColor,
-                                              fontWeight: FontWeight.bold),
-                                        )),
-                                        onTap: () {
-                                          Get.offAndToNamed(AppRoutes
-                                              .createAccountSelectInterestScreen);
-                                        },
-                                      )
-                                    ],
-                                  ),
-                                ]);
-                          }
-                          if (trackList.hasData) {
-                            return FutureBuilder(
-                                future: tempGenreMap,
-                                builder: (context, anotherTempGenreMap) {
-                                  if (!anotherTempGenreMap.hasData) {
-                                    return Text("");
-                                  } else {
-                                    Map<String, List<Track>> genreMap =
-                                        anotherTempGenreMap.data!;
-                                    Iterable<String> tempGenreKeys =
-                                        genreMap.keys;
-                                    List<String> genreKeys =
-                                        tempGenreKeys.toList();
-                                    return CardSwiper(
-                                      isLoop: false,
-                                      allowedSwipeDirection:
-                                          AllowedSwipeDirection.symmetric(
-                                              horizontal: true,
-                                              vertical: false),
-                                      numberOfCardsDisplayed: 1,
-                                      backCardOffset: Offset(0, 0),
-                                      cardBuilder: (context,
-                                          index,
-                                          horizontalOffsetPercentage,
-                                          verticalOffsetPercentage) {
-                                        Track track = trackList.data![index];
-                                        player.setSource(
-                                            UrlSource(track.previewUrl!));
-                                        String allInfo =
-                                            track.artists!.first.name! +
-                                                " - " +
-                                                track.album!.name!;
-                                        return Center(
-                                          child: ListView(
-                                            physics:
-                                                NeverScrollableScrollPhysics(),
-                                            padding: EdgeInsets.fromLTRB(
-                                                24, 15, 24, 24),
-                                            shrinkWrap: true,
-                                            children: [
-                                              Container(
-                                                height:
-                                                    MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        .65,
-                                                padding: EdgeInsets.all(
-                                                    18.adaptSize),
-                                                decoration: BoxDecoration(
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Color(0x11000000),
-                                                      blurRadius: 16.h,
-                                                      offset: Offset(0, 5),
-                                                      spreadRadius: 0,
-                                                    ),
-                                                  ],
-                                                  borderRadius:
-                                                      BorderRadiusStyle
-                                                          .roundedBorder8,
-                                                  color:
-                                                      PrimaryColors().cardColor,
+          ),
+          bottomNavigationBar: CustomBottomBar(player),
+          body: Stack(
+            children: [
+              Center(
+                  // child: Opacity(
+                  //   opacity: .92,
+                  //   child: Container(
+                  //       height: MediaQuery.sizeOf(context).height,
+                  //       child: CustomImageView(
+                  //         imagePath: ImageConstant.background,
+                  //       )),
+                  // ),
+                  child: Container(
+                      width: double.infinity,
+                      height: double.infinity,
+                      color: PrimaryColors().melofyColor)),
+              Center(
+                child: FutureBuilder(
+                    future: futureList,
+                    builder: (context, trackList) {
+                      if (errorString != null) {
+                        return Stack(
+                            alignment: AlignmentDirectional.center,
+                            children: [
+                              Opacity(
+                                opacity: 0.2,
+                                child: Container(
+                                  color: Colors.black,
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                ),
+                              ),
+                              AlertDialog(
+                                elevation: 5.0,
+                                icon: Icon(HeroIcons.magnifying_glass,
+                                    size: 120.adaptSize),
+                                title: Text(
+                                    "You have reached the end of the following genres:",
+                                    style: CustomTextStyles.bodyLargeGray700),
+                                content: Text(
+                                  errorString!,
+                                  style: CustomTextStyles.bodyMediumBlack600,
+                                  textAlign: TextAlign.center,
+                                ),
+                                actions: [
+                                  GestureDetector(
+                                    child: Center(
+                                        child: Text(
+                                      "Go to Interests Screen",
+                                      style: GoogleFonts.bonaNova(
+                                          decoration: TextDecoration.underline,
+                                          fontSize: 18.fSize,
+                                          backgroundColor: AppColor.lightGray,
+                                          color: AppColor.primaryColor,
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                    onTap: () {
+                                      Get.offAndToNamed(AppRoutes
+                                          .createAccountSelectInterestScreen);
+                                    },
+                                  )
+                                ],
+                              ),
+                            ]);
+                      }
+                      if (trackList.hasData) {
+                        return FutureBuilder(
+                            future: tempGenreMap,
+                            builder: (context, anotherTempGenreMap) {
+                              if (!anotherTempGenreMap.hasData) {
+                                return Text("");
+                              } else {
+                                Map<String, List<Track>> genreMap =
+                                    anotherTempGenreMap.data!;
+                                Iterable<String> tempGenreKeys = genreMap.keys;
+                                List<String> genreKeys = tempGenreKeys.toList();
+
+                                return CardSwiper(
+                                  isLoop: false,
+                                  allowedSwipeDirection:
+                                      AllowedSwipeDirection.symmetric(
+                                          horizontal: true, vertical: false),
+                                  numberOfCardsDisplayed: 1,
+                                  backCardOffset: Offset(0, 0),
+                                  cardBuilder: (context,
+                                      index,
+                                      horizontalOffsetPercentage,
+                                      verticalOffsetPercentage) {
+                                    Track track = trackList.data![index];
+                                    player.setSource(
+                                        UrlSource(track.previewUrl!));
+                                    String allInfo =
+                                        track.artists!.first.name! +
+                                            " - " +
+                                            track.album!.name!;
+
+                                    if (doIt) {
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        setState(() {
+                                          doIt = false;
+                                        });
+                                      });
+                                      WidgetsBinding.instance
+                                          .addPostFrameCallback((_) {
+                                        setState(() {
+                                          artistID = track.artists!.first.id;
+                                        });
+                                      });
+                                    }
+                                    return Center(
+                                      child: ListView(
+                                        physics: NeverScrollableScrollPhysics(),
+                                        padding:
+                                            EdgeInsets.fromLTRB(24, 15, 24, 24),
+                                        shrinkWrap: true,
+                                        children: [
+                                          Container(
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                .65,
+                                            padding:
+                                                EdgeInsets.all(18.adaptSize),
+                                            decoration: BoxDecoration(
+                                              boxShadow: [
+                                                BoxShadow(
+                                                  color: Color(0x11000000),
+                                                  blurRadius: 16.h,
+                                                  offset: Offset(0, 5),
+                                                  spreadRadius: 0,
                                                 ),
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              bottom: 2),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          IconButton(
-                                                              key:
-                                                                  _artistButtonKey,
-                                                              onPressed: () {
-                                                                setState(() {
-                                                                  artistID = track
-                                                                      .artists!
-                                                                      .first
-                                                                      .id;
-                                                                });
+                                              ],
+                                              borderRadius: BorderRadiusStyle
+                                                  .roundedBorder8,
+                                              color: PrimaryColors().cardColor,
+                                            ),
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 2),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      IconButton(
+                                                          key: _artistButtonKey,
+                                                          onPressed: () {
+                                                            setState(() {
+                                                              artistID = track
+                                                                  .artists!
+                                                                  .first
+                                                                  .id;
+                                                            });
 
-                                                                Scaffold.of(
-                                                                        context)
-                                                                    .openDrawer();
-                                                              },
-                                                              icon: const Icon(
-                                                                  Icons.face)),
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              controller
-                                                                  .swiperController
-                                                                  .undo();
+                                                            Scaffold.of(context)
+                                                                .openDrawer();
+                                                          },
+                                                          icon: const Icon(
+                                                              Icons.face)),
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          controller
+                                                              .swiperController
+                                                              .undo();
 
-                                                              controller
-                                                                  .update();
-                                                            },
-                                                            child: Padding(
-                                                              padding: EdgeInsets
-                                                                  .all(10.0
-                                                                      .adaptSize),
-                                                              child: Icon(
-                                                                Icons.refresh,
-                                                                key:
-                                                                    _undoButtonKey,
-                                                              ),
-                                                            ),
+                                                          controller.update();
+                                                        },
+                                                        child: Padding(
+                                                          padding: EdgeInsets
+                                                              .all(10.0
+                                                                  .adaptSize),
+                                                          child: Icon(
+                                                            Icons.refresh,
+                                                            key: _undoButtonKey,
                                                           ),
-                                                        ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                    FutureBuilder(
-                                                        future: Connectivity()
-                                                            .checkConnectivity(),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          if (!snapshot.hasData)
-                                                            return Text("",
-                                                                style: CustomTextStyles
-                                                                    .titleLargeffd97bca);
-                                                          else
-                                                            return snapshot
-                                                                    .data!
-                                                                    .contains(
-                                                                        ConnectivityResult
-                                                                            .none)
-                                                                ? Padding(
-                                                                    padding: const EdgeInsets
+                                                    ],
+                                                  ),
+                                                ),
+                                                FutureBuilder(
+                                                    future: Connectivity()
+                                                        .checkConnectivity(),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      if (!snapshot.hasData)
+                                                        return Text("",
+                                                            style: CustomTextStyles
+                                                                .titleLargeffd97bca);
+                                                      else
+                                                        return snapshot.data!
+                                                                .contains(
+                                                                    ConnectivityResult
+                                                                        .none)
+                                                            ? Padding(
+                                                                padding:
+                                                                    const EdgeInsets
                                                                         .only(
                                                                         left:
                                                                             8.0),
-                                                                    child:
-                                                                        SizedBox(
-                                                                      height: MediaQuery.sizeOf(context)
-                                                                              .height *
-                                                                          0.33,
-                                                                      width: MediaQuery.sizeOf(context)
-                                                                              .width *
-                                                                          .55,
-                                                                      child:
-                                                                          Center(
-                                                                        child: Text(
-                                                                            "Please connect to the internet for picture and audio.",
-                                                                            style:
-                                                                                CustomTextStyles.titleLargeffd97bca),
-                                                                      ),
-                                                                    ),
-                                                                  )
-                                                                : Image.network(
-                                                                    track
-                                                                        .album!
-                                                                        .images!
-                                                                        .first
-                                                                        .url,
-                                                                    height: MediaQuery.sizeOf(context)
-                                                                            .height *
-                                                                        0.33);
-                                                        }),
-                                                    Padding(
-                                                      padding:
-                                                          const EdgeInsets.only(
-                                                              top: 8.0),
-                                                      child: Text(
-                                                        track.name!.length > 25
-                                                            ? track.name!
-                                                                    .substring(
-                                                                        0, 23) +
-                                                                "..."
-                                                            : track.name!,
-                                                        style: theme.textTheme
-                                                            .bodyLarge!
-                                                            .copyWith(
-                                                                fontSize:
-                                                                    18.fSize,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                                color: AppColor
-                                                                    .black),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      allInfo.length > 32
-                                                          ? allInfo.substring(
-                                                                  0, 30) +
-                                                              "..."
-                                                          : allInfo,
-                                                      style: theme
-                                                          .textTheme.bodyMedium,
-                                                    ),
-                                                    Text(
-                                                      "Popularity (0-100) : ${track.popularity!}",
-                                                      style: theme
-                                                          .textTheme.bodyMedium,
-                                                    ),
-                                                    Padding(
-                                                      padding: EdgeInsets.only(
-                                                          top: 18.adaptSize),
-                                                      child: Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              controller
-                                                                  .swiperController
-                                                                  .swipe(
-                                                                CardSwiperDirection
-                                                                    .left,
-                                                              );
-                                                              controller
-                                                                  .update();
-                                                            },
-                                                            child: Container(
-                                                              key:
-                                                                  _dislikeButtonkey,
-                                                              padding: EdgeInsets
-                                                                  .all(15.0
-                                                                      .adaptSize),
-                                                              decoration: BoxDecoration(
+                                                                child: SizedBox(
+                                                                  height: MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .height *
+                                                                      0.33,
+                                                                  width: MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width *
+                                                                      .55,
+                                                                  child: Center(
+                                                                    child: Text(
+                                                                        "Please connect to the internet for picture and audio.",
+                                                                        style: CustomTextStyles
+                                                                            .titleLargeffd97bca),
+                                                                  ),
+                                                                ),
+                                                              )
+                                                            : Image.network(
+                                                                track
+                                                                    .album!
+                                                                    .images!
+                                                                    .first
+                                                                    .url,
+                                                                height: MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .height *
+                                                                    0.33);
+                                                    }),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 8.0),
+                                                  child: Text(
+                                                    track.name!.length > 25
+                                                        ? track.name!.substring(
+                                                                0, 23) +
+                                                            "..."
+                                                        : track.name!,
+                                                    style: theme
+                                                        .textTheme.bodyLarge!
+                                                        .copyWith(
+                                                            fontSize: 18.fSize,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                            color:
+                                                                AppColor.black),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  allInfo.length > 32
+                                                      ? allInfo.substring(
+                                                              0, 30) +
+                                                          "..."
+                                                      : allInfo,
+                                                  style: theme
+                                                      .textTheme.bodyMedium,
+                                                ),
+                                                Text(
+                                                  "Popularity (0-100) : ${track.popularity!}",
+                                                  style: theme
+                                                      .textTheme.bodyMedium,
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsets.only(
+                                                      top: 18.adaptSize),
+                                                  child: Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          controller
+                                                              .swiperController
+                                                              .swipe(
+                                                            CardSwiperDirection
+                                                                .left,
+                                                          );
+                                                          controller.update();
+                                                        },
+                                                        child: Container(
+                                                          key:
+                                                              _dislikeButtonkey,
+                                                          padding: EdgeInsets
+                                                              .all(15.0
+                                                                  .adaptSize),
+                                                          decoration:
+                                                              BoxDecoration(
                                                                   color: AppColor
                                                                       .white,
                                                                   shape: BoxShape
                                                                       .circle,
                                                                   boxShadow: [
-                                                                    BoxShadow(
-                                                                      color: Color(
-                                                                          0x11000000),
-                                                                      blurRadius:
-                                                                          16,
-                                                                      spreadRadius:
-                                                                          0,
-                                                                    )
-                                                                  ]),
-                                                              child: Icon(
-                                                                Icons
-                                                                    .close_rounded,
-                                                                size: MediaQuery.sizeOf(
-                                                                            context)
-                                                                        .height *
-                                                                    0.035,
-                                                              ),
-                                                            ),
+                                                                BoxShadow(
+                                                                  color: Color(
+                                                                      0x11000000),
+                                                                  blurRadius:
+                                                                      16,
+                                                                  spreadRadius:
+                                                                      0,
+                                                                )
+                                                              ]),
+                                                          child: Icon(
+                                                            Icons.close_rounded,
+                                                            size: MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .height *
+                                                                0.035,
                                                           ),
-                                                          Padding(
-                                                            padding:
-                                                                const EdgeInsets
-                                                                    .symmetric(
-                                                                    horizontal:
-                                                                        32.0),
-                                                            child:
-                                                                GestureDetector(
-                                                              onTap: () async {
-                                                                setState(() {
-                                                                  isPlaying =
-                                                                      !isPlaying;
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .symmetric(
+                                                                horizontal:
+                                                                    32.0),
+                                                        child: GestureDetector(
+                                                          onTap: () async {
+                                                            setState(() {
+                                                              isPlaying =
+                                                                  !isPlaying;
 
-                                                                  isPlaying
-                                                                      ? _animationController
-                                                                          .reverse()
-                                                                      : _animationController
-                                                                          .forward();
-                                                                });
-                                                                isPlaying
-                                                                    ? await player
-                                                                        .resume()
-                                                                    : await player
-                                                                        .pause();
-                                                              },
-                                                              child: Container(
-                                                                key:
-                                                                    _playButtonKey,
-                                                                padding: EdgeInsets
-                                                                    .all(15.0
-                                                                        .adaptSize),
-                                                                decoration: BoxDecoration(
-                                                                    color: PrimaryColors()
-                                                                        .blueGray500,
-                                                                    shape: BoxShape
-                                                                        .circle,
-                                                                    boxShadow: [
-                                                                      BoxShadow(
-                                                                        color: Color(
-                                                                            0x11000000),
-                                                                        blurRadius:
-                                                                            16,
-                                                                        spreadRadius:
-                                                                            0,
-                                                                      )
-                                                                    ]),
-                                                                child: Center(
-                                                                  child: AnimatedIcon(
-                                                                      size: MediaQuery.sizeOf(context)
-                                                                              .height *
-                                                                          0.035,
-                                                                      icon: AnimatedIcons
-                                                                          .pause_play,
-                                                                      progress:
-                                                                          _animationController),
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          GestureDetector(
-                                                            onTap: () {
-                                                              controller
-                                                                  .swiperController
-                                                                  .swipe(
-                                                                      CardSwiperDirection
-                                                                          .right);
-
-                                                              controller
-                                                                  .update();
-                                                            },
-                                                            child: Container(
-                                                              key:
-                                                                  _likeButtonKey,
-                                                              padding: EdgeInsets
-                                                                  .all(0.0
-                                                                      .adaptSize),
-                                                              decoration: BoxDecoration(
-                                                                  color: AppColor
-                                                                      .primaryColor,
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                      color: Color(
-                                                                          0x11000000),
-                                                                      blurRadius:
-                                                                          16,
-                                                                      spreadRadius:
-                                                                          0,
-                                                                    )
-                                                                  ]),
-                                                              child: CustomImageView(
-                                                                  imagePath:
-                                                                      ImageConstant
-                                                                          .loveM,
-                                                                  height: MediaQuery.sizeOf(
+                                                              isPlaying
+                                                                  ? _animationController
+                                                                      .reverse()
+                                                                  : _animationController
+                                                                      .forward();
+                                                            });
+                                                            isPlaying
+                                                                ? await player
+                                                                    .resume()
+                                                                : await player
+                                                                    .pause();
+                                                          },
+                                                          child: Container(
+                                                            key: _playButtonKey,
+                                                            padding: EdgeInsets
+                                                                .all(15.0
+                                                                    .adaptSize),
+                                                            decoration: BoxDecoration(
+                                                                color: PrimaryColors()
+                                                                    .blueGray500,
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                boxShadow: [
+                                                                  BoxShadow(
+                                                                    color: Color(
+                                                                        0x11000000),
+                                                                    blurRadius:
+                                                                        16,
+                                                                    spreadRadius:
+                                                                        0,
+                                                                  )
+                                                                ]),
+                                                            child: Center(
+                                                              child: AnimatedIcon(
+                                                                  size: MediaQuery.sizeOf(
                                                                               context)
                                                                           .height *
-                                                                      0.075),
+                                                                      0.035,
+                                                                  icon: AnimatedIcons
+                                                                      .pause_play,
+                                                                  progress:
+                                                                      _animationController),
                                                             ),
                                                           ),
-                                                        ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                      GestureDetector(
+                                                        onTap: () {
+                                                          controller
+                                                              .swiperController
+                                                              .swipe(
+                                                                  CardSwiperDirection
+                                                                      .right);
+
+                                                          controller.update();
+                                                        },
+                                                        child: Container(
+                                                          key: _likeButtonKey,
+                                                          padding:
+                                                              EdgeInsets.all(0.0
+                                                                  .adaptSize),
+                                                          decoration: BoxDecoration(
+                                                              color: AppColor
+                                                                  .primaryColor,
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                  color: Color(
+                                                                      0x11000000),
+                                                                  blurRadius:
+                                                                      16,
+                                                                  spreadRadius:
+                                                                      0,
+                                                                )
+                                                              ]),
+                                                          child: CustomImageView(
+                                                              imagePath:
+                                                                  ImageConstant
+                                                                      .loveM,
+                                                              height: MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .height *
+                                                                  0.075),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
-                                              )
-                                            ],
-                                          ),
-                                        );
-                                      },
-                                      onSwipe: (previousIndex, currentIndex,
-                                          direction) async {
-                                        if (direction ==
-                                            CardSwiperDirection.right) {
-                                          await PrefData.addSong(
-                                              trackList.data![previousIndex]);
-                                        }
-                                        for (int i = 0;
-                                            i < genreMap.length;
-                                            i++) {
-                                          if (genreMap[genreKeys[i]]!.contains(
-                                              trackList.data![previousIndex])) {
-                                            genreMap[genreKeys[i]]!.remove(
-                                                trackList.data![previousIndex]);
-                                            await PrefData.setAvailableSongs(
-                                                genreMap);
-                                            break;
-                                          }
-                                        }
-                                        if (currentIndex == null) {
-                                          player.dispose();
-                                          // Navigator.pushReplacement(
-                                          //     context, _createRoute());
-                                          Get.offAndToNamed(
-                                              AppRoutes.homeSearchPartnersPage);
-                                        }
-                                        return true;
-                                      },
-                                      onUndo: (previousIndex, currentIndex,
-                                          direction) {
-                                        PrefData.removeSong(
-                                            trackList.data![currentIndex]);
-                                        return true;
-                                      },
-                                      cardsCount: trackList.data!.length,
-                                      controller: controller.swiperController,
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     );
-                                  }
-                                });
-                          } else {
-                            return Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CircularProgressIndicator(
-                                    color: AppColor.primaryColor,
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 12.0),
-                                    child: Text(
-                                      "Fetching Songs...",
-                                      style: theme.textTheme.titleLarge!
-                                          .copyWith(
-                                              color: AppColor.primaryColor,
-                                              fontWeight: FontWeight.w700,
-                                              fontSize: 33.fSize),
-                                    ),
-                                  )
-                                ]);
-                          }
-                        }),
-                  ),
-                ],
+                                  },
+                                  onSwipe: (previousIndex, currentIndex,
+                                      direction) async {
+                                    setState(() {
+                                      doIt = true;
+                                    });
+                                    if (direction ==
+                                        CardSwiperDirection.right) {
+                                      await PrefData.addSong(
+                                          trackList.data![previousIndex]);
+                                    }
+                                    for (int i = 0; i < genreMap.length; i++) {
+                                      if (genreMap[genreKeys[i]]!.contains(
+                                          trackList.data![previousIndex])) {
+                                        genreMap[genreKeys[i]]!.remove(
+                                            trackList.data![previousIndex]);
+                                        await PrefData.setAvailableSongs(
+                                            genreMap);
+                                        break;
+                                      }
+                                    }
+                                    if (currentIndex == null) {
+                                      player.dispose();
+                                      // Navigator.pushReplacement(
+                                      //     context, _createRoute());
+                                      Get.offAndToNamed(
+                                          AppRoutes.homeSearchPartnersPage);
+                                    }
+                                    return true;
+                                  },
+                                  onUndo:
+                                      (previousIndex, currentIndex, direction) {
+                                    setState(() {
+                                      doIt = true;
+                                    });
+
+                                    PrefData.removeSong(
+                                        trackList.data![currentIndex]);
+                                    return true;
+                                  },
+                                  cardsCount: trackList.data!.length,
+                                  controller: controller.swiperController,
+                                );
+                              }
+                            });
+                      } else {
+                        return Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircularProgressIndicator(
+                                color: AppColor.primaryColor,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 12.0),
+                                child: Text(
+                                  "Fetching Songs...",
+                                  style: theme.textTheme.titleLarge!.copyWith(
+                                      color: AppColor.primaryColor,
+                                      fontWeight: FontWeight.w700,
+                                      fontSize: 33.fSize),
+                                ),
+                              )
+                            ]);
+                      }
+                    }),
               ),
-            ),
+            ],
           ),
         ),
       ),
