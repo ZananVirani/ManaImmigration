@@ -412,7 +412,8 @@ class _MessagesPageState extends State<MessagesPage> {
                                                                         .inter(
                                                                   color: Colors
                                                                       .black,
-                                                                  fontSize: 11,
+                                                                  fontSize:
+                                                                      10.4,
                                                                 )),
                                                           ),
                                                         ),
