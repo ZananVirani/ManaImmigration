@@ -364,8 +364,11 @@ class _MessagesPageState extends State<MessagesPage> {
                                                   ),
                                                 ),
                                                 content: Container(
-                                                  height: 160,
+                                                  height: 150,
                                                   child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
                                                     children: [
                                                       SizedBox(
                                                         width:
@@ -423,237 +426,227 @@ class _MessagesPageState extends State<MessagesPage> {
                                                         MainAxisAlignment
                                                             .spaceBetween,
                                                     children: [
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                top: 19.0),
-                                                        child: Align(
-                                                          alignment: Alignment
-                                                              .bottomLeft,
-                                                          child: ElevatedButton(
-                                                            onPressed:
-                                                                () async {
-                                                              textController
-                                                                  .text = "";
-                                                              Navigator.pop(
-                                                                  context);
-                                                            },
-                                                            child: Text(
-                                                              "Cancel",
-                                                              style: theme
-                                                                  .textTheme
-                                                                  .titleSmall!
-                                                                  .copyWith(
-                                                                color: AppColor
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                              ),
+                                                      Align(
+                                                        alignment: Alignment
+                                                            .bottomLeft,
+                                                        child: ElevatedButton(
+                                                          onPressed: () async {
+                                                            textController
+                                                                .text = "";
+                                                            Navigator.pop(
+                                                                context);
+                                                          },
+                                                          child: Text(
+                                                            "Cancel",
+                                                            style: theme
+                                                                .textTheme
+                                                                .titleSmall!
+                                                                .copyWith(
+                                                              color: AppColor
+                                                                  .black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
                                                             ),
-                                                            style: ButtonStyle(backgroundColor:
-                                                                WidgetStateColor
-                                                                    .resolveWith(
-                                                                        (Set) {
-                                                              return AppColor
-                                                                  .white; //Color.fromARGB(255, 143, 225, 215);
-                                                            }), fixedSize:
-                                                                WidgetStateProperty
-                                                                    .resolveWith(
-                                                                        (Set) {
-                                                              return Size(
-                                                                  MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width *
-                                                                      .35,
-                                                                  4);
-                                                            }), side:
-                                                                WidgetStateProperty
-                                                                    .resolveWith(
-                                                                        (Set) {
-                                                              return BorderSide(
-                                                                  width: 0.5);
-                                                            })),
                                                           ),
+                                                          style: ButtonStyle(backgroundColor:
+                                                              WidgetStateColor
+                                                                  .resolveWith(
+                                                                      (Set) {
+                                                            return AppColor
+                                                                .white; //Color.fromARGB(255, 143, 225, 215);
+                                                          }), fixedSize:
+                                                              WidgetStateProperty
+                                                                  .resolveWith(
+                                                                      (Set) {
+                                                            return Size(
+                                                                MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .width *
+                                                                    .35,
+                                                                4);
+                                                          }), side:
+                                                              WidgetStateProperty
+                                                                  .resolveWith(
+                                                                      (Set) {
+                                                            return BorderSide(
+                                                                width: 0.5);
+                                                          })),
                                                         ),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                                top: 19.0),
-                                                        child: Align(
-                                                          alignment: Alignment
-                                                              .bottomRight,
-                                                          child: ElevatedButton(
-                                                            onPressed:
-                                                                () async {
-                                                              if (textController
-                                                                      .text ==
-                                                                  "") {
-                                                                await showCupertinoDialog(
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (context) {
-                                                                    return CupertinoAlertDialog(
-                                                                      title: Text(
-                                                                          "Please enter a name."),
-                                                                      actions: [
-                                                                        CupertinoDialogAction(
-                                                                          child:
-                                                                              Text("Ok"),
-                                                                          onPressed:
-                                                                              () {
-                                                                            Navigator.pop(context);
-                                                                          },
-                                                                        )
-                                                                      ],
-                                                                    );
-                                                                  },
-                                                                );
-                                                              } else {
-                                                                var connectionList =
-                                                                    await Connectivity()
-                                                                        .checkConnectivity();
+                                                      Align(
+                                                        alignment: Alignment
+                                                            .bottomRight,
+                                                        child: ElevatedButton(
+                                                          onPressed: () async {
+                                                            if (textController
+                                                                    .text ==
+                                                                "") {
+                                                              await showCupertinoDialog(
+                                                                context:
+                                                                    context,
+                                                                builder:
+                                                                    (context) {
+                                                                  return CupertinoAlertDialog(
+                                                                    title: Text(
+                                                                        "Please enter a name."),
+                                                                    actions: [
+                                                                      CupertinoDialogAction(
+                                                                        child: Text(
+                                                                            "Ok"),
+                                                                        onPressed:
+                                                                            () {
+                                                                          Navigator.pop(
+                                                                              context);
+                                                                        },
+                                                                      )
+                                                                    ],
+                                                                  );
+                                                                },
+                                                              );
+                                                            } else {
+                                                              var connectionList =
+                                                                  await Connectivity()
+                                                                      .checkConnectivity();
 
-                                                                if (!connectionList
-                                                                    .contains(
-                                                                        ConnectivityResult
-                                                                            .none)) {
-                                                                  String
-                                                                      playlistID =
-                                                                      await MakeAPICall.createPlaylist(
-                                                                          textController
-                                                                              .text);
+                                                              if (!connectionList
+                                                                  .contains(
+                                                                      ConnectivityResult
+                                                                          .none)) {
+                                                                String
+                                                                    playlistID =
+                                                                    await MakeAPICall.createPlaylist(
+                                                                        textController
+                                                                            .text);
 
-                                                                  if (exportList!
-                                                                          .length ==
-                                                                      likedList
-                                                                          .length) {
-                                                                    await MakeAPICall.addSongsToPlaylist(
-                                                                        exportList!,
-                                                                        playlistID);
-                                                                    await PrefData
-                                                                        .setPrefPlaylist(
-                                                                            playlistID);
-                                                                    PrefData
-                                                                        .setMusicList(
-                                                                            []);
-                                                                    setState(
-                                                                        () {
-                                                                      exportList =
-                                                                          [];
-                                                                      checkAll =
-                                                                          false;
-                                                                    });
-                                                                  } else {
-                                                                    MakeAPICall.addSongsToPlaylist(
-                                                                        exportList!,
-                                                                        playlistID);
-                                                                    for (Track track
-                                                                        in exportList!) {
-                                                                      likedList
-                                                                          .remove(
-                                                                              track);
-                                                                    }
-                                                                    PrefData.setMusicList(
-                                                                        likedList);
-                                                                    setState(
-                                                                        () {
-                                                                      exportList =
-                                                                          [];
-                                                                      checkAll =
-                                                                          false;
-                                                                    });
-                                                                  }
-                                                                  player.stop();
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                  Navigator.pop(
-                                                                      context);
+                                                                if (exportList!
+                                                                        .length ==
+                                                                    likedList
+                                                                        .length) {
+                                                                  await MakeAPICall
+                                                                      .addSongsToPlaylist(
+                                                                          exportList!,
+                                                                          playlistID);
+                                                                  await PrefData
+                                                                      .setPrefPlaylist(
+                                                                          playlistID);
+                                                                  PrefData
+                                                                      .setMusicList(
+                                                                          []);
+                                                                  setState(() {
+                                                                    exportList =
+                                                                        [];
+                                                                    checkAll =
+                                                                        false;
+                                                                  });
                                                                 } else {
-                                                                  player.stop();
-                                                                  Navigator.pop(
-                                                                      context);
-                                                                  await showDialog(
-                                                                      context:
-                                                                          context,
-                                                                      builder:
-                                                                          (context) {
-                                                                        return AlertDialog(
-                                                                          elevation:
-                                                                              5.0,
-                                                                          icon: Icon(
-                                                                              Icons.wifi_off,
-                                                                              size: 120.adaptSize,
-                                                                              color: AppColor.secondaryLightColor),
-                                                                          title: Text(
-                                                                              "Uh oh! Something went wrong!",
-                                                                              style: CustomTextStyles.bodyLargeGray700),
-                                                                          content:
-                                                                              Text(
-                                                                            "Please check your network connection and try again.",
-                                                                            style:
-                                                                                CustomTextStyles.bodyMediumBlack600,
-                                                                            textAlign:
-                                                                                TextAlign.center,
-                                                                          ),
-                                                                          actions: [
-                                                                            GestureDetector(
-                                                                              child: Center(
-                                                                                  child: Text(
-                                                                                "Ok",
-                                                                                style: TextStyle(fontSize: 18.fSize, backgroundColor: AppColor.lightGray, color: AppColor.primaryColor, fontWeight: FontWeight.bold),
-                                                                              )),
-                                                                              onTap: () {
-                                                                                Navigator.pop(context);
-                                                                              },
-                                                                            )
-                                                                          ],
-                                                                        );
-                                                                      });
+                                                                  MakeAPICall.addSongsToPlaylist(
+                                                                      exportList!,
+                                                                      playlistID);
+                                                                  for (Track track
+                                                                      in exportList!) {
+                                                                    likedList
+                                                                        .remove(
+                                                                            track);
+                                                                  }
+                                                                  PrefData.setMusicList(
+                                                                      likedList);
+                                                                  setState(() {
+                                                                    exportList =
+                                                                        [];
+                                                                    checkAll =
+                                                                        false;
+                                                                  });
                                                                 }
+                                                                player.stop();
+                                                                Navigator.pop(
+                                                                    context);
+                                                                Navigator.pop(
+                                                                    context);
+                                                              } else {
+                                                                player.stop();
+                                                                Navigator.pop(
+                                                                    context);
+                                                                await showDialog(
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (context) {
+                                                                      return AlertDialog(
+                                                                        elevation:
+                                                                            5.0,
+                                                                        icon: Icon(
+                                                                            Icons
+                                                                                .wifi_off,
+                                                                            size:
+                                                                                120.adaptSize,
+                                                                            color: AppColor.secondaryLightColor),
+                                                                        title: Text(
+                                                                            "Uh oh! Something went wrong!",
+                                                                            style:
+                                                                                CustomTextStyles.bodyLargeGray700),
+                                                                        content:
+                                                                            Text(
+                                                                          "Please check your network connection and try again.",
+                                                                          style:
+                                                                              CustomTextStyles.bodyMediumBlack600,
+                                                                          textAlign:
+                                                                              TextAlign.center,
+                                                                        ),
+                                                                        actions: [
+                                                                          GestureDetector(
+                                                                            child: Center(
+                                                                                child: Text(
+                                                                              "Ok",
+                                                                              style: TextStyle(fontSize: 18.fSize, backgroundColor: AppColor.lightGray, color: AppColor.primaryColor, fontWeight: FontWeight.bold),
+                                                                            )),
+                                                                            onTap:
+                                                                                () {
+                                                                              Navigator.pop(context);
+                                                                            },
+                                                                          )
+                                                                        ],
+                                                                      );
+                                                                    });
                                                               }
-                                                            },
-                                                            child: Text(
-                                                              "Export",
-                                                              style: theme
-                                                                  .textTheme
-                                                                  .titleSmall!
-                                                                  .copyWith(
-                                                                color: AppColor
-                                                                    .black,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w700,
-                                                              ),
+                                                            }
+                                                          },
+                                                          child: Text(
+                                                            "Export",
+                                                            style: theme
+                                                                .textTheme
+                                                                .titleSmall!
+                                                                .copyWith(
+                                                              color: AppColor
+                                                                  .black,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w700,
                                                             ),
-                                                            style: ButtonStyle(backgroundColor:
-                                                                WidgetStateColor
-                                                                    .resolveWith(
-                                                                        (Set) {
-                                                              return PrimaryColors()
-                                                                  .tertiaryColor; //Color.fromARGB(255, 143, 225, 215);
-                                                            }), fixedSize:
-                                                                WidgetStateProperty
-                                                                    .resolveWith(
-                                                                        (Set) {
-                                                              return Size(
-                                                                  MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width *
-                                                                      .3,
-                                                                  4);
-                                                            }), side:
-                                                                WidgetStateProperty
-                                                                    .resolveWith(
-                                                                        (Set) {
-                                                              return BorderSide(
-                                                                  width: 0.5);
-                                                            })),
                                                           ),
+                                                          style: ButtonStyle(backgroundColor:
+                                                              WidgetStateColor
+                                                                  .resolveWith(
+                                                                      (Set) {
+                                                            return PrimaryColors()
+                                                                .tertiaryColor; //Color.fromARGB(255, 143, 225, 215);
+                                                          }), fixedSize:
+                                                              WidgetStateProperty
+                                                                  .resolveWith(
+                                                                      (Set) {
+                                                            return Size(
+                                                                MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .width *
+                                                                    .3,
+                                                                4);
+                                                          }), side:
+                                                              WidgetStateProperty
+                                                                  .resolveWith(
+                                                                      (Set) {
+                                                            return BorderSide(
+                                                                width: 0.5);
+                                                          })),
                                                         ),
                                                       ),
                                                     ],
