@@ -7,6 +7,7 @@ import 'package:Melofy/data/pref_data/pref_data.dart';
 import 'package:Melofy/widgets/custom_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:Melofy/core/app_export.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MessagesPage extends StatefulWidget {
   const MessagesPage({super.key});
@@ -362,23 +363,58 @@ class _MessagesPageState extends State<MessagesPage> {
                                                     fontWeight: FontWeight.w900,
                                                   ),
                                                 ),
-                                                content: SizedBox(
-                                                  width:
-                                                      MediaQuery.sizeOf(context)
-                                                              .width *
-                                                          .9,
-                                                  child: TextFormField(
-                                                    decoration: InputDecoration(
-                                                        hintText:
-                                                            "Type here..."),
-                                                    controller: textController,
-                                                    style: theme
-                                                        .textTheme.titleSmall!
-                                                        .copyWith(
-                                                      color: AppColor.black,
-                                                      fontWeight:
-                                                          FontWeight.w700,
-                                                    ),
+                                                content: Container(
+                                                  height: 160,
+                                                  child: Column(
+                                                    children: [
+                                                      SizedBox(
+                                                        width:
+                                                            MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width *
+                                                                .9,
+                                                        child: TextFormField(
+                                                          decoration:
+                                                              InputDecoration(
+                                                                  hintText:
+                                                                      "Type here..."),
+                                                          controller:
+                                                              textController,
+                                                          style: theme.textTheme
+                                                              .titleSmall!
+                                                              .copyWith(
+                                                            color:
+                                                                AppColor.black,
+                                                            fontWeight:
+                                                                FontWeight.w700,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(top: 8.0),
+                                                        child: SizedBox(
+                                                          width:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width *
+                                                                  .9,
+                                                          child: RichText(
+                                                            text: TextSpan(
+                                                                text:
+                                                                    "Disclaimer: New Playlist May Not Immediately Show Up In Your Spotify Library. You Must:\nGo To Spotify Search --> Search The Name Of Your New Playlist --> Open The Playlist --> Click The 3 Dots (...) --> Click 'Add To Your Library'",
+                                                                style:
+                                                                    GoogleFonts
+                                                                        .inter(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  fontSize: 11,
+                                                                )),
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
                                                   ),
                                                 ),
                                                 actions: [
