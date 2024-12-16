@@ -5,6 +5,7 @@ Melofy is a mobile application designed to revolutionize how users discover and 
 ## Key features include:
 
 - Streamlined Music Discovery: Swipe right to save songs you love directly to your Spotify playlists, or left to skip.
+- Facilitated Artist Discovery: If you like a song, you can learn more about its artist (top albums, top songs, etc.) and even find similar artists! 
 - Spotify Integration: Seamlessly connects to your Spotify account, enabling quick access to personalized recommendations and effortless playlist management.
 - Optimized Performance: Built with Flutter for smooth, cross-platform functionality, and enhanced with an efficient recommendation algorithm that reduces API calls and boosts speed.
   
