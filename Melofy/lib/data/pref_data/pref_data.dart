@@ -1,85 +1,109 @@
+/**
+ * File that contains all of the main interactions between shared preferences.
+ */
+
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:Melofy/API/models/track.dart';
 import 'package:Melofy/core/app_export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:oauth2_client/access_token_response.dart';
 
+/**
+ * Class that contains all of the main interactions between shared preferences.
+ */
 class PrefData {
   static String prefName = "com.fluttermathsmingleapp.app";
   static SharedPreferences? _sharedPreferences;
 
+  // Constructor
   PrefData() {
     SharedPreferences.getInstance().then((value) {
       _sharedPreferences = value;
     });
   }
 
+  /**
+   * Initialize the shared preferences
+   */
   Future<void> init() async {
     _sharedPreferences ??= await SharedPreferences.getInstance();
   }
 
+  /**
+   * Get the shared preferences
+   */
   Future<SharedPreferences> get getPref async {
     return _sharedPreferences ??= await SharedPreferences.getInstance();
   }
 
+  /**
+   * Clear all the data stored in the shared preferences
+   */
   static Future<void> clearPreferencesData() async {
     _sharedPreferences!.clear();
   }
 
-  static String keyCart = 'cardList';
-  static String fevCart = 'favList';
-  static String isIntro = 'intro';
-  static String isLoc = 'Location';
-  static String isProfilePic = 'ProfilePic';
-  static String isSubProfile = 'SubProfilePic';
-  static String isLogin = 'login';
-  static String isInfo = 'info';
-  static String isNotify = 'notification';
-  static String isDakMode = '${prefName}darkMode';
-  static String isClickMic = '${prefName}ClickMic';
-  static String isClickKeyboard = '${prefName}ClickKeyboard';
-  static String isMatched = '${prefName}isMatched';
-  static String chatFirstTime = '${prefName}firstTimeChat';
-
+  /**
+   * Setter method for if the user should go to the onboarding screen.
+   */
   static setIntro(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(isIntro, value);
+    prefs.setBool('intro', value);
   }
 
+  /**
+   * Getter method for if the user should go to the onboarding screen.
+   */
   static Future<bool> getIntro() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(isIntro) ?? true;
+    return prefs.getBool('intro') ?? true;
   }
 
+  /**
+   * Setter method for if the user should get the tutorial screen.
+   */
   static setTutorial(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setBool('tutorial', value);
   }
 
+  /**
+    * Getter method for if the user should get the tutorial screen.
+   */
   static Future<bool> getTutorial() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool('tutorial') ?? true;
   }
 
+  /**
+   * Setter method for if the user should go to the login screen.
+   */
   static setLogin(bool value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(isLogin, value);
+    prefs.setBool('login', value);
   }
 
+  /**
+   * Getter method for if the user should go to the login screen.
+   */
   static Future<bool> getLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getBool(isLogin) ?? true;
+    return prefs.getBool('login') ?? true;
   }
 
+  /**
+   * Setter method for the user ID.
+   */
   static Future<void> setUserID(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('userID', id);
   }
 
+  /**
+   * Getter method for the user ID.
+   */
   static Future<String?> getUserID() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? id = prefs.getString('userID');
@@ -87,11 +111,17 @@ class PrefData {
     return id;
   }
 
+  /**
+   * Setter method for the user country.
+   */
   static Future<void> setUserCountry(String id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('userCountry', id);
   }
 
+  /**
+   * Getter method for the user country.
+   */
   static Future<String> getUserCountry() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? id = prefs.getString('userCountry') ?? "CA";
@@ -99,6 +129,9 @@ class PrefData {
     return id;
   }
 
+  /**
+   * Add a song to the music list.
+   */
   static Future<void> addSong(Track track) async {
     getMusicList().then((list) {
       list!.add(track);
@@ -106,6 +139,9 @@ class PrefData {
     });
   }
 
+  /**
+   * Remove a song from the music list.
+   */
   static void removeSong(Track track) async {
     getMusicList().then((list) {
       list!.remove(track);
@@ -113,6 +149,9 @@ class PrefData {
     });
   }
 
+  /**
+   * Setter method for the music list.
+   */
   static setMusicList(List<Track> trackList) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -120,6 +159,9 @@ class PrefData {
     prefs.setString('trackList', trackListJSON);
   }
 
+  /**
+   * Getter method for the music list.
+   */
   static Future<List<Track>?> getMusicList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String id = prefs.getString('trackList') ?? '[]';
@@ -133,6 +175,9 @@ class PrefData {
     return setList.toList();
   }
 
+  /**
+   * Getter method for the access token.
+   */
   static Future<AccessTokenResponse?> getAccessToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? jsonMap = prefs.getString('accessToken');
@@ -143,6 +188,9 @@ class PrefData {
     return accessToken;
   }
 
+  /**
+   * Setter method for the access token.
+   */
   static Future<void> setAccessToken(AccessTokenResponse accessToken) async {
     Map<String, dynamic> mapToken = accessToken.toMap();
     String jsonMap = json.encode(mapToken);
@@ -150,11 +198,17 @@ class PrefData {
     prefs.setString('accessToken', jsonMap);
   }
 
+  /**
+   * Setter method for the refresh token.
+   */
   static Future<void> setRefreshToken(AccessTokenResponse accessToken) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('refreshToken', accessToken.refreshToken!);
   }
 
+  /**
+   * Getter method for the refresh token.
+   */
   static Future<String?> getRefreshToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? refreshToken = prefs.getString('refreshToken');
@@ -162,11 +216,17 @@ class PrefData {
     return refreshToken;
   }
 
+  /**
+   * Setter method for the list of genres that Melofy has available.
+   */
   static Future<void> setGenreList(List<String> genreList) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setStringList('genreList', genreList);
   }
 
+  /**
+   * Getter method for the list of genres that Melofy has available.
+   */
   static Future<List<String>> getGenreList() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     List<String> genreList =
@@ -175,6 +235,9 @@ class PrefData {
     return genreList;
   }
 
+  /**
+   * Setter method for the map of each genre to the offset it is currently at.
+   */
   static setGenreIndex(Map<String, int>? genreIndex) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
@@ -182,6 +245,9 @@ class PrefData {
     prefs.setString('genreIndex', trackListJSON);
   }
 
+  /**
+   * Getter method for the map of each genre to the offset it is currently at.
+   */
   static Future<Map<String, int>> getGenreIndex() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? id = prefs.getString('genreIndex');
@@ -219,11 +285,17 @@ class PrefData {
     }
   }
 
+  /**
+   * Setter method for the last playlist the user has added songs to.
+   */
   static setPrefPlaylist(String playlistID) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('prefPlaylist', playlistID);
   }
 
+  /**
+   * Getter method for the last playlist the user has added songs to.
+   */
   static Future<String?> getPrefPlaylist() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? id = prefs.getString('prefPlaylist');
@@ -235,6 +307,10 @@ class PrefData {
     }
   }
 
+  /**
+   * Setter method for the map of each genre to the list of available songs that have been fetched
+   * from the API.
+   */
   static Future<void> setAvailableSongs(
       Map<String, List<Track>>? genreMapTracks) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -243,6 +319,10 @@ class PrefData {
     prefs.setString('genreMap', trackListJSON);
   }
 
+  /**
+   * Getter method for the map of each genre to the list of available songs that have been fetched
+   * from the API.
+   */
   static Future<Map<String, List<Track>>> getAvailableSongs() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? id = prefs.getString('genreMap');
@@ -289,154 +369,12 @@ class PrefData {
     }
   }
 
-  static void setNumGenres(int num) {
-    SharedPreferences.getInstance().then((element) {
-      element.setInt('numGenres', num);
-    });
-  }
-
-  static Future<int> getNumGenres() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    int numGenres = prefs.getInt('numGenres') ?? 2;
-
-    return numGenres;
-  }
-
-  Future<void> setThemeData(String value) {
-    return _sharedPreferences!.setString('themeData', value);
-  }
-
-  String getThemeData() {
-    try {
-      return _sharedPreferences!.getString('themeData')!;
-    } catch (e) {
-      return 'primary';
-    }
-  }
-
+  // Current screen the user is on, so that the correct tab icon can be highlighted.
   static int currentIndex = 0;
 
-  static getAppBar({
-    SystemUiOverlayStyle? systemUiOverlayStyle,
-    String? text,
-    Color? color,
-    double? toolbarHeight,
-    TextStyle? textStyle,
-    List<Widget>? action,
-    Icon? leadingIcon,
-    required void Function()? onTap,
-    bool isLeadingIcon = false,
-  }) {
-    return AppBar(
-      title: Text(
-        text!,
-        style: textStyle ??
-            theme.textTheme.titleLarge!.copyWith(
-              color: AppColor.black,
-              fontWeight: FontWeight.w700,
-            ),
-      ),
-      surfaceTintColor: AppColor.white,
-      shadowColor: Color(0x34E7E4E4),
-      systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
-        statusBarColor: Colors.transparent,
-      ),
-      actions: action,
-      leadingWidth: 60.h,
-      leading: isLeadingIcon
-          ? SizedBox(
-              height: 0.h,
-              width: 0.h,
-            )
-          : GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: Container(
-                  margin: EdgeInsets.only(left: 24.h),
-                  padding: EdgeInsets.all(8.h),
-                  height: 40.h,
-                  width: 40.h,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColor.lightGray,
-                  ),
-                  child: leadingIcon ?? Icon(Icons.arrow_left)),
-            ),
-      centerTitle: false,
-      toolbarHeight: 70.h,
-      elevation: 12.h,
-      scrolledUnderElevation: 0,
-      automaticallyImplyLeading: false,
-      backgroundColor: color ?? Colors.white,
-    );
-  }
-
-  static getInterestAppbar(
-    BuildContext context, {
-    SystemUiOverlayStyle? systemUiOverlayStyle,
-    String? text,
-    Color? color,
-    double? toolbarHeight,
-    TextStyle? textStyle,
-    List<Widget>? action,
-    Icon? leadingIcon,
-    required void Function()? onTap,
-    bool isLeadingIcon = false,
-  }) {
-    return AppBar(
-      title: Text(
-        text!,
-        style: textStyle ??
-            theme.textTheme.titleLarge!.copyWith(
-              color: AppColor.black,
-              fontWeight: FontWeight.w700,
-            ),
-      ),
-      actions: <Widget>[
-        Padding(
-          padding: const EdgeInsets.only(right: 20.0),
-          child: IconButton(
-            onPressed: () => showLogoutDialog(context),
-            icon: Icon(Icons.logout, color: Colors.red),
-          ),
-        )
-      ],
-      surfaceTintColor: AppColor.white,
-      shadowColor: Color(0x34E7E4E4),
-      systemOverlayStyle: SystemUiOverlayStyle.dark.copyWith(
-        statusBarColor: Colors.transparent,
-      ),
-      leadingWidth: 30.h,
-      leading: isLeadingIcon
-          ? SizedBox(
-              height: 0.h,
-              width: 0.h,
-            )
-          : GestureDetector(
-              onTap: () {
-                Get.back();
-              },
-              child: Container(
-                margin: EdgeInsets.only(left: 24.h),
-                padding: EdgeInsets.all(8.h),
-                height: 40.h,
-                width: 40.h,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: AppColor.lightGray,
-                ),
-                child: leadingIcon ?? Icon(Icons.arrow_left),
-              )),
-      centerTitle: false,
-      toolbarHeight: 70.h,
-      elevation: 12.h,
-      scrolledUnderElevation: 0,
-      automaticallyImplyLeading: false,
-      backgroundColor: color ?? Colors.white,
-    );
-  }
-
+  /**
+   * Displays the logout popup dialog, so that the user can confirm they want to logout.
+   */
   static void showLogoutDialog(BuildContext context) {
     showCupertinoDialog(
       context: context,
@@ -454,6 +392,7 @@ class PrefData {
               child: const Text('Cancel')),
           CupertinoDialogAction(
               isDefaultAction: true,
+              // Reset all the shared preferences to their default values.
               onPressed: () async {
                 await PrefData.setIntro(true);
                 await PrefData.setLogin(true);

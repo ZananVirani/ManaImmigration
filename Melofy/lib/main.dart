@@ -39,7 +39,6 @@ class MyApp extends StatelessWidget {
           child: GetMaterialApp(
             debugShowCheckedModeBanner: false,
             theme: theme,
-            translations: AppLocalization(),
             locale: Get.deviceLocale, //for setting localization strings
             fallbackLocale: Locale('en', 'US'),
             title: 'Melofy',

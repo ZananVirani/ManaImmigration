@@ -1,5 +1,6 @@
-/// This class defines the variables used in the [create_account_select_interest_screen],
-/// and is typically used to hold data that is passed between different parts of the application.
+/**
+ * Class that represents the model of the genre that the user can select.
+ */
 class CreateAccountSelectInterestModel {
   String inrerestName;
   bool isCheck;

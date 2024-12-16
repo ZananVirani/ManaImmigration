@@ -46,14 +46,6 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
                         child: Text('Music for You,\nPicked by You',
                             style: theme.textTheme.headlineMedium,
                             textAlign: TextAlign.center)),
-                    // CustomElevatedButton(
-                    //     text: 'Login with Phone',
-                    //     margin: EdgeInsets.only(
-                    //         left: 24.h, right: 24.h, top: 5.h, bottom: 16.h),
-                    //     onPressed: () {
-                    //       Get.offAndToNamed(AppRoutes.createAccountPhoneNumberScreen);
-                    //     },
-                    //     buttonStyle: CustomButtonStyles.fillPrimary),
                     CustomElevatedButton(
                       text: 'Login with Spotify   ',
                       margin: EdgeInsets.only(
@@ -80,7 +72,13 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
                           });
                         }
                       },
-                      buttonStyle: CustomButtonStyles.fillPrimary,
+                      buttonStyle: ElevatedButton.styleFrom(
+                        backgroundColor: AppColor.primaryColor,
+                        elevation: 0.h,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.h),
+                        ),
+                      ),
                       buttonTextStyle: CustomTextStyles.titleMediumWhiteA70017,
                       height: 90.v,
                       rightIcon: Brand(

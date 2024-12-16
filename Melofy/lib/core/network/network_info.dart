@@ -1,3 +1,7 @@
+/**
+ * File contains the NetworkInfo class which is used to check the internet connectivity.
+ */
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 
 // For checking internet connectivity
@@ -9,6 +13,10 @@ abstract class NetworkInfoI {
   Stream<List<ConnectivityResult>> get onConnectivityChanged;
 }
 
+/**
+ * Class that implements the Abstract Class above, and contains all of the 
+ * methods to check the internet connectivity.
+ */
 class NetworkInfo implements NetworkInfoI {
   Connectivity connectivity;
 

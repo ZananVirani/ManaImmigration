@@ -283,8 +283,10 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                   spreadRadius: 0,
                                                 ),
                                               ],
-                                              borderRadius: BorderRadiusStyle
-                                                  .roundedBorder8,
+                                              borderRadius:
+                                                  BorderRadius.circular(
+                                                8.h,
+                                              ),
                                               color: PrimaryColors().cardColor,
                                             ),
                                             child: Column(

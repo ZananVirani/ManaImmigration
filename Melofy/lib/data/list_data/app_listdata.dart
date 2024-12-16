@@ -1,3 +1,7 @@
+/**
+ * Contants the list data for the genres in the application.
+ */
+
 import 'package:Melofy/data/models/create_account_select_interest_model.dart';
 
 class AppListData {

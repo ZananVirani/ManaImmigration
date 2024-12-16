@@ -1,6 +1,7 @@
-// ignore_for_file: unnecessary_import
+/**
+ * Automatically generated file. Generates the theme and color scheme for the app.
+ */
 
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import '../../core/app_export.dart';
 

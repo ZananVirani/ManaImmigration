@@ -1,8 +1,8 @@
-// ignore_for_file: unused_import
-
 import 'package:flutter/material.dart';
-import '../core/app_export.dart';
 
+/**
+ * Abstract class used to define a base button layout.
+ */
 class BaseButton extends StatelessWidget {
   BaseButton({
     Key? key,

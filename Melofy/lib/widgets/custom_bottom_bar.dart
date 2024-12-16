@@ -1,3 +1,7 @@
+/**
+ * Class that defines the widget for the bottom nav bar.
+ */
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:Melofy/core/app_export.dart';
@@ -33,8 +37,6 @@ class CustomBottomBar extends StatelessWidget {
           ),
           unselectedItemColor: AppColor.black40,
           selectedItemColor: AppColor.primaryColor,
-
-          // showSele
           selectedLabelStyle: theme.textTheme.titleSmall!.copyWith(
             color: AppColor.primaryColor,
             fontWeight: FontWeight.w400,
@@ -43,12 +45,6 @@ class CustomBottomBar extends StatelessWidget {
             color: AppColor.black40,
             fontWeight: FontWeight.w400,
           ),
-
-          // elevation: 0.h,
-          // selectedLabelStyle: theme.textTheme.titleSmall!.copyWith(
-          //    color: AppColor.primaryColor,
-          //    fontWeight: FontWeight.w400,
-          //  ),
           currentIndex: PrefData.currentIndex,
           type: BottomNavigationBarType.fixed,
           items: [
@@ -70,6 +66,7 @@ class CustomBottomBar extends StatelessWidget {
               label: 'Home',
             ),
             BottomNavigationBarItem(
+              // Home Page Icon
               icon: CustomImageView(
                 imagePath: ImageConstant.navExploreIc,
                 height: 24.v,
@@ -77,6 +74,7 @@ class CustomBottomBar extends StatelessWidget {
                 color: Color(0xFF7C7C7C),
                 margin: EdgeInsets.only(bottom: 8.h),
               ),
+              // My Liked Songs Icon
               activeIcon: CustomImageView(
                 imagePath: ImageConstant.navExploreIc,
                 color: AppColor.primaryColor,
@@ -86,45 +84,9 @@ class CustomBottomBar extends StatelessWidget {
               ),
               label: 'My Liked Songs',
             ),
-            // BottomNavigationBarItem(
-            //     icon: CustomImageView(
-            //       imagePath: ImageConstant.navMatchIc,
-            //       height: 24.h,
-            //       width: 24.h,
-            //       color: Color(0xFF7C7C7C),
-            //       margin: EdgeInsets.only(bottom: 8.h),
-            //     ),
-            //     activeIcon: CustomImageView(
-            //       imagePath: ImageConstant.navMatchIc,
-            //       color: AppColor.primaryColor,
-            //       height: 24.h,
-            //       width: 24.h,
-            //       margin: EdgeInsets.only(bottom: 8.h)
-
-            //   ),
-            //   label: 'Match ',
-            // ),
-            // BottomNavigationBarItem(
-            //   icon: CustomImageView(
-            //     imagePath: ImageConstant.navChatIc,
-            //     height: 24.h,
-            //     width: 24.h,
-            //     color: Color(0xFF7C7C7C),
-            //     margin: EdgeInsets.only(bottom: 8.h),
-
-            //   ),
-            //   activeIcon: CustomImageView(
-            //     imagePath: ImageConstant.navChatIc,
-            //     color: AppColor.primaryColor,
-            //     height: 24.v,
-            //     width: 24.h,
-            //     margin: EdgeInsets.only(bottom: 8.h),
-
-            //   ),
-            //   label: 'Chat',
-            // ),
           ],
           onTap: (index) {
+            // Go to the selected page and highlight the correct icon.
             if (index != PrefData.currentIndex) {
               PrefData.currentIndex = index;
               if (index == 0)
@@ -137,54 +99,6 @@ class CustomBottomBar extends StatelessWidget {
         );
       },
       init: BottomBarScreenController(),
-    );
-  }
-}
-
-enum BottomBarEnum {
-  Home,
-  Explore,
-  Store,
-  Profile,
-}
-
-class BottomMenuModel {
-  BottomMenuModel({
-    required this.icon,
-    required this.activeIcon,
-    this.title,
-    required this.type,
-  });
-
-  String icon;
-
-  String activeIcon;
-
-  String? title;
-
-  BottomBarEnum type;
-}
-
-class DefaultWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      padding: EdgeInsets.all(10),
-      child: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              'Please replace the respective Widget here',
-              style: TextStyle(
-                fontSize: 18,
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }
