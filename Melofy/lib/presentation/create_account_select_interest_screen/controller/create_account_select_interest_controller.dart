@@ -2,10 +2,9 @@ import 'package:Melofy/core/app_export.dart';
 // ignore: unused_import
 import 'package:Melofy/data/models/create_account_select_interest_model.dart';
 
-/// A controller class for the CreateAccountSelectInterestScreen.
-///
-/// This class manages the state of the CreateAccountSelectInterestScreen, including the
-/// current createAccountSelectInterestModelObj
+/**
+ * A controller class for the Genre Selection Screen, using getx for state management.
+ */
 class CreateAccountSelectInterestController extends GetxController {
   Rx<bool> games = false.obs;
 

@@ -5,13 +5,16 @@ import 'package:Melofy/presentation/spash_screen/models/spash_model.dart';
 
 import '../../../data/pref_data/pref_data.dart';
 
-/// A controller class for the SpashScreen.
-///
-/// This class manages the state of the SpashScreen, including the
-/// current spashModelObj
+/**
+ * A controller class for the BottomBarScreen, using getx for state management.
+ */
 class SpashController extends GetxController {
   Rx<SpashModel> spashModelObj = SpashModel().obs;
 
+  /**
+   * Directs the user to either the onboarding screen, the login screen, 
+   * or the home screen based on the user's previous actions.
+   */
   @override
   void onReady() {
     Future.delayed(const Duration(milliseconds: 3000), () async {

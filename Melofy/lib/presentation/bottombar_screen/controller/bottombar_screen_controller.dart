@@ -5,16 +5,21 @@ import 'package:get/get.dart';
 
 import '../../../data/pref_data/pref_data.dart';
 
-/// A controller class for the HomeScreenContainerScreen.
-///
-/// This class manages the state of the HomeScreenContainerScreen, including the
-/// current homeScreenContainerModelObj
+/**
+ * A controller class for the BottomBarScreen, using getx for state management.
+ */
 class BottomBarScreenController extends GetxController {
+  /**
+   * Sets the current index of the bottom bar.
+   */
   setIndex(int indexs) {
     PrefData.currentIndex = indexs;
     update();
   }
 
+  /**
+   * Function to exit the app.
+   */
   onExit() {
     if (PrefData.currentIndex != 0) {
       PrefData.currentIndex = 0;

@@ -7,6 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+/**
+ * A custom drawer that displays information about the artist, including their name, 
+ * followers, genres, popular albums, and related artists.
+ * Pops up on the main screen when the user opens the drawer.
+ */
 class CustomDrawer extends StatelessWidget {
   late final String? artistID;
   CustomDrawer(String? s) : artistID = s;
@@ -27,6 +32,9 @@ class CustomDrawer extends StatelessWidget {
           future: MakeAPICall.getArtistandTracks(artistID!),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
+              /*
+                 Gets all the data from the API call and assigns it to variables.
+              */
               alias.Artist artist = snapshot.data![0];
               List<Track> tracks = snapshot.data![1];
               related.RelatedArtists tempRelatedArtist = snapshot.data![2];
@@ -49,8 +57,6 @@ class CustomDrawer extends StatelessWidget {
               } else {
                 genre1 = genres[0].toCapitalCase();
               }
-
-              //String trackImg = tracks.first.album!.images![1].url;
               String trackImg1 = tracks[1].album!.images![0].url;
               String trackImg2 = tracks[2].album!.images![0].url;
               String trackImg3 = tracks[3].album!.images![0].url;
@@ -64,7 +70,6 @@ class CustomDrawer extends StatelessWidget {
               related.Artist relatedArtist2 = relatedArtist[1];
               related.Artist relatedArtist3 = relatedArtist[2];
               related.Artist relatedArtist4 = relatedArtist[3];
-              // Array artistPhoto = artist.images
 
               return Container(
                 child: SingleChildScrollView(
