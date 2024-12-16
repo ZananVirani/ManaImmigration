@@ -5,7 +5,6 @@ import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:Melofy/API/api_calls.dart';
 import 'package:Melofy/API/models/track.dart';
 import 'package:Melofy/data/pref_data/pref_data.dart';
-import 'package:Melofy/presentation/bottombar_screen/bottombar_screen.dart';
 import 'package:Melofy/widgets/custom_bottom_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -16,6 +15,10 @@ import 'models/home_search_partners_model.dart';
 import 'package:flutter/material.dart';
 import 'package:Melofy/core/app_export.dart';
 
+/**
+ * Class that displays the home screen, where users can swipe through songs 
+ * and like or dislike them.
+ */
 class HomeSearchPartnersPage extends StatefulWidget {
   const HomeSearchPartnersPage({super.key});
 
@@ -23,19 +26,33 @@ class HomeSearchPartnersPage extends StatefulWidget {
   State<HomeSearchPartnersPage> createState() => _HomeSearchPartnersPageState();
 }
 
+/**
+ * State class for the HomeSearchPartnersPage.
+ */
 class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     with TickerProviderStateMixin {
+  // Variable that tracks if the music is playing or not.
   bool isPlaying = false;
-  bool doIt = true;
+  // Variable that tracks if the artist id is properly assigned so the drawer can pop without error.
+  bool drawerCanPop = true;
+  // Controller for swiping through songs.
   HomeSearchPartnersController controller =
       Get.put(HomeSearchPartnersController(HomeSearchPartnersModel().obs));
+  // Audio player for playing songs.
   late AudioPlayer player;
+  // Future that fetches the list of songs from the API.
   late Future<List<Track>?> futureList;
+  // Controller for the animation of the play button.
   late AnimationController _animationController;
+  // Map that stores the genres and their respective songs.
   late Future<Map<String, List<Track>>> tempGenreMap;
+  // String that stores the error message if the API call fails.
   String? errorString;
+  // String that stores the artist id for the drawer.
   String? artistID;
 
+  // Keys for the tutorial coach mark upon initial load or when the user clicks
+  // the info icon.
   final GlobalKey _likeButtonKey = GlobalKey();
   final GlobalKey _dislikeButtonkey = GlobalKey();
   final GlobalKey _settingsButtonKey = GlobalKey();
@@ -43,11 +60,19 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
   final GlobalKey _undoButtonKey = GlobalKey();
   final GlobalKey _artistButtonKey = GlobalKey();
 
+  /**
+   * Function that initializes the state of the HomeSearchPartnersPage.
+   */
   @override
   void initState() {
+    // Refresh user profile.
     MakeAPICall.refreshName();
+    // Fetch the list of songs from the API.
     futureList = fetchSongs();
+    // Initialize the audio player.
     this.player = AudioPlayer();
+    // Stream that listens for the state of the player, necessary so that
+    // the play button can be animated and music can be stopped at proper times.
     player.onPlayerStateChanged.listen((data) {
       if (data == PlayerState.completed || data == PlayerState.stopped) {
         setState(() {
@@ -56,9 +81,11 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
         });
       }
     });
+    // Initialize the animation controller for the play button.
     this._animationController = AnimationController(
         value: 1.0, vsync: this, duration: Duration(milliseconds: 500));
     super.initState();
+    // Show tutorial if it is the first time the user is using the app.
     PrefData.getTutorial().then((value) {
       if (value) {
         PrefData.setTutorial(false);
@@ -67,6 +94,9 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     });
   }
 
+  /**
+   * Function that fetches the list of songs from the API.
+   */
   Future<List<Track>?> fetchSongs() async {
     try {
       var futureList = await MakeAPICall.compileGenres();
@@ -83,16 +113,20 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     }
   }
 
+  /**
+   * Build the main widget for the HomeSearchPartnersPage.
+   */
   @override
   Widget build(BuildContext context) {
     return PopScope(
+      // Everytime tries to swipe the page off, it will open the drawer instead.
       canPop: true,
       onPopInvokedWithResult: (didPop, smth) {
-        print("here");
         Scaffold.of(context).openDrawer();
       },
       child: SafeArea(
         child: Scaffold(
+          // Pass the artistID into CustomDrawer so that the drawer can display the artist's information.
           drawer: CustomDrawer(artistID),
           appBar: AppBar(
             automaticallyImplyLeading: false,
@@ -127,11 +161,13 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                 Row(
                   children: [
                     IconButton(
+                        // Show the tutorial when the user clicks the info icon.
                         onPressed: () async {
                           await _createTutorial(0);
                         },
                         icon: Icon(Icons.info_outlined, size: 26.adaptSize)),
                     GestureDetector(
+                      // Navigate to the settings page when the user clicks the settings icon.
                       onTap: () {
                         player.stop();
                         _animationController.stop();
@@ -155,14 +191,6 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
           body: Stack(
             children: [
               Center(
-                  // child: Opacity(
-                  //   opacity: .92,
-                  //   child: Container(
-                  //       height: MediaQuery.sizeOf(context).height,
-                  //       child: CustomImageView(
-                  //         imagePath: ImageConstant.background,
-                  //       )),
-                  // ),
                   child: Container(
                       width: double.infinity,
                       height: double.infinity,
@@ -171,6 +199,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                 child: FutureBuilder(
                     future: futureList,
                     builder: (context, trackList) {
+                      // Show an error dialog if the API call fails, or if the
+                      // user has swiped through all the songs in one of their selected genres.
                       if (errorString != null) {
                         return Stack(
                             alignment: AlignmentDirectional.center,
@@ -216,6 +246,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                               ),
                             ]);
                       }
+                      // Show the songs if the API call is successful, and there are songs to display.
                       if (trackList.hasData) {
                         return FutureBuilder(
                             future: tempGenreMap,
@@ -228,6 +259,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                 Iterable<String> tempGenreKeys = genreMap.keys;
                                 List<String> genreKeys = tempGenreKeys.toList();
 
+                                // CardSwiper that displays the songs and allows for swiping.
                                 return CardSwiper(
                                   isLoop: false,
                                   allowedSwipeDirection:
@@ -239,6 +271,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                       index,
                                       horizontalOffsetPercentage,
                                       verticalOffsetPercentage) {
+                                    // Set all data to current song.
                                     Track track = trackList.data![index];
                                     player.setSource(
                                         UrlSource(track.previewUrl!));
@@ -247,11 +280,11 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                             " - " +
                                             track.album!.name!;
 
-                                    if (doIt) {
+                                    if (drawerCanPop) {
                                       WidgetsBinding.instance
                                           .addPostFrameCallback((_) {
                                         setState(() {
-                                          doIt = false;
+                                          drawerCanPop = false;
                                         });
                                       });
                                       WidgetsBinding.instance
@@ -306,6 +339,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                       IconButton(
                                                           key: _artistButtonKey,
                                                           onPressed: () {
+                                                            // Open the drawer to show the artist's information.
                                                             setState(() {
                                                               artistID = track
                                                                   .artists!
@@ -340,6 +374,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                   ),
                                                 ),
                                                 FutureBuilder(
+                                                    // Check if the user is connected to the internet to display the album cover.
+                                                    // If not, display a message to connect to the internet.
                                                     future: Connectivity()
                                                         .checkConnectivity(),
                                                     builder:
@@ -425,10 +461,12 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                   padding: EdgeInsets.only(
                                                       top: 18.adaptSize),
                                                   child: Row(
+                                                    // Row that contains the like, play, and dislike buttons.
                                                     mainAxisAlignment:
                                                         MainAxisAlignment
                                                             .center,
                                                     children: [
+                                                      // Dislike button
                                                       GestureDetector(
                                                         onTap: () {
                                                           controller
@@ -470,6 +508,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                           ),
                                                         ),
                                                       ),
+                                                      // Play button
                                                       Padding(
                                                         padding:
                                                             const EdgeInsets
@@ -528,6 +567,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                                           ),
                                                         ),
                                                       ),
+                                                      // Like button
                                                       GestureDetector(
                                                         onTap: () {
                                                           controller
@@ -582,8 +622,9 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                   onSwipe: (previousIndex, currentIndex,
                                       direction) async {
                                     setState(() {
-                                      doIt = true;
+                                      drawerCanPop = true;
                                     });
+                                    // Add the song if the song was liked.
                                     if (direction ==
                                         CardSwiperDirection.right) {
                                       await PrefData.addSong(
@@ -599,19 +640,19 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                         break;
                                       }
                                     }
+                                    // If the user has swiped through all the songs, reload the page.
                                     if (currentIndex == null) {
                                       player.dispose();
-                                      // Navigator.pushReplacement(
-                                      //     context, _createRoute());
                                       Get.offAndToNamed(
                                           AppRoutes.homeSearchPartnersPage);
                                     }
                                     return true;
                                   },
+                                  // Undo the last action if the user clicks the undo button.
                                   onUndo:
                                       (previousIndex, currentIndex, direction) {
                                     setState(() {
-                                      doIt = true;
+                                      drawerCanPop = true;
                                     });
 
                                     PrefData.removeSong(
@@ -623,6 +664,7 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
                                 );
                               }
                             });
+                        // Show a loading spinner with a message if the API call is still in progress.
                       } else {
                         return Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -651,6 +693,9 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
     );
   }
 
+  /**
+   * Function that creates the tutorial coach mark for the user.
+   */
   Future<void> _createTutorial(int delay) async {
     await Future.delayed(Duration(seconds: 0), () async {
       final targets = [
@@ -956,26 +1001,10 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
         ),
       ];
       await Future.delayed(Duration(seconds: delay), () {
-        final tutorial = TutorialCoachMark(
+        TutorialCoachMark(
           targets: targets,
         )..show(context: context);
       });
     });
-  }
-
-  onTapBtnClose() {
-    Get.offAndToNamed(
-      AppRoutes.homeSearchPartnersSwipeLeftTabContainerScreen,
-    );
-  }
-
-  Route _createRoute() {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          BottomBarScreen(),
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        return child;
-      },
-    );
   }
 }

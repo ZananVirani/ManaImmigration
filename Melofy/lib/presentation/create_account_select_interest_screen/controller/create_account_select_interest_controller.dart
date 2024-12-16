@@ -1,6 +1,4 @@
 import 'package:Melofy/core/app_export.dart';
-// ignore: unused_import
-import 'package:Melofy/data/models/create_account_select_interest_model.dart';
 
 /**
  * A controller class for the Genre Selection Screen, using getx for state management.

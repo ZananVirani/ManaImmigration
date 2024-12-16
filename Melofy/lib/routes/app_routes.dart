@@ -1,10 +1,9 @@
 import 'package:Melofy/presentation/create_account_select_interest_screen/binding/create_account_select_interest_binding.dart';
 import 'package:Melofy/presentation/create_account_select_interest_screen/create_account_select_interest_screen.dart';
+import 'package:Melofy/presentation/home_search_partners_page/home_search_partners_page.dart';
 import 'package:Melofy/presentation/noConnectionPage/noConnection.dart';
 import 'package:Melofy/presentation/spash_screen/spash_screen.dart';
-import 'package:Melofy/presentation/spash_screen/binding/spash_binding.dart';
 import 'package:Melofy/presentation/onboarding_three1_screen/onboarding_three1_screen.dart';
-import 'package:Melofy/presentation/onboarding_three1_screen/binding/onboarding_three1_binding.dart';
 import 'package:get/get.dart';
 import '../presentation/bottombar_screen/binding/bottombar_screen_binding.dart';
 import '../presentation/bottombar_screen/bottombar_screen.dart';
@@ -21,6 +20,7 @@ class AppRoutes {
   static const String bottomBarScreen = '/BottomBarScreen';
   static const String noConnectionPage = '/dating_profile_details_vtwo_screen';
   static const String initialRoute = '/initialRoute';
+  static const String homeSearchPartnersPage = '/homeSearchPartnersPage';
 
   // List of all the pages
   static List<GetPage> pages = [
@@ -30,9 +30,6 @@ class AppRoutes {
       page: () => SpashScreen(),
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: 500),
-      bindings: [
-        SpashBinding(),
-      ],
     ),
     GetPage(
       // Onboarding Screen
@@ -40,9 +37,6 @@ class AppRoutes {
       page: () => OnboardingThree1Screen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(seconds: 1),
-      bindings: [
-        OnboardingThree1Binding(),
-      ],
     ),
     GetPage(
       // No Connection Page
@@ -78,9 +72,12 @@ class AppRoutes {
       page: () => SpashScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(milliseconds: 500),
-      bindings: [
-        SpashBinding(),
-      ],
     ),
+    GetPage(
+        // Home Search Partners Page
+        name: homeSearchPartnersPage,
+        page: () => HomeSearchPartnersPage(),
+        transition: Transition.cupertino,
+        transitionDuration: Duration(milliseconds: 500)),
   ];
 }

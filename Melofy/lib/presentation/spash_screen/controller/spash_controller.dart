@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:Melofy/core/app_export.dart';
-import 'package:Melofy/presentation/spash_screen/models/spash_model.dart';
 
 import '../../../data/pref_data/pref_data.dart';
 
@@ -9,8 +8,6 @@ import '../../../data/pref_data/pref_data.dart';
  * A controller class for the BottomBarScreen, using getx for state management.
  */
 class SpashController extends GetxController {
-  Rx<SpashModel> spashModelObj = SpashModel().obs;
-
   /**
    * Directs the user to either the onboarding screen, the login screen, 
    * or the home screen based on the user's previous actions.

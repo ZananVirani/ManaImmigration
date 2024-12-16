@@ -1,13 +1,9 @@
-// ignore_for_file: unused_import, deprecated_member_use
-
 import 'package:flutter/cupertino.dart';
 import 'package:Melofy/API/api_calls.dart';
 import 'package:Melofy/authorization/spotify_auth.dart';
 import 'package:Melofy/data/pref_data/pref_data.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:oauth2_client/access_token_response.dart';
-
-import 'controller/onboarding_three1_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:Melofy/core/app_export.dart';
 import 'package:Melofy/widgets/custom_elevated_button.dart';

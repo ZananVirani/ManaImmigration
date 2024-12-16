@@ -9,6 +9,10 @@ import 'package:google_fonts/google_fonts.dart';
 
 import 'controller/create_account_select_interest_controller.dart';
 
+/**
+ * Class for CreateAccountSelectInterestScreen, which is the screen for selecting 
+ * the genres that the user wants to listen to.
+ */
 class CreateAccountSelectInterestScreen extends StatefulWidget {
   const CreateAccountSelectInterestScreen({super.key});
 
@@ -17,9 +21,15 @@ class CreateAccountSelectInterestScreen extends StatefulWidget {
       _CreateAccountSelectInterestScreenState();
 }
 
+/**
+ * State class for CreateAccountSelectInterestScreen, which contains the state of the 
+ * CreateAccountSelectInterestScreen.
+ */
 class _CreateAccountSelectInterestScreenState
     extends State<CreateAccountSelectInterestScreen> {
+  // Genres available
   final trackList = PrefData.getGenreList();
+  // Map to store the genres that the user has selected
   final checkedMap = {};
   @override
   Widget build(BuildContext context) {
@@ -74,6 +84,8 @@ class _CreateAccountSelectInterestScreenState
                         if (!snapshot.hasData)
                           return Text("");
                         else {
+                          // Initialize the checkedMap with the genres that
+                          // the user has selected
                           for (CreateAccountSelectInterestModel genre
                               in AppListData.interestList) {
                             checkedMap[genre.genreName] =
@@ -107,6 +119,7 @@ class _CreateAccountSelectInterestScreenState
                                               children: [
                                                 GestureDetector(
                                                     onTap: () {
+                                                      // Check or uncheck the genre
                                                       checkedMap[
                                                               AppListData
                                                                   .interestList[
@@ -129,12 +142,14 @@ class _CreateAccountSelectInterestScreenState
                                                                       index]
                                                                   .genreName]
                                                           ? buildGenreImageLiked(
+                                                              // Show the genre as selected
                                                               context,
                                                               AppListData
                                                                   .interestList[
                                                                       index]
                                                                   .genreName)
                                                           : buildGenreImage(
+                                                              // Show the genre as not selected
                                                               context,
                                                               AppListData
                                                                   .interestList[
@@ -142,6 +157,8 @@ class _CreateAccountSelectInterestScreenState
                                                                   .genreName),
                                                     )),
                                                 Text(
+                                                    // Rap is originally named as Rap/Hip-Hop,
+                                                    // so it is shortened to Rap
                                                     AppListData
                                                                 .interestList[
                                                                     index]
@@ -176,6 +193,9 @@ class _CreateAccountSelectInterestScreenState
     );
   }
 
+  /**
+   * Displays the logout popup dialog, so that the user can confirm they want to logout.
+   */
   static void showLogoutDialog(BuildContext context) {
     showCupertinoDialog(
       context: context,
@@ -209,6 +229,10 @@ class _CreateAccountSelectInterestScreenState
     );
   }
 
+  /**
+   * Builds the continue button, which allows the user to continue to save their genre 
+   * selections and continue to the main screen.
+   */
   Widget _buildContinue(BuildContext context) {
     return Container(
         margin: EdgeInsets.only(
@@ -229,6 +253,8 @@ class _CreateAccountSelectInterestScreenState
               return AppColor.primaryColor;
             })),
             onPressed: () async {
+              // Save the genres that the user has selected to PrefData, so that
+              // it can be used in the future.
               int count = 0;
               List<String> finalList = [];
               checkedMap.forEach((key, element) {
@@ -239,7 +265,7 @@ class _CreateAccountSelectInterestScreenState
               });
 
               if (count >= 1) {
-                PrefData.setGenreList(finalList);
+                await PrefData.setGenreList(finalList);
                 bool isLogin = await PrefData.getLogin();
 
                 if (isLogin) {
@@ -248,6 +274,7 @@ class _CreateAccountSelectInterestScreenState
                   Get.offAndToNamed(AppRoutes.bottomBarScreen);
                 }
               } else
+                // Error handling if the user has not selected any genres
                 await showCupertinoDialog(
                     context: context,
                     builder: (context) {
@@ -264,11 +291,9 @@ class _CreateAccountSelectInterestScreenState
             }));
   }
 
-  /// Navigates to the previous screen.
-  onTapArrowLeft() {
-    Get.back();
-  }
-
+  /**
+   * Function to show the dialog when the user has successfully selected their genres.
+   */
   onTapNext(BuildContext context) {
     showDialog<String>(
         context: context,
@@ -318,6 +343,9 @@ class _CreateAccountSelectInterestScreenState
             ));
   }
 
+  /**
+   * Builds the genre image for the genre that the user has not selected.
+   */
   Widget buildGenreImage(BuildContext context, String path) {
     return Container(
         width: 80.h,
@@ -329,6 +357,9 @@ class _CreateAccountSelectInterestScreenState
             imagePath: 'assets/images/genre_$path.png', fit: BoxFit.cover));
   }
 
+  /**
+   * Builds the genre image for the genre that the user has selected.
+   */
   Widget buildGenreImageLiked(BuildContext context, String path) {
     return Stack(
       children: [

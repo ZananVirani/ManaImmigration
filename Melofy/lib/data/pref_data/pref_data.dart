@@ -3,10 +3,7 @@
  */
 
 import 'dart:convert';
-
-import 'package:flutter/cupertino.dart';
 import 'package:Melofy/API/models/track.dart';
-import 'package:Melofy/core/app_export.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:oauth2_client/access_token_response.dart';
 
@@ -371,39 +368,4 @@ class PrefData {
 
   // Current screen the user is on, so that the correct tab icon can be highlighted.
   static int currentIndex = 0;
-
-  /**
-   * Displays the logout popup dialog, so that the user can confirm they want to logout.
-   */
-  static void showLogoutDialog(BuildContext context) {
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) => CupertinoAlertDialog(
-        title: const Text(
-          'Are you sure you want to logout?',
-          style: TextStyle(fontSize: 20),
-        ),
-        actions: <CupertinoDialogAction>[
-          CupertinoDialogAction(
-              isDefaultAction: true,
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancel')),
-          CupertinoDialogAction(
-              isDefaultAction: true,
-              // Reset all the shared preferences to their default values.
-              onPressed: () async {
-                await PrefData.setIntro(true);
-                await PrefData.setLogin(true);
-                await PrefData.setMusicList([]);
-                await PrefData.setGenreList([]);
-                await PrefData.setPrefPlaylist("null");
-                await Get.offAndToNamed(AppRoutes.onboardingThree1Screen);
-              },
-              child: const Text('Logout')),
-        ],
-      ),
-    );
-  }
 }
