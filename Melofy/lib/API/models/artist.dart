@@ -1,6 +1,7 @@
-// To parse this JSON data, do
-//
-//     final artist = artistFromJson(jsonString);
+/**
+ * Class for an artist, retrieved from the Spotify API.
+ * Defines all of the attributes of an artist.
+ */
 
 import 'dart:convert';
 
@@ -129,7 +130,7 @@ class Image {
         "height": height,
         "width": width,
       };
-  String getUrl(){
+  String getUrl() {
     return this.url;
   }
 }

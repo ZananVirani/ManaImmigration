@@ -1,6 +1,7 @@
-// To parse this JSON data, do
-//
-//     final playlist = playlistFromJson(jsonString);
+/**
+ * Class for a Playlist on Spotify, retrieved from the Spotify API.
+ * Defines all of the attributes of a Playlist on Spotify.
+ */
 
 import 'dart:convert';
 

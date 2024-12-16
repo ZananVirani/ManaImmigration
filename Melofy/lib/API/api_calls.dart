@@ -1,3 +1,7 @@
+/**
+ * Class that defines all the API calls that are made to the Spotify API.
+ */
+
 import 'dart:async';
 
 import 'package:Melofy/API/models/artist.dart' as artist;
@@ -14,23 +18,41 @@ import 'package:Melofy/data/pref_data/pref_data.dart';
 import 'package:oauth2_client/access_token_response.dart';
 
 class MakeAPICall {
+  // Access token to be used for all API calls
+  // Needed because Spotify API uses OAuth2.0
   static AccessTokenResponse? accessToken;
+  // Dio object to make API calls
   static final _dio = Dio();
-  static var date;
+  // User display name
   static var userDisplayName;
 
+  /**
+   * Function to refresh the access token, because it expires after an hour.
+   */
   static Future<AccessTokenResponse> _refreshToken() async {
     accessToken = await SpotifyAuthService.refreshToken();
     await PrefData.setAccessToken(accessToken!);
     return accessToken!;
   }
 
+  /**
+   * Function to make a generic GET call to the Spotify API.
+   * @param path: The path to be appended to the base URL.
+   * @param queryParameters: The query parameters to be passed in the API call.
+   * @return: The response from the API call.
+   */
   static Future<Response<Map<String, dynamic>>?> makeGenericGetCall(
       String path, Map<String, dynamic> queryParameters) async {
     accessToken = await PrefData.getAccessToken();
 
     const base_url = 'https://api.spotify.com/v1/';
 
+    /* 
+        If the access token has expired, then refresh the token and make the API call again.
+        This is because the access token expires after an hour.
+        This is the purpose of the try-catch block, and to handle any other
+        exceptions that may occur.
+      */
     try {
       Response<Map<String, dynamic>> response = await _dio.get(base_url + path,
           queryParameters: queryParameters,
@@ -38,6 +60,7 @@ class MakeAPICall {
             'Authorization': 'Bearer ${accessToken!.accessToken}'
           }));
 
+      // If the response is not 200 or 201, then the API call was not successful.
       if (response.statusCode != 200 && response.statusCode != 201) {
         print("Not proper");
         print(response.statusCode);
@@ -63,12 +86,24 @@ class MakeAPICall {
     }
   }
 
+  /**
+   * Function to make a generic POST call to the Spotify API.
+   * @param path: The path to be appended to the base URL.
+   * @param data: The data to be passed in the API call.
+   * @return: The response from the API call.
+   */
   static Future<Response<Map<String, dynamic>>?> makeGenericPostCall(
       String path, Map<String, dynamic> data) async {
     accessToken = await PrefData.getAccessToken();
 
     const base_url = 'https://api.spotify.com/v1/';
 
+    /* 
+        If the access token has expired, then refresh the token and make the API call again.
+        This is because the access token expires after an hour.
+        This is the purpose of the try-catch block, and to handle any other
+        exceptions that may occur.
+      */
     try {
       Response<Map<String, dynamic>> response = await _dio.post(base_url + path,
           data: data,
@@ -100,15 +135,28 @@ class MakeAPICall {
     }
   }
 
+  /**
+   * Function to search and retrieve tracks on the Spotify API.
+   * @param genre: The genre to be searched for.
+   * @param genreIndex: Map that keeps track of what index to start searching from for each genre.
+   * @param genreMap: Map that keeps track of the tracks that have been found for each genre.
+   * @param market: The market to be searched in.
+   * @return: The list of tracks that match the query.
+   */
   static Future<void> searchForGenre(String genre, Map<String, int> genreIndex,
       Map<String, List<Track>> genreMap, String market) async {
     String path = "search";
+    // Counter to make sure that the program terminates.
     int timesRun = 0;
+    // Tracks currently stored for each genre.
     List<Track> finalTracks = genreMap[genre]!;
     int limit = 50;
 
+    // While the finalTracks list is less than 20, keep searching for tracks
+    // until it reaches 20 songs or more.
     while (finalTracks.length < 20) {
       if (timesRun >= 20) break;
+      // Data to be passed in the API call.
       Map<String, dynamic> data = {
         'q': 'genre:$genre',
         'type': 'track',
@@ -117,16 +165,20 @@ class MakeAPICall {
         'market': market,
       };
 
+      // Max offset of Spotify API is 1000, so if the offset is greater than 950, then throw an exception,
+      // because the API will not be able to return 50 tracks.
       if (genreIndex[genre]! > 950) throw Exception("Too much offset");
 
       final Response<Map<String, dynamic>>? searchResponse =
           await makeGenericGetCall(path, data);
 
+      // If the response is not null, then add the tracks to the finalTracks list.
       if (searchResponse != null) {
         final SearchResult searchResult =
             SearchResult.fromJson(searchResponse.data!);
         final tracks = searchResult.tracks!.items;
         genreIndex[genre] = genreIndex[genre]! + limit;
+        // Remove tracks that do not have a preview URL, as the song can not be played in Melofy.
         tracks!.removeWhere((item) => item.previewUrl == null);
         finalTracks += tracks;
       }
@@ -140,12 +192,22 @@ class MakeAPICall {
     }
   }
 
+  /**
+   * Function that calls searchForGenre and returns a list of tracks.
+   */
   static Future<List<Track>> compileGenres() async {
+    // Genres available in the app.
     List<String> genreList = await PrefData.getGenreList();
+    // Tracks available for each genre, already fetched from the API.
     Map<String, List<Track>> genreMap = await PrefData.getAvailableSongs();
+    // Index to keep track of where to start searching for each genre.
     Map<String, int> genreIndex = await PrefData.getGenreIndex();
+    // Market to search in.
     String market = await PrefData.getUserCountry();
+
+    // Final list of tracks to be returned.
     List<Track> finalList = [];
+    // List of genres that have reached the end of the Spotify API.
     List<String> errorList = [];
 
     for (String genre in genreList) {
@@ -155,18 +217,24 @@ class MakeAPICall {
         if (e is DioException) {
           throw "DioException";
         } else {
+          // If the offset is too much, then add the genre to the error list.
+          // This means that the user has reached the end of the Spotify API for that genre.
           errorList.add(genre);
         }
       }
     }
 
+    // If the user has reached the end of the Spotify API for any genre, then throw an exception.
     if (errorList.length != 0) {
       throw errorList.join(', ');
     }
 
+    // Create a new map with only the genres that the user has selected.
     Map<String, List<Track>> newMap = Map.from(genreMap);
     newMap.removeWhere((key, value) => !genreList.contains(key));
 
+    // Add the songs in the final list in the order of the genres selected by the user.
+    // Alternates between the genres to add the songs.
     List<List<Track>> validLists = newMap.values.toList();
     int maxLength = calculateMax(validLists);
     for (int i = 0; i < maxLength; i++) {
@@ -176,12 +244,16 @@ class MakeAPICall {
       }
     }
 
+    // Save the genreIndex and genreMap to the shared preferences.
     await PrefData.setGenreIndex(genreIndex);
     await PrefData.setAvailableSongs(genreMap);
 
     return finalList;
   }
 
+  /**
+   * Function to calculate the maximum length of the list of tracks for each genre.
+   */
   static int calculateMax(List<List<Track>> trackList) {
     int max = trackList[0].length;
     for (int i = 1; i < trackList.length; i++) {
@@ -193,16 +265,23 @@ class MakeAPICall {
     return max;
   }
 
+  /**
+   * Function to get the related artists and top tracks for a particular artist.
+   * @param artistID: The ID of the artist.
+   */
   static Future<List<dynamic>> getArtistandTracks(String artistID) async {
     String path = "artists/$artistID";
     String market = await PrefData.getUserCountry();
     final Response<Map<String, dynamic>>? artistResponse =
         await makeGenericGetCall(path, {});
 
+    // Get the top tracks for the artist.
     final Response<Map<String, dynamic>>? tracksResponse =
         await makeGenericGetCall(path + "/top-tracks", {'market': market});
+    // Get the related artists for the artist.
     final Response<Map<String, dynamic>>? alikeResponse =
         await makeGenericGetCall(path + "/related-artists", {});
+    // Get the albums for the artist.
     final Response<Map<String, dynamic>>? singleAlbums =
         await makeGenericGetCall(
             path + "/albums", {'include_groups': 'single'});
@@ -216,17 +295,16 @@ class MakeAPICall {
       final alikeArtists = RelatedArtists.fromJson(alikeResponse!.data!);
       final singles = ArtistTracks.fromJson(singleAlbums.data!);
       tracks.removeWhere((item) => item.previewUrl == null);
-      return [
-        artistInfo,
-        tracks,
-        alikeArtists,
-        singles
-      ]; //Add alikeArtists in here but doesnt work
+      return [artistInfo, tracks, alikeArtists, singles];
     } else {
       throw Exception("Not good");
     }
   }
 
+  /**
+   * Function that creates a new playlist in the user's Spotify account.
+   * @param name: The name of the playlist.
+   */
   static Future<String> createPlaylist(String name) async {
     String? userID = await PrefData.getUserID();
     String path = 'users/$userID/playlists';
@@ -249,6 +327,11 @@ class MakeAPICall {
     }
   }
 
+  /**
+   * Function that adds songs to a particular playlist on the user's Spotify account.
+   * @param TrackList: The list of tracks to be added to the playlist.
+   * @param playlistID: The ID of the playlist.
+   */
   static Future<void> addSongsToPlaylist(
       List<Track> TrackList, String playlistID) async {
     String? userID = await PrefData.getUserID();
@@ -265,6 +348,7 @@ class MakeAPICall {
 
     int songsLeft = songList.length;
 
+    // Send the songs in batches of 80, as the Spotify API only allows 100 songs to be added at a time.
     while (songsLeft > 0) {
       int lowerLimit = 0;
       List<String> tempList;
@@ -291,6 +375,10 @@ class MakeAPICall {
     }
   }
 
+  /**
+   * Function to refresh all of the user's data, such as the user's ID and country.
+   * This is done to ensure that the user's data is up to date.
+   */
   static Future<void> refreshName() async {
     String path = 'me';
 
@@ -306,6 +394,10 @@ class MakeAPICall {
     }
   }
 
+  /**
+   * Function to get all of the user's current playlists, so they can choose
+   * which one they want to add the songs to.
+   */
   static Future<List<Item>> getPlaylists() async {
     String path = 'me/playlists';
 
@@ -316,6 +408,8 @@ class MakeAPICall {
       final userID = await PrefData.getUserID();
       final playlistSearch = PlaylistSearch.fromJson(prof.data!);
       final playlists = playlistSearch.items!;
+      // Remove all playlists that they do not own, and therefore might not be
+      // able to add songs to.
       playlists.removeWhere((element) {
         return element.owner!.id != userID;
       });

@@ -1,3 +1,8 @@
+/**
+ * Class for a User's Profile on Spotify, retrieved from the Spotify API.
+ * Defines all of the attributes of a User's Profile on Spotify.
+ */
+
 import 'dart:convert';
 
 Profile profileFromJson(String str) => Profile.fromJson(json.decode(str));

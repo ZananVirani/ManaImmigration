@@ -1,3 +1,8 @@
+/**
+ * Class for a Song Track on Spotify, retrieved from the Spotify API.
+ * Defines all of the attributes of a Song Track on Spotify.
+ */
+
 import 'dart:convert';
 
 Track trackFromJson(String str) => Track.fromJson(json.decode(str));

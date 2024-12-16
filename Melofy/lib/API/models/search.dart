@@ -1,6 +1,7 @@
-// To parse this JSON data, do
-//
-//     final searchResult = searchResultFromJson(jsonString);
+/**
+ * Class for a Search result on Spotify, retrieved from the Spotify API.
+ * Defines all of the attributes of a Search result on Spotify.
+ */
 
 import 'dart:convert';
 

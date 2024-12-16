@@ -1,6 +1,7 @@
-// To parse this JSON data, do
-//
-//     final artistTracks = artistTracksFromJson(jsonString);
+/**
+ * Class for an artist's top 10 tracks, retrieved from the Spotify API.
+ * Defines all of the attributes of an artist's top 10 tracks.
+ */
 
 import 'dart:convert';
 

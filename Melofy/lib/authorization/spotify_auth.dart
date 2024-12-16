@@ -1,3 +1,7 @@
+/**
+ * Class that contains all of the methods to authenticate the user with Spotify Auth2.0.
+ */
+
 import 'dart:convert';
 
 import 'package:Melofy/data/pref_data/pref_data.dart';
@@ -5,6 +9,9 @@ import 'package:oauth2_client/access_token_response.dart';
 import 'package:oauth2_client/spotify_oauth2_client.dart';
 import 'package:dio/dio.dart';
 
+/**
+ * Class that contains all of the methods to authenticate the user with Spotify Auth2.0.
+ */
 class SpotifyAuthService {
   static SpotifyOAuth2Client client = SpotifyOAuth2Client(
     customUriScheme: 'com.fluttermathsmingleapp.app',
@@ -16,6 +23,9 @@ class SpotifyAuthService {
   static final _dio = Dio();
   static const clientSecret = '215936d864934148923789a79016a53f';
 
+  /**
+   * Method to get the access token from the user, if the user chooses to authenticate with Spotify.
+   */
   static Future<AccessTokenResponse?> getAccessToken() async {
     AccessTokenResponse? accessToken;
 
@@ -45,6 +55,10 @@ class SpotifyAuthService {
     return accessToken;
   }
 
+  /**
+   * Method to refresh the access token of the user, given that the access token
+   * expires after 1 hour.
+   */
   static Future<AccessTokenResponse> refreshToken() async {
     String? refreshToken = await PrefData.getRefreshToken();
 

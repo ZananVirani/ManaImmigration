@@ -1,6 +1,7 @@
-// To parse this JSON data, do
-//
-//     final relatedArtists = relatedArtistsFromJson(jsonString);
+/**
+ * Class for a Related Artists to a particular artist on Spotify, retrieved from the Spotify API.
+ * Defines all of the attributes of a Related Artists to a particular artist on Spotify.
+ */
 
 import 'dart:convert';
 

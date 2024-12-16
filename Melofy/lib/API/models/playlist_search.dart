@@ -1,3 +1,8 @@
+/**
+ * Class for a Search of a genre playlist, retrieved from the Spotify API.
+ * Defines all of the attributes of a Search of a genre playlist.
+ */
+
 import 'dart:convert';
 
 PlaylistSearch playlistSearchFromJson(String str) =>
