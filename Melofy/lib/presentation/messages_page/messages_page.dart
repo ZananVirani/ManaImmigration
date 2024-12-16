@@ -9,6 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:Melofy/core/app_export.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+/**
+ * Class that displays all the songs that the user liked and allows the user to export them
+ * to different Spotify playlists.
+ */
 class MessagesPage extends StatefulWidget {
   const MessagesPage({super.key});
 
@@ -16,14 +20,25 @@ class MessagesPage extends StatefulWidget {
   State<MessagesPage> createState() => _MessagesPageState();
 }
 
+/**
+ * State for the class.
+ */
 class _MessagesPageState extends State<MessagesPage> {
+  // Select all the songs for export or not.
   bool checkAll = true;
-  bool showMessage = false;
+  // Selected list of songs to export.
   List<Track>? exportList;
+
+  /**
+   * Build method for the state.
+   */
   @override
   Widget build(BuildContext context) {
+    // Receive the audio player as a parameter when this screen is visited.
     final arguments = ModalRoute.of(context)?.settings.arguments;
     AudioPlayer _player = arguments as AudioPlayer;
+    // Fetch the list of songs from shared preferences, if there were songs left over
+    // from when the user last visited this page.
     Future<List<Track>?> futureList = PrefData.getMusicList();
 
     return PopScope(
@@ -34,6 +49,7 @@ class _MessagesPageState extends State<MessagesPage> {
           body: FutureBuilder(
               future: futureList,
               builder: (context, snapshot) {
+                // Check if the snapshot has data or an error
                 if (snapshot.hasError) {
                   return Center(
                     child: Text(""),
@@ -94,7 +110,9 @@ class _MessagesPageState extends State<MessagesPage> {
                             ],
                           ),
                         ),
+                        // Build the sub menu for the page (Select All, Deselect All, Clear, Export to Spotify)
                         _buildSubMenu(likedList, _player),
+                        // Build the list of songs that the user liked
                         Expanded(
                           child: ListView.builder(
                             shrinkWrap: true,
@@ -103,9 +121,12 @@ class _MessagesPageState extends State<MessagesPage> {
                             padding: EdgeInsets.zero,
                             itemCount: likedList.length,
                             itemBuilder: (context, index) {
+                              // Check if the song should be selected or not.
                               bool isChecked = checkAll;
+                              // Track to build
                               Track track = likedList[index];
 
+                              // Return the list tile for the song
                               return StatefulBuilder(
                                   builder: (context, setState) {
                                 return Column(
@@ -156,6 +177,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                             child: Icon(Icons.music_note,
                                                 size: 26.adaptSize),
                                             onPressed: () async {
+                                              // Play the preview of the song
                                               await _player.setSource(
                                                   UrlSource(track.previewUrl!));
                                               await _player.resume();
@@ -174,6 +196,7 @@ class _MessagesPageState extends State<MessagesPage> {
                         )
                       ]);
                 } else {
+                  // Show a loading indicator if the snapshot is still loading
                   return CircularProgressIndicator(
                       color: AppColor.primaryColor);
                 }
@@ -183,6 +206,9 @@ class _MessagesPageState extends State<MessagesPage> {
     );
   }
 
+  /**
+   * Method to build the sub menu for the page, with options to select all, deselect all, clear, and export to Spotify.
+   */
   Widget _buildSubMenu(List<Track> likedList, AudioPlayer player) {
     return Container(
       decoration: BoxDecoration(
@@ -192,6 +218,7 @@ class _MessagesPageState extends State<MessagesPage> {
       height: 45.v,
       child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         Padding(
+          // Select All
           padding: const EdgeInsets.fromLTRB(8, 8, 8, 8.0),
           child: GestureDetector(
               onTap: () {
@@ -209,6 +236,7 @@ class _MessagesPageState extends State<MessagesPage> {
                       fontSize: 14.fSize))),
         ),
         Padding(
+          // Deselect All
           padding: const EdgeInsets.only(left: 7.0),
           child: GestureDetector(
             onTap: () {
@@ -227,9 +255,11 @@ class _MessagesPageState extends State<MessagesPage> {
           ),
         ),
         Padding(
+          // Clear the song list
           padding: const EdgeInsets.only(left: 15.5),
           child: GestureDetector(
             onTap: () async {
+              // Show a dialog to confirm the user wants to clear the song list
               await showCupertinoDialog(
                 context: context,
                 builder: (context) {
@@ -262,6 +292,7 @@ class _MessagesPageState extends State<MessagesPage> {
           ),
         ),
         Expanded(
+          // Export to Spotify
           child: Align(
             alignment: Alignment.centerRight,
             child: Padding(
@@ -269,6 +300,7 @@ class _MessagesPageState extends State<MessagesPage> {
                 child: GestureDetector(
                   onTap: () async {
                     if (exportList == null) exportList = List.from(likedList);
+                    // Get the list of playlists from the user's Spotify account
                     final playlists = await MakeAPICall.getPlaylists();
                     int i = 0;
                     var dropdownlist = playlists.map((element) {
@@ -283,6 +315,7 @@ class _MessagesPageState extends State<MessagesPage> {
                             }),
                           ));
                     }).toList();
+                    // Show a dialog to allow the user to select a playlist to export to
                     await showDialog(
                         context: context,
                         builder: (context) {
@@ -343,6 +376,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                       alignment: Alignment.bottomLeft,
                                       child: ElevatedButton(
                                         onPressed: () async {
+                                          // Show a dialog to allow the user to create a new playlist
                                           await showDialog(
                                             barrierColor: Colors.transparent,
                                             context: context,
@@ -506,6 +540,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                                                 },
                                                               );
                                                             } else {
+                                                              // Export the songs to the selected playlist
                                                               var connectionList =
                                                                   await Connectivity()
                                                                       .checkConnectivity();
@@ -514,6 +549,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                                                   .contains(
                                                                       ConnectivityResult
                                                                           .none)) {
+                                                                // Create a new playlist
                                                                 String
                                                                     playlistID =
                                                                     await MakeAPICall.createPlaylist(
@@ -524,6 +560,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                                                         .length ==
                                                                     likedList
                                                                         .length) {
+                                                                  // Add the songs to the playlist and clear the liked list
                                                                   await MakeAPICall
                                                                       .addSongsToPlaylist(
                                                                           exportList!,
@@ -560,6 +597,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                                                   });
                                                                 }
                                                                 player.stop();
+                                                                // Close the dialog
                                                                 Navigator.pop(
                                                                     context);
                                                                 Navigator.pop(
@@ -573,6 +611,7 @@ class _MessagesPageState extends State<MessagesPage> {
                                                                         context,
                                                                     builder:
                                                                         (context) {
+                                                                      // Show a dialog to inform the user that there is no network connection
                                                                       return AlertDialog(
                                                                         elevation:
                                                                             5.0,

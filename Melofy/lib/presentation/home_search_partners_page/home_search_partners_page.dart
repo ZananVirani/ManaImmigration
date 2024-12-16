@@ -1000,6 +1000,8 @@ class _HomeSearchPartnersPageState extends State<HomeSearchPartnersPage>
           ],
         ),
       ];
+      // Show the tutorial coach mark after a delay, depending on if it is initial load or not
+      // (if it is not initial load, the delay is 0).
       await Future.delayed(Duration(seconds: delay), () {
         TutorialCoachMark(
           targets: targets,

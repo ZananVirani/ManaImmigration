@@ -1,7 +1,9 @@
 import 'package:Melofy/presentation/create_account_select_interest_screen/binding/create_account_select_interest_binding.dart';
 import 'package:Melofy/presentation/create_account_select_interest_screen/create_account_select_interest_screen.dart';
+import 'package:Melofy/presentation/home_search_partners_page/binding/home_search_partners_binding.dart';
 import 'package:Melofy/presentation/home_search_partners_page/home_search_partners_page.dart';
 import 'package:Melofy/presentation/noConnectionPage/noConnection.dart';
+import 'package:Melofy/presentation/spash_screen/binding/spash_binding.dart';
 import 'package:Melofy/presentation/spash_screen/spash_screen.dart';
 import 'package:Melofy/presentation/onboarding_three1_screen/onboarding_three1_screen.dart';
 import 'package:get/get.dart';
@@ -30,6 +32,9 @@ class AppRoutes {
       page: () => SpashScreen(),
       transition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: 500),
+      bindings: [
+        SpashBinding(),
+      ],
     ),
     GetPage(
       // Onboarding Screen
@@ -72,12 +77,19 @@ class AppRoutes {
       page: () => SpashScreen(),
       transition: Transition.cupertino,
       transitionDuration: Duration(milliseconds: 500),
+      bindings: [
+        SpashBinding(),
+      ],
     ),
     GetPage(
-        // Home Search Partners Page
-        name: homeSearchPartnersPage,
-        page: () => HomeSearchPartnersPage(),
-        transition: Transition.cupertino,
-        transitionDuration: Duration(milliseconds: 500)),
+      // Home Search Partners Page
+      name: homeSearchPartnersPage,
+      page: () => HomeSearchPartnersPage(),
+      transition: Transition.cupertino,
+      transitionDuration: Duration(milliseconds: 500),
+      bindings: [
+        HomeSearchPartnersBinding(),
+      ],
+    ),
   ];
 }

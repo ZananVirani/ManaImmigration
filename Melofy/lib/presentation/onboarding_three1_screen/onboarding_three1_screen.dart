@@ -8,6 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:Melofy/core/app_export.dart';
 import 'package:Melofy/widgets/custom_elevated_button.dart';
 
+/**
+ * Class to show the onboarding screen, with an image and a button to login with Spotify
+ */
 class OnboardingThree1Screen extends StatefulWidget {
   const OnboardingThree1Screen({super.key});
 
@@ -15,7 +18,11 @@ class OnboardingThree1Screen extends StatefulWidget {
   State<OnboardingThree1Screen> createState() => _OnboardingThree1ScreenState();
 }
 
+/**
+ * State class for the onboarding screen.
+ */
 class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
+  // Variable to show the error message or not
   bool showErrorMessage = false;
 
   @override
@@ -28,11 +35,11 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
             body: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                // Image at the top of the screen
                 CustomImageView(
                   imagePath: ImageConstant.onBoard,
                   width: double.infinity,
                   fit: BoxFit.fill,
-                  // ++ DO NOT TOUCH THIS ++ height: 512,
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -42,18 +49,21 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
                         child: Text('Music for You,\nPicked by You',
                             style: theme.textTheme.headlineMedium,
                             textAlign: TextAlign.center)),
+                    // Button to login with Spotify
                     CustomElevatedButton(
                       text: 'Login with Spotify   ',
                       margin: EdgeInsets.only(
                           left: 24.h, right: 24.h, bottom: 30.h),
                       onPressed: () async {
                         try {
+                          // Get the user to authenticate with Spotify, and get the access token
                           AccessTokenResponse? accessToken =
                               await SpotifyAuthService.getAccessToken();
 
                           if (!(accessToken is AccessTokenResponse))
                             throw Exception();
 
+                          // store this token in the shared preferences, and make all the necessary API calls
                           await PrefData.setAccessToken(accessToken);
                           await PrefData.setRefreshToken(accessToken);
                           await PrefData.setIntro(false);
@@ -61,6 +71,7 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
                           await Get.offAndToNamed(
                               AppRoutes.createAccountSelectInterestScreen);
                         } catch (e) {
+                          // If the user did not authenticate, show an error message
                           showCupertinoDialog(
                               context: context, builder: createDialog);
                           setState(() {
@@ -90,6 +101,10 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
     );
   }
 
+  /**
+   * Function to create the dialog box to show the error message if the user 
+   * did not authenticate with Spotify.
+   */
   Widget createDialog(BuildContext context) {
     return CupertinoAlertDialog(
       title: Text("Authorization needed to continue"),
@@ -102,6 +117,10 @@ class _OnboardingThree1ScreenState extends State<OnboardingThree1Screen> {
     );
   }
 
+  /**
+   * Function to build the frame at the bottom of the screen, which shows the error message
+   * if the user does not authenticate with Spotify.
+   */
   Widget _buildLoginFrame(bool showErrorMessage) {
     return Padding(
         padding: EdgeInsets.only(bottom: 24.h),

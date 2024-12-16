@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:Melofy/core/app_export.dart';
 import 'package:Melofy/data/pref_data/pref_data.dart';
 
+/**
+ * Page to show when there is no internet connection
+ */
 class NoConnectionPage extends StatelessWidget {
   const NoConnectionPage({super.key});
 
+  /**
+   * Build method to create the UI of the page, with a WiFI off icon, a title and a message
+   */
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,6 +44,7 @@ class NoConnectionPage extends StatelessWidget {
 
                 var connectivityList = await Connectivity().checkConnectivity();
 
+                // Route the user to the appropriate page based on the user's connection state
                 if (connectivityList.contains(ConnectivityResult.none))
                   Get.offAndToNamed(AppRoutes.noConnectionPage);
                 else {

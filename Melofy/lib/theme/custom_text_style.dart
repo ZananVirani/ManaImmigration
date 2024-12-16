@@ -123,12 +123,6 @@ class CustomTextStyles {
 }
 
 extension on TextStyle {
-  TextStyle get satoshi {
-    return copyWith(
-      fontFamily: 'Satoshi',
-    );
-  }
-
   TextStyle get poppins {
     return copyWith(
       fontFamily: 'Poppins',

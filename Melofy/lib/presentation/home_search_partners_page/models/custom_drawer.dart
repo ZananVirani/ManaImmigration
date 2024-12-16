@@ -31,6 +31,9 @@ class CustomDrawer extends StatelessWidget {
         child: FutureBuilder(
           future: MakeAPICall.getArtistandTracks(artistID!),
           builder: (context, snapshot) {
+            if (snapshot.hasError) {
+              return Center(child: Text("Something went wrong!"));
+            }
             if (snapshot.hasData) {
               /*
                  Gets all the data from the API call and assigns it to variables.

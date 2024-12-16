@@ -275,13 +275,10 @@ class MakeAPICall {
     final Response<Map<String, dynamic>>? artistResponse =
         await makeGenericGetCall(path, {});
 
-    // Get the top tracks for the artist.
     final Response<Map<String, dynamic>>? tracksResponse =
         await makeGenericGetCall(path + "/top-tracks", {'market': market});
-    // Get the related artists for the artist.
     final Response<Map<String, dynamic>>? alikeResponse =
         await makeGenericGetCall(path + "/related-artists", {});
-    // Get the albums for the artist.
     final Response<Map<String, dynamic>>? singleAlbums =
         await makeGenericGetCall(
             path + "/albums", {'include_groups': 'single'});
@@ -295,7 +292,12 @@ class MakeAPICall {
       final alikeArtists = RelatedArtists.fromJson(alikeResponse!.data!);
       final singles = ArtistTracks.fromJson(singleAlbums.data!);
       tracks.removeWhere((item) => item.previewUrl == null);
-      return [artistInfo, tracks, alikeArtists, singles];
+      return [
+        artistInfo,
+        tracks,
+        alikeArtists,
+        singles
+      ]; //Add alikeArtists in here but doesnt work
     } else {
       throw Exception("Not good");
     }
